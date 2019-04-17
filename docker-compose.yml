@@ -1,0 +1,15 @@
+version: '3'
+services:
+  etl: 
+    image: sptkl/docker-dataloading
+    command: bash -c "git clone https://github.com/NYCPlanning/db-data-recipes.git && cd db-data-recipes"
+    
+    tty: true
+    # command: cd db-data-recipes
+    # command: git pull origin bcao
+    # volumes: 
+    #   - "./settings.sh:/home/db-data-recipes/settings.sh"
+    # command: >
+    #   source /home/db-data-recipes/settings.sh
+  # db: 
+  #   image: mdillon/postgis:latest
