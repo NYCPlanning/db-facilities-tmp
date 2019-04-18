@@ -3,6 +3,7 @@ import re
 import json 
 import requests
 import urllib
+from shapely.geometry import Point
 
 fields = ['uid', 'facname', 
         'factype', 'facsubgrp', 
@@ -23,6 +24,12 @@ fields = ['uid', 'facname',
         'datasource', 'geom']
 
 url = 'https://sptkl.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-04-10/datapackage.json'
+
+def get_the_geom(lon, lat): 
+        lon = float(lon) if lon != '' else None
+        lat = float(lat) if lat != '' else None
+        if (lon is not None) and (lat is not None): 
+                return str(Point(lon, lat))
 
 def quick_clean(address):
         address = '-'.join([i.strip() for i in address.split('-')])

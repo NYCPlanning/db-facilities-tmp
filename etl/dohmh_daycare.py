@@ -1,11 +1,10 @@
-from dataflows import load, Flow, printer, find_replace, checkpoint
-from dataflows import add_field, add_computed_field, filter_rows, select_fields
+from dataflows import *
 from lib import dump_to_postgis, rename_field
 import os
 import re
 import csv
 import sys
-from utils import url, fields, get_geocode
+from utils import url, fields, get_geocode, get_the_geom
 
 csv.field_size_limit(sys.maxsize)
 
@@ -127,20 +126,62 @@ dohmh_daycare = Flow(
     rename_field('borough', 'boro'), 
     add_computed_field([dict(target=dict(name = 'geo', type = 'object'),
                                         operation=lambda row: get_geocode(row['hnum'], row['sname'], row['boro'], '')
-                                        )
+                                        ),
+                        dict(target=dict(name = 'results', type = 'object'),
+                                        operation=lambda row: row['geo'].get('results', {})
+                                        ),
+                        dict(target=dict(name = 'street_name', type = 'string'),
+                                        operation=lambda row: row['results'].get('First Street Name Normalized', '')
+                                        ),
+                        dict(target=dict(name = 'house_number', type = 'string'),
+                                        operation=lambda row: row['results'].get('House Number - Display Format', '')
+                                        ),
+                        dict(target=dict(name = 'borough_code', type = 'string'),
+                                        operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', {})\
+                                                                            .get('Borough Code', '')
+                                        ),
+                         dict(target=dict(name = 'zip_code', type = 'string'),
+                                        operation=lambda row: row['results'].get('ZIP Code', '')
+                                        ),
+                        dict(target=dict(name = 'bin', type = 'string'),
+                                        operation=lambda row: row['results']\
+                                            .get('Building Identification Number (BIN) of Input Address or NAP', '')
+                                        ),
+                        dict(target=dict(name = 'bbl', type = 'string'),
+                                        operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', {})\
+                                                                            .get('BOROUGH BLOCK LOT (BBL)', '')
+                                        ),
+                        dict(target=dict(name = 'latitude', type = 'string'),
+                                        operation=lambda row: row['results'].get('Latitude', '')
+                                        ),
+                        dict(target=dict(name = 'longitude', type = 'string'),
+                                        operation=lambda row: row['results'].get('Longitude', '')
+                                        ),
+                        # dict(target=dict(name = 'xcoord', type = 'string'),
+                        #                 operation=lambda row: row['results'].get('Longitude', '')
+                        #                 ),
+                        # dict(target=dict(name = 'ycoord', type = 'string'),
+                        #                 operation=lambda row: row['results'].get('Longitude', '')
+                        #                 ),
+                        dict(target=dict(name = 'commboard', type = 'string'),
+                                        operation=lambda row: row['results'].get('COMMUNITY DISTRICT', {})\
+                                                                            .get('COMMUNITY DISTRICT', '')
+                                        ),
+                        dict(target=dict(name = 'nta', type = 'string'),
+                                        operation=lambda row: row['results'].get('Neighborhood Tabulation Area (NTA)', '')
+                                        ), 
+                        dict(target=dict(name = 'council', type = 'string'),
+                                        operation=lambda row: row['results'].get('City Council District', '')
+                                        ),
+                        dict(target=dict(name = 'censtract', type = 'string'),
+                                        operation=lambda row: row['results'].get('2010 Census Tract', '')
+                                        ),
+                        dict(target=dict(name = 'the_geom', type = 'string'),
+                                        operation=lambda row: get_the_geom(row['longitude'], row['latitude'])
+                                        ),
                         ]),
-    # bin text,
-    # bbl text,
-    # latitude text,
-    # longitude text,
-    # xcoord text,
-    # ycoord text,
-    # commboard text,
-    # nta text,
-    # council text,
-    # censtract text,
-    # geom text
-    select_fields(['geo']),
+    delete_fields(fields=['results']),
+    checkpoint(table_name+'1'),
     dump_to_postgis()    
 )
 

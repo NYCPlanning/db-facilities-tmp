@@ -1,5 +1,4 @@
-from dataflows import load, Flow, printer, find_replace
-from dataflows import add_field, add_computed_field, filter_rows
+from dataflows import *
 from lib import dump_to_postgis, rename_field
 import os
 import csv
@@ -12,8 +11,13 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'dcas_colp'
 dcas_colp = Flow(
     load(url, resources = table_name, force_strings=False),
+    filter_rows(not_equals=[dict(agency='NYCHA'),
+                            dict(agency='HPD'),
+                            dict(usedec='ROAD/HIGHWAY'),
+                            dict(usedec='TRANSIT WAY')])
     checkpoint(table_name),
     # uid text,
+    # add_field('uid', 'string'),
     # facname text,
     # factype text,
     # facsubgrp text,
@@ -30,6 +34,7 @@ dcas_colp = Flow(
     # captype text,
     # proptype text,
     # datasource
+    # add_field('datasource', 'string', table_name),
     # hnum text,
     # sname text,
     # address text,
@@ -50,5 +55,5 @@ dcas_colp = Flow(
     printer(num_rows=3)      
 )
 
-dohmh_daycare.process()
+dcas_colp.process()
 
