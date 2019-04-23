@@ -4,6 +4,7 @@ import json
 import requests
 import urllib
 from shapely.geometry import Point
+from dataflows import *
 
 fields = ['uid', 'facname', 
         'factype', 'facsubgrp', 
@@ -61,3 +62,63 @@ def get_geocode(hnum, sname, boro, zipcode):
         response = requests.get(url)
         return json.loads(response.content)
 
+geo_flow = Flow(
+                add_computed_field([dict(target=dict(name = 'geo', type = 'object'),
+                                                operation=lambda row: get_geocode(row['hnum'], row['sname'], row['boro'], row['zipcode'])
+                                                ),
+                                dict(target=dict(name = 'results', type = 'object'),
+                                                operation=lambda row: row['geo'].get('results', {})
+                                                ),
+                                dict(target=dict(name = 'geo_street_name', type = 'string'),
+                                                operation=lambda row: row['results'].get('First Street Name Normalized', '')
+                                                ),
+                                dict(target=dict(name = 'geo_house_number', type = 'string'),
+                                                operation=lambda row: row['results'].get('House Number - Display Format', '')
+                                                ),
+                                dict(target=dict(name = 'geo_borough_code', type = 'string'),
+                                                operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', {})\
+                                                                                .get('Borough Code', '')
+                                                ),
+                                dict(target=dict(name = 'geo_zip_code', type = 'string'),
+                                                operation=lambda row: row['results'].get('ZIP Code', '')
+                                                ),
+                                dict(target=dict(name = 'geo_bin', type = 'string'),
+                                                operation=lambda row: row['results']\
+                                                .get('Building Identification Number (BIN) of Input Address or NAP', '')
+                                                ),
+                                dict(target=dict(name = 'geo_bbl', type = 'string'),
+                                                operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', {})\
+                                                                                .get('BOROUGH BLOCK LOT (BBL)', '')
+                                                ),
+                                dict(target=dict(name = 'geo_latitude', type = 'string'),
+                                                operation=lambda row: row['results'].get('Latitude', '')
+                                                ),
+                                dict(target=dict(name = 'geo_longitude', type = 'string'),
+                                                operation=lambda row: row['results'].get('Longitude', '')
+                                                ),
+                                dict(target=dict(name = 'geo_city', type = 'string'),
+                                                operation=lambda row: row['results'].get('USPS Preferred City Name', '')
+                                                ),
+                                # dict(target=dict(name = 'geo_xcoord', type = 'string'),
+                                #                 operation=lambda row: row['results'].get('Spatial X-Y Coordinates of Address', '')[0:6]
+                                #                 ),
+                                # dict(target=dict(name = 'geo_ycoord', type = 'string'),
+                                #                 operation=lambda row:  row['results'].get('Spatial X-Y Coordinates of Address', '')[6:]
+                                #                 ),
+                                dict(target=dict(name = 'geo_commboard', type = 'string'),
+                                                operation=lambda row: row['results'].get('COMMUNITY DISTRICT', {})\
+                                                                                .get('COMMUNITY DISTRICT', '')
+                                                ),
+                                dict(target=dict(name = 'geo_nta', type = 'string'),
+                                                operation=lambda row: row['results'].get('Neighborhood Tabulation Area (NTA)', '')
+                                                ), 
+                                dict(target=dict(name = 'geo_council', type = 'string'),
+                                                operation=lambda row: row['results'].get('City Council District', '')
+                                                ),
+                                dict(target=dict(name = 'geo_censtract', type = 'string'),
+                                                operation=lambda row: row['results'].get('2010 Census Tract', '')
+                                                )
+                                ]),
+                delete_fields(fields=['results']),
+
+        )
