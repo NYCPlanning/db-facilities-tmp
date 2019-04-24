@@ -18,9 +18,9 @@
     ```
 
 ```
-        docker run -itd --name=etl1\
-                -v /db-facilities-tmp:/home/db-facilities\
-                -v /db-data-recipes:/home/db-data-recipes\
+        docker run -itd --name=etl\
+                -v `pwd`/db-facilities-tmp:/home/db-facilities\
+                -v `pwd`/db-data-recipes:/home/db-data-recipes\
                 -w /home/db-data-recipes\
                 sptkl/docker-dataloading:latest bash
 ```
