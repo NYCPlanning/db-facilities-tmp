@@ -1,6 +1,7 @@
 # db-facilities-tmp
 
 ## Development environment
+<<<<<<< HEAD
 + __Dataloading environment__
         ```
         docker run -itd --name=etl\
@@ -24,3 +25,4 @@
                 -p 5000:5000
                 sptkl/docker-geosupport:19a=api
         ```
+=======
