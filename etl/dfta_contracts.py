@@ -9,8 +9,8 @@ from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, ge
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'dcla_culturalinstitutions'
-dcla_culturalinstitutions = Flow(
+table_name = 'dfta_contracts'
+dfta_contracts = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
@@ -25,21 +25,20 @@ dcla_culturalinstitutions = Flow(
 
     # hnum
     # sname 
-    add_computed_field([dict(target=dict(name = 'address_cleaned', type = 'string'),
-                                        operation=lambda row: quick_clean(row['address'])
+    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
+                                        operation=lambda row: quick_clean(row['program_address'])
                                         ),
                         dict(target=dict(name = 'hnum', type = 'string'),
-                                operation = lambda row: get_hnum(row['address_cleaned'])
+                                operation = lambda row: get_hnum(row['address'])
                                     ),
                             dict(target=dict(name = 'sname', type = 'string'),
-                                    operation=lambda row: get_sname(row['address_cleaned'])
+                                    operation=lambda row: get_sname(row['address'])
                                     )
                         ]),
-    delete_fields(fields=['address_cleaned']),
     # boro
     add_field('boro', 'string', ''),
     # zipcode
-    rename_field('postcode', 'zipcode'),
+    rename_field('program_zipcode', 'zipcode'),
 
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
@@ -50,5 +49,5 @@ dcla_culturalinstitutions = Flow(
     dump_to_postgis()
 )
 
-dcla_culturalinstitutions.process()
+dfta_contracts.process()
 
