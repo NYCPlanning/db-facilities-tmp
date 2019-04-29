@@ -50,7 +50,7 @@ def get_sname(address):
         return ' '.join(result)
 
 def get_geocode(hnum, sname, boro, zipcode):
-        base_url = 'http://0.0.0.0:5000/1b?'
+        base_url = 'http://geosupport-api.planninglabs.nyc:5000/1b?'
         # make sure there's no None involved
         hnum = str(hnum) if hnum is not None else ''
         sname = str(sname) if sname is not None else ''
@@ -99,12 +99,9 @@ geo_flow = Flow(
                                 dict(target=dict(name = 'geo_city', type = 'string'),
                                                 operation=lambda row: row['results'].get('USPS Preferred City Name', '')
                                                 ),
-                                # dict(target=dict(name = 'geo_xcoord', type = 'string'),
-                                #                 operation=lambda row: row['results'].get('Spatial X-Y Coordinates of Address', '')[0:6]
-                                #                 ),
-                                # dict(target=dict(name = 'geo_ycoord', type = 'string'),
-                                #                 operation=lambda row:  row['results'].get('Spatial X-Y Coordinates of Address', '')[6:]
-                                #                 ),
+                                dict(target=dict(name = 'geo_xy_coord', type = 'string'),
+                                                operation=lambda row: row['results'].get('Spatial X-Y Coordinates of Address', '')
+                                                ),
                                 dict(target=dict(name = 'geo_commboard', type = 'string'),
                                                 operation=lambda row: row['results'].get('COMMUNITY DISTRICT', {})\
                                                                                 .get('COMMUNITY DISTRICT', '')
