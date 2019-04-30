@@ -1,7 +1,0 @@
-click
-python-dotenv
-psycopg2-binary
-pytest
-dataflows
-shapely
-usaddress
