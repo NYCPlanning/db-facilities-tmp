@@ -2,6 +2,7 @@
 
 ## Development environment
 + __Dataloading environment__
+
         ```
         docker run -itd --name=etl\
                 --network=host\
@@ -11,6 +12,7 @@
                 sptkl/docker-dataloading:latest /bin/bash -c "pip install .; bash"
         ```
 + __Postgis__
+
         ```
         docker run -itd --name=db\
                 --network=host\
@@ -18,6 +20,7 @@
                 mdillon/postgis 
         ```
 + __Geocoding__
+
         ```
         docker run -itd --name=geo\
                 --network=host\
