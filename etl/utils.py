@@ -50,7 +50,7 @@ def get_sname(address):
         return ' '.join(result)
 
 def get_geocode(hnum, sname, boro, zipcode):
-        base_url = 'http://geosupport-api.planninglabs.nyc:5000/1b?'
+        base_url = 'http://0.0.0.0:5000/1b?'
         # make sure there's no None involved
         hnum = str(hnum) if hnum is not None else ''
         sname = str(sname) if sname is not None else ''
