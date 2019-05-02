@@ -1,17 +1,18 @@
 # db-facilities-tmp
 
 ## Development environment
-<<<<<<< HEAD
 + __Dataloading environment__
+
         ```
         docker run -itd --name=etl\
                 --network=host\
                 -v `pwd`:/home/db-facilities\
                 -w /home/db-facilities\
                 -e "DATAFLOWS_DB_ENGINE=postgresql://postgres@localhost:5433/postgres"\
-                sptkl/docker-dataloading:latest /bin/bash -c "pip install .; bash"
+                sptkl/docker-dataloading:latest /bin/bash -c "pip install -e .; bash"
         ```
 + __Postgis__
+
         ```
         docker run -itd --name=db\
                 --network=host\
@@ -19,10 +20,10 @@
                 mdillon/postgis 
         ```
 + __Geocoding__
+
         ```
         docker run -itd --name=geo\
                 --network=host\
                 -p 5000:5000
-                sptkl/docker-geosupport:19a=api
+                sptkl/docker-geosupport:19a-api
         ```
-=======
