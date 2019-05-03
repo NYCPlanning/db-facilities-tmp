@@ -9,8 +9,8 @@ from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, ge
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'dfta_contracts'
-dfta_contracts = Flow(
+table_name = 'sbs_workforce1'
+sbs_workforce1 = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
@@ -24,30 +24,21 @@ dfta_contracts = Flow(
     #################################################
 
     # hnum
+    rename_field('number', 'hnum'),
     # sname 
-    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
-                                        operation=lambda row: quick_clean(row['program_address'])
-                                        ),
-                        dict(target=dict(name = 'hnum', type = 'string'),
-                                operation = lambda row: get_hnum(row['address'])
-                                    ),
-                            dict(target=dict(name = 'sname', type = 'string'),
-                                    operation=lambda row: get_sname(row['address'])
-                                    )
-                        ]),
+    rename_field('street', 'sname'),
     # boro
-    add_field('boro', 'string', ''),
+    rename_field('borough', 'boro'),
     # zipcode
-    rename_field('program_zipcode', 'zipcode'),
+    rename_field('postcode', 'zipcode'),
 
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    printer(num_rows=3),
     dump_to_postgis()
 )
 
-dfta_contracts.process()
+sbs_workforce1.process()
 

@@ -13,7 +13,7 @@ setup(name='lib',
             'python-dotenv', 
             'psycopg2-binary',
             'pytest',
-            'dataflows', 
+            'dataflows>=0.0.51', 
             'shapely', 
             'usaddress'
       ], 
