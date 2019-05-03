@@ -9,14 +9,23 @@ from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, ge
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'dfta_contracts'
-dfta_contracts = Flow(
+def get_boro(b): 
+    boro = dict(
+        Q = 'QN', 
+        M = 'MN', 
+        B = 'BK', 
+        X = 'BX', 
+        R = 'SI'
+    )
+    return boro.get(b, '')
+
+table_name = 'dpr_parksproperties'
+dpr_parksproperties = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
     # datasource
     add_field('datasource', 'string', table_name),
-
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
@@ -25,29 +34,27 @@ dfta_contracts = Flow(
 
     # hnum
     # sname 
-    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
-                                        operation=lambda row: quick_clean(row['program_address'])
-                                        ),
-                        dict(target=dict(name = 'hnum', type = 'string'),
+    add_computed_field([dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
                                     ),
-                            dict(target=dict(name = 'sname', type = 'string'),
+                        dict(target=dict(name = 'sname', type = 'string'),
                                     operation=lambda row: get_sname(row['address'])
+                                    ),
+                        dict(target=dict(name = 'boro', type = 'string'),
+                                    operation=lambda row: get_boro(row['borough'])
                                     )
                         ]),
-    # boro
-    add_field('boro', 'string', ''),
-    # zipcode
-    rename_field('program_zipcode', 'zipcode'),
+    # # boro
+    # # zipcode
 
     geo_flow,
-    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
-                            )
-                        ]),
-    printer(num_rows=3),
+    # add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
+    #                         operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+    #                         )
+    #                     ]),
+    # printer(num_rows=3, fields=['hnum', 'sname', 'boro', 'zipcode']),
     dump_to_postgis()
 )
 
-dfta_contracts.process()
+dpr_parksproperties.process()
 

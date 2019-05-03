@@ -4,7 +4,7 @@
 + __Dataloading environment__
 
         ```
-        docker run -itd --name=etl\
+        docker run -itd --name=factdb\
                 --network=host\
                 -v `pwd`:/home/db-facilities\
                 -w /home/db-facilities\
