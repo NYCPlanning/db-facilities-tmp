@@ -10,7 +10,7 @@
                 -e "DATAFLOWS_DB_ENGINE=postgresql://postgres@localhost:5433/postgres"\
                 sptkl/docker-dataloading:latest /bin/bash -c "pip install -e .; bash"
                 
-1. The lib folder need to be within the etl folder to make all py functions work
+1. The lib folder need to be within the etl folder to enable all py functions work
 2. Install the usdress package
         ```
         pip install usdress
