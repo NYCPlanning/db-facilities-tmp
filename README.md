@@ -75,6 +75,7 @@
         
         
 2. access postgres 
+
         docker exec -it db bash
         psql -U postgres to access postgres
 
