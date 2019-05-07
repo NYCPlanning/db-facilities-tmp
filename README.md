@@ -20,6 +20,10 @@
 3. Install the latest dataflows package to enable add_computed_field() function
         ```
         pip install dataflows -U
+4. Install the shapely package to enable geocoding functions
+        ```
+        pip install shapely
+        ```
         ```
 + __Postgis__
 
