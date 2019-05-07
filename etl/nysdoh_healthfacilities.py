@@ -67,6 +67,6 @@ dca_operatingbusinesses = Flow(
                         ]),
     
     # printer(fields=['hnum','sname','address','address_tmp','boro','zipcode','the_geom','datasource'])
-    printer(num_rows = 3),
+    # printer(num_rows = 3),
     dump_to_postgis(table_name)
 ).process()
