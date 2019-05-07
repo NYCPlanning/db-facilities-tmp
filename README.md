@@ -19,6 +19,10 @@
         ```
         pip install dataflows -U
         ```
+4. Install the shapely package to enable geocoding functions
+        ```
+        pip install shapely
+        ```
         
 #### __Postgis__
 
