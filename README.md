@@ -33,11 +33,12 @@
                 -p 5433:5432\
                 mdillon/postgis 
         ```
-        or 
+        
+        or
+        
         
         ```
         docker run -itd --name=db\
-                --network=host\
                 -p 5433:5432\
                 mdillon/postgis 
         ```
