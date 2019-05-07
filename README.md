@@ -26,10 +26,22 @@
         
 #### __Postgis__
 
+
+        ```
         docker run -itd --name=db\
                 --network=host\
                 -p 5433:5432\
                 mdillon/postgis 
+        ```
+        
+        or
+        
+        
+        ```
+        docker run -itd --name=db\
+                -p 5433:5432\
+                mdillon/postgis 
+        ```
 
 #### __Geocoding__
 
