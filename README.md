@@ -73,14 +73,15 @@
 
         docker exec -it facdb bash
         
-        docker exec -it db bash
         
-1.1     psql -U postgres to access postgres
+2. access postgres 
+        docker exec -it db bash
+        psql -U postgres to access postgres
 
-2. run any pipelines in etl from root directory: 
+3. run any pipelines in etl from root directory: 
 
         python  etl/example_data.py
 
-3. if you don't want to run it in an interative shell: 
+4. if you don't want to run it in an interative shell: 
 
         docker exec facdb etl/example_data.py
