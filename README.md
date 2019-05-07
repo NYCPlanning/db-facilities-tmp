@@ -72,6 +72,10 @@
 1. enter docker environment
 
         docker exec -it facdb bash
+        
+        docker exec -it db bash
+        
+1.1     psql -U postgres to access postgres
 
 2. run any pipelines in etl from root directory: 
 
