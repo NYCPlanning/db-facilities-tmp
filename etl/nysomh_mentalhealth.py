@@ -5,9 +5,12 @@ import csv
 import sys
 from pathlib import Path
 import re
-from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
+from utils import url, fields, geo_flow, get_the_geom, get_geom_source, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
+
+# def get_geom_source(s):
+#     s = s[(s.find('(')):]
 
 
 table_name = 'nysomh_mentalhealth'
@@ -15,14 +18,6 @@ dca_operatingbusinesses = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
-    # datasource
-    add_field('datasource', 'string', table_name),
-
-
-    ################## geospatial ###################
-    ###### Make sure the following columns ##########
-    ###### exist before geo_flows          ########## 
-    #################################################
 
     # filter out facilities outsite New York City
     filter_rows(equals = [
@@ -32,12 +27,20 @@ dca_operatingbusinesses = Flow(
             dict(program_county = 'Queens'),
             dict(program_county = 'Richmond')
             ]),
-    
+
+    # datasource
+    add_field('datasource', 'string', table_name),
+
+
+    ################## geospatial ###################
+    ###### Make sure the following columns ##########
+    ###### exist before geo_flows          ########## 
+    #################################################
 
     #rename zipcode field
     rename_field('program_zip','zipcode'),
 
-    # #rename borough field
+    #rename borough field
     rename_field('program_county','boro'),
     
     #validate adress, generate house number, street name via usaddress
@@ -55,12 +58,18 @@ dca_operatingbusinesses = Flow(
     geo_flow,
 
     # generate coordinates
-    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
+    add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                            ),
+                        dict(target=dict(name = 'the_geom', type = 'string'),
+                            operation=lambda row: row['the_geom_tmp'] if row['the_geom_tmp'] != None
+                                else get_geom_source(row['location'])
                             )
                         ]),
+    #delete the temparary geom
+    delete_fields(fields=['the_geom_tmp']),
     
-    # printer(fields=['hnum','sname','address','boro','zipcode','the_geom','datasource'])
+    # printer(fields=['hnum','sname','address','boro','zipcode','the_geom','the_geom_tmp','datasource'])
     # printer(num_rows = 3),
     dump_to_postgis(table_name)
 ).process()

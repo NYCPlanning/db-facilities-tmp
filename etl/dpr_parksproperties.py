@@ -25,6 +25,7 @@ dpr_parksproperties = Flow(
     # cacheing table
     checkpoint(table_name),
     # datasource
+    
     add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
@@ -32,29 +33,38 @@ dpr_parksproperties = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # hnum
-    # sname 
+    # hnum 
     add_computed_field([dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
                                     ),
-                        dict(target=dict(name = 'sname', type = 'string'),
+                        # sname     
+                        dict(target=dict(name = 'sname_tmp', type = 'string'),
                                     operation=lambda row: get_sname(row['address'])
                                     ),
+                        dict(target=dict(name = 'sname', type = 'string'),
+                                operation=lambda row: quick_clean(row['signname']) if row['sname_tmp'] == '' else row['sname_tmp']
+                                    ),
+                        # boro
                         dict(target=dict(name = 'boro', type = 'string'),
                                     operation=lambda row: get_boro(row['borough'])
                                     )
                         ]),
-    # # boro
-    # # zipcode
+    #delete the temparary sname
+    delete_fields(fields=['sname_tmp']),
+
+    #rename multipolygon
+    rename_field('the_geom','the_geom_multipolygon'),
 
     geo_flow,
-    # add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
-    #                         operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
-    #                         )
-    #                     ]),
+    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
+                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                            )
+                        ]),
     # printer(num_rows=3, fields=['hnum', 'sname', 'boro', 'zipcode']),
-    dump_to_postgis()
-)
+    # printer(num_rows=3),
+    # select_fields(fields=['signname','the_geom_multipolygon','the_geom'
+    #                          ]),
 
-dpr_parksproperties.process()
-
+    # dump_to_path(table_name)
+    dump_to_postgis(table_name)
+).process()

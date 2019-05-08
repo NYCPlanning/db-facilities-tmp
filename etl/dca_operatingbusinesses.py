@@ -1,4 +1,4 @@
-# take 22m to run for 2019 data
+# take 24m to run for 2019 data
 from dataflows import *
 from lib import dump_to_postgis, rename_field
 import os
@@ -22,7 +22,6 @@ def get_address(hnum, sname):
     except:
         return None
 
-
 table_name = 'dca_operatingbusinesses'
 dca_operatingbusinesses = Flow(
     load(url, resources = table_name, force_strings=False),
@@ -37,6 +36,10 @@ dca_operatingbusinesses = Flow(
             dict(borough_code = '3'),
             dict(borough_code = '4'),
             dict(borough_code = '5')
+            # dict(dca_license_number = '1363927-DCA'),
+            # dict(dca_license_number = '2076350-DCA'),
+            # dict(dca_license_number = '2025388-DCA'),
+            # dict(dca_license_number = '0982897-DCA')
             ]),
 
     add_field('datasource', 'string', table_name),
@@ -53,40 +56,38 @@ dca_operatingbusinesses = Flow(
     #rename the zipcode field
     rename_field('address_zip','zipcode'),
 
-    #generate a temparary address field
-    add_computed_field([dict(target=dict(name = 'address_tmp', type = 'string'),
-                                    operation=lambda row: get_address(row['address_building'],row['address_street_name'])
-                                    ),
-                        #validate the temparary address column with usaddress and generate a new address column
-                        dict(target=dict(name = 'address', type = 'string'),
-                                    operation=lambda row: quick_clean(row['address_tmp']) if row['address_tmp'] != None else None
+    #generate address field
+    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
+                                    operation=lambda row: quick_clean(get_address(row['address_building'],row['address_street_name']))
                                     ),
                         # generate house number field by looking into usaddress
                         dict(target=dict(name = 'hnum', type = 'string'),
-                                operation = lambda row: get_hnum(row['address']) if row['address'] != None else None
+                                operation = lambda row: get_hnum(row['address'])
                                     ),
                         # generate street name field by looking into usaddress
                         dict(target=dict(name = 'sname', type = 'string'),
-                                    operation=lambda row: get_sname(row['address']) if row['address'] != None else None
+                                    operation=lambda row: get_sname(row['address'])
                                     )
                         
                             ]),
-    
-    add_computed_field([
-                        ]),
-    #delete the temporary field
-    delete_fields(fields=['address_tmp']),
 
     #generate fields regarding to geo info
     geo_flow,
 
     #generate the coordinates
-    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: get_the_geom(row['longitude'], row['latitude']) if row['location'] != None else None
+    add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
+                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                            ),
+                        dict(target=dict(name = 'the_geom', type = 'string'),
+                            operation=lambda row: row['the_geom_tmp']
+                                if row['the_geom_tmp'] != None
+                                else get_the_geom(row['longitude'], row['latitude']) 
                             )
                         ]),
+    #delete the temparary geom
+    delete_fields(fields=['the_geom_tmp']),
 
-    # printer(fields=['hnum','sname','address','boro','zipcode','datasource']),
+    # printer(fields=['hnum','sname','address','the_geom','geo_zipcode','boro','zipcode','datasource']),
     # printer(num_rows = 3),
     dump_to_postgis(table_name)
     

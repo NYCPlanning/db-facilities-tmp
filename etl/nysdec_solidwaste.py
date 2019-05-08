@@ -15,14 +15,6 @@ dca_operatingbusinesses = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
-    # datasource
-    add_field('datasource', 'string', table_name),
-
-
-    ################## geospatial ###################
-    ###### Make sure the following columns ##########
-    ###### exist before geo_flows          ########## 
-    #################################################
 
     # filter out facilities outsite New York City
     filter_rows(equals = [
@@ -32,7 +24,14 @@ dca_operatingbusinesses = Flow(
             dict(county = 'Queens'),
             dict(county = 'Richmond')
             ]),
-    
+
+    # datasource
+    add_field('datasource', 'string', table_name),
+
+    ################## geospatial ###################
+    ###### Make sure the following columns ##########
+    ###### exist before geo_flows          ########## 
+    #################################################
 
     #rename zipcode field
     rename_field('zip_code','zipcode'),
@@ -61,7 +60,7 @@ dca_operatingbusinesses = Flow(
                             )
                         ]),
     
-    # printer(fields=['hnum','sname','address','boro','zipcode','the_geom','datasource'])
-    # printer(num_rows = 3),
+#     printer(fields=['hnum','sname','address','boro','zipcode','the_geom','datasource'])
+#     printer(num_rows = 3)
     dump_to_postgis(table_name)
 ).process()

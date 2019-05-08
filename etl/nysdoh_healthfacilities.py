@@ -15,14 +15,6 @@ dca_operatingbusinesses = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
-    # datasource
-    add_field('datasource', 'string', table_name),
-
-
-    ################## geospatial ###################
-    ###### Make sure the following columns ##########
-    ###### exist before geo_flows          ########## 
-    #################################################
 
     # filter out facilities outsite New York City
     filter_rows(equals = [
@@ -32,7 +24,15 @@ dca_operatingbusinesses = Flow(
             dict(facility_county = 'Queens'),
             dict(facility_county = 'Richmond')
             ]),
-    
+
+    # datasource
+    add_field('datasource', 'string', table_name),
+
+
+    ################## geospatial ###################
+    ###### Make sure the following columns ##########
+    ###### exist before geo_flows          ########## 
+    #################################################   
 
     #rename zipcode field
     rename_field('facility_zip_code','zipcode'),
@@ -60,11 +60,18 @@ dca_operatingbusinesses = Flow(
     # # generate geo info
     geo_flow,
 
-    # generate coordinates
-    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
+    #generate the coordinates
+    add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                            ),
+                        dict(target=dict(name = 'the_geom', type = 'string'),
+                            operation=lambda row: row['the_geom_tmp']
+                                if row['the_geom_tmp'] != None
+                                else get_the_geom(row['facility_longitude'], row['facility_latitude']) 
                             )
                         ]),
+    #delete the temparary geom
+    delete_fields(fields=['the_geom_tmp']),
     
     # printer(fields=['hnum','sname','address','address_tmp','boro','zipcode','the_geom','datasource'])
     # printer(num_rows = 3),
