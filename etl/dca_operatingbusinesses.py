@@ -36,10 +36,6 @@ dca_operatingbusinesses = Flow(
             dict(borough_code = '3'),
             dict(borough_code = '4'),
             dict(borough_code = '5')
-            # dict(dca_license_number = '1363927-DCA'),
-            # dict(dca_license_number = '2076350-DCA'),
-            # dict(dca_license_number = '2025388-DCA'),
-            # dict(dca_license_number = '0982897-DCA')
             ]),
 
     add_field('datasource', 'string', table_name),
