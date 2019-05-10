@@ -36,12 +36,15 @@ def get_the_borocode(b):
     This function is used for converting
     city name to borough code
     '''
-    if b == 'NEW YORK': return '1'
-    if b == 'BRONX': return '2'
-    if b == 'BROOKLYN': return '3'
-    if b == 'QUEENS': return '4'
-    if b == 'STATEN ISLAND': return '5'
-    return b
+
+    borocode = {
+        'NEW YORK': '1',
+        'BRONX': '2',
+        'BROOKLYN': '3',
+        'QUEENS': '4',
+        'STATEN ISLAND':'5'
+    }
+    return borocode.get(b, '')
 
 def get_boro(b):
     '''
