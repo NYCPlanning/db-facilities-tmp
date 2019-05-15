@@ -4,14 +4,13 @@ import os
 import csv
 import sys
 from pathlib import Path
-import re
 from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
 
 table_name = 'nysdoh_healthfacilities'
-dca_operatingbusinesses = Flow(
+nysdoh_healthfacilities = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
@@ -45,7 +44,8 @@ dca_operatingbusinesses = Flow(
                                     operation=lambda row: quick_clean(row['facility_address_2'])
                                     ),
                         dict(target=dict(name = 'address', type = 'string'),
-                                operation=lambda row: quick_clean(row['facility_address_1']) if row['address_tmp'] == '' else row['address_tmp']
+                                operation=lambda row: quick_clean(row['facility_address_1']) 
+                                            if row['address_tmp'] == '' else row['address_tmp']
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
@@ -73,7 +73,5 @@ dca_operatingbusinesses = Flow(
     #delete the temparary geom
     delete_fields(fields=['the_geom_tmp']),
     
-    # printer(fields=['hnum','sname','address','address_tmp','boro','zipcode','the_geom','datasource'])
-    # printer(num_rows = 3),
     dump_to_postgis(table_name)
 ).process()

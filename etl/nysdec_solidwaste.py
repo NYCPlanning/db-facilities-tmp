@@ -4,14 +4,13 @@ import os
 import csv
 import sys
 from pathlib import Path
-import re
 from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
 
 table_name = 'nysdec_solidwaste'
-dca_operatingbusinesses = Flow(
+nysdec_solidwaste = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
@@ -33,13 +32,13 @@ dca_operatingbusinesses = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    #rename zipcode field
+    # rename zipcode field
     rename_field('zip_code','zipcode'),
 
-    # #rename borough field
+    # rename borough field
     rename_field('county','boro'),
     
-    #validate adress, generate house number, street name via usaddress
+    # validate adress, generate house number, street name via usaddress
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                         operation=lambda row: quick_clean(row['location_address'])
                                         ),
@@ -51,7 +50,7 @@ dca_operatingbusinesses = Flow(
                                       )
                         ]),
 
-    # # generate geo info
+    # generate geo info
     geo_flow,
 
     # generate coordinates
@@ -59,8 +58,5 @@ dca_operatingbusinesses = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    
-#     printer(fields=['hnum','sname','address','boro','zipcode','the_geom','datasource'])
-#     printer(num_rows = 3)
     dump_to_postgis(table_name)
 ).process()

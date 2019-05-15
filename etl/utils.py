@@ -70,6 +70,7 @@ def get_geocode(hnum, sname, boro, zipcode):
         params = f'house_number={hnum}&street_name={sname}&borough={boro}&zipcode={zipcode}'
         url = base_url + params
         response = requests.get(url)
+        result = json.loads(response.content)
         return json.loads(response.content)
 
 geo_flow = Flow(

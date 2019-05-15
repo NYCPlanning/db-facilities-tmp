@@ -4,14 +4,13 @@ import os
 import csv
 import sys
 from pathlib import Path
-import re
 from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
 
 table_name = 'usnps_parks'
-dca_operatingbusinesses = Flow(
+usnps_parks = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
@@ -39,7 +38,7 @@ dca_operatingbusinesses = Flow(
     # create zipcode field, set default as empty
     add_field('zipcode', 'string', None),
 
-    #validate street name via usaddress
+    # validate street name via usaddress
     add_computed_field([dict(target=dict(name = 'sname', type = 'string'),
                                 operation=lambda row: quick_clean(row['unit_name'])
                                     )
@@ -48,7 +47,7 @@ dca_operatingbusinesses = Flow(
     geo_flow,
 
     #rename multipolygon
-    rename_field('wkt','the_geom_multipolygon'),
+    rename_field('wkt','multipolygon'),
 
     # generate coordinates
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
@@ -61,13 +60,11 @@ dca_operatingbusinesses = Flow(
                             )
                         ]),
     
-    #delete the old boro
+    # delete the old boro
     delete_fields(fields=['boro']),
 
-    #rename boro_tmp field as boro
+    # rename boro_tmp field as boro
     rename_field('boro_tmp','boro'),
 
-    # printer(fields=['sname','the_geom','boro']),
-    # printer(num_rows = 3),
     dump_to_postgis(table_name)
 ).process()

@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 
 table_name = 'nysopwdd_providers'
-dca_operatingbusinesses = Flow(
+nysopwdd_providers = Flow(
     load(url, resources = table_name, force_strings=False),
     # cacheing table
     checkpoint(table_name),
@@ -34,13 +34,13 @@ dca_operatingbusinesses = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    #rename zipcode field
+    # rename zipcode field
     rename_field('zip_code','zipcode'),
 
-    #rename borough field
+    # rename borough field
     rename_field('county','boro'),
     
-    #validate adress, generate house number, street name via usaddress
+    # validate adress, generate house number, street name via usaddress
     add_computed_field([dict(target=dict(name = 'address_tmp', type = 'string'),
                                     operation=lambda row: quick_clean(row['street_address_line_2'])
                                     ),
@@ -62,7 +62,8 @@ dca_operatingbusinesses = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
                         dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: row['the_geom_tmp'] if row['the_geom_tmp'] != None
+                            operation=lambda row: row['the_geom_tmp'] 
+                                        if row['the_geom_tmp'] != None
                                 else get_geom_source(row['location_1'])
                             )
                         ]),
@@ -71,7 +72,5 @@ dca_operatingbusinesses = Flow(
     #delete the temparary address
     delete_fields(fields=['address_tmp']),
     
-    # printer(fields=['hnum','sname','address','boro','zipcode','the_geom','datasource'])
-    # printer(num_rows = 3),
     dump_to_postgis(table_name)
 ).process()

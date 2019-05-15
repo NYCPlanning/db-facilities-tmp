@@ -22,6 +22,11 @@ ALTER TABLE dpr_parksproperties
 
 update dpr_parksproperties as t
 SET hash =  md5(CAST((t.*)AS text)), 
+    the_geom = (CASE
+                    WHEN the_geom = ''
+                        THEN ST_AsText(ST_Centroid(multipolygon))
+                    ELSE the_geom
+                END),
 	facname = signname,
 	factype = typecatego,
 	facsubgrp = (CASE
