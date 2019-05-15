@@ -27,9 +27,9 @@ usnps_parks = Flow(
 
     add_field('boro', 'string', 'MN'),
 
-    add_field('hnum', 'string', None),
+    add_field('hnum', 'string', ''),
 
-    add_field('zipcode', 'string', None),
+    add_field('zipcode', 'string', ''),
 
     add_computed_field([dict(target=dict(name = 'sname', type = 'string'),
                                 operation=lambda row: quick_clean(row['unit_name'])
