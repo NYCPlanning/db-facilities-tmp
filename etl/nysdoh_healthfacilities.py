@@ -12,10 +12,8 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysdoh_healthfacilities'
 nysdoh_healthfacilities = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
 
-    # filter out facilities outsite New York City
     filter_rows(equals = [
             dict(facility_county = 'Kings'),
             dict(facility_county = 'New York'),
@@ -24,22 +22,17 @@ nysdoh_healthfacilities = Flow(
             dict(facility_county = 'Richmond')
             ]),
 
-    # datasource
     add_field('datasource', 'string', table_name),
-
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################   
 
-    #rename zipcode field
     rename_field('facility_zip_code','zipcode'),
 
-    # #rename borough field
-    rename_field('facility_county','boro'),
+    add_field('boro','string',''),
     
-    #validate adress, generate house number, street name via usaddress
     add_computed_field([dict(target=dict(name = 'address_tmp', type = 'string'),
                                     operation=lambda row: quick_clean(row['facility_address_2'])
                                     ),
@@ -54,13 +47,10 @@ nysdoh_healthfacilities = Flow(
                                 operation=lambda row: get_sname(row['address'])
                                     )
                         ]),
-    # delete the temparary address
+
     delete_fields(fields=['address_tmp']),
 
-    # # generate geo info
     geo_flow,
-
-    #generate the coordinates
     add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
@@ -70,8 +60,10 @@ nysdoh_healthfacilities = Flow(
                                 else get_the_geom(row['facility_longitude'], row['facility_latitude']) 
                             )
                         ]),
-    #delete the temparary geom
+
     delete_fields(fields=['the_geom_tmp']),
-    
+
     dump_to_postgis(table_name)
-).process()
+)
+
+nysdoh_healthfacilities.process()

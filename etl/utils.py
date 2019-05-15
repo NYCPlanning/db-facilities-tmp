@@ -38,9 +38,10 @@ def get_geom_source(s):
                 lat = float(s[1:s.find(',')])
                 lon = float(s[s.find(',')+1:-1])
                 if (lon is not None) and (lat is not None): 
-                                return str(Point(lon, lat))
+                        return str(Point(lon, lat))
         except:
-                return None
+                return ''
+
 
 def quick_clean(address):
         address = '-'.join([i.strip() for i in address.split('-')])

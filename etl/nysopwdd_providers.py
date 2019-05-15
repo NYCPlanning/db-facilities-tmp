@@ -13,10 +13,8 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysopwdd_providers'
 nysopwdd_providers = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
 
-    # filter out facilities outsite New York City
     filter_rows(equals = [
             dict(county = 'KINGS'),
             dict(county = 'NEW YORK'),
@@ -25,22 +23,17 @@ nysopwdd_providers = Flow(
             dict(county = 'RICHMOND')
             ]),
 
-    # datasource
     add_field('datasource', 'string', table_name),
-
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # rename zipcode field
     rename_field('zip_code','zipcode'),
 
-    # rename borough field
-    rename_field('county','boro'),
+    add_field('boro','string',''),
     
-    # validate adress, generate house number, street name via usaddress
     add_computed_field([dict(target=dict(name = 'address_tmp', type = 'string'),
                                     operation=lambda row: quick_clean(row['street_address_line_2'])
                                     ),
@@ -55,10 +48,8 @@ nysopwdd_providers = Flow(
                                 operation=lambda row: get_sname(row['address'])
                                     )
                         ]),
-    # generate geo info
+ 
     geo_flow,
-
-    # generate coordinates
     add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
@@ -68,10 +59,10 @@ nysopwdd_providers = Flow(
                                 else get_geom_source(row['location_1'])
                             )
                         ]),
-    #delete the temparary geom
+
     delete_fields(fields=['the_geom_tmp']),
-    #delete the temparary address
     delete_fields(fields=['address_tmp']),
     
     dump_to_postgis(table_name)
-).process()
+)
+nysopwdd_providers.process()

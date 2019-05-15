@@ -12,10 +12,8 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysdec_solidwaste'
 nysdec_solidwaste = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
 
-    # filter out facilities outsite New York City
     filter_rows(equals = [
             dict(county = 'Kings'),
             dict(county = 'New York'),
@@ -24,7 +22,6 @@ nysdec_solidwaste = Flow(
             dict(county = 'Richmond')
             ]),
 
-    # datasource
     add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
@@ -32,13 +29,10 @@ nysdec_solidwaste = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # rename zipcode field
     rename_field('zip_code','zipcode'),
 
-    # rename borough field
-    rename_field('county','boro'),
+    add_field('boro','string', ''),
     
-    # validate adress, generate house number, street name via usaddress
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                         operation=lambda row: quick_clean(row['location_address'])
                                         ),
@@ -50,13 +44,13 @@ nysdec_solidwaste = Flow(
                                       )
                         ]),
 
-    # generate geo info
     geo_flow,
-
-    # generate coordinates
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
+                        
     dump_to_postgis(table_name)
-).process()
+)
+
+nysdec_solidwaste.process()

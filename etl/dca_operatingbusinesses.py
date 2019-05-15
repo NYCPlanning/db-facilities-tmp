@@ -23,16 +23,13 @@ def get_address(hnum, sname):
 
 table_name = 'dca_operatingbusinesses'
 dca_operatingbusinesses = Flow(
-    load(url, resources = table_name, force_strings=True),
-    # cacheing table
+    load(url, resources = table_name, force_strings=False),
     checkpoint(table_name),
-    
-    # filter out the facilities outside NYC        
+         
     filter_rows(not_equals = [
             dict(address_borough = 'Outside NYC'),
             ]),
             
-    # datasource
     add_field('datasource', 'string', table_name),
 
 
@@ -41,32 +38,24 @@ dca_operatingbusinesses = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # rename_field('address_borough','boro'),
     add_field('boro', 'string', ''),
 
-    # rename the zipcode field
     rename_field('address_zip','zipcode'),
 
-    # generate address field
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                     operation=lambda row: quick_clean(get_address(row['address_building'],
                                                             row['address_street_name']))
                                     ),
-                        # generate house number field by looking into usaddress
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
                                     ),
-                        # generate street name field by looking into usaddress
                         dict(target=dict(name = 'sname', type = 'string'),
                                     operation=lambda row: get_sname(row['address'])
                                     )
                         
                             ]),
 
-    # generate fields regarding to geo info
     geo_flow,
-
-    # generate the coordinates
     add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
@@ -77,4 +66,6 @@ dca_operatingbusinesses = Flow(
                             )
                         ]),
     dump_to_postgis(table_name)
-).process()
+)
+
+dca_operatingbusinesses.process()

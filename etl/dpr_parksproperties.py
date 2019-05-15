@@ -21,9 +21,8 @@ def get_boro(b):
 table_name = 'dpr_parksproperties'
 dpr_parksproperties = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
+
     checkpoint(table_name),
-    # datasource
     
     add_field('datasource', 'string', table_name),
 
@@ -32,11 +31,9 @@ dpr_parksproperties = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # hnum 
     add_computed_field([dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
-                                    ),
-                        # sname     
+                                    ),   
                         dict(target=dict(name = 'sname_tmp', type = 'string'),
                                     operation=lambda row: get_sname(row['address'])
                                     ),
@@ -44,15 +41,12 @@ dpr_parksproperties = Flow(
                                 operation=lambda row: quick_clean(row['signname']) 
                                             if row['sname_tmp'] == '' else row['sname_tmp']
                                     ),
-                        # boro
                         dict(target=dict(name = 'boro', type = 'string'),
                                     operation=lambda row: get_boro(row['borough'])
                                     )
                         ]),
-    # delete the temparary sname
     delete_fields(fields=['sname_tmp']),
 
-    # rename multipolygon
     rename_field('the_geom','multipolygon'),
 
     geo_flow,
@@ -61,4 +55,6 @@ dpr_parksproperties = Flow(
                             )
                         ]),
     dump_to_postgis(table_name)
-).process()
+)
+
+dpr_parksproperties.process()

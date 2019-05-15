@@ -12,10 +12,8 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysomh_mentalhealth'
 nysomh_mentalhealth = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
 
-    # filter out facilities outsite New York City
     filter_rows(equals = [
             dict(program_county = 'Kings'),
             dict(program_county = 'New York'),
@@ -24,22 +22,17 @@ nysomh_mentalhealth = Flow(
             dict(program_county = 'Richmond')
             ]),
 
-    # datasource
     add_field('datasource', 'string', table_name),
-
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # rename zipcode field
     rename_field('program_zip','zipcode'),
 
-    # rename borough field
-    rename_field('program_county','boro'),
+    add_field('boro','string',''),
     
-    # validate adress, generate house number, street name via usaddress
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                 operation=lambda row: quick_clean(row['program_address_1']) 
                                             if row['program_address_1'] != None else None
@@ -51,10 +44,8 @@ nysomh_mentalhealth = Flow(
                                 operation=lambda row: get_sname(row['address'])
                                     )
                         ]),
-    # generate geo info
-    geo_flow,
 
-    # generate coordinates
+    geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
@@ -64,8 +55,9 @@ nysomh_mentalhealth = Flow(
                                 else get_geom_source(row['location'])
                             )
                         ]),
-    #delete the temparary geom
+
     delete_fields(fields=['the_geom_tmp']),
     
     dump_to_postgis(table_name)
-).process()
+)
+nysomh_mentalhealth.process()
