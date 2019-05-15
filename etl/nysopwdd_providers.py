@@ -45,7 +45,8 @@ nysopwdd_providers = Flow(
                                     operation=lambda row: quick_clean(row['street_address_line_2'])
                                     ),
                         dict(target=dict(name = 'address', type = 'string'),
-                                operation=lambda row: quick_clean(row['street_address']) if row['address_tmp'] == '' else row['address_tmp']
+                                operation=lambda row: quick_clean(row['street_address']) 
+                                            if row['address_tmp'] == '' else row['address_tmp']
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])

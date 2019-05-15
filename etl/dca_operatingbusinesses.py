@@ -49,7 +49,8 @@ dca_operatingbusinesses = Flow(
 
     # generate address field
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
-                                    operation=lambda row: quick_clean(get_address(row['address_building'],row['address_street_name']))
+                                    operation=lambda row: quick_clean(get_address(row['address_building'],
+                                                            row['address_street_name']))
                                     ),
                         # generate house number field by looking into usaddress
                         dict(target=dict(name = 'hnum', type = 'string'),

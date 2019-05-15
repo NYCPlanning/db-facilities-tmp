@@ -41,7 +41,8 @@ nysomh_mentalhealth = Flow(
     
     # validate adress, generate house number, street name via usaddress
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
-                                operation=lambda row: quick_clean(row['program_address_1']) if row['program_address_1'] != None else None
+                                operation=lambda row: quick_clean(row['program_address_1']) 
+                                            if row['program_address_1'] != None else None
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
