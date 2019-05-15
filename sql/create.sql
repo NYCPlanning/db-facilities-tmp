@@ -19,8 +19,8 @@ proptype text,
 datasource text,
 
 -- spatial --> geosupport
-hnum text,
-sname text,
+addressnum text,
+streetname text,
 address text,
 city text,
 zipcode text,
@@ -35,5 +35,5 @@ commboard text,
 nta text,
 council text,
 censtract text,
-geom text
+geom geometry(Geometry,4326)
 );
