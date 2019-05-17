@@ -86,4 +86,3 @@
 4. if you don't want to run it in an interative shell: 
 
         docker exec facdb etl/example_data.py
-
