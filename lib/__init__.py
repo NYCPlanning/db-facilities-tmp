@@ -8,3 +8,4 @@ from lib.get_url import get_url as get_url
 from lib.find_replace import find_replace as find_replace
 from lib.set_type import set_type
 from lib.printer import printer
+from lib.map_field import map_field
