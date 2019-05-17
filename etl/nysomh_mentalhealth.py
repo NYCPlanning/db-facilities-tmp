@@ -1,0 +1,63 @@
+from dataflows import *
+from lib import dump_to_postgis, rename_field
+import os
+import csv
+import sys
+from pathlib import Path
+import re
+from utils import url, fields, geo_flow, get_the_geom, get_geom_source, quick_clean, get_hnum, get_sname
+
+csv.field_size_limit(sys.maxsize)
+
+table_name = 'nysomh_mentalhealth'
+nysomh_mentalhealth = Flow(
+    load(url, resources = table_name, force_strings=False),
+    checkpoint(table_name),
+
+    filter_rows(equals = [
+            dict(program_county = 'Kings'),
+            dict(program_county = 'New York'),
+            dict(program_county = 'Brox'),
+            dict(program_county = 'Queens'),
+            dict(program_county = 'Richmond')
+            ]),
+
+    add_field('datasource', 'string', table_name),
+
+    ################## geospatial ###################
+    ###### Make sure the following columns ##########
+    ###### exist before geo_flows          ########## 
+    #################################################
+
+    rename_field('program_zip','zipcode'),
+
+    add_field('boro','string',''),
+    
+    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
+                                operation=lambda row: quick_clean(row['program_address_1']) 
+                                            if row['program_address_1'] != None else None
+                                    ),
+                        dict(target=dict(name = 'hnum', type = 'string'),
+                                operation = lambda row: get_hnum(row['address'])
+                                    ),
+                        dict(target=dict(name = 'sname', type = 'string'),
+                                operation=lambda row: get_sname(row['address'])
+                                    )
+                        ]),
+
+    geo_flow,
+    add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
+                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                            ),
+                        dict(target=dict(name = 'the_geom', type = 'string'),
+                            operation=lambda row: row['the_geom_tmp'] 
+                                        if row['the_geom_tmp'] != None
+                                else get_geom_source(row['location'])
+                            )
+                        ]),
+
+    delete_fields(fields=['the_geom_tmp']),
+    
+    dump_to_postgis(table_name)
+)
+nysomh_mentalhealth.process()

@@ -24,13 +24,24 @@ fields = ['uid', 'facname',
         'council', 'censtract', 
         'datasource', 'geom']
 
-url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-13/datapackage.json'
+url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-14/datapackage.json'
 
 def get_the_geom(lon, lat): 
         lon = float(lon) if lon != '' else None
         lat = float(lat) if lat != '' else None
         if (lon is not None) and (lat is not None): 
                 return str(Point(lon, lat))
+
+def get_geom_source(s):
+        try:
+                s = s[(s.find('(')):]
+                lat = float(s[1:s.find(',')])
+                lon = float(s[s.find(',')+1:-1])
+                if (lon is not None) and (lat is not None): 
+                        return str(Point(lon, lat))
+        except:
+                return ''
+
 
 def quick_clean(address):
         address = '-'.join([i.strip() for i in address.split('-')])
@@ -60,6 +71,7 @@ def get_geocode(hnum, sname, boro, zipcode):
         params = f'house_number={hnum}&street_name={sname}&borough={boro}&zipcode={zipcode}'
         url = base_url + params
         response = requests.get(url)
+        result = json.loads(response.content)
         return json.loads(response.content)
 
 geo_flow = Flow(

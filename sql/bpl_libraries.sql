@@ -1,8 +1,8 @@
 --select w.status::text, count(*) 
---from (select geo::json->'status' as status from doe_busroutesgarages) w
+--from (select geo::json->'status' as status from bpl_libraries) w
 --group by w.status::text;
 
-ALTER TABLE doe_busroutesgarages
+ALTER TABLE bpl_libraries
 	ADD hash text, 
 	ADD	facname text,
 	ADD	factype text,
@@ -20,19 +20,19 @@ ALTER TABLE doe_busroutesgarages
 	ADD	captype text,
 	ADD	proptype text;
 
-update doe_busroutesgarages as t
+update bpl_libraries as t
 SET hash =  md5(CAST((t.*)AS text)), 
-	facname = initcap(vendor_name),
-	factype = 'School Bus Depot',
-	facsubgrp = 'Bus Depots and Terminals',
+	facname = title,
+	factype = 'Public Library',
+	facsubgrp = 'Public Libraries',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
-	opname = initcap(vendor_name),
-	opabbrev = 'Non-public',
-	optype = 'Non-public',
-	overagency = 'NYC Department of Education',
-	overabbrev = 'NYCDOE', 
+	opname = 'Brooklyn Public Library',
+	opabbrev = 'BPL',
+	optype = NULL,
+	overagency = 'Brooklyn Public Library',
+	overabbrev = 'BPL', 
 	overlevel = NULL, 
 	capacity = NULL, 
 	captype = NULL, 
