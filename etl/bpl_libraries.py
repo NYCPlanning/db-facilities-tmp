@@ -1,5 +1,5 @@
 from dataflows import *
-from lib import dump_to_postgis, rename_field
+from lib import dump_to_postgis, rename_field, map_field
 import os
 import csv
 import sys
@@ -7,6 +7,11 @@ from pathlib import Path
 from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
+
+def find_position(s):
+    lat = s[:s.find(',')]
+    lon = s[s.find(' '):]
+    return lon,lat
 
 table_name = 'bpl_libraries'
 bpl_libraries = Flow(
@@ -22,6 +27,7 @@ bpl_libraries = Flow(
 
     add_field('boro','string', 'BK'),
 
+    map_field('address', operation=lambda a: quick_clean(a)),
     add_computed_field([dict(target=dict(name = 'zipcode', type = 'string'),
                                         operation=lambda row: row['address'][-5::]
                                         ),
@@ -35,10 +41,13 @@ bpl_libraries = Flow(
 
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude']) 
+                                        if row['geo_longitude'] != ''
+                                        else get_the_geom(find_position(row['position'])[0],find_position(row['position'])[1])
+
+                                        
                             )
                         ]),
-   
     dump_to_postgis(table_name)
 )
 

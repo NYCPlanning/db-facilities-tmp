@@ -28,14 +28,14 @@ SET hash =  md5(CAST((t.*)AS text)),
                     ELSE the_geom
                 END),
 	facname = (CASE
-                    WHEN type = 'GARAGE' THEN CONCAT(name,' ',type)
-                    WHEN type <> 'GARAGE' THEN CONCAT(name)
+                    WHEN LOWER(type) = 'garage' THEN CONCAT(name,' ',type)
+                    WHEN LOWER(type) <> 'garage' THEN CONCAT(name)
 		        END),
 	factype = (CASE
-                    WHEN type = 'MTS' THEN 'DSNY Marine Transfer Station'
-                    WHEN type = 'Garage' THEN 'DSNY Garage'
-                    WHEN type = 'Repair' THEN 'DSNY Repair Facility'
-                    WHEN type = 'Drop Off' THEN 'DSNY Drop-Off Facility'
+                    WHEN LOWER(type) = 'mts' THEN 'DSNY Marine Transfer Station'
+                    WHEN LOWER(type) = 'garage' THEN 'DSNY Garage'
+                    WHEN LOWER(type) = 'repair' THEN 'DSNY Repair Facility'
+                    WHEN LOWER(type) = 'drop off' THEN 'DSNY Drop-Off Facility'
 		        END),
 	facsubgrp = 'Solid Waste Transfer and Carting',
 	facgroup = NULL,

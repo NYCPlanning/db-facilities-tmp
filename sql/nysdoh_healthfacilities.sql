@@ -43,19 +43,19 @@ SET hash =  md5(CAST((t.*)AS text)),
 	servarea = NULL,
 	opname = (CASE
                     WHEN operator_name = 'City of New York' THEN 'NYC Department of Health and Mental Hygiene'
-                    WHEN operator_name = 'NYC Health and Hospital Corporation' THEN 'NYC Health and Hospitals Corporation'
+                    WHEN operator_name = 'New York City Health and Hospital Corporation' THEN 'NYC Health and Hospitals Corporation'
                     WHEN ownership_type = 'State' THEN 'NYS Department of Health'
                     ELSE operator_name
 		        END),
 	opabbrev = (CASE
                     WHEN operator_name = 'City of New York' THEN 'NYCDOHMH'
-                    WHEN operator_name = 'NYC Health and Hospitals Corporation' THEN 'NYCHHC'
+                    WHEN operator_name = 'New York City Health and Hospital Corporation' THEN 'NYCHHC'
                     WHEN ownership_type = 'State' THEN 'NYSDOH'
                     ELSE 'Non-public'
 		        END),
 	optype = (CASE
                     WHEN operator_name = 'City of New York' THEN 'Public'
-                    WHEN operator_name = 'NYC Health and Hospital Corporation' THEN 'Public'
+                    WHEN operator_name = 'New York City Health and Hospital Corporation' THEN 'Public'
                     WHEN ownership_type = 'State' THEN 'Public'
                     ELSE 'Non-public'
 		        END),
