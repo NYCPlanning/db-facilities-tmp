@@ -5,10 +5,19 @@ import csv
 import sys
 from pathlib import Path
 import re
-from utils import url, fields, geo_flow, get_the_geom, get_geom_source, quick_clean, get_hnum, get_sname
+from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
+def get_geom_source(s):
+        try:
+                s = s[(s.find('(')):]
+                lat = float(s[1:s.find(',')])
+                lon = float(s[s.find(',')+1:-1])
+                if (lon is not None) and (lat is not None): 
+                        return str(Point(lon, lat))
+        except:
+                return ''
 
 table_name = 'nysopwdd_providers'
 nysopwdd_providers = Flow(
@@ -34,12 +43,10 @@ nysopwdd_providers = Flow(
 
     add_field('boro','string',''),
     
-    add_computed_field([dict(target=dict(name = 'address_tmp', type = 'string'),
+    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                     operation=lambda row: quick_clean(row['street_address_line_2'])
-                                    ),
-                        dict(target=dict(name = 'address', type = 'string'),
-                                operation=lambda row: quick_clean(row['street_address']) 
-                                            if row['address_tmp'] == '' else row['address_tmp']
+                                                if row['street_address_line_2'] != ''
+                                                else quick_clean(row['street_address'])
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
@@ -50,18 +57,12 @@ nysopwdd_providers = Flow(
                         ]),
  
     geo_flow,
-    add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
+    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                                                    if row['geo_longitude'] != ''
+                                                    else get_geom_source(row['location_1'])
                             ),
-                        dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: row['the_geom_tmp'] 
-                                        if row['the_geom_tmp'] != None
-                                else get_geom_source(row['location_1'])
-                            )
                         ]),
-
-    delete_fields(fields=['the_geom_tmp']),
-    delete_fields(fields=['address_tmp']),
     
     dump_to_postgis(table_name)
 )

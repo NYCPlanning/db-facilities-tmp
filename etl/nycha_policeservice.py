@@ -12,9 +12,8 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nycha_policeservice'
 nycha_policeservice = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
-    # datasource
+
     add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
@@ -22,8 +21,6 @@ nycha_policeservice = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # hnum
-    # sname 
     add_computed_field([dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
                                     ),
@@ -31,9 +28,9 @@ nycha_policeservice = Flow(
                                     operation=lambda row: get_sname(row['address'])
                                     )
                         ]),
-    # boro
+
     rename_field('borough', 'boro'),
-    # zipcode
+
     # nothing needs to be done here
     # change 'the_geom'
     rename_field('the_geom', 'original_geom'),
@@ -42,7 +39,7 @@ nycha_policeservice = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    printer(num_rows=3),
+    # printer(num_rows=3),
     dump_to_postgis()
 )
 

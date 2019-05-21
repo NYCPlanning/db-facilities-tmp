@@ -12,11 +12,9 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'doe_busroutesgarages'
 doe_busroutesgarages = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
-    # datasource
-    add_field('datasource', 'string', table_name),
 
+    add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
@@ -33,9 +31,9 @@ doe_busroutesgarages = Flow(
                                     operation=lambda row: get_sname(row['address'])
                                     )
                         ]),
-    # boro
+
     add_field('boro', 'string', ''),
-    # zipcode
+
     rename_field('garage_zip', 'zipcode'),
 
     geo_flow,
@@ -43,7 +41,7 @@ doe_busroutesgarages = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    printer(num_rows=3),
+    # printer(num_rows=3),
     dump_to_postgis()
 )
 

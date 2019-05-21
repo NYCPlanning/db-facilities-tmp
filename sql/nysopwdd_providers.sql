@@ -24,25 +24,6 @@ update nysopwdd_providers as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	facname = initcap(Service_Provider_Agency),
 	factype = 'Programs for People with Disabilities',
-			-- (CASE
-			-- 	WHEN 	
-			-- 	Intermediate_Care_Facilities_ICFs
-			-- 	Individual_Residential_Alternative_IRA
-			-- 	Family_Care
-			-- 	Consolidated_Supports_And_Services
-			-- 	Individual_Support_Services_ISSs
-			-- 	Day_Training
-			-- 	Day_Treatment
-			-- 	Senior_Geriatric_Services
-			-- 	Day_Habilitation
-			-- 	Work_Shop
-			-- 	Prevocational
-			-- 	Supported_Employment_Enrollments
-			-- 	Community_Habilitation
-			-- 	Family_Support_Services
-			-- 	Care_at_Home_Waiver_Services
-			-- 	Developmental_Centers_And_Special_Population_Services
-			-- END),
 	facsubgrp = 'Programs for People with Disabilities',
 	facgroup = NULL,
 	facdomain = NULL,

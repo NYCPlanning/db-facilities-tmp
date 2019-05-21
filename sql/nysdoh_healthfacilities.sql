@@ -22,6 +22,11 @@ ALTER TABLE nysdoh_healthfacilities
 
 update nysdoh_healthfacilities as t
 SET hash =  md5(CAST((t.*)AS text)), 
+	wkb_geometry = (CASE
+				        WHEN wkb_geometry is NULL 
+				            THEN ST_SetSRID(ST_Point(facility_longitude, facility_latitude), 4326)
+				        ELSE wkb_geometry
+				    END),
 	facname = Facility_Name,
 	factype = (CASE
                     WHEN Description LIKE '%Residential%'

@@ -33,12 +33,10 @@ nysdoh_healthfacilities = Flow(
 
     add_field('boro','string',''),
     
-    add_computed_field([dict(target=dict(name = 'address_tmp', type = 'string'),
+    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                     operation=lambda row: quick_clean(row['facility_address_2'])
-                                    ),
-                        dict(target=dict(name = 'address', type = 'string'),
-                                operation=lambda row: quick_clean(row['facility_address_1']) 
-                                            if row['address_tmp'] == '' else row['address_tmp']
+                                                    if row['facility_address_2'] != ''
+                                                    else quick_clean(row['facility_address_1'])
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
@@ -48,20 +46,11 @@ nysdoh_healthfacilities = Flow(
                                     )
                         ]),
 
-    delete_fields(fields=['address_tmp']),
-
     geo_flow,
-    add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
+    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
-                            ),
-                        dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: row['the_geom_tmp']
-                                if row['the_geom_tmp'] != None
-                                else get_the_geom(row['facility_longitude'], row['facility_latitude']) 
-                            )
+                            ), 
                         ]),
-
-    delete_fields(fields=['the_geom_tmp']),
 
     dump_to_postgis(table_name)
 )

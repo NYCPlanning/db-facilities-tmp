@@ -22,11 +22,11 @@ ALTER TABLE usnps_parks
 
 update usnps_parks as t
 SET hash =  md5(CAST((t.*)AS text)), 
-    the_geom = (CASE
-                    WHEN the_geom = ''
-                        THEN ST_AsText(ST_Centroid(multipolygon))
-                    ELSE the_geom
-                END),
+    wkb_geometry = (CASE
+						WHEN wkb_geometry is NULL 
+							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
+						ELSE wkb_geometry
+					END),
 	facname = unit_name,
 	factype = unit_type,
 	facsubgrp = 'Historical Sites',

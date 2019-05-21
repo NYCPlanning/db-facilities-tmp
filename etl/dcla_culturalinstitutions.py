@@ -12,19 +12,15 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'dcla_culturalinstitutions'
 dcla_culturalinstitutions = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
-    # datasource
-    add_field('datasource', 'string', table_name),
 
+    add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # hnum
-    # sname 
     add_computed_field([dict(target=dict(name = 'address_cleaned', type = 'string'),
                                         operation=lambda row: quick_clean(row['address'])
                                         ),
@@ -36,9 +32,9 @@ dcla_culturalinstitutions = Flow(
                                     )
                         ]),
     delete_fields(fields=['address_cleaned']),
-    # boro
+
     add_field('boro', 'string', ''),
-    # zipcode
+
     rename_field('postcode', 'zipcode'),
 
     geo_flow,
