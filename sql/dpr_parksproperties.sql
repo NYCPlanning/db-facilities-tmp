@@ -3,7 +3,7 @@
 --group by w.status::text;
 
 ALTER TABLE dpr_parksproperties
-	ADD hash text, 
+	ADD hash text,
 	ADD	facname text,
 	ADD	factype text,
 	ADD	facsubgrp text,
@@ -20,13 +20,13 @@ ALTER TABLE dpr_parksproperties
 	ADD	captype text,
 	ADD	proptype text;
 
-update dpr_parksproperties as t
-SET hash =  md5(CAST((t.*)AS text)), 
-    the_geom = (CASE
-                    WHEN the_geom = ''
-                        THEN ST_AsText(ST_Centroid(multipolygon))
-                    ELSE the_geom
-                END),
+UPDATE dpr_parksproperties as t
+SET hash = md5(CAST((t.*)AS text)),
+	wkb_geometry = (CASE
+						WHEN wkb_geometry is NULL 
+							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
+						ELSE wkb_geometry
+					END),
 	facname = signname,
 	factype = typecatego,
 	facsubgrp = (CASE
@@ -55,9 +55,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 	opabbrev = 'NYCDPR',
 	optype = 'Public',
 	overagency = 'NYC Department of Parks and Recreation',
-	overabbrev = 'NYCDPR', 
+	overabbrev = 'NYCDPR',
 	overlevel = NULL, 
 	capacity = NULL, 
-	captype = NULL, 
-	proptype = NULL
-;
+	captype = NULL,
+	proptype = NULL;

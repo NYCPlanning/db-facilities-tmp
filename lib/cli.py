@@ -2,11 +2,29 @@ import click
 import os 
 from pathlib import Path
 from sqlalchemy import create_engine, text
+from urllib.parse import urlparse
+
+def parse_engine(engine):
+    result = urlparse(engine)
+    username = result.username
+    password = result.password
+    database = result.path[1:]
+    hostname = result.hostname
+    portnum = result.port
+    return dict(username = username,
+                database = database, 
+                hostname = hostname, 
+                port = portnum)
 
 etl_path = Path(__file__).parent.parent / 'etl'
 sql_path = Path(__file__).parent.parent / 'sql'
 
-engine = create_engine(os.environ.get('DATAFLOWS_DB_ENGINE'))
+engine = create_engine(os.environ.get('DATAFLOWS_DB_ENGINE'), max_overflow=-1)
+conn = parse_engine(os.environ.get('DATAFLOWS_DB_ENGINE'))
+username = conn['username']
+database = conn['database']
+hostname = conn['hostname']
+port = conn['port']
 
 @click.group()
 def cli():
@@ -63,13 +81,11 @@ def run_recipes(recipe):
 
         click.echo('\n')
         click.secho(f'Perform transformation in postgres ... ', fg='yellow')
-        sql_file = open(sql_path/f'{recipe}.sql')
-        escaped_sql = text(sql_file.read())
-        engine.execute(escaped_sql)
-
+        os.system(f"psql -U {username} -d {database} -h {hostname} -p {port} -f {sql_path/f'{recipe}.sql'}")
         click.echo('\n')
+
         if recipe in engine.table_names(): 
-                click.secho(f'{recipe} is COOKED!', fg='blue')
+                click.secho(f'{recipe} is loaded and transformed in psql!', fg='blue')
         else: 
                 click.secho(f'something went wrong ...', fg='red')
         click.echo('\n')
