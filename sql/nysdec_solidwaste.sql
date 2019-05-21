@@ -30,7 +30,6 @@ SET hash =  md5(CAST((t.*)AS text)),
                     WHEN activity_desc LIKE '%RHRF%' THEN 'Recyclables Handling and Recovery'
                     WHEN activity_desc LIKE '%medical%' THEN 'Regulated Medical Waste'
                     WHEN activity_desc LIKE '%Transfer%' THEN 'Transfer Station'
-                    WHEN activity_desc LIKE '%Composting%' THEN 'Composting'
                     ELSE initcap(trim(split_part(split_part(activity_desc,';',1),'-',1),' '))
 		        END),
 	facsubgrp = (CASE
