@@ -24,9 +24,9 @@ update dsny_mtsgaragemaintenance as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL 
-				            THEN ST_GeometryFromText(location, 4326)
+				        THEN ST_GeometryFromText(location, 4326)
 				        ELSE wkb_geometry
-				    END),
+				END),
 	facname = (CASE
                     WHEN type ~* 'garage' THEN CONCAT(name,' ',type)
                     WHEN type !~* 'garage' THEN CONCAT(name)
