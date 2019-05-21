@@ -24,10 +24,8 @@ update bpl_libraries as t
 SET hash =  md5(CAST((t.*)AS text)), 
     wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL 
-							THEN ST_SetSRID(
-									ST_Point(split_part(position, ',', 2)::DOUBLE PRECISION, 
-											 split_part(position, ',', 1)::DOUBLE PRECISION)
-								, 4326)
+						THEN ST_SetSRID(ST_Point(split_part(position, ',', 2)::DOUBLE PRECISION, 
+												 split_part(position, ',', 1)::DOUBLE PRECISION), 4326)
 						ELSE wkb_geometry
 					END),
 	facname = title,
