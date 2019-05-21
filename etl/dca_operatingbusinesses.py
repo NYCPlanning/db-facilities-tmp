@@ -29,6 +29,14 @@ dca_operatingbusinesses = Flow(
     filter_rows(not_equals = [
             dict(address_borough = 'Outside NYC'),
             ]),
+
+    filter_rows(equals = [
+            dict(industry = 'Scrap Metal Processor'),
+            dict(industry = 'Parking Lot'),
+            dict(industry = 'Garage'),
+            dict(industry = 'Garage and Parking Lot'),
+            dict(industry = 'Tow Truck Company'),
+            ]),
             
     add_field('datasource', 'string', table_name),
 

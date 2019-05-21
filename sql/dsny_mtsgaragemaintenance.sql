@@ -22,11 +22,6 @@ ALTER TABLE dsny_mtsgaragemaintenance
 
 update dsny_mtsgaragemaintenance as t
 SET hash =  md5(CAST((t.*)AS text)), 
-    the_geom = (CASE
-                    WHEN the_geom = ''
-                        THEN location
-                    ELSE the_geom
-                END),
 	facname = (CASE
                     WHEN LOWER(type) = 'garage' THEN CONCAT(name,' ',type)
                     WHEN LOWER(type) <> 'garage' THEN CONCAT(name)

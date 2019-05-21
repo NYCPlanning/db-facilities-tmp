@@ -34,10 +34,11 @@ dsny_mtsgaragemaintenance = Flow(
 
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
+                            operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'] 
+                                        if row['geo_longitude'] != None 
+                                        else row['location'])
                             )
                         ]),
-
     dump_to_postgis()
 )
 
