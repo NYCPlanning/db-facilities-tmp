@@ -1,4 +1,3 @@
-# take 20m+ to run for 2019 data
 from dataflows import *
 from lib import dump_to_postgis, rename_field
 import os
@@ -29,9 +28,16 @@ dca_operatingbusinesses = Flow(
     filter_rows(not_equals = [
             dict(address_borough = 'Outside NYC'),
             ]),
+
+    filter_rows(equals = [
+            dict(industry = 'Scrap Metal Processor'),
+            dict(industry = 'Parking Lot'),
+            dict(industry = 'Garage'),
+            dict(industry = 'Garage and Parking Lot'),
+            dict(industry = 'Tow Truck Company'),
+            ]),
             
     add_field('datasource', 'string', table_name),
-
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
@@ -65,6 +71,7 @@ dca_operatingbusinesses = Flow(
                                 else get_the_geom(row['longitude'], row['latitude']) 
                             )
                         ]),
+
     dump_to_postgis(table_name)
 )
 

@@ -22,25 +22,28 @@ ALTER TABLE dca_operatingbusinesses
 
 update dca_operatingbusinesses as t
 SET hash =  md5(CAST((t.*)AS text)), 
-	facname = initcap(Business_Name),
+	facname = initcap(business_name),
 	factype = (CASE 
 			        WHEN industry LIKE '%Scrap Metal%' THEN 'Scrap Metal Processing'
 			        WHEN industry LIKE '%Tow%' THEN 'Tow Truck Company'
 			        ELSE CONCAT('Commercial ', industry)
 		        END),
-	-- facsubgrp = 
-				-- (CASE
-					-- WHEN discipline LIKE '%Museum%' THEN 'Museums'
-					-- ELSE 'Other Cultural Institutions'
-				-- END),
+	facsubgrp = 
+				(CASE
+					WHEN industry = 'Scrap Metal Processor' THEN 'Solid Waste Processing'
+					WHEN industry = 'Parking Lot' THEN 'Parking Lots and Garages'
+					WHEN industry = 'Garage' THEN 'Parking Lots and Garages'
+					WHEN industry = 'Garage and Parking Lot' THEN 'Parking Lots and Garages'
+					WHEN industry = 'Tow Truck Company' THEN 'Parking Lots and Garages'
+				END),
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
-	opname = initcap(Business_Name),
+	opname = initcap(business_name),
 	opabbrev = 'Non-public',
 	optype = 'Non-public',
-	overagency = 'NYC Department of Cultural Affairs',
-	overabbrev = 'NYCDCLA', 
+	overagency = 'NYC Department of Consumer Affairs',
+	overabbrev = 'NYCDCA', 
 	overlevel = NULL, 
 	capacity = NULL, 
 	captype = NULL, 
