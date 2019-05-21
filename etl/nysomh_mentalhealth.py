@@ -5,7 +5,7 @@ import csv
 import sys
 from pathlib import Path
 import re
-from utils import url, fields, geo_flow, get_the_geom, get_geom_source, quick_clean, get_hnum, get_sname
+from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
@@ -35,7 +35,7 @@ nysomh_mentalhealth = Flow(
     
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                 operation=lambda row: quick_clean(row['program_address_1']) 
-                                            if row['program_address_1'] != None else None
+                                            # if row['program_address_1'] != None else None
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
@@ -46,17 +46,10 @@ nysomh_mentalhealth = Flow(
                         ]),
 
     geo_flow,
-    add_computed_field([dict(target=dict(name = 'the_geom_tmp', type = 'string'),
+    add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
-                        dict(target=dict(name = 'the_geom', type = 'string'),
-                            operation=lambda row: row['the_geom_tmp'] 
-                                        if row['the_geom_tmp'] != None
-                                else get_geom_source(row['location'])
-                            )
                         ]),
-
-    delete_fields(fields=['the_geom_tmp']),
     
     dump_to_postgis(table_name)
 )

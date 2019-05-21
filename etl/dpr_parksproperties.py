@@ -1,5 +1,5 @@
 from dataflows import *
-from lib import dump_to_postgis, rename_field
+from lib import dump_to_postgis, rename_field, map_field
 import os
 import csv
 import sys
@@ -31,21 +31,18 @@ dpr_parksproperties = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
+    map_field('address', operation=lambda a: quick_clean(a)),
     add_computed_field([dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
                                     ),   
-                        dict(target=dict(name = 'sname_tmp', type = 'string'),
-                                    operation=lambda row: get_sname(row['address'])
-                                    ),
                         dict(target=dict(name = 'sname', type = 'string'),
-                                operation=lambda row: quick_clean(row['signname']) 
-                                            if row['sname_tmp'] == '' else row['sname_tmp']
+                                    operation=lambda row: get_sname(row['address']) if row['address'] != ''
+                                    else quick_clean(row['signname'])
                                     ),
                         dict(target=dict(name = 'boro', type = 'string'),
                                     operation=lambda row: get_boro(row['borough'])
                                     )
                         ]),
-    delete_fields(fields=['sname_tmp']),
 
     rename_field('the_geom','multipolygon'),
 

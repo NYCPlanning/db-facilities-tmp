@@ -12,26 +12,20 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'doitt_libraries'
 doitt_libraries = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
-    # datasource
-    add_field('datasource', 'string', table_name),
 
+    add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################
-
-    # hnum
-    rename_field('housenum', 'hnum'),
-    # sname 
-    rename_field('streetname', 'sname'),
-    # boro
+    
     add_field('boro', 'string', ''),
-    # zipcode
-    rename_field('zip', 'zipcode'),
 
+    rename_field('housenum', 'hnum'),
+    rename_field('streetname', 'sname'),
+    rename_field('zip', 'zipcode'),
     rename_field('the_geom', 'original_geom'),
 
     geo_flow,
@@ -40,7 +34,7 @@ doitt_libraries = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    printer(num_rows=3),
+    # printer(num_rows=3),
     dump_to_postgis()
 )
 

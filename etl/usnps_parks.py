@@ -8,7 +8,6 @@ from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, ge
 
 csv.field_size_limit(sys.maxsize)
 
-
 table_name = 'usnps_parks'
 usnps_parks = Flow(
     load(url, resources = table_name, force_strings=False),

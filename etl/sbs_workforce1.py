@@ -12,24 +12,18 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'sbs_workforce1'
 sbs_workforce1 = Flow(
     load(url, resources = table_name, force_strings=False),
-    # cacheing table
     checkpoint(table_name),
-    # datasource
-    add_field('datasource', 'string', table_name),
 
+    add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # hnum
     rename_field('number', 'hnum'),
-    # sname 
     rename_field('street', 'sname'),
-    # boro
     rename_field('borough', 'boro'),
-    # zipcode
     rename_field('postcode', 'zipcode'),
 
     geo_flow,

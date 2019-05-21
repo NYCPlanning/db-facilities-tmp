@@ -1,5 +1,5 @@
 from dataflows import *
-from lib import dump_to_postgis, rename_field
+from lib import dump_to_postgis, rename_field, map_field
 import os
 import csv
 import sys
@@ -21,7 +21,7 @@ bpl_libraries = Flow(
     #################################################
 
     add_field('boro','string', 'BK'),
-
+    map_field('address', operation=lambda a: quick_clean(a)),
     add_computed_field([dict(target=dict(name = 'zipcode', type = 'string'),
                                         operation=lambda row: row['address'][-5::]
                                         ),
