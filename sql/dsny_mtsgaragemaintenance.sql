@@ -26,8 +26,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 				        WHEN wkb_geometry is NULL 
 				        THEN ST_GeometryFromText(location, 4326)
 				        ELSE wkb_geometry
-				END),
-	facname = (CASE
+					END),
+  	facname = (CASE
                     WHEN type ~* 'garage' THEN CONCAT(name,' ',type)
                     WHEN type !~* 'garage' THEN CONCAT(name)
 		        END),
