@@ -73,16 +73,23 @@
 
         docker exec -it facdb bash
         
-        
 2. access postgres 
 
         docker exec -it db bash
         psql -U postgres to access postgres
 
-3. run any pipelines in etl from root directory: 
+3. run any pipelines in etl from root directory: (note this would run both the .py and .sql file)
 
-        python  etl/example_data.py
+        cook recipe run <name of recipe>
 
-4. if you don't want to run it in an interative shell: 
+4. Check local recipes: 
 
-        docker exec facdb etl/example_data.py
+        cook recipe ls local
+
+5. Check recipes in postgres: 
+
+        cook recipe ls pg
+
+6. check local/postgres differences:
+
+        cook recipe ls diff
