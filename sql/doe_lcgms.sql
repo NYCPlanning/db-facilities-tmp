@@ -82,6 +82,3 @@ SET hash =  md5(CAST((t.*)AS text)),
     captype = NULL, 
     proptype = NULL
 ;
-
-
-select * from facilities where datasource='doe_lcgms' limit 5;
