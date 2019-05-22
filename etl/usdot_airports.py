@@ -15,11 +15,15 @@ usdot_airports = Flow(
     add_field('datasource', 'string', table_name),
 
     filter_rows(equals = [
-            dict(city = 'New York')
+            dict(statename = 'New York')
             ]),
 
-    filter_rows(not_equals = [
-            dict(county = 'Suffolk')
+    filter_rows(equals = [
+            dict(county = 'New York'),
+            dict(county = 'Queens'),
+            dict(county = 'Bronx'),
+            dict(county = 'Richmond'),
+            dict(county = 'Kings'),
             ]),
 
     ################## geospatial ###################
@@ -34,7 +38,7 @@ usdot_airports = Flow(
 
     add_computed_field([
                             dict(target=dict(name = 'sname', type = 'string'),
-                                    operation=lambda row: quick_clean(row['fullname']) + ' Airport'
+                                    operation=lambda row: quick_clean(row['fullname']) + ' ' + row['facilityty']
                                     ),
                             dict(target=dict(name = 'boro', type = 'string'),
                                     operation=lambda row: row['county']
