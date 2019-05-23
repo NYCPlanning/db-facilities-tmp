@@ -5,7 +5,7 @@
 
 ALTER TABLE qpl_libraries
     ADD hash text, 
-    ADD facname text,
+    ADD facname text,
     ADD factype text,
     ADD facsubgrp text,
     ADD facgroup text,
