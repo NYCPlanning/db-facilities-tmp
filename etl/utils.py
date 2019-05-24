@@ -24,7 +24,7 @@ fields = ['uid', 'facname',
         'council', 'censtract', 
         'datasource', 'geom']
 
-url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-23/datapackage.json'
+url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-24/datapackage.json'
 
 def get_the_geom(lon, lat): 
         lon = float(lon) if lon != '' else None
