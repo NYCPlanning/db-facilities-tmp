@@ -3,23 +3,25 @@ from lib import dump_to_postgis, rename_field
 import os
 import csv
 import sys
-from pathlib import Path
-import re
 from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'nysomh_mentalhealth'
-nysomh_mentalhealth = Flow(
+table_name = 'nysdoh_nursinghomes'
+nysdoh_nursinghomes = Flow(
     load(url, resources = table_name, force_strings=False),
     checkpoint(table_name),
 
     filter_rows(equals = [
-            dict(program_county = 'Kings'),
-            dict(program_county = 'New York'),
-            dict(program_county = 'Brox'),
-            dict(program_county = 'Queens'),
-            dict(program_county = 'Richmond')
+            dict(state = 'NY')
+            ]),
+
+    filter_rows(equals = [
+            dict(county = 'New York'),
+            dict(county = 'Queens'),
+            dict(county = 'Bronx'),
+            dict(county = 'Richmond'),
+            dict(county = 'Kings'),
             ]),
 
     add_field('datasource', 'string', table_name),
@@ -29,12 +31,13 @@ nysomh_mentalhealth = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    rename_field('program_zip','zipcode'),
-
-    add_field('boro','string',''),
+    rename_field('zip_code','zipcode'),
     
-    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
-                                operation=lambda row: quick_clean(row['program_address_1']) 
+    add_computed_field([dict(target=dict(name = 'boro', type = 'string'),
+                                operation=lambda row: row['county']
+                                    ),
+                        dict(target=dict(name = 'address', type = 'string'),
+                                operation=lambda row: quick_clean(row['street_address']) 
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
@@ -49,7 +52,8 @@ nysomh_mentalhealth = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
                         ]),
+    delete_fields(fields=['boro']),
     
     dump_to_postgis(table_name)
 )
-nysomh_mentalhealth.process()
+nysdoh_nursinghomes.process()
