@@ -3,7 +3,7 @@ from lib import dump_to_postgis, rename_field
 import os
 import csv
 import sys
-from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
+from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname, convert_to_boro
 
 csv.field_size_limit(sys.maxsize)
 
@@ -34,7 +34,7 @@ nysdoh_nursinghomes = Flow(
     rename_field('zip_code','zipcode'),
     
     add_computed_field([dict(target=dict(name = 'boro', type = 'string'),
-                                operation=lambda row: row['county']
+                                operation=lambda row: convert_to_boro(row['county'])
                                     ),
                         dict(target=dict(name = 'address', type = 'string'),
                                 operation=lambda row: quick_clean(row['street_address']) 
@@ -52,8 +52,7 @@ nysdoh_nursinghomes = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
                         ]),
-    delete_fields(fields=['boro']),
-    
+
     dump_to_postgis(table_name)
 )
 nysdoh_nursinghomes.process()

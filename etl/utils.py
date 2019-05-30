@@ -26,6 +26,13 @@ fields = ['uid', 'facname',
 
 url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-28/datapackage.json'
 
+def convert_to_boro(county):
+        if county.upper() == 'NEW YORK': return 'MN'
+        if county.upper() == 'KINGS': return 'BK'
+        if county.upper() == 'BRONX': return 'BX'
+        if county.upper() == 'QUEENS': return 'QN'
+        if county.upper() == 'RICHMOND': return 'SI'
+
 def get_the_geom(lon, lat): 
         lon = float(lon) if lon != '' else None
         lat = float(lat) if lat != '' else None
