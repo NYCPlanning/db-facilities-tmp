@@ -20,7 +20,7 @@ ALTER TABLE foodbankny_foodbanks
 	ADD	captype text,
 	ADD	proptype text;
 
-update foodbankny_foodbanks as t
+UPDATE foodbankny_foodbanks as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL 
@@ -34,11 +34,17 @@ SET hash =  md5(CAST((t.*)AS text)),
 	factype = (CASE
 				WHEN categories = '64' THEN 'Food Pantry'
 				WHEN categories = '65' THEN 'Soup Kitchen'
+				WHEN categories = '63' THEN 'Senior Center'
+				WHEN categories = '66' THEN 'SNAP Center'
+				WHEN categories = '67' THEN 'Kosher Center'
+			  END),
+	facsubgrp = (CASE
+				WHEN categories = '64' THEN 'Soup Kitchens and Food Pantries'
+				WHEN categories = '65' THEN 'Soup Kitchens and Food Pantries'
 				WHEN categories = '63' THEN 'Senior Services'
 				WHEN categories = '66' THEN 'Financial Assistance and Social Services'
 				WHEN categories = '67' THEN 'Soup Kitchens and Food Pantries'
 			  END),
-	facsubgrp = 'Soup Kitchens and Food Pantries',	
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
