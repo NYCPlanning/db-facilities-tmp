@@ -37,7 +37,7 @@ def quick_clean(address):
         result = [k for (k,v) in usaddress.parse(address) \
                 if not v in \
                  ['OccupancyIdentifier', 'OccupancyType']]
-        return re.sub(r'[,\%\$\#\@\!\_\.\?\`]', '', ' '.join(result))
+        return re.sub(r'[,\%\$\#\@\!\_\.\?\`\"\(\)]', '', ' '.join(result))
 
 def get_hnum(address): 
         result = [k for (k,v) in usaddress.parse(address) \
