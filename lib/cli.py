@@ -93,11 +93,8 @@ def run_recipes(recipe):
 @recipe.command('init')
 def init_recipes():
         click.secho(f'Initializing ... ', fg='yellow')
-
-        create = open(sql_path/'create.sql')
-        load_to_facilities = open(sql_path/'create.sql')
-        escaped_sql = text(sql_file.read())
-        engine.execute(escaped_sql)
+        os.system(f"psql -U {username} -d {database} -h {hostname} -p {port} -f {sql_path/'create.sql'}")
+        os.system(f"psql -U {username} -d {database} -h {hostname} -p {port} -f {sql_path/'load_to_facilities.sql'}")
 
 @recipe.command('clean')
 def remove_cache():
