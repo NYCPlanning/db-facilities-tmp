@@ -1,8 +1,9 @@
+
 --select w.status::text, count(*) 
---from (select geo::json->'status' as status from usnps_parks) w
+--from (select geo::json->'status' as status from nypl_libraries) w
 --group by w.status::text;
 
-ALTER TABLE usnps_parks
+ALTER TABLE nypl_libraries
 	ADD hash text, 
 	ADD	facname text,
 	ADD	factype text,
@@ -20,26 +21,31 @@ ALTER TABLE usnps_parks
 	ADD	captype text,
 	ADD	proptype text;
 
-update usnps_parks as t
+update nypl_libraries as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
-						WHEN wkb_geometry is NULL 
-							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
-						ELSE wkb_geometry
+				        WHEN wkb_geometry is NULL 
+				        THEN ST_SetSRID(ST_Point(
+				        		lon::DOUBLE PRECISION, 
+				        		lat::DOUBLE PRECISION), 
+				        		4326)
+				        ELSE wkb_geometry
 					END),
-	facname = unit_name,
-	factype = unit_type,
-	facsubgrp = 'Historical Sites',
+	facname = name,
+	factype = 'Public Library',
+	facsubgrp = 'Libraries',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
-	opname = 'National Park Service',
-	opabbrev = 'USNPS',
-	optype = 'Public',
-	overagency = 'National Park Service',
-	overabbrev = 'USNPS',
+	opname = 'New York Public Libraries',
+	opabbrev = 'NYPL',
+	optype = 'Non-public',
+	overagency = 'New York Public Libraries',
+	overabbrev = 'NYPL',
 	overlevel = NULL, 
 	capacity = NULL, 
 	captype = NULL, 
 	proptype = NULL
 ;
+
+

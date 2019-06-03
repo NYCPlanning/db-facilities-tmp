@@ -1,15 +1,16 @@
 from dataflows import *
-from lib import dump_to_postgis, rename_field, map_field
+from lib import dump_to_postgis, rename_field
 import os
 import csv
 import sys
 from pathlib import Path
+import re
 from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'bpl_libraries'
-bpl_libraries = Flow(
+table_name = 'dot_mannedfacilities'
+dot_mannedfacilities = Flow(
     load(url, resources = table_name, force_strings=False),
     checkpoint(table_name),
 
@@ -20,17 +21,20 @@ bpl_libraries = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    add_field('boro','string', 'BK'),
-    map_field('address', operation=lambda a: quick_clean(a)),
-    add_computed_field([dict(target=dict(name = 'zipcode', type = 'string'),
-                                operation=lambda row: row['address'][-5:]
-                                        ),
+    rename_field('boroname', 'boro'),
+    rename_field('wkt','point_location'),
+
+    add_field('zipcode', 'string', ''),
+
+    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
+                                        operation=lambda row: quick_clean(row['site'])
+                                ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
-                                        ),
+                                ),
                         dict(target=dict(name = 'sname', type = 'string'),
-                                operation=lambda row: get_sname(row['address'])
-                                        )
+                                    operation=lambda row: get_sname(row['address'])
+                                )
                         ]),
 
     geo_flow,
@@ -38,8 +42,9 @@ bpl_libraries = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    
-    dump_to_postgis(table_name)
+                        
+    dump_to_postgis()
 )
 
-bpl_libraries.process()
+dot_mannedfacilities.process()
+

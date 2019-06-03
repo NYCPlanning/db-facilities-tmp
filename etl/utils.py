@@ -6,25 +6,7 @@ import urllib
 from shapely.geometry import Point
 from dataflows import *
 
-fields = ['uid', 'facname', 
-        'factype', 'facsubgrp', 
-        'facgroup', 'facdomain', 
-        'servarea', 'opname', 
-        'opabbrev', 'optype', 
-        'overagency', 'overabbrev', 
-        'overlevel', 'capacity', 
-        'captype', 'proptype', 
-        'hnum', 'sname',
-        'address', 'city', 
-        'zipcode', 'boro', 
-        'bin', 'bbl', 
-        'latitude', 'longitude', 
-        'xcoord', 'ycoord', 
-        'commboard', 'nta', 
-        'council', 'censtract', 
-        'datasource', 'geom']
-
-url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-28/datapackage.json'
+url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-31/datapackage.json'
 
 def convert_to_boro(county):
         if county.upper() == 'NEW YORK': return 'MN'
@@ -44,7 +26,7 @@ def quick_clean(address):
         result = [k for (k,v) in usaddress.parse(address) \
                 if not v in \
                  ['OccupancyIdentifier', 'OccupancyType']]
-        return re.sub(r'[,\%\$\#\@\!\_\.\?\`]', '', ' '.join(result))
+        return re.sub(r'[,\%\$\#\@\!\_\.\?\`\"\(\)]', '', ' '.join(result))
 
 def get_hnum(address): 
         result = [k for (k,v) in usaddress.parse(address) \

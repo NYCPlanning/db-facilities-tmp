@@ -10,18 +10,9 @@
                 -e "DATAFLOWS_DB_ENGINE=postgresql://postgres@localhost:5433/postgres"\
                 sptkl/docker-dataloading:latest /bin/bash -c "pip install -e .; bash"
                 
-1. The lib folder need to be within the etl folder to enable all py functions work
-2. Install the usdress package
+1. navigate to the db-facilities-tmp directory
         ```
-        pip install usdress
-        ```
-3. Install the latest dataflows package to enable add_computed_field() function
-        ```
-        pip install dataflows -U
-        ```
-4. Install the shapely package to enable geocoding functions
-        ```
-        pip install shapely
+        cd db-facilities-tmp
         ```
         
 #### __Postgis__
