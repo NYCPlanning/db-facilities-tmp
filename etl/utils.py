@@ -24,7 +24,7 @@ fields = ['uid', 'facname',
         'council', 'censtract', 
         'datasource', 'geom']
 
-url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-24/datapackage.json'
+url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-31/datapackage.json'
 
 def get_the_geom(lon, lat): 
         lon = float(lon) if lon != '' else None
@@ -37,7 +37,7 @@ def quick_clean(address):
         result = [k for (k,v) in usaddress.parse(address) \
                 if not v in \
                  ['OccupancyIdentifier', 'OccupancyType']]
-        return re.sub(r'[,\%\$\#\@\!\_\.\?\`]', '', ' '.join(result))
+        return re.sub(r'[,\%\$\#\@\!\_\.\?\`\"\(\)]', '', ' '.join(result))
 
 def get_hnum(address): 
         result = [k for (k,v) in usaddress.parse(address) \
