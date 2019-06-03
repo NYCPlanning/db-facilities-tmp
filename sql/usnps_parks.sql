@@ -22,7 +22,7 @@ ALTER TABLE usnps_parks
 
 update usnps_parks as t
 SET hash =  md5(CAST((t.*)AS text)), 
-    wkb_geometry = (CASE
+	wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL 
 							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
 						ELSE wkb_geometry

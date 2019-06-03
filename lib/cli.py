@@ -98,3 +98,8 @@ def init_recipes():
         load_to_facilities = open(sql_path/'create.sql')
         escaped_sql = text(sql_file.read())
         engine.execute(escaped_sql)
+
+@recipe.command('clean')
+def remove_cache():
+        click.secho(f'Removing cache ... ', fg='yellow')
+        os.system('rm -r .checkpoints')

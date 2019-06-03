@@ -4,7 +4,7 @@
 -- group by w.status::text;
 
 ALTER TABLE usdot_airports
-    ADD hash text, 
+    ADD hash text, 
     ADD facname text,
     ADD factype text,
     ADD facsubgrp text,
