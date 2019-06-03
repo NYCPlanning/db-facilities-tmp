@@ -93,7 +93,9 @@ def run_recipes(recipe):
 @recipe.command('init')
 def init_recipes():
         click.secho(f'Initializing ... ', fg='yellow')
+        click.secho(f'Create facilities ... ', fg='yellow')
         os.system(f"psql -U {username} -d {database} -h {hostname} -p {port} -f {sql_path/'create.sql'}")
+        click.secho(f'Create stored procedure ... ', fg='yellow')
         os.system(f"psql -U {username} -d {database} -h {hostname} -p {port} -f {sql_path/'load_to_facilities.sql'}")
 
 @recipe.command('clean')
