@@ -9,8 +9,8 @@ from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, ge
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'doe_busroutesgarages'
-doe_busroutesgarages = Flow(
+table_name = 'dot_bridgehouses'
+dot_bridgehouses = Flow(
     load(url, resources = table_name, force_strings=False),
     checkpoint(table_name),
 
@@ -21,29 +21,35 @@ doe_busroutesgarages = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
-                                        operation=lambda row: quick_clean(row['garage__street_address'])
-                                        ),
+    # rename_field('boroname', 'boro'),
+    rename_field('wkt', 'point_location'),
+
+    add_field('zipcode', 'string', ''),
+
+    add_computed_field([dict(target=dict(name = 'boro', type = 'string'),
+                                operation=lambda row: row['boroname'] 
+                                            if row['boroname'] != 'None'
+                                            else '' 
+                                    ),
+                        dict(target=dict(name = 'address', type = 'string'),
+                                operation=lambda row: quick_clean(row['site'])
+                                    ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
                                     ),
                         dict(target=dict(name = 'sname', type = 'string'),
-                                    operation=lambda row: get_sname(row['address'])
+                                operation=lambda row: get_sname(row['address'])
                                     )
                         ]),
-
-    add_field('boro', 'string', ''),
-
-    rename_field('garage_zip', 'zipcode'),
 
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-
+    # printer()
     dump_to_postgis()
 )
 
-doe_busroutesgarages.process()
+dot_bridgehouses.process()
 
