@@ -24,6 +24,7 @@ dot_bridgehouses = Flow(
     rename_field('wkt', 'point_location'),
 
     add_field('zipcode', 'string', ''),
+    add_field('hnum', 'string', ''),
 
     add_computed_field([dict(target=dict(name = 'boro', type = 'string'),
                                 operation=lambda row: row['boroname'] 
@@ -33,11 +34,8 @@ dot_bridgehouses = Flow(
                         dict(target=dict(name = 'address', type = 'string'),
                                 operation=lambda row: quick_clean(row['site'])
                                     ),
-                        dict(target=dict(name = 'hnum', type = 'string'),
-                                operation = lambda row: get_hnum(row['address'])
-                                    ),
                         dict(target=dict(name = 'sname', type = 'string'),
-                                operation=lambda row: get_sname(row['address'])
+                                operation=lambda row: row['address']
                                     )
                         ]),
 
