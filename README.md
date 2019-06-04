@@ -1,4 +1,4 @@
-# db-facilities-tmp
+# db-facilities-tmp [![CircleCI](https://circleci.com/gh/NYCPlanning/db-facilities-tmp.svg?style=svg)](https://circleci.com/gh/NYCPlanning/db-facilities-tmp)
 
 ## Development environment
 #### __Dataloading environment__
