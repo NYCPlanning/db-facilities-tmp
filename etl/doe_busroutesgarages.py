@@ -6,14 +6,15 @@ import sys
 from pathlib import Path
 import re
 from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
-
+import datetime
 csv.field_size_limit(sys.maxsize)
 
 table_name = 'doe_busroutesgarages'
 doe_busroutesgarages = Flow(
     load(url, resources = table_name, force_strings=False),
-    checkpoint(table_name),
 
+    filter_rows(equals=[dict(school_year=f'{datetime.date.today().year-1}-{datetime.date.today().year}')]),
+    
     add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
