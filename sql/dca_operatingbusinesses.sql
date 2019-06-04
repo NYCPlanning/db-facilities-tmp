@@ -24,7 +24,9 @@ update dca_operatingbusinesses as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL 
-				            THEN ST_SetSRID(ST_Point(longitude, latitude), 4326)
+							AND longitude != 'None' AND latitude != 'None'
+				        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
+												 latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
 	facname = initcap(business_name),

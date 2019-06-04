@@ -1,7 +1,7 @@
 
-select w.status::text, count(*) 
-from (select geo::json->'status' as status from doitt_libraries) w
-group by w.status::text;
+-- select w.status::text, count(*) 
+-- from (select geo::json->'status' as status from doitt_libraries) w
+-- group by w.status::text;
 
 ALTER TABLE doitt_libraries
 	ADD hash text, 

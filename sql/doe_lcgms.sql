@@ -1,7 +1,7 @@
 
-select w.status::text, count(*) 
-from (select geo::json->'status' as status from doe_lcgms) w
-group by w.status::text;
+-- select w.status::text, count(*) 
+-- from (select geo::json->'status' as status from doe_lcgms) w
+-- group by w.status::text;
 
 ALTER TABLE doe_lcgms
 	ADD hash text, 

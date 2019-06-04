@@ -22,13 +22,13 @@ ALTER TABLE nysopwdd_providers
 
 update nysopwdd_providers as t
 SET hash =  md5(CAST((t.*)AS text)), 
-	facname = initcap(Service_Provider_Agency),
+	facname = initcap(service_provider_agency),
 	factype = 'Programs for People with Disabilities',
 	facsubgrp = 'Programs for People with Disabilities',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
-	opname = initcap(Service_Provider_Agency),
+	opname = initcap(service_provider_agency),
 	opabbrev = 'Non-public',
 	optype = 'Non-public',
 	overagency = 'NYS Office for People With Developmental Disabilities',
