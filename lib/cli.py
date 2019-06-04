@@ -77,7 +77,7 @@ def list_recipes(recipe):
 def run_recipes(recipe):
         click.echo('\n')
         click.secho(f'Pulling {recipe} from s3 and loading to postgres ... ', fg='yellow')
-        os.system(f'python {etl_path}/{recipe}.py')
+        os.system(f'python3 {etl_path}/{recipe}.py')
 
         click.echo('\n')
         click.secho(f'Perform transformation in postgres ... ', fg='yellow')
