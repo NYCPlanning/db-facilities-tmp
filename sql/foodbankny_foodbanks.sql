@@ -1,7 +1,7 @@
 
-select w.status::text, count(*) 
-from (select geo::json->'status' as status from foodbankny_foodbanks) w
-group by w.status::text;
+-- select w.status::text, count(*) 
+-- from (select geo::json->'status' as status from foodbankny_foodbanks) w
+-- group by w.status::text;
 
 ALTER TABLE foodbankny_foodbanks
 	ADD hash text, 
