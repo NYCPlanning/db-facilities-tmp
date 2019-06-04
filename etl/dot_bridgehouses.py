@@ -21,7 +21,6 @@ dot_bridgehouses = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
 
-    # rename_field('boroname', 'boro'),
     rename_field('wkt', 'point_location'),
 
     add_field('zipcode', 'string', ''),
@@ -47,7 +46,7 @@ dot_bridgehouses = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    # printer()
+
     dump_to_postgis()
 )
 
