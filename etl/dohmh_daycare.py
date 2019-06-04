@@ -12,9 +12,7 @@ table_name = 'dohmh_daycare'
 
 dohmh_daycare = Flow(
     load(url, resources = table_name, force_strings=False),
-    checkpoint(table_name),
-    # uid text,
-    add_field('uid', 'string'),
+
     # datasource text,
     add_field('datasource', 'string', table_name),
 
