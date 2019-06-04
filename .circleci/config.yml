@@ -34,7 +34,7 @@ jobs:
           command: |
             cook recipe init
       
-      # - run:
-      #     name: run zoningtaxlots
-      #     command: |
-      #       cook pipeline run db-zoningtaxlots
+      - run:
+          name: run all recipes
+          command: |
+            python3 runners/01_dataloading.py
