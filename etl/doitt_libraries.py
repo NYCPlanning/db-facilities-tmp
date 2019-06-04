@@ -34,7 +34,7 @@ doitt_libraries = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    # printer(num_rows=3),
+
     dump_to_postgis()
 )
 

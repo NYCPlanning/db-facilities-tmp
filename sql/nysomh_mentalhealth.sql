@@ -21,8 +21,8 @@ ALTER TABLE nysomh_mentalhealth
 
 update nysomh_mentalhealth as t
 SET hash =  md5(CAST((t.*)AS text)), 
-	facname = Program_Name, 
-	factype = Program_Category_Description,
+	facname = program_name, 
+	factype = program_category_description,
 	facsubgrp = 'Mental Health',
 	facgroup = NULL,
 	facdomain = NULL,
