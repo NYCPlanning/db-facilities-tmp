@@ -2,6 +2,7 @@
 --select w.status::text, count(*) 
 --from (select geo::json->'status' as status from dcla_culturalinstitutions) w
 --group by w.status::text;
+
 ALTER TABLE dcla_culturalinstitutions
 	ADD hash text, 
 	ADD	facname text,

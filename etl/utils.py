@@ -24,7 +24,14 @@ fields = ['uid', 'facname',
         'council', 'censtract', 
         'datasource', 'geom']
 
-url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-24/datapackage.json'
+url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-31/datapackage.json'
+
+def convert_to_boro(county):
+        if county.upper() == 'NEW YORK': return 'MN'
+        if county.upper() == 'KINGS': return 'BK'
+        if county.upper() == 'BRONX': return 'BX'
+        if county.upper() == 'QUEENS': return 'QN'
+        if county.upper() == 'RICHMOND': return 'SI'
 
 def get_the_geom(lon, lat): 
         lon = float(lon) if lon != '' else None
@@ -37,7 +44,7 @@ def quick_clean(address):
         result = [k for (k,v) in usaddress.parse(address) \
                 if not v in \
                  ['OccupancyIdentifier', 'OccupancyType']]
-        return re.sub(r'[,\%\$\#\@\!\_\.\?\`]', '', ' '.join(result))
+        return re.sub(r'[,\%\$\#\@\!\_\.\?\`\"\(\)]', '', ' '.join(result))
 
 def get_hnum(address): 
         result = [k for (k,v) in usaddress.parse(address) \
@@ -51,6 +58,7 @@ def get_sname(address):
 
 def get_geocode(hnum, sname, boro, zipcode):
         base_url = 'http://0.0.0.0:5000/1b?'
+        # base_url = 'http://api-geosupport.planninglabs.nyc:5000/1b?'
         # make sure there's no None involved
         hnum = str(hnum) if hnum is not None else ''
         sname = str(sname) if sname is not None else ''

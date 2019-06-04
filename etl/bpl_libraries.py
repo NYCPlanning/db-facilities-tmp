@@ -23,7 +23,7 @@ bpl_libraries = Flow(
     add_field('boro','string', 'BK'),
     map_field('address', operation=lambda a: quick_clean(a)),
     add_computed_field([dict(target=dict(name = 'zipcode', type = 'string'),
-                                        operation=lambda row: row['address'][-5::]
+                                operation=lambda row: row['address'][-5:]
                                         ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
@@ -38,7 +38,7 @@ bpl_libraries = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-   
+    
     dump_to_postgis(table_name)
 )
 

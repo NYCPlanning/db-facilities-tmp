@@ -1,8 +1,8 @@
 --select w.status::text, count(*) 
---from (select geo::json->'status' as status from usnps_parks) w
+--from (select geo::json->'status' as status from dot_bridgehouses) w
 --group by w.status::text;
 
-ALTER TABLE usnps_parks
+ALTER TABLE dot_bridgehouses
 	ADD hash text, 
 	ADD	facname text,
 	ADD	factype text,
@@ -20,24 +20,24 @@ ALTER TABLE usnps_parks
 	ADD	captype text,
 	ADD	proptype text;
 
-update usnps_parks as t
+update dot_bridgehouses as t
 SET hash =  md5(CAST((t.*)AS text)), 
-	wkb_geometry = (CASE
+    wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL 
-							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
+						THEN ST_GeometryFromText(point_location, 4326)
 						ELSE wkb_geometry
 					END),
-	facname = unit_name,
-	factype = unit_type,
-	facsubgrp = 'Historical Sites',
+	facname = site,
+	factype = 'Bridge House',
+	facsubgrp = 'Other Transportation',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
-	opname = 'National Park Service',
-	opabbrev = 'USNPS',
+	opname = 'NYC Department of Transportation',
+	opabbrev = 'NYCDOT',
 	optype = 'Public',
-	overagency = 'National Park Service',
-	overabbrev = 'USNPS',
+	overagency = 'NYC Department of Transportation',
+	overabbrev = 'NYCDOT', 
 	overlevel = NULL, 
 	capacity = NULL, 
 	captype = NULL, 

@@ -1,0 +1,36 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
+      - image: sptkl/docker-dataloading
+        environment:
+          DATAFLOWS_DB_ENGINE: postgresql://postgres@localhost:5432/postgres
+      - image: mdillon/postgis
+
+    parallelism: 2
+    working_directory: ~/db-facilities-tmp/
+
+    steps:
+      - checkout:
+
+      - run:
+          name: install dependencies
+          command: |
+            pip3 install -e .
+            eval "$(_COOK_COMPLETE=source cook)"
+
+      - run:
+          name: initialize
+          command: |
+            cook recipe init
+      
+      - run:
+          name: run all recipes
+          command: |
+            python3 runners/01_dataloading.py

@@ -77,7 +77,7 @@ def list_recipes(recipe):
 def run_recipes(recipe):
         click.echo('\n')
         click.secho(f'Pulling {recipe} from s3 and loading to postgres ... ', fg='yellow')
-        os.system(f'python {etl_path}/{recipe}.py')
+        os.system(f'python3 {etl_path}/{recipe}.py')
 
         click.echo('\n')
         click.secho(f'Perform transformation in postgres ... ', fg='yellow')
@@ -93,8 +93,12 @@ def run_recipes(recipe):
 @recipe.command('init')
 def init_recipes():
         click.secho(f'Initializing ... ', fg='yellow')
+        click.secho(f'Create facilities ... ', fg='yellow')
+        os.system(f"psql -U {username} -d {database} -h {hostname} -p {port} -f {sql_path/'create.sql'}")
+        click.secho(f'Create stored procedure ... ', fg='yellow')
+        os.system(f"psql -U {username} -d {database} -h {hostname} -p {port} -f {sql_path/'load_to_facilities.sql'}")
 
-        create = open(sql_path/'create.sql')
-        load_to_facilities = open(sql_path/'create.sql')
-        escaped_sql = text(sql_file.read())
-        engine.execute(escaped_sql)
+@recipe.command('clean')
+def remove_cache():
+        click.secho(f'Removing cache ... ', fg='yellow')
+        os.system('rm -r .checkpoints')

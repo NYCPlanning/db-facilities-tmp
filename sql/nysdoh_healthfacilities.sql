@@ -20,26 +20,28 @@ ALTER TABLE nysdoh_healthfacilities
 	ADD	captype text,
 	ADD	proptype text;
 
+
 update nysdoh_healthfacilities as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
-				        WHEN wkb_geometry is NULL 
-				            THEN ST_SetSRID(ST_Point(facility_longitude, facility_latitude), 4326)
+				        WHEN wkb_geometry IS NULL AND facility_location != 'None'
+					        THEN ST_SetSRID(ST_Point(facility_longitude::DOUBLE PRECISION, 
+												 facility_latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
-	facname = Facility_Name,
+	facname = facility_name,
 	factype = (CASE
-                    WHEN Description LIKE '%Residential%'
+                    WHEN description LIKE '%Residential%'
                         THEN 'Residential Health Care'
-                    ELSE Description
+                    ELSE description
 		        END),
 	facsubgrp = (CASE
-                    WHEN Description LIKE '%Residential%'
-                        OR Description LIKE '%Hospice%'
+                    WHEN description LIKE '%Residential%'
+                        OR description LIKE '%Hospice%'
                         THEN 'Residential Health Care'
-                    WHEN Description LIKE '%Adult Day Health%'
+                    WHEN description LIKE '%Adult Day Health%'
                         THEN 'Other Health Care'
-                    WHEN Description LIKE '%Home%'
+                    WHEN description LIKE '%Home%'
                         THEN 'Other Health Care'
                     ELSE 'Hospitals and Clinics'
 		        END),
@@ -48,7 +50,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 	servarea = NULL,
 	opname = (CASE
                     WHEN operator_name = 'City of New York' THEN 'NYC Department of Health and Mental Hygiene'
-                    WHEN operator_name = 'New York City Health and Hospital Corporation' THEN 'NYC Health and Hospitals Corporation'
+                    WHEN operator_name = 'New York City Health and Hospital Corporation' 
+						THEN 'NYC Health and Hospitals Corporation'
                     WHEN ownership_type = 'State' THEN 'NYS Department of Health'
                     ELSE operator_name
 		        END),
