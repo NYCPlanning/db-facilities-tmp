@@ -10,11 +10,16 @@ import datetime
 csv.field_size_limit(sys.maxsize)
 
 table_name = 'doe_busroutesgarages'
-doe_busroutesgarages = Flow(
-    load(url, resources = table_name, force_strings=False),
+SCHOOL_YEAR = f'{datetime.date.today().year-1}-{datetime.date.today().year}'
+print(f'current school year is {SCHOOL_YEAR}')
 
-    filter_rows(equals=[dict(school_year=f'{datetime.date.today().year-1}-{datetime.date.today().year}')]),
-    
+doe_busroutesgarages = Flow(
+    load(url, resources = table_name, force_strings=True),
+    update_resource(None, name=table_name),
+    update_resource(resources=table_name, path=table_name+'.csv'),
+
+    filter_rows(equals=[dict(school_year=SCHOOL_YEAR)]),
+
     add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################
@@ -38,11 +43,11 @@ doe_busroutesgarages = Flow(
     rename_field('garage_zip', 'zipcode'),
 
     geo_flow,
+    
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-
     dump_to_postgis()
 )
 

@@ -11,28 +11,14 @@
                 sptkl/docker-dataloading:latest /bin/bash -c "pip3 install -e .; bash"
                 
 1. navigate to the db-facilities-tmp directory
-        ```
+
         cd db-facilities-tmp
-        ```
         
 #### __Postgis__
 
-
-        ```
-        docker run -itd --name=db\
-                --network=host\
-                -p 5433:5432\
-                mdillon/postgis 
-        ```
-        
-        or
-        
-        
-        ```
         docker run -itd --name=db\
                 -p 5433:5432\
                 mdillon/postgis 
-        ```
 
 #### __Geocoding__
 
@@ -46,13 +32,12 @@
 
 3. run the following docker command:
 
-        
         docker run -itd --name=geo\
                 -v `pwd`:/src/app\
                 -w /src/app\
                 -p 5000:5000\
                 sptkl/docker-geosupport:19a-api python app.py
-        
+
 4. Test out the api by navigating to the following addresses: 
 
         http://0.0.0.0:5000/1b?house_number=120&street_name=broadway&borough=MN

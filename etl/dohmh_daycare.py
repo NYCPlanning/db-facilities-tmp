@@ -12,7 +12,9 @@ table_name = 'dohmh_daycare'
 
 dohmh_daycare = Flow(
     load(url, resources = table_name, force_strings=False),
-
+    update_resource(None, name=table_name),
+    update_resource(resources=table_name, path=table_name+'.csv'),
+    
     # datasource text,
     add_field('datasource', 'string', table_name),
 
