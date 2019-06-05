@@ -27,6 +27,7 @@ dohmh_daycare = Flow(
     # boro text,
     rename_field('borough', 'boro'),
     geo_flow,
+    delete_fields(['geo']),
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
