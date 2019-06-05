@@ -22,21 +22,9 @@
 
 #### __Geocoding__
 
-1. first pull geosupport api repo 
+1. run the following docker command: 
 
-        git clone git@github.com:NYCPlanning/api-geosupport.git
-
-2.  navigate to the api-geosupport directory
-
-        cd api-geosupport
-
-3. run the following docker command:
-
-        docker run -itd --name=geo\
-                -v `pwd`:/src/app\
-                -w /src/app\
-                -p 5000:5000\
-                sptkl/docker-geosupport:19a-api python app.py
+        docker run -itd -p 5000:5000 sptkl/api-geosupport
 
 4. Test out the api by navigating to the following addresses: 
 

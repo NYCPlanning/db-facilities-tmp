@@ -12,9 +12,6 @@ table_name = 'dohmh_daycare'
 
 dohmh_daycare = Flow(
     load(url, resources = table_name, force_strings=False),
-    update_resource(None, name=table_name),
-    update_resource(resources=table_name, path=table_name+'.csv'),
-    
     # datasource text,
     add_field('datasource', 'string', table_name),
 
@@ -26,8 +23,11 @@ dohmh_daycare = Flow(
     # zipcode --> no action needed
     # boro text,
     rename_field('borough', 'boro'),
+
     geo_flow,
+
     delete_fields(['geo']),
+
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
