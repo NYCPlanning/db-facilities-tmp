@@ -5,7 +5,7 @@ import csv
 import sys
 from pathlib import Path
 import re
-from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
+from utils import url, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 import datetime
 csv.field_size_limit(sys.maxsize)
 
