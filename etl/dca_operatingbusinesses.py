@@ -68,7 +68,7 @@ dca_operatingbusinesses = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             ),
                         ]),
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 
 dca_operatingbusinesses.process()

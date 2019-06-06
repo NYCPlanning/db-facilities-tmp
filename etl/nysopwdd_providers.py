@@ -64,6 +64,6 @@ nysopwdd_providers = Flow(
                             ),
                         ]),
     
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 nysopwdd_providers.process()

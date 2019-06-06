@@ -22,7 +22,7 @@ table_name = 'dpr_parksproperties'
 dpr_parksproperties = Flow(
     load(url, resources = table_name, force_strings=False),
 
-    checkpoint(table_name),
+    checkpoint(),
     
     add_field('datasource', 'string', table_name),
 

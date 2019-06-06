@@ -51,6 +51,6 @@ nysomh_mentalhealth = Flow(
                             ),
                         ]),
     
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 nysomh_mentalhealth.process()

@@ -40,7 +40,7 @@ usnps_parks = Flow(
 
     delete_fields(fields=['boro']),
 
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 
 usnps_parks.process()

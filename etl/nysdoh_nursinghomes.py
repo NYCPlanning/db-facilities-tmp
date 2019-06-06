@@ -53,6 +53,6 @@ nysdoh_nursinghomes = Flow(
                             ),
                         ]),
 
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 nysdoh_nursinghomes.process()
