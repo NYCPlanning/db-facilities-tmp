@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 from lib.s3.make_client import make_client
+import bs4
+import requests
+from pathlib import Path
+import dateutil.parser as dparser
 
 # Given recipe and version, return the url to the datapackage.json
 def get_url(recipe, version):
@@ -25,3 +29,21 @@ def get_url(recipe, version):
                 {recipe} version {version} not found, \n\
                 do "cook recipe ls {recipe}" \n\
                 to check whats available\n'
+
+# get the latest version of datapackage.json url given pipeline prefix
+# e.g. get_pipeline_url('pipelines/db-facilities')
+def get_pipeline_url(prefix):
+    url ='https://db-data-recipes.sfo2.digitaloceanspaces.com/'
+    html = requests.get(url).content
+    soup = bs4.BeautifulSoup(html, 'html.parser')
+    keys = soup.find_all('key')
+    versions = [key.text for key in keys\
+                 if Path(key.text).name == 'datapackage.json'\
+                and str(Path(key.text).parent.parent) == prefix]
+    k = {}
+    for key in versions: 
+       k[key] = dparser.parse(key,fuzzy=True)
+    
+    latest = max(k, key=k.get)
+    print(url+latest)
+    return url+latest

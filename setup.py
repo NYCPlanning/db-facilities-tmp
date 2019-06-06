@@ -15,7 +15,8 @@ setup(name='lib',
             'pytest',
             'dataflows>=0.0.51', 
             'shapely', 
-            'usaddress'
+            'usaddress', 
+            'bs4'
       ], 
       entry_points='''
         [console_scripts]

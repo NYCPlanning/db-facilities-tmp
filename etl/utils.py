@@ -5,26 +5,9 @@ import requests
 import urllib
 from shapely.geometry import Point
 from dataflows import *
+from lib import get_pipeline_url
 
-fields = ['uid', 'facname', 
-        'factype', 'facsubgrp', 
-        'facgroup', 'facdomain', 
-        'servarea', 'opname', 
-        'opabbrev', 'optype', 
-        'overagency', 'overabbrev', 
-        'overlevel', 'capacity', 
-        'captype', 'proptype', 
-        'hnum', 'sname',
-        'address', 'city', 
-        'zipcode', 'boro', 
-        'bin', 'bbl', 
-        'latitude', 'longitude', 
-        'xcoord', 'ycoord', 
-        'commboard', 'nta', 
-        'council', 'censtract', 
-        'datasource', 'geom']
-
-url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-05-31/datapackage.json'
+url = get_pipeline_url('pipelines/db-facilities')
 
 def convert_to_boro(county):
         if county.upper() == 'NEW YORK': return 'MN'
