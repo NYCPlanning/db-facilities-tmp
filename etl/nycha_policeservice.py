@@ -5,7 +5,7 @@ import csv
 import sys
 from pathlib import Path
 import re
-from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
+from utils import url, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
@@ -39,7 +39,7 @@ nycha_policeservice = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    # printer(num_rows=3),
+
     dump_to_postgis()
 )
 

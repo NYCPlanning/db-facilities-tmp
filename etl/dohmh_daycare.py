@@ -4,7 +4,7 @@ import os
 import re
 import csv
 import sys
-from utils import url, fields, geo_flow, get_the_geom
+from utils import url, geo_flow, get_the_geom
 
 csv.field_size_limit(sys.maxsize)
 

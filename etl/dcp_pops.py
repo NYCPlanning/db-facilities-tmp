@@ -3,7 +3,7 @@ from lib import dump_to_postgis, rename_field
 import os
 import csv
 import sys
-from utils import url, fields, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
+from utils import url, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 from pathlib import Path
 
 csv.field_size_limit(sys.maxsize)
