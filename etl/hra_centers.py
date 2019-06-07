@@ -10,7 +10,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'hra_centers'
 
-bpl_libraries = Flow(
+hra_centers = Flow(
     load(url, resources = table_name, force_strings=False),
     
     add_field('datasource', 'string', table_name),
@@ -39,4 +39,4 @@ bpl_libraries = Flow(
     dump_to_postgis()
 )
 
-bpl_libraries.process()
+hra_centers.process()
