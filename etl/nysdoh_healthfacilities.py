@@ -52,7 +52,7 @@ nysdoh_healthfacilities = Flow(
                             ), 
                         ]),
 
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 
 nysdoh_healthfacilities.process()

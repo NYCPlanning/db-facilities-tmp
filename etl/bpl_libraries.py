@@ -39,7 +39,7 @@ bpl_libraries = Flow(
                             )
                         ]),
     
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 
 bpl_libraries.process()

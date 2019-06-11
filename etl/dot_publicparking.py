@@ -46,7 +46,7 @@ dot_publicparking = Flow(
                             )
                         ]),
 
-    dump_to_postgis(table_name)
+    dump_to_postgis()
 )
 
 dot_publicparking.process()
