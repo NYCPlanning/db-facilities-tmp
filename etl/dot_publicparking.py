@@ -11,7 +11,6 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'dot_publicparking'
 dot_publicparking = Flow(
     load(url, resources = table_name, force_strings=False),
-    checkpoint(table_name),
     
     add_field('datasource', 'string', table_name),
     
