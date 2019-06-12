@@ -13,22 +13,22 @@ table_name = 'hhc_hospitals'
 hhc_hospitals = Flow(
     load(url, resources = table_name, force_strings=False),
     add_field('datasource', 'string', table_name),
-    map_field('location_1', operation=lambda a: quick_clean(a)),
-    
+    rename_field('borough', 'boro'),
+    rename_field('postcode', 'zipcode'),
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################
-    add_computed_field([dict(target=dict(name = 'boro', type = 'string'),
-                                operation=lambda row: row['borough']),
+    add_computed_field([dict(target=dict(name = 'address', type = 'string'),
+                                operation=lambda row: quick_clean(row['location_1'])
+                                        ),
                         dict(target=dict(name = 'hnum', type = 'string'),
-                                operation = lambda row: get_hnum(row['location_1'])
+                                operation = lambda row: get_hnum(row['address'])
                                         ),
                         dict(target=dict(name = 'sname', type = 'string'),
-                                operation=lambda row: get_sname(row['location_1'])
-                                        ),
-                        dict(target=dict(name = 'zipcode', type = 'string'),
-                                operation=lambda row: row['postcode'])
+                                operation=lambda row: get_sname(row['address'])
+                                        )
+                        
                         ]),
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
