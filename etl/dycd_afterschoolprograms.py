@@ -11,10 +11,8 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'dycd_afterschoolprograms'
 
 dycd_afterschoolprograms = Flow(
-    load(url, resources = table_name, force_strings=False),
-    add_field('datasource', 'string', table_name),
-    map_field('location_1', operation=lambda a: quick_clean(a)),
-    
+    load(url, resources = table_name, force_strings=True),
+    add_field('datasource', 'string', table_name),    
     rename_field('postcode', 'zipcode'),
     add_field('boro', 'string', ''),
     ################## geospatial ###################
