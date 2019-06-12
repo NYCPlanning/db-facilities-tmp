@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'dep_wwtc'
 dep_wwtc = Flow(
-    load(url, resources = table_name, force_strings=False),
+    load(url, resources = table_name, force_strings=True),
     # cacheing table
     checkpoint(table_name),
     # datasource

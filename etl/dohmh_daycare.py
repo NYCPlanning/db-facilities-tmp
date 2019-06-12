@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'dohmh_daycare'
 
 dohmh_daycare = Flow(
-    load(url, resources = table_name, force_strings=False),
+    load(url, resources = table_name, force_strings=True),
     # datasource text,
     add_field('datasource', 'string', table_name),
 

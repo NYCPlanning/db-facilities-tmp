@@ -20,7 +20,7 @@ def get_boro(b):
 
 table_name = 'dpr_parksproperties'
 dpr_parksproperties = Flow(
-    load(url, resources = table_name, force_strings=False),
+    load(url, resources = table_name, force_strings=True),
     add_field('datasource', 'string', table_name),
 
     ################## geospatial ###################

@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'nypl_libraries'
 nypl_libraries = Flow(
-    load(url, resources = table_name, force_strings=False),
+    load(url, resources = table_name, force_strings=True),
     checkpoint(table_name),
 
     add_field('datasource', 'string', table_name),

@@ -9,7 +9,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'usnps_parks'
 usnps_parks = Flow(
-    load(url, resources = table_name, force_strings=False),
+    load(url, resources = table_name, force_strings=True),
     checkpoint(table_name),
 
     filter_rows(equals = [

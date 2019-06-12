@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nycha_communitycenters'
 
 nycha_communitycenters = Flow(
-    load(url, resources = table_name, force_strings=False),
+    load(url, resources = table_name, force_strings=True),
     add_field('datasource', 'string', table_name),
     
     
