@@ -20,16 +20,15 @@ nycha_communitycenters = Flow(
     ###### exist before geo_flows          ########## 
     #################################################
     map_field('address', operation=lambda a: quick_clean(a)),
-    add_computed_field([dict(target=dict(name = 'boro', type = 'string'),
-                                operation=lambda row: row['borough']),
+    rename_field('borough', 'boro'),
+    rename_field('postcode', 'zipcode'),
+    add_computed_field([
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
                                         ),
                         dict(target=dict(name = 'sname', type = 'string'),
                                 operation=lambda row: get_sname(row['address'])
-                                        ),
-                        dict(target=dict(name = 'zipcode', type = 'string'),
-                                operation=lambda row: row['postcode'])
+                                        )
                         ]),
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
