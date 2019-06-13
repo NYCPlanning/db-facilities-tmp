@@ -85,7 +85,7 @@ def run_recipes(recipe):
         click.echo('\n')
 
         if recipe in engine.table_names(): 
-                click.secho(f'{recipe} is loaded and transformed in psql!', fg='blue')
+                click.secho(f'{recipe} is loaded to psql!', fg='blue')
         else: 
                 click.secho(f'something went wrong ...', fg='red')
         click.echo('\n')
