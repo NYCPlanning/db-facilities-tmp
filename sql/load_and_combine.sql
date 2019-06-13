@@ -11,7 +11,6 @@ CALL load_to_facilities('nysomh_mentalhealth');
 CALL load_to_facilities('foodbankny_foodbanks');
 CALL load_to_facilities('dpr_parksproperties');
 CALL load_to_facilities('sbs_workforce1');
-CALL load_to_facilities('doitt_libraries');
 CALL load_to_facilities('dcp_pops');
 CALL load_to_facilities('dca_operatingbusinesses');
 CALL load_to_facilities('nysed_activeinstitutions');
