@@ -109,5 +109,4 @@ geo_flow = Flow(
                                                 )
                                 ]),
                 delete_fields(fields=['results']),
-
         )

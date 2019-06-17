@@ -1,4 +1,3 @@
-
 --select w.status::text, count(*) 
 --from (select geo::json->'status' as status from dohmh_daycare) w
 --group by w.status::text;
@@ -80,3 +79,5 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
+
+
