@@ -9,25 +9,25 @@ from utils import url, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'dep_wwtc'
-dep_wwtc = Flow(
+table_name = 'fbop_corrections'
+fbop_corrections = Flow(
     load(url, resources = table_name, force_strings=True),
     # datasource
     add_field('datasource', 'string', table_name),
-    
     ################## geospatial ###################
     ###### Make sure the following columns ##########
     ###### exist before geo_flows          ########## 
     #################################################
-
-    # hnum
-    rename_field('house_number', 'hnum'),
-    # sname 
-    rename_field('street_name', 'sname'),
-    # boro
     add_field('boro', 'string', ''),
-    # zipcode --> zipcode
 
+    add_computed_field([dict(target=dict(name = 'hnum', type = 'string'),
+                                    operation = lambda row: get_hnum(row['address'])
+                                    ),
+                            dict(target=dict(name = 'sname', type = 'string'),
+                                        operation=lambda row: get_sname(row['address'])
+                                    )
+                            ]),
+    # zipcode --> zipcode
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
@@ -36,5 +36,5 @@ dep_wwtc = Flow(
     dump_to_postgis()
 )
 
-dep_wwtc.process()
+fbop_corrections.process()
 

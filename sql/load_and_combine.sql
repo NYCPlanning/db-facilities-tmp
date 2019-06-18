@@ -6,7 +6,7 @@ CALL load_to_facilities('dca_operatingbusinesses');
 -- CALL load_to_facilities('dcas_colp');
 CALL load_to_facilities('dcla_culturalinstitutions');
 CALL load_to_facilities('dcp_pops');
--- CALL load_to_facilities('dep_wwtc');
+CALL load_to_facilities('dep_wwtc');
 CALL load_to_facilities('dfta_contracts');
 -- CALL load_to_facilities('doe_bluebook');
 CALL load_to_facilities('doe_busroutesgarages');
