@@ -30,7 +30,11 @@ ALTER TABLE dcas_colp
 	ADD	proptype text;
 
 UPDATE dcas_colp as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+	wkb_geometry = (CASE
+					 WHEN wkb_geometry IS NULL THEN ST_SetSRID(point_location::geometry, 4326)
+					 ELSE wkb_geometry
+                    END),
 	facname = (CASE
 				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'office' THEN 'Office'
 				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'no use' THEN 'City Owned Property'
