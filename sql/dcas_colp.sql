@@ -34,7 +34,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
 					 WHEN wkb_geometry IS NULL THEN ST_SetSRID(point_location::geometry, 4326)
 					 ELSE wkb_geometry
-                    END),
+					 END),
 	facname = (CASE
 				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'office' THEN 'Office'
 				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'no use' THEN 'City Owned Property'
@@ -332,10 +332,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			WHEN usedec LIKE '%EDUCATIONAL SKILLS%' THEN 'Public K-12 Schools'
 
-
-
 			ELSE 'Miscellaneous Use'
-
 		END),
 	facgroup = NULL,
 	facdomain = NULL,
