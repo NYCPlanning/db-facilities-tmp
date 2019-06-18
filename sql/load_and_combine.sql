@@ -6,7 +6,7 @@ CALL load_to_facilities('dca_operatingbusinesses');
 -- CALL load_to_facilities('dcas_colp');
 CALL load_to_facilities('dcla_culturalinstitutions');
 CALL load_to_facilities('dcp_pops');
-CALL load_to_facilities('dep_wwtc');
+-- CALL load_to_facilities('dep_wwtc');
 CALL load_to_facilities('dfta_contracts');
 -- CALL load_to_facilities('doe_bluebook');
 CALL load_to_facilities('doe_busroutesgarages');
@@ -21,7 +21,7 @@ CALL load_to_facilities('dot_publicparking');
 CALL load_to_facilities('dpr_parksproperties');
 CALL load_to_facilities('dsny_mtsgaragemaintenance');
 -- CALL load_to_facilities('dycd_afterschoolprograms');
--- CALL load_to_facilities('facilities_former'); place holder for records from SFPSD
+-- CALL load_to_facilities('dcp_sfpsd'); place holder for records from SFPSD
 -- CALL load_to_facilities('fbop_corrections');
 CALL load_to_facilities('foodbankny_foodbanks');
 -- CALL load_to_facilities('hhc_hospitals');
