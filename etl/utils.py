@@ -40,7 +40,8 @@ def get_sname(address):
         return ' '.join(result)
 
 def get_geocode(hnum, sname, boro, zipcode):
-        base_url = 'http://0.0.0.0:5000/1b?'
+        # base_url = 'http://0.0.0.0:5000/1b?'
+        base_url = 'http://0.0.0.0:5000/subset/1b?'
         # base_url = 'http://api-geosupport.planninglabs.nyc:5000/1b?'
         # make sure there's no None involved
         hnum = str(hnum) if hnum is not None else ''
@@ -68,8 +69,7 @@ geo_flow = Flow(
                                                 operation=lambda row: row['results'].get('House Number - Display Format', '')
                                                 ),
                                 dict(target=dict(name = 'geo_borough_code', type = 'string'),
-                                                operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', {})\
-                                                                                .get('Borough Code', '')
+                                                operation=lambda row: row['results'].get('Borough Code', '')
                                                 ),
                                 dict(target=dict(name = 'geo_zip_code', type = 'string'),
                                                 operation=lambda row: row['results'].get('ZIP Code', '')
@@ -79,8 +79,7 @@ geo_flow = Flow(
                                                 .get('Building Identification Number (BIN) of Input Address or NAP', '')
                                                 ),
                                 dict(target=dict(name = 'geo_bbl', type = 'string'),
-                                                operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', {})\
-                                                                                .get('BOROUGH BLOCK LOT (BBL)', '')
+                                                operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', '')
                                                 ),
                                 dict(target=dict(name = 'geo_latitude', type = 'string'),
                                                 operation=lambda row: row['results'].get('Latitude', '')
@@ -95,8 +94,7 @@ geo_flow = Flow(
                                                 operation=lambda row: row['results'].get('Spatial X-Y Coordinates of Address', '')
                                                 ),
                                 dict(target=dict(name = 'geo_commboard', type = 'string'),
-                                                operation=lambda row: row['results'].get('COMMUNITY DISTRICT', {})\
-                                                                                .get('COMMUNITY DISTRICT', '')
+                                                operation=lambda row: row['results'].get('COMMUNITY DISTRICT', '')
                                                 ),
                                 dict(target=dict(name = 'geo_nta', type = 'string'),
                                                 operation=lambda row: row['results'].get('Neighborhood Tabulation Area (NTA)', '')
@@ -106,7 +104,19 @@ geo_flow = Flow(
                                                 ),
                                 dict(target=dict(name = 'geo_censtract', type = 'string'),
                                                 operation=lambda row: row['results'].get('2010 Census Tract', '')
-                                                )
+                                                ),
+                                dict(target=dict(name = 'geo_grc', type = 'string'),
+                                                operation=lambda row: row['results'].get('Geosupport Return Code (GRC)', '')
+                                                ),
+                                dict(target=dict(name = 'geo_grc2', type = 'string'),
+                                                operation=lambda row: row['results'].get('Geosupport Return Code 2 (GRC 2)', '')
+                                                ),
+                                dict(target=dict(name = 'geo_policeprct', type = 'string'),
+                                                operation=lambda row: row['results'].get('Police Precinct', '')
+                                                ),
+                                dict(target=dict(name = 'geo_schooldist', type = 'string'),
+                                                operation=lambda row: row['results'].get('Community School District', '')
+                                                ),     
                                 ]),
                 delete_fields(fields=['results']),
         )
