@@ -25,7 +25,7 @@ update fbop_corrections as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	facname = nametitle,
 	factype = 'Detention Center' ,
-	facsubgrp = 'Justice and Corrections', 
+	facsubgrp = 'Detention and Correctional', 
 --	facsubgrp = 'Detention and Correctional',
 	facgroup = NULL,
 	facdomain = NULL,

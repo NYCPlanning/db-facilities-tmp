@@ -24,7 +24,11 @@ UPDATE uscourts_courts as t
 SET hash = md5(CAST((t.*)AS text)),
 	facname = buildingname,
 	factype = courttype,
-	facsubgrp = courttype,
+	facsubgrp = 
+	(CASE 
+		WHEN upper(courttype) LIKE '%COURT%' THEN 'Courthouses and Judicial'
+		ELSE 'Legal and Intervention Services'
+	END),
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
