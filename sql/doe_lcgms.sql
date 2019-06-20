@@ -73,7 +73,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 					END),
 	optype = (CASE
 						WHEN managed_by_name = 'Charter' THEN 'Non-public'
-						ELSE 'NYC Department of Education'
+						ELSE 'Public'
 					END),
 	overagency = 'NYC Department of Education',
 	overabbrev = 'NYCDOE', 
