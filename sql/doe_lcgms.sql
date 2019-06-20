@@ -29,7 +29,7 @@ CREATE TABLE doe_lcgms_tmp as (SELECT
 	
 	LEFT JOIN doe_bluebook
 	
-	ON (doe_lcgms.location_code = doe_bluebook.org_id)
+	ON ((doe_lcgms.location_code || doe_lcgms.building_code) = (doe_bluebook.org_id || doe_bluebook.bldg_id))
 );
 
 DROP TABLE doe_lcgms;
