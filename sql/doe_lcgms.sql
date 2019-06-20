@@ -95,6 +95,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	overabbrev = 'NYCDOE', 
 	overlevel = NULL, 
 	capacity = target_capacity, 
-	captype = NULL, 
+	captype = 'Seats', 
 	proptype = NULL
 ;
