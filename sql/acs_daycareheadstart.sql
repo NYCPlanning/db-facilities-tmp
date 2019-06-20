@@ -35,6 +35,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	overabbrev = 'NYCACS',
 	overlevel = NULL,
 	capacity = total,
-	captype = 'Seats in ACS Contract',
+	captype = 'seats',
 	proptype = NULL
 ;
