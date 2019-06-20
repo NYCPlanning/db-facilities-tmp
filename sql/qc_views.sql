@@ -30,6 +30,11 @@ ORDER BY facdomain, facgroup, facsubgrp);
 CREATE VIEW qc_captype AS (
 SELECT DISTINCT captype
 FROM facilities);
+CREATE VIEW qc_capvalues AS (
+SELECT DISTINCT datasource 
+FROM facilities
+WHERE captype IS NULL 
+AND capacity IS NOT NULL);
 -- make sure property types are consistent
 CREATE VIEW qc_proptype AS (
 SELECT DISTINCT proptype

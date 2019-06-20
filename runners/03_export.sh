@@ -31,6 +31,10 @@ psql $DATAFLOWS_DB_ENGINE -c "\copy (SELECT * FROM qc_captype)
                                 TO '/home/db-facilities/output/qc_captype.csv' 
                                 DELIMITER ',' CSV HEADER;"
 
+psql $DATAFLOWS_DB_ENGINE -c "\copy (SELECT * FROM qc_capvalues) 
+                                TO '/home/db-facilities/output/qc_capvalues.csv' 
+                                DELIMITER ',' CSV HEADER;"
+                                
 psql $DATAFLOWS_DB_ENGINE -c "\copy (SELECT * FROM qc_proptype) 
                                 TO '/home/db-facilities/output/qc_proptype.csv' 
                                 DELIMITER ',' CSV HEADER;"
