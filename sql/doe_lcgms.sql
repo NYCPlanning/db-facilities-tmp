@@ -23,13 +23,14 @@ ALTER TABLE doe_lcgms
 
 CREATE TABLE doe_lcgms_tmp as (SELECT
 	doe_lcgms.*,
-	doe_bluebook.target_capacity
+	doe_bluebook.target_capacity,
+	doe_bluebook.data_as_of
 	
 	FROM doe_lcgms
 	
 	LEFT JOIN doe_bluebook
 	
-	ON ((doe_lcgms.location_code || doe_lcgms.building_code) = (doe_bluebook.org_id || doe_bluebook.bldg_id))
+	ON ((doe_lcgms.location_code || doe_lcgms.building_code) = (doe_bluebook.org_id || doe_bluebook.bldg_id)) AND (doe_bluebook.data_as_of::date = (SELECT MAX(data_as_of::date) FROM doe_bluebook))
 );
 
 DROP TABLE doe_lcgms;
@@ -95,6 +96,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	overabbrev = 'NYCDOE', 
 	overlevel = NULL, 
 	capacity = target_capacity, 
-	captype = 'Seats', 
+	captype = 'seats', 
 	proptype = NULL
 ;

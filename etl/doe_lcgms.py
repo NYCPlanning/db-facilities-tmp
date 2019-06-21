@@ -54,7 +54,6 @@ doe_bluebook = Flow(
     load(url, resources = table_name, force_strings=True),
     add_field('datasource', 'string', table_name),
     rename_field('Data As Of', 'data_as_of'),
-    filter_rows(equals = [dict(data_as_of = '01/31/2019')]),
     
     dump_to_postgis()
 )
