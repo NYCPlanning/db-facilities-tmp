@@ -8,9 +8,8 @@ CALL load_to_facilities('dcla_culturalinstitutions');
 CALL load_to_facilities('dcp_pops');
 CALL load_to_facilities('dep_wwtc');
 CALL load_to_facilities('dfta_contracts');
--- CALL load_to_facilities('doe_bluebook');
 CALL load_to_facilities('doe_busroutesgarages');
-CALL load_to_facilities('doe_lcgms');
+CALL load_to_facilities('doe_lcgms'); --merged with doe_bluebook
  CALL load_to_facilities('doe_universalprek');
 CALL load_to_facilities('dohmh_daycare');
 CALL load_to_facilities('dot_bridgehouses');
