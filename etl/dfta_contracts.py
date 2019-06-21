@@ -12,7 +12,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'dfta_contracts'
 dfta_contracts = Flow(
     load(url, resources = table_name, force_strings=True),
-    checkpoint(table_name),
+    
 
     add_field('datasource', 'string', table_name),
 

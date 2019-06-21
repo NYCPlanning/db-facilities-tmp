@@ -12,7 +12,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'dot_bridgehouses'
 dot_bridgehouses = Flow(
     load(url, resources = table_name, force_strings=True),
-    checkpoint(table_name),
+    
 
     add_field('datasource', 'string', table_name),
 

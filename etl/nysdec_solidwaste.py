@@ -12,7 +12,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysdec_solidwaste'
 nysdec_solidwaste = Flow(
     load(url, resources = table_name, force_strings=True),
-    checkpoint(table_name),
+    
 
     filter_rows(equals = [
             dict(county = 'Kings'),

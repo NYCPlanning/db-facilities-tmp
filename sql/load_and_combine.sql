@@ -12,7 +12,7 @@ CALL load_to_facilities('dfta_contracts');
 CALL load_to_facilities('doe_busroutesgarages');
 CALL load_to_facilities('doe_lcgms');
  CALL load_to_facilities('doe_universalprek');
---CALL load_to_facilities('dohmh_daycare');
+CALL load_to_facilities('dohmh_daycare');
 CALL load_to_facilities('dot_bridgehouses');
 CALL load_to_facilities('dot_ferryterminals');
 CALL load_to_facilities('dot_mannedfacilities');

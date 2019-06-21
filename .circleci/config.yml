@@ -35,3 +35,8 @@ jobs:
           name: run all recipes
           command: |
             python3 runners/01_dataloading.py
+
+      - run:
+          name: load to facilities
+          command: |
+            sh runners/02_load_to_facilities.sh

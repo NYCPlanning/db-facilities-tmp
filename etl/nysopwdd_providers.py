@@ -22,7 +22,7 @@ def get_geom_source(s):
 table_name = 'nysopwdd_providers'
 nysopwdd_providers = Flow(
     load(url, resources = table_name, force_strings=True),
-    checkpoint(table_name),
+    
 
     filter_rows(equals = [
             dict(county = 'KINGS'),
