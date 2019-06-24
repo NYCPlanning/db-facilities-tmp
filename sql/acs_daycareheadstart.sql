@@ -23,8 +23,8 @@ ALTER TABLE acs_daycareheadstart
 update acs_daycareheadstart as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	facname = initcap(program_name),
-	factype = 'Day Care',
-	facsubgrp = 'Day Care',
+	factype = 'Child Care',
+	facsubgrp = 'Child Care',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
@@ -35,6 +35,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	overabbrev = 'NYCACS',
 	overlevel = NULL,
 	capacity = total,
-	captype = 'Seats in ACS Contract',
+	captype = 'seats',
 	proptype = NULL
 ;
