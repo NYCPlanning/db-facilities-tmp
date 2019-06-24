@@ -16,9 +16,9 @@ SET hash =  md5(CAST((t.*)AS text)),
 	geo_bin = (CASE WHEN geo_bin='' THEN bin ELSE geo_bin END),
 	geo_city = (CASE WHEN geo_city='' THEN city ELSE geo_city END),
 	wkb_geometry = (CASE
-                        WHEN wkb_geometry IS NULL
-                            THEN ST_SetSRID(point_location::geometry, 4326)
-                        ELSE wkb_geometry
-                    END),
+						WHEN wkb_geometry IS NULL
+							THEN ST_SetSRID(point_location::geometry, 4326)
+						ELSE wkb_geometry
+					END),
 	servarea=NULL
 ;
