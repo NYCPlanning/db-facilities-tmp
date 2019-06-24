@@ -14,7 +14,6 @@ jobs:
       - image: mdillon/postgis
       - image: sptkl/api-geosupport
 
-    parallelism: 2
     working_directory: ~/db-facilities-tmp/
 
     steps:
@@ -35,3 +34,8 @@ jobs:
           name: run all recipes
           command: |
             python3 runners/01_dataloading.py
+
+      - run:
+          name: load to facilities
+          command: |
+            sh runners/02_load_to_facilities.sh

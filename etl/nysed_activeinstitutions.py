@@ -20,7 +20,7 @@ nysed_activeinstitutions = Flow(
     load(url, resources = table_name, force_strings=True),
     
     # cacheing table
-    checkpoint(table_name),
+    
 
     # datasource
     add_field('datasource', 'string', table_name),

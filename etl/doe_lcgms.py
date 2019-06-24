@@ -13,7 +13,7 @@ table_name = 'doe_lcgms'
 doe_lcgms = Flow(
     load(url, resources = table_name, force_strings=True),
     # cacheing table
-    checkpoint(table_name),
+    
     # datasource
     add_field('datasource', 'string', table_name),
 
@@ -46,4 +46,17 @@ doe_lcgms = Flow(
 )
 
 doe_lcgms.process()
+
+
+table_name = 'doe_bluebook'
+
+doe_bluebook = Flow(
+    load(url, resources = table_name, force_strings=True),
+    add_field('datasource', 'string', table_name),
+    rename_field('Data As Of', 'data_as_of'),
+    
+    dump_to_postgis()
+)
+
+doe_bluebook.process()
 

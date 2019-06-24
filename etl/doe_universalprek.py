@@ -21,7 +21,7 @@ def get_boro(b):
 table_name = 'doe_universalprek'
 doe_universalprek = Flow(
     load(url, resources = table_name, force_strings=True),
-    # checkpoint(table_name),
+    # 
 
     add_field('datasource', 'string', table_name),
 

@@ -73,6 +73,7 @@ BEGIN
 					    geo_council,
 					    geo_censtract,
 					    wkb_geometry
-						FROM %I', tbl);
+						FROM %I
+						WHERE geo_grc <> 71::text or geo_grc2 <> 71::text; ', tbl);
 END;
 $$;

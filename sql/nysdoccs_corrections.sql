@@ -2,7 +2,7 @@
 --from (select geo::json->'status' as status from doe_busroutesgarages) w
 --group by w.status::text;
 
-ALTER TABLE acs_daycareheadstart
+ALTER TABLE nysdoccs_corrections
 	ADD hash text, 
 	ADD facname text,
 	ADD factype text,
@@ -20,21 +20,22 @@ ALTER TABLE acs_daycareheadstart
 	ADD captype text,
 	ADD proptype text;
 
-update acs_daycareheadstart as t
+update nysdoccs_corrections as t
 SET hash =  md5(CAST((t.*)AS text)), 
-	facname = initcap(program_name),
-	factype = 'Child Care',
-	facsubgrp = 'Child Care',
+	facname = facility_name,
+	factype = 'Correctional Facility',
+	facsubgrp = 'Correctional Facility',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
-	opname = initcap(contractor_name),
-	opabbrev = NULL,
-	optype = 'Non-public',
-	overagency = 'NYC Administration for Childrens Services',
-	overabbrev = 'NYCACS',
-	overlevel = NULL,
-	capacity = total,
-	captype = 'seats',
+	opname = 'NYS Department of Corrections and Community Supervision',
+	opabbrev = 'NYSDOCCS',
+	optype = 'Public',
+	overagency = NULL,
+	overabbrev = NULL,
+	overlevel = 'State',
+	capacity = NULL,
+	captype = NULL,
 	proptype = NULL
 ;
+
