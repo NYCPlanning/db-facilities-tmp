@@ -20,7 +20,6 @@ ALTER TABLE nysdoh_healthfacilities
 	ADD	captype text,
 	ADD	proptype text;
 
-
 update nysdoh_healthfacilities as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
