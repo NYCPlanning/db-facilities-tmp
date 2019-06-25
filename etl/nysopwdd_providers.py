@@ -1,5 +1,5 @@
 from dataflows import *
-from lib import dump_to_postgis, rename_field
+from lib import dump_to_postgis, rename_field, map_field
 import os
 import csv
 import sys
@@ -9,21 +9,11 @@ from utils import url, geo_flow, get_the_geom, quick_clean, get_hnum, get_sname
 
 csv.field_size_limit(sys.maxsize)
 
-def get_geom_source(s):
-        try:
-                s = s[(s.find('(')):]
-                lat = float(s[1:s.find(',')])
-                lon = float(s[s.find(',')+1:-1])
-                if (lon is not None) and (lat is not None): 
-                        return str(Point(lon, lat))
-        except:
-                return ''
-
 table_name = 'nysopwdd_providers'
+
 nysopwdd_providers = Flow(
     load(url, resources = table_name, force_strings=True),
     
-
     filter_rows(equals = [
             dict(county = 'KINGS'),
             dict(county = 'NEW YORK'),
@@ -42,11 +32,12 @@ nysopwdd_providers = Flow(
     rename_field('zip_code','zipcode'),
 
     add_field('boro','string',''),
+
+    map_field('street_address_line_2', lambda x: '' if x == 'None' else x),
     
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
-                                    operation=lambda row: quick_clean(row['street_address_line_2'])
-                                                if row['street_address_line_2'] != ''
-                                                else quick_clean(row['street_address'])
+                                    operation=lambda row: quick_clean(row['street_address']\
+                                             + ' ' + row['street_address_line_2'])
                                     ),
                         dict(target=dict(name = 'hnum', type = 'string'),
                                 operation = lambda row: get_hnum(row['address'])
@@ -59,8 +50,6 @@ nysopwdd_providers = Flow(
     geo_flow,
     add_computed_field([dict(target=dict(name = 'the_geom', type = 'string'),
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
-                                                    if row['geo_longitude'] != ''
-                                                    else get_geom_source(row['location_1'])
                             ),
                         ]),
     
