@@ -1,6 +1,15 @@
 #!/bin/bash
 start=$(date +'%T')
 
+proto="$(echo $DATAFLOWS_DB_ENGINE | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+url=$(echo $DATAFLOWS_DB_ENGINE | sed -e s,$proto,,g)
+
+DBUSER="$(echo $url | grep @ | cut -d@ -f1)"
+host_tmp=$(echo $url | sed -e s,$DBUSER@,,g | cut -d/ -f1)
+PORT="$(echo $host_tmp | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
+HOST=$(echo $host_tmp | grep : | cut -d: -f1)
+DBNAME="$(echo $url | grep / | cut -d/ -f2-)"
+
 echo "export FacDB outputs"
 
 # Facilities data table
