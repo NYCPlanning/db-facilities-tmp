@@ -1,8 +1,8 @@
 import os
 
 recipes = ['acs_daycareheadstart','bpl_libraries','dca_operatingbusinesses',
-        'dcas_colp','dcla_culturalinstitutions','dcp_pops', 'dep_wwtc', 
-        'dfta_contracts','doe_busroutesgarages','doe_lcgms',
+        'dcas_colp','dcla_culturalinstitutions','dcp_pops', 'dcp_sfpsd', 
+        'dep_wwtc', 'dfta_contracts','doe_busroutesgarages','doe_lcgms',
         'doe_universalprek','dohmh_daycare','dot_bridgehouses','dot_ferryterminals', 
         'dot_mannedfacilities', 'dot_pedplazas','dot_publicparking','dpr_parksproperties',
         'dsny_mtsgaragemaintenance', 'dycd_afterschoolprograms', 'fbop_corrections', 

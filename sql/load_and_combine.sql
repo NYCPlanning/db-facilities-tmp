@@ -20,7 +20,7 @@ CALL load_to_facilities('dot_publicparking');
 CALL load_to_facilities('dpr_parksproperties');
 CALL load_to_facilities('dsny_mtsgaragemaintenance');
 CALL load_to_facilities('dycd_afterschoolprograms');
--- CALL load_to_facilities('dcp_sfpsd'); place holder for records from SFPSD
+CALL load_to_facilities('dcp_sfpsd');
 CALL load_to_facilities('fbop_corrections');
 CALL load_to_facilities('foodbankny_foodbanks');
 CALL load_to_facilities('hhc_hospitals');
