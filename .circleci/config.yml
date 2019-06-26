@@ -36,6 +36,11 @@ jobs:
             python3 runners/01_dataloading.py
 
       - run:
-          name: load to facilities
+          name: load and build
           command: |
             sh runners/02_load_to_facilities.sh
+      
+      - run:
+          name: export
+          command: |
+            sh runners/03_export.sh
