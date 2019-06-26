@@ -545,9 +545,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 				WHEN agency='CULT' THEN 'NYCDCLA'
 	
 				WHEN agency='CORR' THEN 'NYCDOC'
-	
-				WHEN agency='FIRE' THEN 'NYCFDNY'
-	
+		
 				WHEN agency='HLTH' THEN 'NYCDOHMH'
 	
 				WHEN agency='ELECT' THEN 'NYCBOE'
@@ -813,9 +811,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 				WHEN agency='CULT' THEN 'NYCDCLA'
 	
 				WHEN agency='CORR' THEN 'NYCDOC'
-	
-				WHEN agency='FIRE' THEN 'NYCFDNY'
-	
+		
 				WHEN agency='HLTH' THEN 'NYCDOHMH'
 	
 				WHEN agency='ELECT' THEN 'NYCBOE'
