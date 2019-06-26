@@ -2,5 +2,4 @@ psql $DATAFLOWS_DB_ENGINE -f sql/load_and_combine.sql
 psql $DATAFLOWS_DB_ENGINE -f sql/assign_classification.sql
 psql $DATAFLOWS_DB_ENGINE -f sql/assign_overlevel.sql
 psql $DATAFLOWS_DB_ENGINE -f sql/assign_overlevel.sql
-psql $DATAFLOWS_DB_ENGINE -f sql/dohmh_daycare_deduplicate.sql
 psql $DATAFLOWS_DB_ENGINE -f sql/qc_views.sql
