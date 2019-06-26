@@ -3,6 +3,7 @@ DROP VIEW IF EXISTS qc_operator;
 DROP VIEW IF EXISTS qc_oversight;
 DROP VIEW IF EXISTS qc_classification;
 DROP VIEW IF EXISTS qc_captype;
+DROP VIEW IF EXISTS qc_capvalues;
 DROP VIEW IF EXISTS qc_proptype;
 DROP VIEW IF EXISTS qc_mapped;
 
