@@ -22,16 +22,12 @@ ALTER TABLE nysdec_lands
 
 UPDATE nysdec_lands as t
 SET hash = md5(CAST((t.*)AS text)),
-	wkb_geometry = (CASE
-						WHEN wkb_geometry is NULL 
-							THEN ST_SetSRID(ST_Centroid(wkb_geometry), 4326)
-						ELSE wkb_geometry
-					END),
+	wkb_geometry = ST_SetSRID(ST_Centroid(wkt), 4326),
 	facname = initcap(facility),
 	factype = (CASE
-        			WHEN category = 'NRA' THEN 'Natural Resource Area'
-        			ELSE initcap(category)
-		       END),
+					WHEN category = 'NRA' THEN 'Natural Resource Area'
+					ELSE initcap(category)
+				END),
 	facsubgrp = 'Preserves and Conservation Areas',
 	facgroup = NULL,
 	facdomain = NULL,

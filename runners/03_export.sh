@@ -1,5 +1,6 @@
 #!/bin/bash
 start=$(date +'%T')
+mkdir -p output
 
 proto="$(echo $DATAFLOWS_DB_ENGINE | grep :// | sed -e's,^\(.*://\).*,\1,g')"
 url=$(echo $DATAFLOWS_DB_ENGINE | sed -e s,$proto,,g)
@@ -17,7 +18,7 @@ psql $DATAFLOWS_DB_ENGINE -c "\copy (SELECT * FROM facilities)
                                 TO '/home/db-facilities/output/facilities.csv' 
                                 DELIMITER ',' CSV HEADER;"
 # Facilities shapefile
-pgsql2shp -U $DBUSER -p $PORT -h HOST -f \
+pgsql2shp -u $DBUSER -p $PORT -h $HOST -f \
     /home/db-facilities/output/facilities $DBNAME \
     'SELECT * 
     FROM facilities
