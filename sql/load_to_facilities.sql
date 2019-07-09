@@ -71,10 +71,11 @@ BEGIN
 					    geo_commboard,
 					    geo_nta,
 					    geo_council,
-					    geo_censtract,
+					    geo_censtract::double precision::text,
 					    wkb_geometry
 						FROM %I
-						WHERE geo_grc <> 71::text or geo_grc2 <> 71::text; ', tbl);
+						WHERE geo_grc <> 71::text or geo_grc2 <> 71::text
+						; ', tbl);
 	EXCEPTION WHEN others THEN
 		execute format('INSERT INTO 
     				facilities(

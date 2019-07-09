@@ -49,3 +49,10 @@ CALL load_to_facilities('uscourts_courts');
 CALL load_to_facilities('usdot_airports');
 CALL load_to_facilities('usdot_ports');
 CALL load_to_facilities('usnps_parks');
+
+UPDATE facilities
+SET censtract = (CASE
+                    WHEN censtract <> '0' THEN censtract
+                    ELSE NULL
+                END)
+;
