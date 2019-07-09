@@ -2,6 +2,14 @@
 --select w.status::text, count(*) 
 --from (select geo::json->'status' as status from usdot_ports) w
 --group by w.status::text;
+CREATE TABLE usdot_ports_tmp AS (
+SELECT * FROM usdot_ports
+WHERE nav_unit_n ~* '^port|terminal|ferry');
+
+DROP TABLE usdot_ports;
+
+ALTER TABLE usdot_ports_tmp
+RENAME TO usdot_ports;
 
 ALTER TABLE usdot_ports
 	ADD hash text, 
