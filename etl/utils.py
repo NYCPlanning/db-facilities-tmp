@@ -102,7 +102,7 @@ geo_flow = Flow(
                                 dict(target=dict(name = 'geo_council', type = 'string'),
                                                 operation=lambda row: row['results'].get('City Council District', '')
                                                 ),
-                                dict(target=dict(name = 'geo_censtract', type = 'number'),
+                                dict(target=dict(name = 'geo_censtract', type = 'string'),
                                                 operation=lambda row: row['results'].get('2010 Census Tract', '')
                                                 ),
                                 dict(target=dict(name = 'geo_grc', type = 'string'),
