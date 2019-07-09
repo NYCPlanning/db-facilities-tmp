@@ -17,7 +17,7 @@ def remove_room(address):
 
 table_name = 'nysed_activeinstitutions'
 nysed_activeinstitutions = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     
     # cacheing table
     
@@ -57,7 +57,7 @@ nysed_activeinstitutions.process()
 
 # Load supplementry table: 
 nysed_nonpublicenrollment = Flow(
-    load(url, resources = 'nysed_nonpublicenrollment', force_strings=True),
+    load(url, resources = 'nysed_nonpublicenrollment'),
     # cacheing table
     checkpoint('nysed_nonpublicenrollment'),
     # datasource

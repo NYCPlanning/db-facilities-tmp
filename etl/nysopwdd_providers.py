@@ -12,7 +12,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysopwdd_providers'
 
 nysopwdd_providers = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     
     filter_rows(equals = [
             dict(county = 'KINGS'),

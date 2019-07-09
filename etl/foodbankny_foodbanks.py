@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'foodbankny_foodbanks'
 foodbankny_foodbanks = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     # cacheing table
     
     # datasource

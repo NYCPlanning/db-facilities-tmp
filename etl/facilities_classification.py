@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'facilities_classification'
 facilities_classification = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     dump_to_postgis()
 )
 

@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'nysomh_mentalhealth'
 nysomh_mentalhealth = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     
 
     filter_rows(equals = [

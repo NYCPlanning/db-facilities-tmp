@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysdoccs_corrections'
 
 nysdoccs_corrections = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     add_field('datasource', 'string', table_name),
     add_field('boro', 'string', ''),
     

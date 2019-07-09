@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'hhc_hospitals'
 
 hhc_hospitals = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     add_field('datasource', 'string', table_name),
     rename_field('borough', 'boro'),
     rename_field('postcode', 'zipcode'),

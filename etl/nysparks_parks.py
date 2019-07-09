@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'nysparks_parks'
 
 nysparks_parks = Flow(
-    load(url, resources=table_name, force_strings=False),
+    load(url, resources=table_name),
     add_field('datasource', 'string', table_name),
     filter_rows(equals = [
             dict(county = 'Kings'),

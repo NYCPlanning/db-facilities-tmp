@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'doe_lcgms'
 doe_lcgms = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     # cacheing table
     
     # datasource
@@ -51,7 +51,7 @@ doe_lcgms.process()
 table_name = 'doe_bluebook'
 
 doe_bluebook = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     add_field('datasource', 'string', table_name),
     rename_field('Data As Of', 'data_as_of'),
     
