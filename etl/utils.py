@@ -23,20 +23,20 @@ def get_the_geom(lon, lat):
                 return str(Point(lon, lat))
 
 def quick_clean(address):
-        address = '-'.join([i.strip() for i in address.split('-')])
+        address = '-'.join([i.strip() for i in address.split('-')]) if address is not None else ''
         result = [k for (k,v) in usaddress.parse(address) \
                 if not v in \
-                 ['OccupancyIdentifier', 'OccupancyType']]
+                ['OccupancyIdentifier', 'OccupancyType']]
         return re.sub(r'[,\%\$\#\@\!\_\.\?\`\"\(\)]', '', ' '.join(result))
-
-def get_hnum(address): 
+                
+def get_hnum(address):
         result = [k for (k,v) in usaddress.parse(address) \
-                if re.search("Address", v)]
+                if re.search("Address", v)]  if address is not None else ''
         return ' '.join(result)
 
-def get_sname(address): 
+def get_sname(address):
         result = [k for (k,v) in usaddress.parse(address) \
-                if re.search("Street", v)]
+                if re.search("Street", v)]  if address is not None else ''
         return ' '.join(result)
 
 def get_geocode(hnum, sname, boro, zipcode):
