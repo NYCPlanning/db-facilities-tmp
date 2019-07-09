@@ -102,8 +102,10 @@ geo_flow = Flow(
                                 dict(target=dict(name = 'geo_council', type = 'string'),
                                                 operation=lambda row: row['results'].get('City Council District', '')
                                                 ),
-                                dict(target=dict(name = 'geo_censtract', type = 'string'),
-                                                operation=lambda row: row['results'].get('2010 Census Tract', '')
+                                dict(target=dict(name = 'geo_censtract', type = 'number'),
+                                                operation=lambda row: row['results'].get('2010 Census Tract', '') 
+                                                                if row['results'].get('2010 Census Tract', '') != '000000'
+                                                                else ''
                                                 ),
                                 dict(target=dict(name = 'geo_grc', type = 'string'),
                                                 operation=lambda row: row['results'].get('Geosupport Return Code (GRC)', '')
