@@ -36,7 +36,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 					 ELSE wkb_geometry
 					 END),
 	facname = (CASE
-				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'office' THEN 'Office'
+				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'office' THEN 'Offices'
 				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'no use' THEN 'City Owned Property'
 				WHEN name <> ' ' AND name IS NOT NULL THEN initcap(name)
 				ELSE initcap(REPLACE(usedec, 'OTHER ', ''))
@@ -72,7 +72,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			WHEN usedec LIKE '%GARAGE%' THEN 'Maintenance and Garages'
 
-			WHEN usedec LIKE '%OFFICE%' THEN 'Office'
+			WHEN usedec LIKE '%OFFICE%' THEN 'Offices'
 
 			WHEN usedec LIKE '%MAINTENANCE%' THEN 'Maintenance and Garages'
 
