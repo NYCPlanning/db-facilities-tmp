@@ -23,8 +23,8 @@ ALTER TABLE nysdoccs_corrections
 update nysdoccs_corrections as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	facname = facility_name,
-	factype = 'Correctional Facility',
-	facsubgrp = 'Correctional Facility',
+	factype = 'Detention and Correctional',
+	facsubgrp = 'Detention and Correctional',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
