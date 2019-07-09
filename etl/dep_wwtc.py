@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'dep_wwtc'
 dep_wwtc = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     # datasource
     add_field('datasource', 'string', table_name),
     

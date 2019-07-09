@@ -11,7 +11,7 @@ csv.field_size_limit(sys.maxsize)
 table_name = 'hra_centers'
 
 hra_centers = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     
     add_field('datasource', 'string', table_name),
     

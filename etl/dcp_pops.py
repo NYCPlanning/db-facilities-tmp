@@ -10,7 +10,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'dcp_pops'
 dcp_pops = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     
 
     add_field('datasource', 'string', table_name),

@@ -9,7 +9,7 @@ csv.field_size_limit(sys.maxsize)
 
 table_name = 'usdot_ports'
 usdot_ports = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     
 
     add_field('datasource', 'string', table_name),

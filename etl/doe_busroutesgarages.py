@@ -14,7 +14,7 @@ SCHOOL_YEAR = f'{datetime.date.today().year-1}-{datetime.date.today().year}'
 print(f'current school year is {SCHOOL_YEAR}')
 
 doe_busroutesgarages = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     update_resource(None, name=table_name),
     update_resource(resources=table_name, path=table_name+'.csv'),
 

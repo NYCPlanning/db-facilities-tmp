@@ -23,7 +23,7 @@ def get_address(hnum, sname):
 
 table_name = 'dca_operatingbusinesses'
 dca_operatingbusinesses = Flow(
-    load(url, resources = table_name, force_strings=True),
+    load(url, resources = table_name),
     
          
     filter_rows(not_equals = [
