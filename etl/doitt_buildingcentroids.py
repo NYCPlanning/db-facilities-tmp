@@ -6,7 +6,7 @@ from utils import url
 
 csv.field_size_limit(sys.maxsize)
 
-table_name = 'doitt_buildingfootprints'
+table_name = 'doitt_buildingcentroids'
 doitt_buildingfootprints = Flow(
     load(url, resources = table_name),
     add_field('datasource', 'string', table_name),
