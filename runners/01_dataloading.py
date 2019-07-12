@@ -10,9 +10,10 @@ recipes = ['acs_daycareheadstart','bpl_libraries','dca_operatingbusinesses',
         'nycdoc_corrections', 'nycha_communitycenters','nycha_policeservice', 'nycourts_courts',
         'nypl_libraries', 'nysdec_lands','nysdec_solidwaste', 'nysdoccs_corrections',
         'nysdoh_healthfacilities','nysdoh_nursinghomes','nysed_activeinstitutions',
-        'nysoasas_programs', 'nysocfs_facilities','nysomh_mentalhealth','nysopwdd_providers',
+        'nysoasas_programs','nysomh_mentalhealth','nysopwdd_providers',
         'nysparks_historicplaces', 'nysparks_parks','qpl_libraries','sbs_workforce1',
-        'uscourts_courts','usdot_airports','usdot_ports','usnps_parks','facilities_classification']
+        'uscourts_courts','usdot_airports','usdot_ports','usnps_parks','facilities_classification',
+        'doitt_buildingfootprints']
 
 # note doe_bluebook is merged into doe_lcgms
 
