@@ -22,7 +22,7 @@ ALTER TABLE dcp_pops
 	ADD	proptype text;
 
 update dcp_pops as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  pops_number, 
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL
 							AND longitude != 'None' AND latitude != 'None' 
