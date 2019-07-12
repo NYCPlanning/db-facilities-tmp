@@ -33,7 +33,7 @@ nysopwdd_providers = Flow(
 
     add_field('boro','string',''),
 
-    map_field('street_address_line_2', lambda x: '' if x == 'None' else x),
+    map_field('street_address_line_2', lambda x: '' if not x else x),
     
     add_computed_field([dict(target=dict(name = 'address', type = 'string'),
                                     operation=lambda row: quick_clean(row['street_address']\
