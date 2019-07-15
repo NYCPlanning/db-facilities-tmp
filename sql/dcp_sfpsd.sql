@@ -23,6 +23,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 					END),
 	facsubgrp = (CASE 
 					WHEN facsubgrp ~* 'City Government Offices' THEN 'Offices'
+					WHEN facsubgrp ~* 'Day Care' THEN 'Child Care'
 					ELSE facsubgrp
 				END),
 	servarea=NULL
