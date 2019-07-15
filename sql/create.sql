@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS facilities;
+DROP TABLE IF EXISTS facilities CASCADE;
 CREATE TABLE facilities (
 facname text,
 addressnum text,
