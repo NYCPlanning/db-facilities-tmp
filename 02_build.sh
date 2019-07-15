@@ -1,0 +1,1 @@
+docker exec facdb sh runners/02_load_to_facilities.sh

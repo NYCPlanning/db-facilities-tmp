@@ -1,0 +1,1 @@
+docker exec facdb python3 runners/01_dataloading.py

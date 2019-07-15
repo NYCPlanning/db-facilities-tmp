@@ -1,0 +1,1 @@
+docker exec facdb sh runners/03_export.sh
