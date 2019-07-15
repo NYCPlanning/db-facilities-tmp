@@ -39,7 +39,7 @@ ALTER TABLE dohmh_daycare
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text
+	ADD	proptype text,
 	ADD address text;
 
 update dohmh_daycare as t
