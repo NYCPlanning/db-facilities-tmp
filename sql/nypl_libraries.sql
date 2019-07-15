@@ -19,8 +19,8 @@ ALTER TABLE nypl_libraries
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
-
+	ADD	proptype text; 
+	
 update nypl_libraries as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
@@ -32,7 +32,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 				        		4326)
 				        ELSE wkb_geometry
 					END),
-    address = (CASE 
+	address = (CASE 
                         WHEN the_geom is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE address             
