@@ -58,8 +58,7 @@ nysed_activeinstitutions.process()
 # Load supplementry table: 
 nysed_nonpublicenrollment = Flow(
     load(url, resources = 'nysed_nonpublicenrollment'),
-    # cacheing table
-    checkpoint('nysed_nonpublicenrollment'),
+    
     # datasource
     add_field('datasource', 'string', 'nysed_nonpublicenrollment'),
 
