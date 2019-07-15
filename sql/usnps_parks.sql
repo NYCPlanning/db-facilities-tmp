@@ -18,7 +18,8 @@ ALTER TABLE usnps_parks
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text,
+	ADD address text;
 
 update usnps_parks as t
 SET hash =  md5(CAST((t.*)AS text)), 
@@ -27,6 +28,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
 						ELSE wkb_geometry
 					END),
+	address = geo_street_name,
 	facname = unit_name,
 	factype = unit_type,
 	facsubgrp = 'Historical Sites',

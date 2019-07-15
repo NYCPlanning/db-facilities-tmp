@@ -19,7 +19,8 @@ ALTER TABLE usdot_airports
     ADD overlevel text,
     ADD capacity text,
     ADD captype text,
-    ADD proptype text;
+    ADD proptype text,
+    ADD address text;
 
 update usdot_airports as t
 SET hash =  md5(CAST((t.*)AS text)),
@@ -28,6 +29,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 						THEN ST_GeometryFromText(location, 4326)
 						ELSE wkb_geometry
 					END),
+	address = geo_street_name,
     facname = fullname,
     factype = facilityty,
     facsubgrp = 'Airports and Heliports', 

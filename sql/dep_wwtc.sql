@@ -22,7 +22,12 @@ ALTER TABLE dep_wwtc
 	ADD	proptype text;
 
 update dep_wwtc as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+	address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE split_part(address, ',', 1)          
+                END),
 	facname = name,
 	factype = 'Waste Water Treatment Plant' ,
 	facsubgrp = 'Wastewater and Pollution Control',	

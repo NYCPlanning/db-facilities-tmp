@@ -22,8 +22,6 @@ nysdoccs_corrections = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-
-    
     dump_to_postgis()
 )
 

@@ -21,7 +21,12 @@ ALTER TABLE nysoasas_programs
 	ADD	proptype text;
 
 update nysoasas_programs as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+    address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE address             
+                    END),
 	facname = program_name,
 	factype = service_type,
 	facsubgrp = 'Chemical Dependency',

@@ -21,7 +21,12 @@ ALTER TABLE nysdec_solidwaste
 	ADD	proptype text;
 
 update nysdec_solidwaste as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+    address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE location_address             
+                    END),
 	facname = facility_name,
 	factype = (CASE
                     WHEN activity_desc LIKE '%C&D%' THEN 'Construction and Demolition Processing'

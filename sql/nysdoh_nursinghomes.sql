@@ -28,7 +28,12 @@ ALTER TABLE nysdoh_nursinghomes
 	ADD	proptype text;
 
 update nysdoh_nursinghomes as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+    address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE street_address             
+                    END), 
     facname = facility_name,
     factype = (CASE
                 WHEN "bed_type/service_category" = 'Total Residential Beds' THEN 'Nursing Home'

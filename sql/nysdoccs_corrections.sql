@@ -21,7 +21,12 @@ ALTER TABLE nysdoccs_corrections
 	ADD proptype text;
 
 update nysdoccs_corrections as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+	address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE split_part(address, ',', 1)
+            END),
 	facname = facility_name,
 	factype = 'Detention and Correctional',
 	facsubgrp = 'Detention and Correctional',
@@ -38,4 +43,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL,
 	proptype = NULL
 ;
+
+delete from nysdoccs_corrections where facility_name = 'Address & Phone Number';
 

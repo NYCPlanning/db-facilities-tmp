@@ -27,6 +27,11 @@ SET hash = md5(CAST((t.*)AS text)),
 							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
 						ELSE wkb_geometry
 					END),
+	address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE location            
+                END),
 	facname = signname,
 	factype = typecatego,
 	facsubgrp = (CASE

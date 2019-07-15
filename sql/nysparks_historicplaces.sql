@@ -19,7 +19,8 @@ ALTER TABLE nysparks_historicplaces
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text
+	ADD address text;
 
 update nysparks_historicplaces as t
 SET hash =  md5(CAST((t.*)AS text)), 
@@ -27,6 +28,7 @@ SET hash =  md5(CAST((t.*)AS text)),
             longitude::DOUBLE PRECISION, 
             latitude::DOUBLE PRECISION), 
             4326),
+    address = NULL,
 	facname = resource_name,
 	factype = 'State Historic Place',
 	facsubgrp = 'Historical Sites',

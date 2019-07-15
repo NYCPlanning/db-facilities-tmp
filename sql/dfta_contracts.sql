@@ -22,7 +22,12 @@ ALTER TABLE dfta_contracts
 	ADD	proptype text;
 
 update dfta_contracts as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+	address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE program_address          
+                END),
 	facname = initcap(sponsor_name), 
 	factype = (CASE
 					WHEN (contract_type LIKE '%INNOVATIVE%' AND RIGHT(provider_id,2) <> '01') or
@@ -32,7 +37,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 					WHEN contract_type LIKE '%MEALS%' THEN  initcap(contract_type)
 					ELSE 'Senior Services'
 				END),
-
 	facsubgrp = 'Senior Services',
 	facgroup = 'Human Services',
 	facdomain = 'Health and Human Services',

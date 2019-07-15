@@ -39,10 +39,16 @@ ALTER TABLE dohmh_daycare
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text
+	ADD address text;
 
 update dohmh_daycare as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+    address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE hnum || ' ' || sname           
+                END),
 	inspection_date = (CASE WHEN inspection_date::text = '01/01/2000' THEN 'None'
 								ELSE inspection_date::text
 							END),

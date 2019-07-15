@@ -27,7 +27,8 @@ ALTER TABLE usdot_ports
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text
+	ADD address text;
 
 update usdot_ports as t
 SET hash =  md5(CAST((t.*)AS text)), 
@@ -36,6 +37,11 @@ SET hash =  md5(CAST((t.*)AS text)),
 				        THEN ST_GeometryFromText(point_location, 4326)
 				        ELSE wkb_geometry
 					END),
+    address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE address             
+                    END),
 	facname = initcap(nav_unit_n),
 	factype = (CASE
 					WHEN nav_unit_n ~* 'Ferry' THEN 'Ferry Landing'

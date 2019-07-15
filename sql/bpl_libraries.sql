@@ -28,6 +28,11 @@ SET hash =  md5(CAST((t.*)AS text)),
 						split_part(position, ',', 1)::DOUBLE PRECISION), 4326)
 						ELSE wkb_geometry
 					END),
+	address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE hnum || ' ' || sname           
+                END),
 	facname = title,
 	factype = 'Public Library',
 	facsubgrp = 'Public Libraries',

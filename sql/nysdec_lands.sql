@@ -18,11 +18,13 @@ ALTER TABLE nysdec_lands
 	ADD overlevel text,
 	ADD capacity text,
 	ADD captype text,
-	ADD proptype text;
+	ADD proptype text, 
+	ADD address text;
 
 UPDATE nysdec_lands as t
 SET hash = md5(CAST((t.*)AS text)),
 	wkb_geometry = ST_SetSRID(ST_Centroid(wkt), 4326),
+	address = NULL,
 	facname = initcap(facility),
 	factype = (CASE
 					WHEN category = 'NRA' THEN 'Natural Resource Area'

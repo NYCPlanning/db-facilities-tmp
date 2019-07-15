@@ -27,6 +27,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 						THEN ST_GeometryFromText(point_location, 4326)
 						ELSE wkb_geometry
 					END),
+	address = geo_street_name,
 	facname = name,
 	factype = 'Ferry Terminal or Landing',
 	facsubgrp = 'Ports and Ferry Landings',
