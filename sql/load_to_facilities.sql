@@ -65,11 +65,11 @@ BEGIN
 					    geo_city,
 					    geo_zip_code,
 						(CASE 
-							WHEN geo_borough_code = \'1\' THEN \'Manhattan\'
-							WHEN geo_borough_code = \'2\' THEN \'Bronx\'
-							WHEN geo_borough_code = \'3\' THEN \'Brooklyn\'
-							WHEN geo_borough_code = \'4\' THEN \'Queens\'
-							WHEN geo_borough_code = \'5\' THEN \'Staten Island\'
+							WHEN geo_borough_code = $1$ THEN $Manhattan$
+							WHEN geo_borough_code = $2$ THEN $Bronx$
+							WHEN geo_borough_code = $3$ THEN $Brooklyn$
+							WHEN geo_borough_code = $4$ THEN $Queens$
+							WHEN geo_borough_code = $5$ THEN $Staten Island$
 						END),
 						geo_borough_code,
 						geo_policeprct,
