@@ -3,8 +3,7 @@
 --group by w.status::text;
 
 ALTER TABLE dot_publicparking
-	ADD hash text, 
-	-- ADD	facname text,
+	ADD hash text,
 	ADD	factype text,
 	ADD	facsubgrp text,
 	ADD	facgroup text,
@@ -27,7 +26,11 @@ SET hash =  md5(CAST((t.*)AS text)),
 				        THEN ST_GeometryFromText(point_location, 4326)
 				        ELSE wkb_geometry
 					END),
-	-- facname = facname,
+	address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE split_part(facaddress, ',', 1)      
+                END),
 	factype = 'Public Parking',
 	facsubgrp = 'Parking Lots and Garages',
 	facgroup = NULL,

@@ -21,7 +21,12 @@ ALTER TABLE hra_centers
 	ADD	proptype text;
 
 update hra_centers as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+	address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE address             
+                    END),
 	facname = facility_name,
 	factype = type,
 	facsubgrp = (CASE 

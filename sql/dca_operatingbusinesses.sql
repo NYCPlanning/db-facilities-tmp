@@ -29,6 +29,14 @@ SET hash =  md5(CAST((t.*)AS text)),
 												 latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
+	address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    WHEN geo_street_name is NULL and geo_house_number is NULL and address is not NULL
+                    	THEN address
+                    WHEN  address_building is not NULL and address_street_name is not NULL
+                    	THEN address_building || ' ' || address_street_name       
+                END),
 	facname = initcap(business_name),
 	factype = (CASE 
 			        WHEN industry LIKE '%Scrap Metal%' THEN 'Scrap Metal Processing'

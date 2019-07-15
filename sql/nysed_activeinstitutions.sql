@@ -49,6 +49,11 @@ ALTER TABLE nysed_activeinstitutions
 
 UPDATE nysed_activeinstitutions as t
 SET hash =  md5(CAST((t.*)AS text)),
+    address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE physical_address_line1             
+                    END),
 	facname = popular_name,
 	factype = (CASE
 						WHEN inst_sub_type_description LIKE '%CHARTER SCHOOL%'

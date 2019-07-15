@@ -21,7 +21,12 @@ ALTER TABLE doe_universalprek
 	ADD	proptype text;
 
 update doe_universalprek as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+    address = (CASE 
+                        WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE address             
+                    END),
 	facname = name,
 	factype = (CASE
                 WHEN type = 'DOE' THEN 'DOE Universal Pre-K'

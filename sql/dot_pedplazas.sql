@@ -27,6 +27,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 						THEN ST_GeometryFromText(point_location, 4326)
 						ELSE wkb_geometry
 					END),
+	address = cross_1 || 'and' || cross_1,
 	facname = plaza_nam,
 	factype = 'Pedestrian Plaza',
 	facsubgrp = 'Streetscapes, Plazas, and Malls',

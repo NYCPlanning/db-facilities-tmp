@@ -19,7 +19,8 @@ ALTER TABLE nysparks_parks
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text, 
+	ADD address text;
 
 update nysparks_parks as t
 SET hash =  md5(CAST((t.*)AS text)), 
@@ -27,6 +28,7 @@ SET hash =  md5(CAST((t.*)AS text)),
             longitude::DOUBLE PRECISION, 
             latitude::DOUBLE PRECISION), 
             4326),
+	address = NULL,
 	facname = name,
 	factype = category,
 	facsubgrp = (CASE

@@ -21,7 +21,12 @@ ALTER TABLE nysopwdd_providers
 	ADD	proptype text;
 
 update nysopwdd_providers as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+    address = (CASE 
+                        WHEN the_geom is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE street_address             
+                    END),
 	facname = initcap(service_provider_agency),
 	factype = 'Programs for People with Disabilities',
 	facsubgrp = 'Programs for People with Disabilities',

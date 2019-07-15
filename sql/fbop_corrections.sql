@@ -23,6 +23,11 @@ ALTER TABLE fbop_corrections
 
 update fbop_corrections as t
 SET hash =  md5(CAST((t.*)AS text)), 
+    address = (CASE 
+                        WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE address             
+                    END),
 	facname = nametitle,
 	factype = 'Detention Center' ,
 	facsubgrp = 'Detention and Correctional', 

@@ -31,6 +31,11 @@ SET hash = md5(CAST((t.*)AS text)),
                                 4326)
                         ELSE wkb_geometry
                     END),
+    address = (CASE 
+                        WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE regexp_replace(split_part(location_1, '(', 1), '.{6}$', '')            
+                    END),
 	facname = site_name, 
 	factype = program || ' ' || program_type,
 	facsubgrp = 'Youth Centers, Literacy Programs, Job Training, and Immigrant Services', 
@@ -45,4 +50,4 @@ SET hash = md5(CAST((t.*)AS text)),
 	overlevel = NULL, 
 	capacity = NULL, 
 	captype = NULL, 
-	proptype = NULL
+	proptype = NULL;

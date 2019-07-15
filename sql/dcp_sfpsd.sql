@@ -8,6 +8,7 @@ ALTER TABLE dcp_sfpsd
 	
 update dcp_sfpsd as t
 SET hash =  md5(CAST((t.*)AS text)),
+	datasource = 'dcp_sfpsd',
 	geo_house_number = (CASE WHEN geo_house_number='' THEN hnum ELSE geo_house_number END),
 	geo_street_name = (CASE WHEN geo_street_name='' THEN sname ELSE geo_street_name END),
 	geo_borough_code = (CASE WHEN geo_borough_code='' THEN borocode ELSE geo_borough_code END),

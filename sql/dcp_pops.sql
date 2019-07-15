@@ -19,7 +19,8 @@ ALTER TABLE dcp_pops
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text, 
+	ADD address text;
 
 update dcp_pops as t
 SET hash =  pops_number, 
@@ -32,6 +33,11 @@ SET hash =  pops_number,
 				        		4326)
 				        ELSE wkb_geometry
 					END),
+	address = (CASE 
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE hnum || ' ' || sname           
+                END),
 	facname = (CASE
 					WHEN building_name IS NOT NULL AND building_name <> '' THEN building_name
 					ELSE building_address_with_zip_code
