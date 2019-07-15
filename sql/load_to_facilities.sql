@@ -26,7 +26,10 @@ BEGIN
 						address, 
 						city, 
 						zipcode, 
-						boro, 
+						boro,
+						borocode,
+						schooldist,
+						policeprct,
 						bin,
 						bbl, 
 						latitude,
@@ -61,7 +64,16 @@ BEGIN
 						NULL,
 					    geo_city,
 					    geo_zip_code,
-					    geo_borough_code,
+						(CASE 
+							WHEN geo_borough_code = \'1\' THEN \'Manhattan\'
+							WHEN geo_borough_code = \'2\' THEN \'Bronx\'
+							WHEN geo_borough_code = \'3\' THEN \'Brooklyn\'
+							WHEN geo_borough_code = \'4\' THEN \'Queens\'
+							WHEN geo_borough_code = \'5\' THEN \'Staten Island\'
+						END),
+						geo_borough_code,
+						geo_policeprct,
+						geo_schooldist,
 					    geo_bin,
 					    geo_bbl,
 					    geo_latitude,
@@ -100,7 +112,10 @@ BEGIN
 						address, 
 						city, 
 						zipcode, 
-						boro, 
+						boro,
+						borocode,
+						schooldist,
+						policeprct,
 						bin,
 						bbl, 
 						latitude,
@@ -130,6 +145,9 @@ BEGIN
 						captype,
 						proptype,
 						datasource,
+						NULL,
+						NULL,
+						NULL,
 						NULL,
 						NULL,
 						NULL,
