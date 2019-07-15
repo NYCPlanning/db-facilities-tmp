@@ -27,7 +27,7 @@ ALTER TABLE usdot_ports
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text
+	ADD proptype text,
 	ADD address text;
 
 update usdot_ports as t

@@ -19,7 +19,7 @@ ALTER TABLE nysparks_historicplaces
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text
+	ADD	proptype text,
 	ADD address text;
 
 update nysparks_historicplaces as t
