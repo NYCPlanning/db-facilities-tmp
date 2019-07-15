@@ -21,5 +21,9 @@ SET hash =  md5(CAST((t.*)AS text)),
 							THEN ST_SetSRID(point_location::geometry, 4326)
 						ELSE wkb_geometry
 					END),
+	facsubgrp = (CASE 
+					WHEN facsubgrp ~* 'City Government Offices' THEN 'Offices'
+					ELSE facsubgrp
+				END)
 	servarea=NULL
 ;
