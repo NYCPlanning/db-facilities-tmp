@@ -22,7 +22,7 @@ ALTER TABLE nysoasas_programs
 
 update nysoasas_programs as t
 SET hash =  md5(CAST((t.*)AS text)),
-    address = (CASE 
+	address = (CASE 
                         WHEN the_geom is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE address             
