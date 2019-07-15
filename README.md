@@ -40,7 +40,7 @@
 2. access postgres 
 
         docker exec -it db bash
-        psql -U postgres to access postgres
+        psql -U postgres
 
 3. run any pipelines in etl from root directory: (note this would run both the .py and .sql file)
 
@@ -57,3 +57,35 @@
 6. check local/postgres differences:
 
         cook recipe ls diff
+
+## Data loading:
+All FacDB datasets are loaded from various sources and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.
+1. we receive the following datasets from their owners, various city agencies via email:
+
+    - `acs_daycareheadstart`
+    - `dot_bridgehouses`
+    - `dot_ferryterminals`
+    - `dot_mannedfacilities`
+    - `dot_pedplazas`
+    - `dot_publicparking`
+    - `dsny_mtsgaragemaintenance`
+    - `moeo_socialservicesiteloactions`
+2. we update the data loading scripts for the following datasets manually caused their open data URLs change over time:
+
+    - `dpr_parksproperties`
+    - `usdot_ports`
+    - `usnps_parks`
+3. we webscrape the following datasets from their open data source:
+
+    - `foodbankny_foodbanks`
+    - `nysdoccs_corrections`
+    - `nycdoc_corrections`
+    - `hra_centers`
+    - `uscourts_courts`
+4. we maintain the following datasets in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository:
+
+    - `dcp_pops`
+    - `dcp_sfpsd`
+    - `fbop_corrections`
+    - `nycourts_courts`
+    - `nysed_activeinstitutions`
