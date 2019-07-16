@@ -37,7 +37,8 @@ ALTER TABLE moeo_socialservicesiteloactions
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text,
+	ADD address text;
 
 update moeo_socialservicesiteloactions as t
 SET hash =  md5(CAST((t.*)AS text)), 
@@ -49,6 +50,11 @@ SET hash =  md5(CAST((t.*)AS text)),
                                                             latitude::DOUBLE PRECISION), 4326)
                                 ELSE wkb_geometry
                             END),
+            address = (CASE 
+		                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
+		                        THEN geo_house_number || ' ' || geo_street_name
+		                    ELSE site_address_1          
+		                END),
             facname = provider_name||program_name,
             factype = program_name,
             facsubgrp = (CASE
