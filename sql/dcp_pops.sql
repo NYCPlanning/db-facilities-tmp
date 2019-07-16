@@ -26,7 +26,6 @@ update dcp_pops as t
 SET hash =  pops_number, 
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL
-							AND longitude != 'None' AND latitude != 'None' 
 				        THEN ST_SetSRID(ST_Point(
 				        		longitude::DOUBLE PRECISION, 
 				        		latitude::DOUBLE PRECISION), 
