@@ -25,7 +25,7 @@ CALL load_to_facilities('fbop_corrections');
 CALL load_to_facilities('foodbankny_foodbanks');
 CALL load_to_facilities('hhc_hospitals');
 CALL load_to_facilities('hra_centers');
--- CALL load_to_facilities('moeo_socialservicesiteloactions');
+CALL load_to_facilities('moeo_socialservicesiteloactions');
 CALL load_to_facilities('nycdoc_corrections');
 CALL load_to_facilities('nycha_communitycenters');
 CALL load_to_facilities('nycha_policeservice');
