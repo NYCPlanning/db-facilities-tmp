@@ -60,7 +60,7 @@
 
 ## Data loading:
 All FacDB datasets are loaded from various sources and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.
-1. we receive the following datasets from their owners, various city agencies via email:
+1. we receive the following datasets from their owners, various city agencies __via email__:
 
     - `acs_daycareheadstart`
     - `dot_bridgehouses`
@@ -70,19 +70,19 @@ All FacDB datasets are loaded from various sources and staged in a centralized d
     - `dot_publicparking`
     - `dsny_mtsgaragemaintenance`
     - `moeo_socialservicesiteloactions`
-2. we update the data loading scripts for the following datasets manually caused their open data URLs change over time:
+2. we update the data loading scripts for the following datasets manually caused their open data __URLs change__ over time:
 
     - `dpr_parksproperties`
     - `usdot_ports`
     - `usnps_parks`
-3. we webscrape the following datasets from their open data source:
+3. we __webscrape__ the following datasets from their open data source:
 
     - `foodbankny_foodbanks`
     - `nysdoccs_corrections`
     - `nycdoc_corrections`
     - `hra_centers`
     - `uscourts_courts`
-4. we maintain the following datasets in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository:
+4. we maintain the following datasets in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) __GitHub Repository__:
 
     - `dcp_pops`
     - `dcp_sfpsd`
