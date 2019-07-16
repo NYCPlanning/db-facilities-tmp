@@ -25,7 +25,6 @@ update nypl_libraries as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL
-							AND lon != 'None' AND lat != 'None' 
 				        THEN ST_SetSRID(ST_Point(
 				        		lon::DOUBLE PRECISION, 
 				        		lat::DOUBLE PRECISION), 

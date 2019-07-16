@@ -24,7 +24,6 @@ update nycha_communitycenters as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
 					WHEN wkb_geometry IS NULL 
-						AND longitude != 'None' AND latitude != 'None'
 					THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
 											 latitude::DOUBLE PRECISION), 4326)
 					ELSE wkb_geometry

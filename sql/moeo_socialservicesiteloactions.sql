@@ -55,7 +55,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 		                        THEN geo_house_number || ' ' || geo_street_name
 		                    ELSE site_address_1          
 		                END),
-            facname = provider_name||program_name,
+            facname = provider_name || ' ' || program_name,
             factype = program_name,
             facsubgrp = (CASE
                             WHEN program_name LIKE '%JOB%'
