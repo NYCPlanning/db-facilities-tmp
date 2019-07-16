@@ -23,7 +23,7 @@ ALTER TABLE nysdoh_healthfacilities
 update nysdoh_healthfacilities as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
-				        WHEN wkb_geometry IS NULL AND facility_location != 'None'
+				        WHEN wkb_geometry IS NULL
 					        THEN ST_SetSRID(ST_Point(facility_longitude::DOUBLE PRECISION, 
 												 facility_latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
