@@ -50,16 +50,16 @@ NYCCB105,NYC Manhattan Community Board 5,City,dcas_colp,1
 NYCCB105,NYC Manhattan Community Board 5,City,dcp_sfpsd,1
 NYCCB106,NYC Manhattan Community Board 6,City,dcp_sfpsd,1
 NYCCB106,NYC Manhattan Community Board 6,City,dcas_colp,1
-NYCCB107,NYC Manhattan Community Board 7,City,dcas_colp,1
 NYCCB107,NYC Manhattan Community Board 7,City,dcp_sfpsd,1
-NYCCB108,NYC Manhattan Community Board 8,City,dcas_colp,1
+NYCCB107,NYC Manhattan Community Board 7,City,dcas_colp,1
 NYCCB108,NYC Manhattan Community Board 8,City,dcp_sfpsd,1
+NYCCB108,NYC Manhattan Community Board 8,City,dcas_colp,1
 NYCCB109,NYC Manhattan Community Board 9,City,dcas_colp,1
 NYCCB109,NYC Manhattan Community Board 9,City,dcp_sfpsd,1
-NYCCB110,NYC Manhattan Community Board 10,City,dcp_sfpsd,1
 NYCCB110,NYC Manhattan Community Board 10,City,dcas_colp,1
-NYCCB111,NYC Manhattan Community Board 11,City,dcas_colp,1
+NYCCB110,NYC Manhattan Community Board 10,City,dcp_sfpsd,1
 NYCCB111,NYC Manhattan Community Board 11,City,dcp_sfpsd,1
+NYCCB111,NYC Manhattan Community Board 11,City,dcas_colp,1
 NYCCB112,NYC Manhattan Community Board 12,City,dcas_colp,2
 NYCCB112,NYC Manhattan Community Board 12,City,dcp_sfpsd,2
 NYCCB201,NYC Bronx Community Board 1,City,dcp_sfpsd,1
@@ -222,7 +222,7 @@ NYCDOF,NYC Department of Finance,City,dcp_sfpsd,11
 NYCDOHMH,NYC Department of Health and Mental Hygiene,City,moeo_socialservicesiteloactions,1213
 NYCDOHMH,NYC Department of Health and Mental Hygiene,City,dcas_colp,38
 NYCDOHMH,NYC Department of Health and Mental Hygiene,City,dcp_sfpsd,46
-NYCDOHMH,NYC Department of Health and Mental Hygiene,City,dohmh_daycare,1675
+NYCDOHMH,NYC Department of Health and Mental Hygiene,City,dohmh_daycare,2194
 NYCDOI,NYC Department of Investigation,City,dcp_sfpsd,3
 NYCDOI,NYC Department of Investigation,City,dcas_colp,19
 NYCDOITT,NYC Department of Information Technology and Telecommunications,City,dcas_colp,32
