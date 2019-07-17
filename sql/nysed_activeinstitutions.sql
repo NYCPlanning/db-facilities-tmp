@@ -152,7 +152,7 @@ address = (CASE
 	servarea = NULL,
 	opname = (CASE
 
-						WHEN inst_type_description = 'Public K-12 Schools' THEN 'NYC Department of Education'
+						WHEN inst_type_description = 'PUBLIC SCHOOLS' THEN 'NYC Department of Education'
 			
 						WHEN inst_type_description LIKE '%NON-IMF%' THEN 'NYC Department of Education'
 			
@@ -166,10 +166,8 @@ address = (CASE
 
 	opabbrev = (CASE
 			
-						WHEN inst_type_description = 'Public K-12 Schools' THEN 'NYCDOE'
-			
-						WHEN inst_type_description = 'Public K-12 Schools' THEN 'NYCDOE'
-			
+						WHEN inst_type_description = 'PUBLIC SCHOOLS' THEN 'NYCDOE'
+						
 						WHEN inst_type_description = 'CUNY' THEN 'CUNY'
 			
 						WHEN inst_type_description = 'SUNY' THEN 'SUNY'
@@ -180,7 +178,7 @@ address = (CASE
 
 	optype = (CASE
 			
-					WHEN inst_type_description = 'Public K-12 Schools' THEN 'Public'
+					WHEN inst_type_description = 'PUBLIC SCHOOLS' THEN 'Public'
 		
 					WHEN inst_type_description LIKE '%NON-IMF%' THEN 'Public'
 		
