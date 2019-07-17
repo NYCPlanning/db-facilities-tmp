@@ -1,36 +1,50 @@
 # db-facilities-tmp [![CircleCI](https://circleci.com/gh/NYCPlanning/db-facilities-tmp.svg?style=svg)](https://circleci.com/gh/NYCPlanning/db-facilities-tmp)
 
 ## Development environment
-#### __Dataloading environment__
-        
+#### `sh 00_initialize.sh` __Create dataloading environment__
+1. navigate to the db-facilities-tmp directory
+
+        cd db-facilities-tmp
+
         docker run -itd --name=facdb\
                 --network=host\
                 -v `pwd`:/home/db-facilities\
                 -w /home/db-facilities\
                 -e "DATAFLOWS_DB_ENGINE=postgresql://postgres@localhost:5433/postgres"\
                 sptkl/docker-dataloading:latest /bin/bash -c "pip3 install -e .; bash"
-                
-1. navigate to the db-facilities-tmp directory
-
-        cd db-facilities-tmp
         
-#### __Postgis__
-
+2. create the database container
+        
         docker run -itd --name=db\
                 -p 5433:5432\
-                mdillon/postgis 
+                mdillon/postgis
 
-#### __Geocoding__
-
-1. run the following docker command: 
+3.  create geocoding microservice
 
         docker run -itd -p 5000:5000 sptkl/api-geosupport
 
-4. Test out the api by navigating to the following addresses: 
+#### `sh 01_dataloading.sh` __Conduct dataloading__
 
-        http://0.0.0.0:5000/1b?house_number=120&street_name=broadway&borough=MN
-        
-        http://0.0.0.0:5000/1b?house_number=120&street_name=broadway&zipcode=10271
+1. this command will load all 50 input datasets into the database container
+
+#### `sh 02_build.sh` __Build__
+
+1. this command will transform all input datasets into the `facilities` table
+
+#### `sh 03_export.sh` __Export__
+
+1. this command will export the finished `facilities` table into shape files, csv along with QAQC tables
+
+#### `sh 04_backup.sh` __Backup__
+
+1. this command will create a `pg_dump` file and upload the `facilities` table to the digital ocean publishing database
+
+### _Note:_
+
+You can run the above 4 step scripts to generate the facilities database, however, you can also skip through all steps and do a database restore.
+
+        curl -O https://github.com/NYCPlanning/db-facilities-tmp/raw/dev/output/facilities.gz
+        gunzip < facilities.gz | psql -p {YOUR_PORT} -U {YOUR_USER} -d {YOUR_DATABASE} -h {YOUR_HOST}
 
 ## Building Instructions: 
 1. enter docker environment
@@ -39,26 +53,25 @@
         
 2. access postgres 
 
-        docker exec -it db bash
-        psql -U postgres
+        docker exec -it db psql -U postgres
 
 3. run any pipelines in etl from root directory: (note this would run both the .py and .sql file)
+        
+        docker exec facdb cook recipe run <name of recipe>
 
-        cook recipe run <name of recipe>
+4. Check local recipes:
 
-4. Check local recipes: 
+        docker exec facdb cook recipe ls local
 
-        cook recipe ls local
+5. Check recipes in postgres:
 
-5. Check recipes in postgres: 
-
-        cook recipe ls pg
+        docker exec facdb cook recipe ls pg
 
 6. check local/postgres differences:
 
-        cook recipe ls diff
+        docker exec facdb cook recipe ls diff
 
-## Data loading:
+## About Source Data:
 All FacDB datasets are loaded from various sources and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.
 1. we receive the following datasets from their owners, various city agencies __via email__:
 
