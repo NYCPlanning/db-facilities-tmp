@@ -44,5 +44,3 @@ SET hash =  md5(CAST((t.*)AS text)),
 	proptype = NULL
 ;
 
-delete from nysdoccs_corrections where facility_name = 'Address & Phone Number';
-
