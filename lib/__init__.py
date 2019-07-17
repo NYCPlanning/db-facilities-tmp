@@ -9,3 +9,4 @@ from lib.find_replace import find_replace as find_replace
 from lib.set_type import set_type
 from lib.printer import printer
 from lib.map_field import map_field
+from lib.zip_url_to_postgis import zip_url_to_postgis, url_to_postgis
