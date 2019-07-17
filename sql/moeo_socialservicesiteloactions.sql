@@ -151,7 +151,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                             WHEN agency_name = 'DOHMH' THEN 'NYC Department of Health and Mental Hygiene'
                             WHEN agency_name = 'HRA' THEN 'NYC Human Resources Administration'
                         END),
-            overabbrev = agency_name, 
+            overabbrev = 'NYC'||agency_name, 
             overlevel = NULL, 
             capacity = NULL, 
             captype = NULL, 
