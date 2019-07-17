@@ -10,4 +10,6 @@ docker run -itd --name=db\
             -p 5433:5432\
             mdillon/postgis
 
+ docker run -itd --name=geo -p 5000:5000 sptkl/api-geosupport
+
 docker exec facdb sh runners/00_initialize.sh
