@@ -49,7 +49,7 @@ You can run the above 4 step scripts to generate the facilities database, howeve
 ## Building Instructions: 
 1. enter docker environment
 
-        c -it facdb bash
+        docker exec -it facdb bash
         
 2. access postgres 
 
