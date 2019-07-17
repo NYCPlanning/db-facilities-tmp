@@ -3,4 +3,5 @@ docker exec db pg_dump -t facilities --no-owner -U postgres -d postgres | psql $
 
 DATE=$(date "+%Y-%m-%d")
 psql $EDM_DATA -c "ALTER TABLE facilities SET SCHEMA facilities;"
+psql $EDM_DATA -c "DROP TABLE IF EXISTS facilities.\"$DATE\";"
 psql $EDM_DATA -c "ALTER TABLE facilities.facilities RENAME TO \"$DATE\";"
