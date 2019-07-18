@@ -28,7 +28,6 @@ def url_to_postgis(url, table_name):
     gdal.VectorTranslate(
         dstDS,
         srcDS,
-        geometryType = 'Multipolygon',
         layerCreationOptions = ['precision=NO'],
         format='PostgreSQL',
         srcSRS='EPSG:4326', 
