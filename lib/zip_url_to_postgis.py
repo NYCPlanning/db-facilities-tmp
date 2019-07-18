@@ -31,7 +31,7 @@ def url_to_postgis(url, table_name):
         geometryType = 'Multipolygon',
         layerCreationOptions = ['precision=NO'],
         format='PostgreSQL',
-        srcSRS='EPSG:2263', 
+        srcSRS='EPSG:4326', 
         dstSRS='EPSG:4326',
         layerName=table_name,
         accessMode='overwrite')
