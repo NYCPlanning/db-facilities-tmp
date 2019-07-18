@@ -65,10 +65,10 @@ AND a.policeprct IS NULL;
 
 -- remove points out of NYC
 DELETE FROM facilities WHERE 
-facilities.uid IN (
+facilities.uid NOT IN (
     SELECT a.uid FROM
       facilities a, (
            SELECT ST_Union(wkb_geometry) As geom FROM dcp_boroboundaries_wi
       ) b
-      WHERE ST_Disjoint(a.geom, b.geom)
+      WHERE ST_Within(a.geom, b.geom)
  );
