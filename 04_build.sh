@@ -1,0 +1,1 @@
+docker exec facdb sh runners/04_build.sh

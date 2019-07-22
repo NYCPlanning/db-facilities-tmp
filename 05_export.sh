@@ -1,0 +1,1 @@
+docker exec facdb sh runners/05_export.sh
