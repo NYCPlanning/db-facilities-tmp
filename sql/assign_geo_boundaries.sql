@@ -21,7 +21,7 @@ SET censtract = b.ct2010::text
 FROM dcp_censustracts b
 WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
-AND a.censtract IS NULL;
+AND a.censtract IS NULL or a.censtract = '000000';
 
 -- school districts
 UPDATE facilities a
