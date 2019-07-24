@@ -17,11 +17,14 @@ AND a.nta IS NULL;
 
 -- census tracts
 UPDATE facilities a
+SET censtract = NULLIF(censtract, '000000');
+
+UPDATE facilities a
 SET censtract = b.ct2010::text
 FROM dcp_censustracts b
 WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
-AND a.censtract IS NULL or a.censtract = '000000';
+AND a.censtract IS NULL;
 
 -- school districts
 UPDATE facilities a
