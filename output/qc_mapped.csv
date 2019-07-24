@@ -2,9 +2,9 @@ datasource,total,countwithgeom,countwithoutgeom,percentwithgeom
 nysomh_mentalhealth,1216,682,534,56.09
 hhc_hospitals,78,58,20,74.36
 dycd_afterschoolprograms,1599,1191,408,74.48
+doe_busroutesgarages,136,116,20,85.29
 nysdec_solidwaste,163,149,14,91.41
 nysed_activeinstitutions,8015,7415,600,92.51
-doe_busroutesgarages,10685,10011,674,93.69
 dcla_culturalinstitutions,1918,1816,102,94.68
 moeo_socialservicesiteloactions,3890,3727,163,95.81
 nysopwdd_providers,147,141,6,95.92
@@ -20,7 +20,7 @@ dfta_contracts,420,419,1,99.76
 doe_lcgms,1839,1836,3,99.84
 nysdoh_healthfacilities,993,992,1,99.90
 dca_operatingbusinesses,4978,4974,4,99.92
-dot_ferryterminals,9,9,0,100.00
+usdot_airports,18,18,0,100.00
 dot_publicparking,44,44,0,100.00
 bpl_libraries,59,59,0,100.00
 nysparks_parks,5,5,0,100.00
@@ -42,7 +42,7 @@ dpr_parksproperties,2011,2011,0,100.00
 nycourts_courts,14,14,0,100.00
 nypl_libraries,92,92,0,100.00
 dcp_pops,355,355,0,100.00
-usdot_airports,18,18,0,100.00
 uscourts_courts,18,18,0,100.00
 dot_mannedfacilities,74,74,0,100.00
 nysparks_historicplaces,900,900,0,100.00
+dot_ferryterminals,9,9,0,100.00
