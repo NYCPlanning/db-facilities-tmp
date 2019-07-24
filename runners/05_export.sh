@@ -52,4 +52,8 @@ psql $DATAFLOWS_DB_ENGINE -c "\copy (SELECT * FROM qc_proptype)
 psql $DATAFLOWS_DB_ENGINE -c "\copy (SELECT * FROM qc_mapped) 
                                 TO '/home/db-facilities/output/qc_mapped.csv' 
                                 DELIMITER ',' CSV HEADER;"
+
+psql $DATAFLOWS_DB_ENGINE -c "\copy (select * from geo_result where xcoord is not null and ycoord is not null) 
+                                TO '/home/db-facilities/output/geo_result.csv' 
+                                DELIMITER ',' CSV HEADER;"
 echo "Build is done!"
