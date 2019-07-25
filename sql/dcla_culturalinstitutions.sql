@@ -23,6 +23,12 @@ ALTER TABLE dcla_culturalinstitutions
 
 update dcla_culturalinstitutions as t
 SET hash =  md5(CAST((t.*)AS text)), 
+	wkb_geometry = (CASE
+				        WHEN wkb_geometry IS NULL
+					        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
+												 	 latitude::DOUBLE PRECISION), 4326)
+				        ELSE wkb_geometry
+				    END),
 	facname = organization_name, 
 	factype = (CASE
 					WHEN discipline IS NOT NULL THEN discipline
