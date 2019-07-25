@@ -49,11 +49,17 @@ ALTER TABLE nysed_activeinstitutions
 
 UPDATE nysed_activeinstitutions as t
 SET hash =  md5(CAST((t.*)AS text)),
-address = (CASE 
-                        WHEN the_geom is not NULL 
-                            THEN geo_house_number || ' ' || geo_street_name
-                        ELSE physical_address_line1             
-                    END),
+	wkb_geometry = (CASE
+				        WHEN wkb_geometry IS NULL AND gis_longitute_x != '0' AND gis_latitude_y != '0'
+					        THEN ST_SetSRID(ST_Point(gis_longitute_x::DOUBLE PRECISION, 
+												 	 gis_latitude_y::DOUBLE PRECISION), 4326)
+				        ELSE wkb_geometry
+				    END),
+	address = (CASE 
+					WHEN the_geom is not NULL 
+						THEN geo_house_number || ' ' || geo_street_name
+					ELSE physical_address_line1             
+				END),
 	facname = popular_name,
 	factype = (CASE
 						WHEN inst_sub_type_description LIKE '%CHARTER SCHOOL%'
