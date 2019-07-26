@@ -39,7 +39,8 @@ SET hash =  md5(CAST((t.*)AS text)),
                 END),
     factype = (CASE
                         WHEN operations LIKE '%Asphalt%' THEN 'Asphalt Plant'
-                        WHEN operations IS NOT NULL THEN
+                        WHEN division = 'Multiple' OR division = 'N/A' THEN 'Other Manned Transportation Facility'
+                        WHEN division IS NOT NULL THEN
                             REPLACE(
                             REPLACE(
                             REPLACE(
@@ -47,15 +48,24 @@ SET hash =  md5(CAST((t.*)AS text)),
                             REPLACE(
                             REPLACE(
                             REPLACE(
-                            operations,
+                            REPLACE(
+                            REPLACE(
+                            REPLACE(
+                            REPLACE(
+                            REPLACE(
+                            division,
                             'RRM','Roadway Repair and Maintenance'),
                             'SIM','Sidewalk and Inspection Management'),
                             'OCMC','Construction Mitigation and Coordination'),
                             'HIQA','Highway Inspection and Quality Assurance'),
                             'BCO','Borough Commissioner’s Office'),
                             'JETS','Roadway Repair and Maintenance'),
-                            'TMC','Traffic Management Center')
-                        ELSE 'Manned Transportation Facility'
+                            'TMC','Traffic Management Center'),
+                            'Bridges', 'Bridge Repair and Maintenance'),
+                            'Fleet', 'Fleet Services'),
+                            'Ops', 'Operations'),
+                            'Ferries', 'Ferry Maintenance Facility'),
+                            'TPM', 'Total Productive Maintenance')
                     END),
     facsubgrp = (CASE
                         WHEN operations LIKE '%Asphalt%' THEN 'Material Supplies'
