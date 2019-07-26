@@ -12,17 +12,6 @@ table_name = 'dcp_sfpsd'
 dcp_sfpsd = Flow(
     load(url, resources = table_name),
 
-    filter_rows(equals = [
-            dict(pgtable = 'amtrak_facilities_sfpsd'),
-            dict(pgtable = 'bbpc_facilities_sfpsd'),
-            dict(pgtable = 'hrpt_facilities_sfpsd'),
-            dict(pgtable = 'nysdot_facilities_sfpsd'),
-            dict(pgtable = 'panynj_facilities_sfpsd'),
-            dict(pgtable = 'dcas_facilities_colp'),
-            dict(pgtable = 'tgi_facilities_sfpsd'),
-            dict(pgtable = 'rioc_facilities_sfpsd'),
-            ]),
-
     # ################## geospatial ###################
     # ###### Make sure the following columns ##########
     # ###### exist before geo_flows          ########## 
