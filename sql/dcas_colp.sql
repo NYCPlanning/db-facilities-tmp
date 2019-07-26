@@ -1,16 +1,9 @@
 --select w.status::text, count(*) 
 --from (select geo::json->'status' as status from dcas_colp) w
 --group by w.status::text;
+DELETE FROM dcas_colp
+WHERE colp_type !~* 'maintenance|storage|Infrastructure|Office|residential|no use|private';
 
-CREATE TABLE dcas_colp_tmp as
-SELECT * FROM dcas_colp
-WHERE colp_type ~* 'maintenance|storage|Infrastructure|Office|residential|no use|private';
-
-DROP TABLE dcas_colp;
-
-ALTER TABLE dcas_colp_tmp
-RENAME TO dcas_colp;
-  
 ALTER TABLE dcas_colp
 	ADD hash text, 
 	ADD	facname text,
@@ -873,3 +866,23 @@ SET hash =  md5(CAST((t.*)AS text)),
 				WHEN type='LF' THEN 'City Leased'
 			END)
 ;
+
+CREATE TABLE dcas_colp_tmp as
+SELECT * FROM dcas_colp
+WHERE
+	(agency <> 'NYCHA'
+	AND agency <> 'HPD'
+	AND usedec <> 'ROAD/HIGHWAY'
+	AND usedec <> 'TRANSIT WAY'
+	AND usedec NOT LIKE '%WATER SUPPLY%'
+	AND usedec NOT LIKE '%RESERVOIR%'
+	AND usedec NOT LIKE '%AQUEDUCT%'
+	AND agency <> 'DHS')
+	OR (agency = 'DHS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
+	OR (agency = 'HRA' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
+	OR (agency = 'ACS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%');
+
+DROP TABLE dcas_colp;
+
+ALTER TABLE dcas_colp_tmp
+RENAME TO dcas_colp;
