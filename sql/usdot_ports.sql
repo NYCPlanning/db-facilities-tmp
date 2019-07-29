@@ -4,7 +4,7 @@
 --group by w.status::text;
 CREATE TABLE usdot_ports_tmp AS (
 SELECT * FROM usdot_ports
-WHERE nav_unit_n ~* '^port|terminal|ferry');
+WHERE nav_unit_n ~* '^port|terminal|ferry|cruise');
 
 DROP TABLE usdot_ports;
 

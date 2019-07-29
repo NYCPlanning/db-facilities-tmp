@@ -22,6 +22,9 @@ ALTER TABLE dcas_colp
 	ADD	captype text,
 	ADD	proptype text;
 
+UPDATE dcas_colp
+SET usedec = REPLACE(usedec, 'NO USE-NON RESIDENTIAL STRUCTURESE', 'NO USE-NON RESIDENTIAL STRUCTURE'); 
+
 UPDATE dcas_colp as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
@@ -34,7 +37,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 				WHEN name <> ' ' AND name IS NOT NULL THEN initcap(name)
 				ELSE initcap(REPLACE(usedec, 'OTHER ', ''))
 			END),
-	usedec = REPLACE(usedec, 'No Use-Non Residential Structurese', 'No Use-Non Residential Structures'),
 	factype = initcap(REPLACE(usedec, 'OTHER ', '')),
 	facsubgrp = (CASE
 

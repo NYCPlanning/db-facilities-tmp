@@ -29,7 +29,9 @@ SET hash =  md5(CAST((t.*)AS text)),
 					END),
 	address = geo_street_name,
 	facname = name,
-	factype = 'Ferry Terminal or Landing',
+	factype = (CASE WHEN UPPER(name) LIKE '%TERMINAL%' THEN 'Ferry Terminal'
+					WHEN UPPER(name) LIKE '%LANDING%' THEN 'Ferry Landing'
+				END),
 	facsubgrp = 'Ports and Ferry Landings',
 	facgroup = NULL,
 	facdomain = NULL,
