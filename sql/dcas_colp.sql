@@ -34,6 +34,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 				WHEN name <> ' ' AND name IS NOT NULL THEN initcap(name)
 				ELSE initcap(REPLACE(usedec, 'OTHER ', ''))
 			END),
+	usedec = REPLACE(usedec, 'No Use-Non Residential Structurese', 'No Use-Non Residential Structures'),
 	factype = initcap(REPLACE(usedec, 'OTHER ', '')),
 	facsubgrp = (CASE
 

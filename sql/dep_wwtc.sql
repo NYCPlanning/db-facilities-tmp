@@ -29,7 +29,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                     ELSE split_part(address, ',', 1)          
                 END),
 	facname = name,
-	factype = 'Waste Water Treatment Plant' ,
+	factype = 'Wastewater Treatment Plant' ,
 	facsubgrp = 'Wastewater and Pollution Control',	
 	facgroup = NULL,
 	facdomain = NULL,
