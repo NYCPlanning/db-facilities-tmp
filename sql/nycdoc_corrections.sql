@@ -29,7 +29,7 @@ SET hash = md5(CAST((t.*)AS text)),
                         ELSE address1
                     END),
 	facname = name,
-	factype = 'Correction Facility',
+	factype = 'Correctional Facility',
 	facsubgrp = 'Detention and Correctional',
 	facgroup = NULL,
 	facdomain = NULL,
@@ -42,4 +42,4 @@ SET hash = md5(CAST((t.*)AS text)),
 	overlevel = NULL,
 	capacity = NULL,
 	captype = NULL,
-	proptype = NULL
+	proptype = NULL;
