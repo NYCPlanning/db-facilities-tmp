@@ -1,24 +1,24 @@
 facdomain,facgroup,facsubgrp,servarea,count
-Administration of Government,"City Agency Parking, Maintenance, and Storage",City Agency Parking,Local,450
+Administration of Government,"City Agency Parking, Maintenance, and Storage",City Agency Parking,Local,453
 Administration of Government,"City Agency Parking, Maintenance, and Storage",Custodial,Local,124
 Administration of Government,"City Agency Parking, Maintenance, and Storage",Maintenance and Garages,Regional,190
-Administration of Government,"City Agency Parking, Maintenance, and Storage",Storage,Regional,457
+Administration of Government,"City Agency Parking, Maintenance, and Storage",Storage,Regional,459
 Administration of Government,"Offices, Training, and Testing",Offices,Regional,1358
 Administration of Government,"Offices, Training, and Testing",Training and Testing,Regional,44
-Administration of Government,Other Property,Miscellaneous Use,Regional,4573
-Administration of Government,Other Property,Properties Leased or Licensed to Non-public Entities,Regional,880
+Administration of Government,Other Property,Miscellaneous Use,Regional,4680
+Administration of Government,Other Property,Properties Leased or Licensed to Non-public Entities,Regional,904
 Core Infrastructure and Transportation,Material Supplies and Markets,Material Supplies,Regional,17
 Core Infrastructure and Transportation,Material Supplies and Markets,Wholesale Markets,Regional,30
 Core Infrastructure and Transportation,Solid Waste,Solid Waste Processing,Regional,294
 Core Infrastructure and Transportation,Solid Waste,Solid Waste Transfer and Carting,Regional,182
-Core Infrastructure and Transportation,Telecommunications,Telecommunications,Regional,15
+Core Infrastructure and Transportation,Telecommunications,Telecommunications,Regional,16
 Core Infrastructure and Transportation,Transportation,Airports and Heliports,Regional,53
 Core Infrastructure and Transportation,Transportation,Bus Depots and Terminals,Regional,165
-Core Infrastructure and Transportation,Transportation,Other Transportation,Regional,279
+Core Infrastructure and Transportation,Transportation,Other Transportation,Regional,280
 Core Infrastructure and Transportation,Transportation,Parking Lots and Garages,Local,4970
-Core Infrastructure and Transportation,Transportation,Ports and Ferry Landings,Regional,133
-Core Infrastructure and Transportation,Transportation,Rail Yards and Maintenance,Regional,327
-Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollution Control,Regional,332
+Core Infrastructure and Transportation,Transportation,Ports and Ferry Landings,Regional,136
+Core Infrastructure and Transportation,Transportation,Rail Yards and Maintenance,Regional,328
+Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollution Control,Regional,333
 "Education, Child Welfare, and Youth",Camps,Camps,Local,516
 "Education, Child Welfare, and Youth",Child Care and Pre-Kindergarten,Child Care,Local,2436
 "Education, Child Welfare, and Youth",Child Care and Pre-Kindergarten,DOE Universal Pre-Kindergarten,Local,1914
@@ -33,7 +33,7 @@ Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollu
 "Education, Child Welfare, and Youth",Vocational and Proprietary Schools,GED and Alternative High School Equivalency,Local,129
 "Education, Child Welfare, and Youth",Vocational and Proprietary Schools,Proprietary Schools,Local,599
 "Education, Child Welfare, and Youth",Youth Services,"Youth Centers, Literacy Programs, Job Training, and Immigrant Services",Local,1599
-Health and Human Services,Health Care,Chemical Dependency,Regional,37
+Health and Human Services,Health Care,Chemical Dependency,Regional,399
 Health and Human Services,Health Care,Health Promotion and Disease Prevention,Regional,616
 Health and Human Services,Health Care,Hospitals and Clinics,Regional,1209
 Health and Human Services,Health Care,Mental Health,Regional,1378

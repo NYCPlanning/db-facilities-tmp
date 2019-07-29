@@ -38,8 +38,8 @@ SET hash =  md5(CAST((t.*)AS text)),
                         ELSE division
                 END),
     factype = (CASE
-                        WHEN operations LIKE '%Asphalt%' THEN 'Asphalt Plant'
-                        WHEN operations IS NOT NULL THEN
+                        WHEN division LIKE '%Asphalt%' THEN 'Asphalt Plant'
+                        WHEN division IS NOT NULL THEN
                             REPLACE(
                             REPLACE(
                             REPLACE(
@@ -47,7 +47,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                             REPLACE(
                             REPLACE(
                             REPLACE(
-                            operations,
+                            division,
                             'RRM','Roadway Repair and Maintenance'),
                             'SIM','Sidewalk and Inspection Management'),
                             'OCMC','Construction Mitigation and Coordination'),
