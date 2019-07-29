@@ -39,6 +39,8 @@ SET hash =  md5(CAST((t.*)AS text)),
                 END),
     factype = (CASE
                         WHEN division LIKE '%Asphalt%' THEN 'Asphalt Plant'
+                        WHEN division LIKE 'Multiple' THEN REPLACE(operations, 'HIQA', 'Highway Inspection and Quality Assurance')
+                        WHEN division LIKE 'N/A' THEN operations
                         WHEN division IS NOT NULL THEN
                             REPLACE(
                             REPLACE(
