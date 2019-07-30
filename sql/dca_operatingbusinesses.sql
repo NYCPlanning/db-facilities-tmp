@@ -63,3 +63,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
+
+DELETE FROM dca_operatingbusinesses
+WHERE license_expiration_date::date < current_date;
