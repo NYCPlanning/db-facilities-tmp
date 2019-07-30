@@ -34,13 +34,16 @@ jobs:
           name: run all recipes
           command: |
             python3 runners/01_dataloading.py
+            python3 runners/01.1_loadboundry.py
 
       - run:
           name: load and build
           command: |
             sh runners/02_load_to_facilities.sh
+            sh runners/04_build.sh
       
       - run:
           name: export
           command: |
             sh runners/03_export.sh
+            sh runners/05_export.sh
