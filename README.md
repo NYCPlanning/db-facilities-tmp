@@ -31,11 +31,17 @@
 
 1. this command will transform all input datasets into the `facilities` table
 
-#### `sh 03_export.sh` __Export__
+#### `sh 03_geocode.sh` __Build__
+1. this command will perform geocoding for records that do not have geometries using GeoSupport
+
+#### `sh 04_build.sh` __Build__
+1. this command will assign geometries for records that do not have geometries using spatial join and perform quality check for `facilities` table
+
+#### `sh 05_export.sh` __Export__
 
 1. this command will export the finished `facilities` table into shape files, csv along with QAQC tables
 
-#### `sh 04_backup.sh` __Backup__
+#### `sh 06_backup.sh` __Backup__
 
 1. this command will create a `pg_dump` file and upload the `facilities` table to the digital ocean publishing database
 
