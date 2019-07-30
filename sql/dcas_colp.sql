@@ -1,8 +1,16 @@
 --select w.status::text, count(*) 
 --from (select geo::json->'status' as status from dcas_colp) w
 --group by w.status::text;
-DELETE FROM dcas_colp
-WHERE colp_type !~* 'maintenance|storage|Infrastructure|Office|residential|no use|private' or usedec ~* 'Office Leased By Educ';
+CREATE TABLE dcas_colp_tmp as
+	SELECT *
+	FROM dcas_colp
+	WHERE colp_type ~* 'maintenance|storage|Infrastructure|Office|residential|no use|private' 
+		 OR usedec ~* 'Office Leased By Educ';
+
+DROP TABLE dcas_colp;
+
+ALTER TABLE dcas_colp_tmp
+RENAME TO dcas_colp;
 
 ALTER TABLE dcas_colp
 	ADD hash text, 
