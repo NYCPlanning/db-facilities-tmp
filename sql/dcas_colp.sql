@@ -871,19 +871,20 @@ SET hash =  md5(CAST((t.*)AS text)),
 ;
 
 CREATE TABLE dcas_colp_tmp as
-SELECT * FROM dcas_colp
-WHERE
-	(agency <> 'NYCHA'
-	AND agency <> 'HPD'
-	AND usedec <> 'ROAD/HIGHWAY'
-	AND usedec <> 'TRANSIT WAY'
-	AND usedec NOT LIKE '%WATER SUPPLY%'
-	AND usedec NOT LIKE '%RESERVOIR%'
-	AND usedec NOT LIKE '%AQUEDUCT%'
-	AND agency <> 'DHS')
-	OR (agency = 'DHS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
-	OR (agency = 'HRA' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
-	OR (agency = 'ACS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%');
+	SELECT DISTINCT ON (facname, factype, facsubgrp, boro, block) *
+	FROM dcas_colp
+	WHERE
+		(agency <> 'NYCHA'
+		AND agency <> 'HPD'
+		AND usedec <> 'ROAD/HIGHWAY'
+		AND usedec <> 'TRANSIT WAY'
+		AND usedec NOT LIKE '%WATER SUPPLY%'
+		AND usedec NOT LIKE '%RESERVOIR%'
+		AND usedec NOT LIKE '%AQUEDUCT%'
+		AND agency <> 'DHS')
+		OR (agency = 'DHS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
+		OR (agency = 'HRA' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
+		OR (agency = 'ACS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%');
 
 DROP TABLE dcas_colp;
 
