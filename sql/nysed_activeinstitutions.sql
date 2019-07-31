@@ -128,13 +128,13 @@ SET hash =  md5(CAST((t.*)AS text)),
 			
 							THEN 'Preschools for Students with Disabilities'
 			
-						WHEN (inst_sub_type_description LIKE '%DISABILITIES%')
+						WHEN (inst_type_description LIKE '%DISABILITIES%')
 			
 							THEN 'Public and Private Special Education Schools'
 			
 						WHEN inst_sub_type_description LIKE '%PRE-K%' THEN 'Offices'
 			
-						WHEN (inst_type_description LIKE 'PUBLIC%') OR (inst_type_description LIKE 'PUBLIC%') THEN 'Public K-12 Schools'
+						WHEN (inst_type_description LIKE 'PUBLIC%') OR (inst_sub_type_description LIKE 'PUBLIC%') THEN 'Public K-12 Schools'
 			
 						WHEN (inst_type_description LIKE '%COLLEGE%') OR (inst_type_description LIKE '%CUNY%') OR 
 			
