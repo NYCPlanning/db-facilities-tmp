@@ -5,7 +5,7 @@ Administration of Government,"City Agency Parking, Maintenance, and Storage",Mai
 Administration of Government,"City Agency Parking, Maintenance, and Storage",Storage,Regional,202
 Administration of Government,"Offices, Training, and Testing",Offices,Regional,383
 Administration of Government,"Offices, Training, and Testing",Training and Testing,Regional,16
-Administration of Government,Other Property,Miscellaneous Use,Regional,2009
+Administration of Government,Other Property,Miscellaneous Use,Regional,2023
 Administration of Government,Other Property,Properties Leased or Licensed to Non-public Entities,Regional,378
 Core Infrastructure and Transportation,Material Supplies and Markets,Material Supplies,Regional,8
 Core Infrastructure and Transportation,Material Supplies and Markets,Wholesale Markets,Regional,15
@@ -35,7 +35,7 @@ Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollu
 "Education, Child Welfare, and Youth",Youth Services,"Youth Centers, Literacy Programs, Job Training, and Immigrant Services",Local,1599
 Health and Human Services,Health Care,Chemical Dependency,Regional,399
 Health and Human Services,Health Care,Health Promotion and Disease Prevention,Regional,616
-Health and Human Services,Health Care,Hospitals and Clinics,Regional,1153
+Health and Human Services,Health Care,Hospitals and Clinics,Regional,1154
 Health and Human Services,Health Care,Mental Health,Regional,1378
 Health and Human Services,Health Care,Other Health Care,Regional,2083
 Health and Human Services,Health Care,Residential Health Care,Regional,311
@@ -60,6 +60,9 @@ Libraries and Cultural Programs,Libraries,Public Libraries,Local,219
 "Parks, Gardens, and Historical Sites",Parks and Plazas,Privately Owned Public Space,Local,355
 "Parks, Gardens, and Historical Sites",Parks and Plazas,Recreation and Waterfront Sites,Local,629
 "Parks, Gardens, and Historical Sites",Parks and Plazas,"Streetscapes, Plazas, and Malls",Local,554
-"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Courthouses and Judicial,Regional,25
-"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Detention and Correctional,Regional,13
-"Public Safety, Emergency Services, and Administration of Justice",Public Safety,Police Services,Local,16
+"Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Fire Services,Local,219
+"Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Other Emergency Services,Local,35
+"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Courthouses and Judicial,Regional,54
+"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Detention and Correctional,Regional,31
+"Public Safety, Emergency Services, and Administration of Justice",Public Safety,Other Public Safety,Local,34
+"Public Safety, Emergency Services, and Administration of Justice",Public Safety,Police Services,Local,93
