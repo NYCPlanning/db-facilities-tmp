@@ -2,6 +2,9 @@
 --from (select geo::json->'status' as status from bpl_libraries) w
 --group by w.status::text;
 
+DELETE FROM nycha_communitycenters
+WHERE UPPER(program_type) = 'CLOSED';
+
 ALTER TABLE nycha_communitycenters
 	ADD hash text, 
 	ADD facname text,
