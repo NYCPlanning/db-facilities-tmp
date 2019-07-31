@@ -49,7 +49,7 @@
 
 You can run the above 4 step scripts to generate the facilities database, however, you can also skip through all steps and do a database restore.
 
-        curl -O https://github.com/NYCPlanning/db-facilities-tmp/raw/dev/output/facilities.gz
+        curl -O https://media.githubusercontent.com/media/NYCPlanning/db-facilities-tmp/dev/output/facilities.gz
         gunzip < facilities.gz | psql -p {YOUR_PORT} -U {YOUR_USER} -d {YOUR_DATABASE} -h {YOUR_HOST}
 
 ## Building Instructions: 
