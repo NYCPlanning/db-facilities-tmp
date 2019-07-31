@@ -5,7 +5,7 @@ CREATE TABLE dcas_colp_tmp as
 	SELECT *
 	FROM dcas_colp
 	WHERE colp_type ~* 'maintenance|storage|Infrastructure|Office|residential|no use|private' 
-		 OR usedec ~* 'Office Leased By Educ';
+		 OR usedec ~* 'Office Leased By Educ|fire|Emergency|Safety|Police|security';
 
 DROP TABLE dcas_colp;
 
