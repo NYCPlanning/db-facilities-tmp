@@ -56,7 +56,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 		                    ELSE site_address_1          
 		                END),
             facname = provider_name || ' ' || program_name,
-            factype = program_name,
+            factype = initcap(program_name),
             facsubgrp = (CASE
                             WHEN program_name LIKE '%JOB%'
                             OR program_name LIKE '%VOCATIONAL%' 
