@@ -67,7 +67,7 @@ factype = (CASE
 				WHEN location_type_description NOT LIKE '%Special%' THEN CONCAT(location_category_description, ' - Public')
 				WHEN location_type_description LIKE '%Special%' THEN CONCAT(location_category_description, ' - Public, Special Education')
 				END
-				WHEN location_type_description ~* '%Special%' THEN CONCAT(trim(regexp_replace(location_category_description, 'school|School', '')), ' School - Public, Special Education')
+				WHEN location_type_description LIKE '%Special%' THEN CONCAT(trim(regexp_replace(location_category_description, 'school|School', '')), ' School - Public, Special Education')
 				ELSE CONCAT(trim(regexp_replace(location_category_description, 'school|School', '')), ' School - Public')
 				END),
 facsubgrp = (CASE
