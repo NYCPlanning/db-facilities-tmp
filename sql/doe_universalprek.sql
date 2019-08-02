@@ -32,6 +32,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                 WHEN type = 'DOE' THEN 'DOE Universal Pre-K'
                 WHEN type = 'CHARTER' OR type = 'Charter' THEN 'DOE Universal Pre-K - Charter '
                 WHEN type = 'NYCEEC' THEN 'Early Education Program'
+				WHEN type = 'PKC' THEN 'Pre-K Center'
 		    END),
 	facsubgrp = 'DOE Universal Pre-Kindergarten',
 	facgroup = NULL,
