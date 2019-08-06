@@ -27,7 +27,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                         ELSE program_address_1             
                     END),
 	facname = program_name, 
-	factype = program_category_description,
+	factype = program_category_description || ' Mental Health',
 	facsubgrp = 'Mental Health',
 	facgroup = NULL,
 	facdomain = NULL,
