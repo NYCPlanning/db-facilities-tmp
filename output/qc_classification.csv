@@ -13,9 +13,9 @@ Core Infrastructure and Transportation,Solid Waste,Solid Waste Processing,Region
 Core Infrastructure and Transportation,Solid Waste,Solid Waste Transfer and Carting,Regional,158
 Core Infrastructure and Transportation,Telecommunications,Telecommunications,Regional,5
 Core Infrastructure and Transportation,Transportation,Airports and Heliports,Regional,27
-Core Infrastructure and Transportation,Transportation,Bus Depots and Terminals,Regional,183
+Core Infrastructure and Transportation,Transportation,Bus Depots and Terminals,Regional,172
 Core Infrastructure and Transportation,Transportation,Other Transportation,Regional,191
-Core Infrastructure and Transportation,Transportation,Parking Lots and Garages,Local,2261
+Core Infrastructure and Transportation,Transportation,Parking Lots and Garages,Local,2236
 Core Infrastructure and Transportation,Transportation,Ports and Ferry Landings,Regional,93
 Core Infrastructure and Transportation,Transportation,Rail Yards and Maintenance,Regional,238
 Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollution Control,Regional,170
@@ -67,3 +67,4 @@ Libraries and Cultural Programs,Libraries,Public Libraries,Local,219
 "Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Detention and Correctional,Regional,13
 "Public Safety, Emergency Services, and Administration of Justice",Public Safety,Other Public Safety,Local,33
 "Public Safety, Emergency Services, and Administration of Justice",Public Safety,Police Services,Local,92
+,,,,11
