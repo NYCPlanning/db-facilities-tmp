@@ -38,27 +38,10 @@ SET hash =  md5(CAST((t.*)AS text)),
                         ELSE division
                 END),
     factype = (CASE
-                        WHEN division LIKE '%Asphalt%' THEN 'Asphalt Plant'
-                        WHEN division LIKE 'Multiple' THEN REPLACE(operations, 'HIQA', 'Highway Inspection and Quality Assurance')
-                        WHEN division LIKE 'N/A' THEN operations
-                        WHEN division IS NOT NULL THEN
-                            REPLACE(
-                            REPLACE(
-                            REPLACE(
-                            REPLACE(
-                            REPLACE(
-                            REPLACE(
-                            REPLACE(
-                            division,
-                            'RRM','Roadway Repair and Maintenance'),
-                            'SIM','Sidewalk and Inspection Management'),
-                            'OCMC','Construction Mitigation and Coordination'),
-                            'HIQA','Highway Inspection and Quality Assurance'),
-                            'BCO','Borough Commissioner’s Office'),
-                            'JETS','Roadway Repair and Maintenance'),
-                            'TMC','Traffic Management Center')
+                        WHEN operations LIKE '%Asphalt%' THEN 'Asphalt Plant'
+                        WHEN division LIKE '%RRM%' OR division LIKE '%SIM%' OR division LIKE '%OCMC%' OR division LIKE '%HIQA%' OR division LIKE '%TMC%' OR division LIKE '%JETS%' OR division LIKE '%JETS%' OR division LIKE '%Multiple%' OR division LIKE '%External Affairs%' OR division LIKE '%Services%' THEN 'Maintenance, Management, and Operations'
                         ELSE 'Manned Transportation Facility'
-                    END),
+                END),
     facsubgrp = (CASE
                         WHEN operations LIKE '%Asphalt%' THEN 'Material Supplies'
                         ELSE 'Other Transportation'
