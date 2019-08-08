@@ -1,4 +1,5 @@
 import os
+from multiprocessing import Pool, cpu_count
 
 recipes = ['acs_daycareheadstart','bpl_libraries','dca_operatingbusinesses',
         'dcas_colp','dcla_culturalinstitutions','dcp_pops', 'dcp_sfpsd', 
@@ -19,5 +20,8 @@ recipes = ['acs_daycareheadstart','bpl_libraries','dca_operatingbusinesses',
 
 print(len(recipes))
 
-for i in recipes: 
-    os.system(f'cook recipe run {i}')
+def run_recipe(recipe):
+    os.system(f'cook recipe run {recipe}')
+
+with Pool(processes=cpu_count()) as pool:
+        it = pool.map(run_recipe, recipes)
