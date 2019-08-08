@@ -76,7 +76,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			WHEN usedec LIKE '%GARAGE%' THEN 'Maintenance and Garages'
 
-			WHEN usedec LIKE '%OFFICE%' THEN 'Offices'
+			WHEN usedec LIKE '%OFFICE%' THEN 'City Government Offices'
 
 			WHEN usedec LIKE '%MAINTENANCE%' THEN 'Maintenance and Garages'
 
