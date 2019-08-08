@@ -93,7 +93,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 					WHEN (facility_type ~* 'CAMP' OR program_type ILIKE '%CAMP%')
 						THEN 'Camps'
 					
-					ELSE 'Child Care'
+					ELSE 'Day Care'
 				END),
 
 	facgroup = NULL,

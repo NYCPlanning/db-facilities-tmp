@@ -1,30 +1,31 @@
 facdomain,facgroup,facsubgrp,servarea,count
-Administration of Government,"City Agency Parking, Maintenance, and Storage",City Agency Parking,Local,185
+Administration of Government,"City Agency Parking, Maintenance, and Storage",City Agency Parking,Local,183
 Administration of Government,"City Agency Parking, Maintenance, and Storage",Custodial,Local,44
-Administration of Government,"City Agency Parking, Maintenance, and Storage",Maintenance and Garages,Regional,91
-Administration of Government,"City Agency Parking, Maintenance, and Storage",Storage,Regional,202
-Administration of Government,"Offices, Training, and Testing",Offices,Regional,383
+Administration of Government,"City Agency Parking, Maintenance, and Storage",Maintenance and Garages,Regional,90
+Administration of Government,"City Agency Parking, Maintenance, and Storage",Storage,Regional,199
+Administration of Government,"Offices, Training, and Testing",City Government Offices,Regional,382
 Administration of Government,"Offices, Training, and Testing",Training and Testing,Regional,16
-Administration of Government,Other Property,Miscellaneous Use,Regional,2023
-Administration of Government,Other Property,Properties Leased or Licensed to Non-public Entities,Regional,378
+Administration of Government,Other Property,Miscellaneous Use,Regional,1920
+Administration of Government,Other Property,Properties Leased or Licensed to Non-public Entities,Regional,367
 Core Infrastructure and Transportation,Material Supplies and Markets,Material Supplies,Regional,8
 Core Infrastructure and Transportation,Material Supplies and Markets,Wholesale Markets,Regional,15
-Core Infrastructure and Transportation,Solid Waste,Solid Waste Processing,Regional,211
+Core Infrastructure and Transportation,Solid Waste,Solid Waste Processing,Regional,206
 Core Infrastructure and Transportation,Solid Waste,Solid Waste Transfer and Carting,Regional,158
-Core Infrastructure and Transportation,Telecommunications,Telecommunications,Regional,6
+Core Infrastructure and Transportation,Telecommunications,Telecommunications,Regional,5
 Core Infrastructure and Transportation,Transportation,Airports and Heliports,Regional,27
 Core Infrastructure and Transportation,Transportation,Bus Depots and Terminals,Regional,183
-Core Infrastructure and Transportation,Transportation,Other Transportation,Regional,194
+Core Infrastructure and Transportation,Transportation,Other Transportation,Regional,191
 Core Infrastructure and Transportation,Transportation,Parking Lots and Garages,Local,2261
 Core Infrastructure and Transportation,Transportation,Ports and Ferry Landings,Regional,93
-Core Infrastructure and Transportation,Transportation,Rail Yards and Maintenance,Regional,239
-Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollution Control,Regional,176
+Core Infrastructure and Transportation,Transportation,Rail Yards and Maintenance,Regional,238
+Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollution Control,Regional,170
 "Education, Child Welfare, and Youth",Camps,Camps,Local,516
-"Education, Child Welfare, and Youth",Child Care and Pre-Kindergarten,Child Care,Local,2411
-"Education, Child Welfare, and Youth",Child Care and Pre-Kindergarten,DOE Universal Pre-Kindergarten,Local,1914
-"Education, Child Welfare, and Youth",Child Care and Pre-Kindergarten,Preschools for Students with Disabilities,Local,191
+"Education, Child Welfare, and Youth",Child Care and Pre-Kindergarten,Child Care,,373
 "Education, Child Welfare, and Youth",Childrens Services,Foster Care Services and Residential Care,Regional,62
-"Education, Child Welfare, and Youth",Child Welfare,Child Nutrition,Local,2338
+"Education, Child Welfare, and Youth",Child Services and Welfare,Child Nutrition,Local,2338
+"Education, Child Welfare, and Youth",Day Care and Pre-Kindergarten,Day Care,Local,2038
+"Education, Child Welfare, and Youth",Day Care and Pre-Kindergarten,DOE Universal Pre-Kindergarten,Local,1914
+"Education, Child Welfare, and Youth",Day Care and Pre-Kindergarten,Preschools for Students with Disabilities,Local,191
 "Education, Child Welfare, and Youth",Higher Education,Colleges or Universities,Regional,147
 "Education, Child Welfare, and Youth",Schools (K-12),Charter K-12 Schools,Local,611
 "Education, Child Welfare, and Youth",Schools (K-12),Non-Public K-12 Schools,Local,1128
@@ -60,9 +61,9 @@ Libraries and Cultural Programs,Libraries,Public Libraries,Local,219
 "Parks, Gardens, and Historical Sites",Parks and Plazas,Privately Owned Public Space,Local,355
 "Parks, Gardens, and Historical Sites",Parks and Plazas,Recreation and Waterfront Sites,Local,629
 "Parks, Gardens, and Historical Sites",Parks and Plazas,"Streetscapes, Plazas, and Malls",Local,554
-"Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Fire Services,Local,219
-"Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Other Emergency Services,Local,35
-"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Courthouses and Judicial,Regional,54
-"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Detention and Correctional,Regional,31
-"Public Safety, Emergency Services, and Administration of Justice",Public Safety,Other Public Safety,Local,34
-"Public Safety, Emergency Services, and Administration of Justice",Public Safety,Police Services,Local,93
+"Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Fire Services,Local,215
+"Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Other Emergency Services,Local,3
+"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Courthouses and Judicial,Regional,25
+"Public Safety, Emergency Services, and Administration of Justice",Justice and Corrections,Detention and Correctional,Regional,13
+"Public Safety, Emergency Services, and Administration of Justice",Public Safety,Other Public Safety,Local,33
+"Public Safety, Emergency Services, and Administration of Justice",Public Safety,Police Services,Local,92
