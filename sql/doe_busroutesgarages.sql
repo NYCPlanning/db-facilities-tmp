@@ -20,11 +20,6 @@ ALTER TABLE doe_busroutesgarages
 	ADD	captype text,
 	ADD	proptype text;
 
-WITH capacity AS(
-	SELECT vendor_name, garage__street_address, COUNT(DISTINCT(route_number)) AS route_counts 
-	FROM doe_busroutesgarages
-	GROUP BY vendor_name, garage__street_address
-)
 update doe_busroutesgarages as t
 SET hash =  md5(CAST((t.*)AS text)),
 	address = (CASE 
@@ -32,21 +27,30 @@ SET hash =  md5(CAST((t.*)AS text)),
 							THEN geo_house_number || ' ' || geo_street_name
 						ELSE t.garage__street_address         
 					END),
-	facname = initcap(t.vendor_name),
+	facname = initcap(vendor_name),
 	factype = 'School Bus Depot',
 	facsubgrp = 'Bus Depots and Terminals',
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
-	opname = initcap(t.vendor_name),
+	opname = initcap(vendor_name),
 	opabbrev = 'Non-public',
 	optype = 'Non-public',
 	overagency = 'NYC Department of Education',
 	overabbrev = 'NYCDOE', 
 	overlevel = NULL, 
-	capacity = route_counts, 
+	capacity = NULL, 
 	captype = 'routes', 
 	proptype = NULL
+;
+
+WITH capacity AS(
+	SELECT vendor_name, garage__street_address, COUNT(DISTINCT(route_number)) AS route_counts 
+	FROM doe_busroutesgarages
+	GROUP BY vendor_name, garage__street_address
+)
+update doe_busroutesgarages as t
+SET capacity = route_counts
 FROM capacity c
 WHERE t.vendor_name = c.vendor_name
 AND t.garage__street_address = c.garage__street_address
