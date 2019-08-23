@@ -1,5 +1,5 @@
 --select w.status::text, count(*) 
---from (select geo::json->'status' as status from bpl_libraries) w
+--from (select geo::json->'status' as status from nycha_communitycenters) w
 --group by w.status::text;
 
 DELETE FROM nycha_communitycenters
