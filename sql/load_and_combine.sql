@@ -22,6 +22,7 @@ CALL load_to_facilities('dsny_mtsgaragemaintenance');
 CALL load_to_facilities('dycd_afterschoolprograms');
 CALL load_to_facilities('dcp_sfpsd');
 CALL load_to_facilities('fbop_corrections');
+CALL load_to_facilities('fdny_firehouses');
 CALL load_to_facilities('foodbankny_foodbanks');
 CALL load_to_facilities('hhc_hospitals');
 CALL load_to_facilities('hra_centers');
