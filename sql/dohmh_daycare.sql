@@ -68,10 +68,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 					WHEN (program_type ~* 'Preschool Camp') 
 						THEN 'Camp - Preschool Age'
 		
-					WHEN (facility_type = 'GDC') AND (program_type = 'Child Care - Infants/Toddlers' OR program_type = 'INFANT TODDLER')
-						THEN 'Day Care'
-		
-					WHEN (facility_type = 'GDC') AND (program_type = 'Child Care - Pre School' OR program_type = 'PRESCHOOL')
+					WHEN ((facility_type = 'GDC') AND (program_type = 'Child Care - Infants/Toddlers' OR program_type = 'INFANT TODDLER'))
+					OR ((facility_type = 'GDC') AND (program_type = 'Child Care - Pre School' OR program_type = 'PRESCHOOL'))
 						THEN 'Day Care'
 		
 					WHEN (facility_type = 'SBCC') AND (program_type = 'PRESCHOOL')
@@ -108,6 +106,20 @@ SET hash =  md5(CAST((t.*)AS text)),
 	capacity = NULL, 
 	captype = NULL, 
 	proptype = NULL
+;
+
+-- Deduplicate for factype 'Day Care', only keep one record for facilities having the same legal_name, hnum, sname
+DELETE FROM dohmh_daycare
+WHERE ogc_fid IN(
+	SELECT ogc_fid FROM dohmh_daycare
+	WHERE factype = 'Day Care'
+	AND ogc_fid NOT IN(
+		SELECT MIN(ogc_fid) as ogc_fid
+		FROM dohmh_daycare
+		WHERE factype = 'Day Care'
+		GROUP BY legal_name, hnum, sname
+	)
+)
 ;
 
 -- Use DOE or ACS as the primary source and drop duplicate (same bin with similar name) DOHMH record
