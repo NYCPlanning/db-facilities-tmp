@@ -69,10 +69,10 @@ SET hash =  md5(CAST((t.*)AS text)),
 						THEN 'Camp - Preschool Age'
 		
 					WHEN (facility_type = 'GDC') AND (program_type = 'Child Care - Infants/Toddlers' OR program_type = 'INFANT TODDLER')
-						THEN 'Group Day Care - Infants/Toddlers'
+						THEN 'Day Care'
 		
 					WHEN (facility_type = 'GDC') AND (program_type = 'Child Care - Pre School' OR program_type = 'PRESCHOOL')
-						THEN 'Group Day Care - Preschool'
+						THEN 'Day Care'
 		
 					WHEN (facility_type = 'SBCC') AND (program_type = 'PRESCHOOL')
 						THEN 'School Based Child Care - Preschool'
