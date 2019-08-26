@@ -12,6 +12,7 @@ table_name = 'dohmh_daycare'
 
 dohmh_daycare = Flow(
     load(url, resources = table_name),
+    # load('/home/db-facilities/datapackage.json'),
     # datasource text,
     add_field('datasource', 'string', table_name),
 
@@ -30,6 +31,8 @@ dohmh_daycare = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
+    # dump_to_path('tmp'),
+    # load('tmp/datapackage.json'),
     dump_to_postgis()
 )
 

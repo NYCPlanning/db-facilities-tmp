@@ -7,7 +7,8 @@ from shapely.geometry import Point
 from dataflows import *
 from lib import get_pipeline_url
 
-url = get_pipeline_url('pipelines/db-facilities')
+# url = get_pipeline_url('pipelines/db-facilities')
+url = 'https://db-data-recipes.sfo2.digitaloceanspaces.com/pipelines/db-facilities/2019-08-26/datapackage.json'
 
 def convert_to_boro(county):
         if county.upper() == 'NEW YORK': return 'MN'
