@@ -82,3 +82,6 @@ SET hash =  md5(CAST((t.*)AS text)),
             captype = NULL, 
             proptype = NULL
 ;
+
+DELETE FROM moeo_socialservicesiteloactions
+WHERE factype ~* 'Home Delivered Meals';
