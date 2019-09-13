@@ -23,5 +23,8 @@ print(len(recipes))
 def run_recipe(recipe):
     os.system(f'cook recipe run {recipe}')
 
-with Pool(processes=cpu_count()) as pool:
-        it = pool.map(run_recipe, recipes)
+for i in recipes: 
+    run_recipe(i)
+
+# with Pool(processes=cpu_count()) as pool:
+#         it = pool.map(run_recipe, recipes)
