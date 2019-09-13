@@ -5,7 +5,7 @@
             -v `pwd`:/home/db-facilities\
             -w /home/db-facilities\
             -e "DATAFLOWS_DB_ENGINE=postgresql://postgres@localhost:5433/postgres"\
-            sptkl/docker-dataloading:latest /bin/bash -c "pip3 install -e .; bash"
+            sptkl/docker-dataloading:latest bash -c "pip3 install -e .; bash"
 
 
 # Create a postgres database container db
@@ -28,8 +28,8 @@ done
 docker inspect -f '{{.State.Running}}' $DB_CONTAINER_NAME
 docker exec fdb psql -U postgres -h localhost -c "SELECT 'DATABSE IS UP';"
 
-[ ! "$(docker ps -a | grep geo)" ]\
-     && docker run -d --name=geo\
+[ ! "$(docker ps -a | grep api-geo)" ]\
+     && docker run -itd --name=api-geo\
             -p 5000:5000\
             -e PORT=5000\
             sptkl/api-geosupport:latest
