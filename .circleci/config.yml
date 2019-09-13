@@ -12,7 +12,9 @@ jobs:
         environment:
           DATAFLOWS_DB_ENGINE: postgresql://postgres@localhost:5432/postgres
       - image: mdillon/postgis
-      - image: sptkl/api-geosupport
+      - image: sptkl/api-geosupport:latest
+        environment:
+          PORT: 5000
 
     working_directory: ~/db-facilities-tmp/
 
