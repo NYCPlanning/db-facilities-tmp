@@ -80,7 +80,7 @@ geo_flow = Flow(
                                                 .get('Building Identification Number (BIN) of Input Address or NAP', '')
                                                 ),
                                 dict(target=dict(name = 'geo_bbl', type = 'string'),
-                                                operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', '')
+                                                operation=lambda row: row['results'].get('BOROUGH BLOCK LOT (BBL)', '').get('BOROUGH BLOCK LOT (BBL)', '')
                                                 ),
                                 dict(target=dict(name = 'geo_latitude', type = 'string'),
                                                 operation=lambda row: row['results'].get('Latitude', '')
@@ -95,7 +95,7 @@ geo_flow = Flow(
                                                 operation=lambda row: row['results'].get('Spatial X-Y Coordinates of Address', '')
                                                 ),
                                 dict(target=dict(name = 'geo_commboard', type = 'string'),
-                                                operation=lambda row: row['results'].get('COMMUNITY DISTRICT', '')
+                                                operation=lambda row: row['results'].get('COMMUNITY DISTRICT', '').get('COMMUNITY DISTRICT', '')
                                                 ),
                                 dict(target=dict(name = 'geo_nta', type = 'string'),
                                                 operation=lambda row: row['results'].get('Neighborhood Tabulation Area (NTA)', '')
