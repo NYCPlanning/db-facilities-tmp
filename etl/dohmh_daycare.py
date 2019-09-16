@@ -4,6 +4,7 @@ import os
 import re
 import csv
 import sys
+from pathlib import Path
 from utils import url, geo_flow, get_the_geom
 
 csv.field_size_limit(sys.maxsize)
@@ -31,9 +32,15 @@ dohmh_daycare = Flow(
                             operation=lambda row: get_the_geom(row['geo_longitude'], row['geo_latitude'])
                             )
                         ]),
-    # dump_to_path('tmp'),
-    # load('tmp/datapackage.json'),
+    dump_to_path(f'{str(Path(__file__).parent)}/tmp'),
+)
+
+post_process = Flow(
+    load(f'{str(Path(__file__).parent)}/tmp/dohmh_daycare.csv'),
     dump_to_postgis()
 )
 
 dohmh_daycare.process()
+post_process.process()
+
+os.system(f'rm -r {str(Path(__file__).parent)}/tmp')

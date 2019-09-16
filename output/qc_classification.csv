@@ -10,19 +10,18 @@ Administration of Government,Other Property,Properties Leased or Licensed to Non
 Core Infrastructure and Transportation,Material Supplies and Markets,Material Supplies,Regional,8
 Core Infrastructure and Transportation,Material Supplies and Markets,Wholesale Markets,Regional,15
 Core Infrastructure and Transportation,Solid Waste,Solid Waste Processing,Regional,211
-Core Infrastructure and Transportation,Solid Waste,Solid Waste Transfer and Carting,Regional,158
+Core Infrastructure and Transportation,Solid Waste,Solid Waste Transfer and Carting,Regional,157
 Core Infrastructure and Transportation,Telecommunications,Telecommunications,Regional,6
 Core Infrastructure and Transportation,Transportation,Airports and Heliports,Regional,27
 Core Infrastructure and Transportation,Transportation,Bus Depots and Terminals,Regional,183
 Core Infrastructure and Transportation,Transportation,Other Transportation,Regional,194
-Core Infrastructure and Transportation,Transportation,Parking Lots and Garages,Local,2236
+Core Infrastructure and Transportation,Transportation,Parking Lots and Garages,Local,2189
 Core Infrastructure and Transportation,Transportation,Ports and Ferry Landings,Regional,93
-Core Infrastructure and Transportation,Transportation,Rail Yards and Maintenance,Regional,239
+Core Infrastructure and Transportation,Transportation,Rail Yards and Maintenance,Regional,236
 Core Infrastructure and Transportation,Water and Wastewater,Wastewater and Pollution Control,Regional,176
-"Education, Child Welfare, and Youth",Camps,Camps,Local,516
-"Education, Child Welfare, and Youth",Child Services and Welfare,Child Nutrition,Local,2338
+"Education, Child Welfare, and Youth",Child Services and Welfare,Child Nutrition,Local,2336
 "Education, Child Welfare, and Youth",Child Services and Welfare,Foster Care Services and Residential Care,Regional,62
-"Education, Child Welfare, and Youth",Day Care and Pre-Kindergarten,Day Care,Local,2307
+"Education, Child Welfare, and Youth",Day Care and Pre-Kindergarten,Day Care,Local,734
 "Education, Child Welfare, and Youth",Day Care and Pre-Kindergarten,DOE Universal Pre-Kindergarten,Local,1914
 "Education, Child Welfare, and Youth",Day Care and Pre-Kindergarten,Preschools for Students with Disabilities,Local,191
 "Education, Child Welfare, and Youth",Higher Education,Colleges or Universities,Regional,147
@@ -58,7 +57,7 @@ Libraries and Cultural Programs,Libraries,Public Libraries,Local,219
 "Parks, Gardens, and Historical Sites",Parks and Plazas,Parks,Local,413
 "Parks, Gardens, and Historical Sites",Parks and Plazas,Preserves and Conservation Areas,Regional,114
 "Parks, Gardens, and Historical Sites",Parks and Plazas,Privately Owned Public Space,Local,355
-"Parks, Gardens, and Historical Sites",Parks and Plazas,Recreation and Waterfront Sites,Local,629
+"Parks, Gardens, and Historical Sites",Parks and Plazas,Recreation and Waterfront Sites,Local,628
 "Parks, Gardens, and Historical Sites",Parks and Plazas,"Streetscapes, Plazas, and Malls",Local,554
 "Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Fire Services,Local,218
 "Public Safety, Emergency Services, and Administration of Justice",Emergency Services,Other Emergency Services,Local,3
