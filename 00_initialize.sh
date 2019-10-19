@@ -4,8 +4,8 @@
             --network=host\
             -v `pwd`:/home/db-facilities\
             -w /home/db-facilities\
-            -e "DATAFLOWS_DB_ENGINE=postgresql://postgres@localhost:5433/postgres"\
-            sptkl/docker-dataloading:latest bash -c "pip3 install -e .; bash"
+            --env-file .env\
+            sptkl/docker-geosupport:latest bash -c "pip3 install -e .; bash"
 
 
 # Create a postgres database container db
@@ -13,8 +13,10 @@ DB_CONTAINER_NAME=fdb
 
 [ ! "$(docker ps -a | grep $DB_CONTAINER_NAME)" ]\
      && docker run -itd --name=$DB_CONTAINER_NAME\
+          -v `pwd`:/home/db-facilities\
+            -w /home/db-facilities\
             --shm-size=1g\
-            --cpus=2\
+            --env-file .env\
             -p 5433:5432\
             mdillon/postgis
 
@@ -27,11 +29,5 @@ done
 
 docker inspect -f '{{.State.Running}}' $DB_CONTAINER_NAME
 docker exec fdb psql -U postgres -h localhost -c "SELECT 'DATABSE IS UP';"
-
-[ ! "$(docker ps -a | grep api-geo)" ]\
-     && docker run -itd --name=api-geo\
-            -p 5000:5000\
-            -e PORT=5000\
-            sptkl/api-geosupport:latest
 
 docker exec facdb sh runners/00_initialize.sh
