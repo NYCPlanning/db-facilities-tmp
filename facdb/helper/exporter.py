@@ -37,8 +37,8 @@ def exporter(df, table_name, con=build_engine,
 
     if to_geom:
         make_geom = f'''
-        UPDATE {table_name}
-        SET wkb_geometry = ST_GeomFromText(wkb_geometry, {SRID});
+        ALTER TABLE {table_name} 
+        ALTER COLUMN wkb_geometry TYPE Geometry USING ST_GeomFromText(wkb_geometry, {SRID});
         '''
         con.connect().execute(make_geom)
         con.dispose()
