@@ -23,7 +23,7 @@ ALTER TABLE nysdoccs_corrections
 update nysdoccs_corrections as t
 SET hash =  md5(CAST((t.*)AS text)),
 	address = (CASE 
-                        WHEN the_geom is not NULL 
+                        WHEN wkb_geometry is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE split_part(address, ',', 1)
             END),

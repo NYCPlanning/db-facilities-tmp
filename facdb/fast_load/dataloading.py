@@ -12,7 +12,13 @@ def ETL():
     importer.import_table(schema_name='dcp_cdboundaries')
     importer.import_table(schema_name='dcp_ntaboundaries')
     importer.import_table(schema_name='dcp_policeprecincts')
-    # importer.import_table(schema_name='doitt_zipcodeboundaries')
+    importer.import_table(schema_name='doitt_zipcodeboundaries')
+
+    importer.import_table(schema_name='nysdec_lands')
+    importer.import_table(schema_name='nysparks_parks')
+    importer.import_table(schema_name='nysparks_historicplaces')
+    importer.import_table(schema_name='dpr_parksproperties')
+    importer.import_table(schema_name='usdot_ports')
 
 if __name__ == "__main__":
     ETL()
