@@ -13,7 +13,8 @@ if __name__ == "__main__":
     df['address'] = df['address'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
-    df = df.rename(columns={'buildingzip':'zip'})
+    df = df.rename(columns={'buildingzip':'zipcode'})
+    df['zipcode'] = df['zipcode'].apply(lambda x: x[:5])
     records = df.to_dict('records')
 
     ## geocode
