@@ -8,9 +8,14 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'usdot_ports'
-    df = importer(table_name)
+    df = importer(table_name, from_url=False, 
+                sql=f'''
+                select state_post, county_nam, street_add, 
+                    operators, nav_unit_n, wkb_geometry, owners
+                from {table_name}.latest
+                ''')
     df['datasource'] = table_name
-    df = df[df.state_post == 'New York']
+    df = df[df.state_post == 'NY']
     df = df[df.county_nam.str.lower().isin(['kings', 
                             'new york',
                             'bronx', 
@@ -20,7 +25,7 @@ if __name__ == "__main__":
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
     df['boro'] = df['county_nam']
-    df = df.rename(columns={'wkt':'location'})
+    df = df.rename(columns={'wkb_geometry':'point_location'})
     records = df.to_dict('records')
 
     ## geocode
@@ -29,5 +34,5 @@ if __name__ == "__main__":
     
     df = pd.DataFrame(it)
 
-    ## Export to build engine
+    # Export to build engine
     exporter(df, table_name)

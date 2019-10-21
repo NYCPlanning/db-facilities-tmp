@@ -24,7 +24,7 @@ UPDATE dpr_parksproperties as t
 SET hash = md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL 
-							THEN ST_SetSRID(ST_Centroid(multipolygon), 4326)
+							THEN ST_SetSRID(ST_Centroid(multipolygon::geometry), 4326)
 						ELSE wkb_geometry
 					END),
 	address = (CASE 

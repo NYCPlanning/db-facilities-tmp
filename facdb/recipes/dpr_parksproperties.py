@@ -16,13 +16,13 @@ if __name__ == "__main__":
         R = 'SI'
     )
 
-    df = importer(table_name)
+    df = importer(table_name, from_url=False)
     df['datasource'] = table_name
     df['address'] = df['address'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
     df['boro'] = df['borough'].apply(lambda x: boro.get(x, ''))
-    df = df.rename(columns={'the_geom':'multipolygon'})
+    df = df.rename(columns={'wkb_geometry':'multipolygon'})
     records = df.to_dict('records')
 
     ## geocode

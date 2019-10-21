@@ -1,6 +1,8 @@
 --select w.status::text, count(*) 
 --from (select geo::json->'status' as status from dpr_parksproperties) w
 --group by w.status::text;
+DELETE FROM nysdec_lands
+WHERE county !~*'NEW YORK|RICHMOND|QUEENS|KINGS|BRONX';
 
 ALTER TABLE nysdec_lands
 	ADD hash text,
@@ -23,7 +25,7 @@ ALTER TABLE nysdec_lands
 
 UPDATE nysdec_lands as t
 SET hash = md5(CAST((t.*)AS text)),
-	wkb_geometry = ST_SetSRID(ST_Centroid(wkt), 4326),
+	wkb_geometry = ST_SetSRID(ST_Centroid(wkb_geometry), 4326),
 	address = NULL,
 	facname = initcap(facility),
 	factype = (CASE
