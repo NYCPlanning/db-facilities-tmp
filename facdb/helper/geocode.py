@@ -1,9 +1,15 @@
 from geosupport import Geosupport, GeosupportError
 import usaddress
 import re
+import os
 from shapely.geometry import Point
 
 g = Geosupport()
+
+def geocode_percentage(df, table_name): 
+    nrow = df.shape[0]
+    geocoded = df[df.geo_latitude != ''].shape[0]
+    os.system(f'printf "\e[1;33m%-32s\e[m geocoded pct: \e[1;33m%s\e[m\n" "{table_name}" "{round(geocoded/nrow*100, 2)}"')
 
 def get_hnum(address):
     address = '' if address is None else quick_clean(address)
