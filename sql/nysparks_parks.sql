@@ -5,6 +5,7 @@ DELETE FROM nysparks_parks
 WHERE county !~*'NEW YORK|RICHMOND|QUEENS|KINGS|BRONX';
 
 ALTER TABLE nysparks_parks
+	ADD datasource text,
 	ADD hash text,
 	ADD	facname text,
 	ADD	factype text,
@@ -25,6 +26,7 @@ ALTER TABLE nysparks_parks
 
 update nysparks_parks as t
 SET hash =  md5(CAST((t.*)AS text)),
+	datasource = 'nysparks_parks',
 	address = NULL,
 	facname = name,
 	factype = category,

@@ -2,8 +2,7 @@ ALTER TABLE nysed_activeinstitutions
 DROP COLUMN IF EXISTS ogc_fid;
 
 ALTER TABLE nysed_nonpublicenrollment 
-DROP COLUMN IF EXISTS ogc_fid,
-DROP COLUMN IF EXISTS datasource;
+DROP COLUMN IF EXISTS ogc_fid;
 
 CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
 

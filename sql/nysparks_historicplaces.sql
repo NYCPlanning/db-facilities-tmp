@@ -5,6 +5,7 @@ DELETE FROM nysparks_historicplaces
 WHERE county !~*'NEW YORK|RICHMOND|QUEENS|KINGS|BRONX';
 
 ALTER TABLE nysparks_historicplaces
+	ADD datasource text,
 	ADD hash text,
 	ADD	facname text,
 	ADD	factype text,
@@ -26,6 +27,7 @@ ALTER TABLE nysparks_historicplaces
 update nysparks_historicplaces as t
 SET hash =  md5(CAST((t.*)AS text)),
     address = NULL,
+	datasource = 'nysparks_historicplaces',
 	facname = resource_name,
 	factype = 'State Historic Place',
 	facsubgrp = 'Historical Sites',

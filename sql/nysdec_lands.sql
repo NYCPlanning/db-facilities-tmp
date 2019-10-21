@@ -5,6 +5,7 @@ DELETE FROM nysdec_lands
 WHERE county !~*'NEW YORK|RICHMOND|QUEENS|KINGS|BRONX';
 
 ALTER TABLE nysdec_lands
+	ADD datasource text,
 	ADD hash text,
 	ADD facname text,
 	ADD factype text,
@@ -25,6 +26,7 @@ ALTER TABLE nysdec_lands
 
 UPDATE nysdec_lands as t
 SET hash = md5(CAST((t.*)AS text)),
+	datasource = 'nysdec_lands',
 	wkb_geometry = ST_SetSRID(ST_Centroid(wkb_geometry), 4326),
 	address = NULL,
 	facname = initcap(facility),
