@@ -1,13 +1,19 @@
 # run all the recipes
 for f in facdb/recipes/*
 do 
+    name=$(basename $f .py) 
     docker exec facdb python $f
+    docker exec fdb psql -h localhost -U postgres -f sql/$name.sql
 done
 
+# name=nypl_libraries
+# docker exec facdb python facdb/recipes/$name.py
+# docker exec fdb psql -h localhost -U postgres -f sql/$name.sql
+
 # load spatial boundries
-docker run --rm\
-            --network=host\
-             -v `pwd`:/home/db-facilities\
-            -w /home/db-facilities/facdb/spatial_boundaries\
-            --env-file .env\
-            sptkl/cook:latest python3 dataloading.py
+# docker run --rm\
+#             --network=host\
+#              -v `pwd`:/home/db-facilities\
+#             -w /home/db-facilities/facdb/spatial_boundaries\
+#             --env-file .env\
+#             sptkl/cook:latest python3 dataloading.py

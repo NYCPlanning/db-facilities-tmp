@@ -7,14 +7,14 @@ import logging
 import os
 
 def exporter(df, table_name, con=build_engine, 
-            sep=',', to_geom=True, 
+            sep=',', to_geom=True, geo_column='wkb_geometry',
             SRID=4326, null=''):
 
     # psycopg2 connections
     db_connection = psycopg2_connect(con.url)
     db_cursor = db_connection.cursor()
     str_buffer = io.StringIO() 
-
+    df['ogc_fid'] = df.index
     column_definitions = ','.join([f'"{c}" text' for c in df.columns])
 
     # # Create table
@@ -41,7 +41,7 @@ def exporter(df, table_name, con=build_engine,
         geocode_percentage(df, table_name)
         make_geom = f'''
         ALTER TABLE {table_name} 
-        ALTER COLUMN wkb_geometry TYPE Geometry USING ST_SetSRID(ST_GeomFromText(wkb_geometry), {SRID});
+        ALTER COLUMN {geo_column} TYPE Geometry USING ST_SetSRID(ST_GeomFromText({geo_column}), {SRID});
         '''
         con.connect().execute(make_geom)
         con.dispose()

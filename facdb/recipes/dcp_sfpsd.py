@@ -11,7 +11,8 @@ if __name__ == "__main__":
     df = importer(table_name)
     df['datasource'] = table_name
     df = df.rename(columns={'addressnum':'hnum', 
-                            'streetname': 'sname'})
+                            'streetname': 'sname',
+                            'the_geom': 'point_location'})
     records = df.to_dict('records')
 
     ## geocode

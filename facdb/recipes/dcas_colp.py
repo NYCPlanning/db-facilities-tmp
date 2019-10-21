@@ -10,7 +10,7 @@ if __name__ == "__main__":
     table_name = 'dcas_colp'
     df = importer(table_name)
     df['datasource'] = table_name
-    df = df.rename(columns={'point_location':'wkt', 'borough': 'boro'})
+    df = df.rename(columns={'wkt':'point_location', 'borough': 'boro'})
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
     records = df.to_dict('records')
