@@ -45,7 +45,7 @@ def geocode(inputs):
     hnum = inputs.get('hnum', '')
     sname = inputs.get('sname', '')
     borough = inputs.get('boro', '')
-    zip_code = inputs.get('zip_code', '')
+    zip_code = inputs.get('zipcode', '')
 
     hnum = str('' if hnum is None else hnum)
     sname = str('' if sname is None else sname)
