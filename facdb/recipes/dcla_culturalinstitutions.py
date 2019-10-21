@@ -11,7 +11,8 @@ if __name__ == "__main__":
     df = importer(table_name)
     df['datasource'] = table_name
     df['address'] = df.address.apply(quick_clean)
-    df = df.rename(columns={'postcode':'zipcode'})
+    df = df.rename(columns={'postcode':'zipcode', 'borough':'boro'})
+    df['zipcode'] = df['zipcode'].apply(lambda x: x[:5])
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
     records = df.to_dict('records')

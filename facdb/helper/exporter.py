@@ -41,7 +41,7 @@ def exporter(df, table_name, con=build_engine,
         geocode_percentage(df, table_name)
         make_geom = f'''
         ALTER TABLE {table_name} 
-        ALTER COLUMN wkb_geometry TYPE Geometry USING ST_GeomFromText(wkb_geometry, {SRID});
+        ALTER COLUMN wkb_geometry TYPE Geometry USING ST_SetSRID(ST_GeomFromText(wkb_geometry), {SRID});
         '''
         con.connect().execute(make_geom)
         con.dispose()
