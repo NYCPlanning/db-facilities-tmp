@@ -1,50 +1,50 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: sptkl/docker-dataloading
-        environment:
-          DATAFLOWS_DB_ENGINE: postgresql://postgres@localhost:5432/postgres
-      - image: mdillon/postgis
-      - image: sptkl/api-geosupport:latest
-        environment:
-          PORT: 5000
+# # Python CircleCI 2.0 configuration file
+# #
+# # Check https://circleci.com/docs/2.0/language-python/ for more details
+# #
+# version: 2
+# jobs:
+#   build:
+#     docker:
+#       # specify the version you desire here
+#       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
+#       - image: sptkl/docker-dataloading
+#         environment:
+#           DATAFLOWS_DB_ENGINE: postgresql://postgres@localhost:5432/postgres
+#       - image: mdillon/postgis
+#       - image: sptkl/api-geosupport:latest
+#         environment:
+#           PORT: 5000
 
-    working_directory: ~/db-facilities-tmp/
+#     working_directory: ~/db-facilities-tmp/
 
-    steps:
-      - checkout:
+#     steps:
+#       - checkout:
 
-      - run:
-          name: install dependencies
-          command: |
-            pip3 install -e .
-            eval "$(_COOK_COMPLETE=source cook)"
+#       - run:
+#           name: install dependencies
+#           command: |
+#             pip3 install -e .
+#             eval "$(_COOK_COMPLETE=source cook)"
 
-      - run:
-          name: initialize
-          command: |
-            cook recipe init
+#       - run:
+#           name: initialize
+#           command: |
+#             cook recipe init
       
-      - run:
-          name: run all recipes
-          command: |
-            python3 runners/01_dataloading.py
-            python3 runners/01.1_loadboundry.py
+#       - run:
+#           name: run all recipes
+#           command: |
+#             python3 runners/01_dataloading.py
+#             python3 runners/01.1_loadboundry.py
 
-      - run:
-          name: load and build
-          command: |
-            sh runners/02_load_to_facilities.sh
-            sh runners/04_build.sh
+#       - run:
+#           name: load and build
+#           command: |
+#             sh runners/02_load_to_facilities.sh
+#             sh runners/04_build.sh
       
-      - run:
-          name: export
-          command: |
-            sh runners/05_export.sh
+#       - run:
+#           name: export
+#           command: |
+#             sh runners/05_export.sh

@@ -13,7 +13,3 @@ do
     docker exec facdb python $f
     docker exec fdb psql -h localhost -U postgres -f sql/$name.sql
 done
-
-# name=usdot_ports
-# docker exec facdb python facdb/recipes/$name.py
-# docker exec fdb psql -h localhost -U postgres -f sql/$name.sql

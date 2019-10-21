@@ -19,9 +19,8 @@ ALTER TABLE usdot_airports
     ADD overlevel text,
     ADD capacity text,
     ADD captype text,
-    ADD proptype text,
-    ADD address text;
-
+    ADD proptype text; 
+    
 update usdot_airports as t
 SET hash =  md5(CAST((t.*)AS text)),
     wkb_geometry = (CASE

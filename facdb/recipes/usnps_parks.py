@@ -8,14 +8,14 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'usnps_parks'
-    df = importer(table_name)
+    df = importer(table_name, from_url=False)
     df['datasource'] = table_name
     df = df[df.state == 'NY']
     df['address'] = df['unit_name'].apply(quick_clean)
     df['sname'] = df['address']
     df['hnum'] = ''
     df['boro'] = 'MN'
-    df = df.rename(columns={'wkt':'multipolygon'})
+    df = df.rename(columns={'wkb_geometry':'multipolygon'})
     records = df.to_dict('records')
 
     ## geocode
