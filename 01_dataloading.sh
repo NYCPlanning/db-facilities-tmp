@@ -1,2 +1,5 @@
-docker exec facdb python3 runners/01_dataloading.py
-docker exec facdb python3 runners/01.1_loadboundry.py
+# run all the recipes
+for f in facdb/recipes/*
+do 
+    docker exec facdb python $f
+done

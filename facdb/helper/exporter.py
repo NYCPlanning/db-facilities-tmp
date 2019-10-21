@@ -1,4 +1,5 @@
 from .engines import build_engine, edm_engine, psycopg2_connect
+from .geocode import geocode_percentage
 from sqlalchemy.types import TEXT
 import io
 import psycopg2
@@ -8,6 +9,7 @@ import os
 def exporter(df, table_name, con=build_engine, 
             sep=',', to_geom=True, 
             SRID=4326, null=''):
+
     # psycopg2 connections
     db_connection = psycopg2_connect(con.url)
     db_cursor = db_connection.cursor()
@@ -36,6 +38,7 @@ def exporter(df, table_name, con=build_engine,
     db_cursor.connection.commit()
 
     if to_geom:
+        geocode_percentage(df, table_name)
         make_geom = f'''
         ALTER TABLE {table_name} 
         ALTER COLUMN wkb_geometry TYPE Geometry USING ST_GeomFromText(wkb_geometry, {SRID});
