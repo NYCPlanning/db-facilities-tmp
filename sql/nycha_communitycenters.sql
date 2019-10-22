@@ -52,3 +52,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
+
+DELETE FROM nycha_communitycenters
+WHERE factype ~* 'senior center';

@@ -4,10 +4,10 @@
 
 -- remove programs without sufficient information to group
 DELETE FROM moeo_socialservicesiteloactions
-WHERE PROGRAM_NAME = 'CONDOM DISTRIBUTION SERVICES'
-OR PROGRAM_NAME = 'GROWING UP NYC INITIATIVE SUPPORT SERVICES'
-OR PROGRAM_NAME = 'PLANNING AND EVALUATION [BASE]'
-OR PROGRAM_NAME = 'TO BE DETERMINED - UNKNOWN';
+WHERE program_name = 'CONDOM DISTRIBUTION SERVICES'
+OR program_name = 'GROWING UP NYC INITIATIVE SUPPORT SERVICES'
+OR program_name = 'PLANNING AND EVALUATION [BASE]'
+OR program_name = 'TO BE DETERMINED - UNKNOWN';
 
 -- deduplicate by facname and site_address_1
 WITH tmp AS(
@@ -84,4 +84,5 @@ SET hash =  md5(CAST((t.*)AS text)),
 ;
 
 DELETE FROM moeo_socialservicesiteloactions
-WHERE factype ~* 'Home Delivered Meals';
+WHERE factype ~* 'Home Delivered Meals'
+OR factype ~* 'senior center';
