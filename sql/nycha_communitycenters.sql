@@ -53,5 +53,31 @@ SET hash =  md5(CAST((t.*)AS text)),
 	proptype = NULL
 ;
 
+-- Remove senior centers and collapse NYCHA community centers by location 
+-- and have one record per community center and categorize as "Community Center"
+UPDATE nycha_communitycenters a
+SET factype = 'Community Center'
+FROM nycha_communitycenters
+WHERE a.hash IN (
+    WITH center AS(
+        SELECT address, MIN(hash) as min_hash FROM nycha_communitycenters
+        GROUP BY address
+        HAVING COUNT(*)>1
+    )
+SELECT hash FROM nycha_communitycenters nycha, center c
+WHERE nycha.address = c.address
+AND nycha.hash = c.min_hash
+);
+
 DELETE FROM nycha_communitycenters
-WHERE factype ~* 'senior center';
+WHERE factype ~* 'senior center'
+OR hash IN (
+    WITH center AS(
+        SELECT address, MIN(hash) as min_hash FROM nycha_communitycenters
+        GROUP BY address
+        HAVING COUNT(*)>1
+    )
+SELECT hash FROM nycha_communitycenters nycha, center c
+WHERE nycha.address = c.address
+AND nycha.hash != c.min_hash
+);
