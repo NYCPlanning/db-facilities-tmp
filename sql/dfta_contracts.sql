@@ -30,9 +30,9 @@ SET hash =  md5(CAST((t.*)AS text)),
                 END),
 	facname = initcap(sponsor_name), 
 	factype = (CASE
-					WHEN (contract_type LIKE '%INNOVATIVE%' AND RIGHT(provider_id,2) <> '01') or
-						 (contract_type LIKE '%NEIGHBORHOOD%' AND RIGHT(provider_id,2) <> '01') or
-						 (contract_type LIKE '%INNOVATIVE%') or
+					WHEN (contract_type LIKE '%INNOVATIVE%' AND RIGHT(provider_id,2) <> '01') OR
+						 (contract_type LIKE '%NEIGHBORHOOD%' AND RIGHT(provider_id,2) <> '01') OR
+						 (contract_type LIKE '%INNOVATIVE%') OR
 						 (contract_type LIKE '%NEIGHBORHOOD%') THEN 'Senior Center'
 					WHEN contract_type LIKE '%MEALS%' THEN  initcap(contract_type)
 					ELSE 'Senior Services'
