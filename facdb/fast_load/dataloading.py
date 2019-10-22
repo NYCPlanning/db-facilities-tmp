@@ -21,6 +21,7 @@ def ETL():
     importer.import_table(schema_name='dpr_parksproperties')
     importer.import_table(schema_name='usdot_ports')
     importer.import_table(schema_name='usnps_parks')
+    importer.import_table(schema_name='facilities_classification')
 
 if __name__ == "__main__":
     ETL()
