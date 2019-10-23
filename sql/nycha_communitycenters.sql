@@ -69,10 +69,10 @@ DELETE FROM nycha_communitycenters
 WHERE factype ~* 'senior center'
 OR hash IN (
     WITH center AS(
-        SELECT address, MIN(hash) as min_hash
+		SELECT address, MIN(hash) as min_hash
 		FROM nycha_communitycenters
 		WHERE factype = 'Community Center'
-        GROUP BY address
+		GROUP BY address
     )
 SELECT hash FROM nycha_communitycenters nycha, center c
 WHERE nycha.address = c.address
