@@ -42,3 +42,17 @@ SET hash = md5(CAST((t.*)AS text)),
 	capacity = NULL,
 	captype = NULL,
 	proptype = NULL;
+
+-- Deduplicate for records at the same location having both regular court and summons court
+DELETE FROM nycourts_courts
+WHERE ogc_fid::NUMERIC NOT IN(
+SELECT min(ogc_fid::NUMERIC) AS sommons
+FROM nycourts_courts
+GROUP BY REPLACE(REPLACE(REPLACE(name,' (Summons Court)',''),' (Summons Court )',''),'The ',''), address);
+
+-- Delete a courthouse in dcas_colp if it's included in nycourts_courts
+DELETE FROM dcas_colp
+WHERE factype = 'Courthouse'
+AND UPPER(name) IN (
+SELECT UPPER(name) FROM nycourts_courts)
+;
