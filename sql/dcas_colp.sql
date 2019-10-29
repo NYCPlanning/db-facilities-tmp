@@ -889,10 +889,16 @@ CREATE TABLE dcas_colp_tmp as
 		AND usedec NOT LIKE '%WATER SUPPLY%'
 		AND usedec NOT LIKE '%RESERVOIR%'
 		AND usedec NOT LIKE '%AQUEDUCT%'
+		AND usedec NOT LIKE '%OFFICE%'
 		AND agency <> 'DHS')
 		OR (agency = 'DHS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
 		OR (agency = 'HRA' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
 		OR (agency = 'ACS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%');
+
+INSERT INTO dcas_colp_tmp
+SELECT DISTINCT ON (name, point_location, agency) *
+FROM dcas_colp
+WHERE usedec LIKE '%OFFICE%';
 
 DROP TABLE dcas_colp;
 
