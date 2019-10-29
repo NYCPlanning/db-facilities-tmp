@@ -52,3 +52,13 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
+
+UPDATE hhc_hospitals a
+SET wkb_geometry = (CASE
+				WHEN b.wkb_geometry IS NULL
+					THEN ST_GeomFromText('POINT ('||split_part(b.address, '(', 2), 4326)
+				ELSE b.wkb_geometry
+			END)
+FROM hhc_hospitals b
+WHERE a.hash = b.hash
+AND b.wkb_geometry IS NULL
