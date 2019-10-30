@@ -43,11 +43,11 @@ BEGIN
 						geom)
 
     				SELECT hash, 
-						facname, 
-						factype,
-						facsubgrp,
-						facgroup, 
-						facdomain, 
+						UPPER(facname),
+						UPPER(factype),
+						UPPER(facsubgrp),
+						UPPER(facgroup),
+						UPPER(facdomain),
 						servarea,
 						opname,
 						opabbrev,
@@ -123,11 +123,11 @@ BEGIN
 						geom)
 						
     				SELECT hash, 
-						facname, 
-						factype,
-						facsubgrp,
-						facgroup, 
-						facdomain, 
+						UPPER(facname),
+						UPPER(factype),
+						UPPER(facsubgrp),
+						UPPER(facgroup),
+						UPPER(facdomain),
 						servarea,
 						opname,
 						opabbrev,
