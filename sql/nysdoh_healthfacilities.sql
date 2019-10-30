@@ -78,3 +78,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
+
+DELETE FROM nysdoh_healthfacilities
+WHERE factype = 'Residential Health Care';
