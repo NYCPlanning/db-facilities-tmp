@@ -61,4 +61,7 @@ SET wkb_geometry = (CASE
 			END)
 FROM hhc_hospitals b
 WHERE a.hash = b.hash
-AND b.wkb_geometry IS NULL
+AND b.wkb_geometry IS NULL;
+
+DELETE FROM hhc_hospitals
+WHERE factype = 'Nursing Home';
