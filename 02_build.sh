@@ -13,6 +13,7 @@ docker exec facdb bash -c "python3 facdb/geocode/geocode.py"
 # backfill spatial boundries
 docker exec fdb psql -h localhost -U postgres -f sql/assign_geo.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_bin_centroid.sql
+docker exec fdb psql -h localhost -U postgres -f sql/assign_lot_centroid.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_geo_boundaries.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_boro.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_address.sql
