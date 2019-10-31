@@ -22,19 +22,19 @@ FROM tmp)
 ;
 
 ALTER TABLE moeo_socialservicesiteloactions
-	ADD hash text, 
-	ADD	facname text,
-	ADD	servarea text,
-	ADD	opname text,
-	ADD	opabbrev text,
-	ADD	optype text,
-	ADD	overagency text,
-	ADD	overabbrev text,
-	ADD	overlevel text,
-	ADD	capacity text,
-	ADD	captype text,
-	ADD	proptype text,
-	ADD address text;
+    ADD hash text,
+    ADD facname text,
+    ADD servarea text,
+    ADD opname text,
+    ADD opabbrev text,
+    ADD optype text,
+    ADD overagency text,
+    ADD overabbrev text,
+    ADD overlevel text,
+    ADD capacity text,
+    ADD captype text,
+    ADD proptype text,
+    ADD address text;
 
 update moeo_socialservicesiteloactions as t
 SET hash =  md5(CAST((t.*)AS text)), 
@@ -47,10 +47,10 @@ SET hash =  md5(CAST((t.*)AS text)),
                                 ELSE wkb_geometry
                             END),
             address = (CASE 
-		                    WHEN geo_street_name is not NULL and geo_house_number is not NULL 
-		                        THEN geo_house_number || ' ' || geo_street_name
-		                    ELSE site_address_1          
-		                END),
+                    WHEN geo_street_name is not NULL and geo_house_number is not NULL
+                        THEN geo_house_number || ' ' || geo_street_name
+                    ELSE site_address_1
+                END),
             facname = provider_name || ' ' || program_name,
             factype = (CASE 
                             WHEN factype IS NULL THEN initcap(program_name)
