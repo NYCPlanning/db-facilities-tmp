@@ -23,6 +23,7 @@ def ETL():
     importer.import_table(schema_name='usnps_parks')
     importer.import_table(schema_name='facilities_classification')
     importer.import_table(schema_name='dcp_mappluto')
+    importer.import_table(schema_name='zipcode_city_lookup')
 
 if __name__ == "__main__":
     ETL()

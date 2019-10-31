@@ -16,6 +16,8 @@ docker exec fdb psql -h localhost -U postgres -f sql/assign_bin_centroid.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_lot_centroid.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_geo_boundaries.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_boro.sql
+docker exec fdb psql -h localhost -U postgres -f sql/assign_city.sql
+docker exec fdb psql -h localhost -U postgres -f sql/assign_zipcode.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_address.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_xy.sql
 docker exec fdb psql -h localhost -U postgres -f sql/assign_lonlat.sql
