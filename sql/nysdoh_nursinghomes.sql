@@ -30,13 +30,12 @@ ALTER TABLE nysdoh_nursinghomes
 update nysdoh_nursinghomes as t
 SET hash =  md5(CAST((t.*)AS text)),
     wkb_geometry = (CASE
-						WHEN wkb_geometry is NULL 
-						THEN ST_SetSRID(ST_Point(split_part(Replace(Replace(location,'(',''),')',''), ',', 2)::DOUBLE PRECISION, 
-												 split_part(Replace(Replace(location,'(',''),')',''), ',', 1)::DOUBLE PRECISION), 4326)
+						WHEN wkb_geometry is NULL
+						THEN ST_SetSRID(ST_GeomFromText('POINT'||location), 4326)
 						ELSE wkb_geometry
 					END),
 	address = (CASE 
-					WHEN the_geom is not NULL 
+					WHEN wkb_geometry is not NULL 
 						THEN geo_house_number || ' ' || geo_street_name
 					ELSE street_address             
 				END), 

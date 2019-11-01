@@ -2,8 +2,7 @@ ALTER TABLE nysed_activeinstitutions
 DROP COLUMN IF EXISTS ogc_fid;
 
 ALTER TABLE nysed_nonpublicenrollment 
-DROP COLUMN IF EXISTS ogc_fid,
-DROP COLUMN IF EXISTS datasource;
+DROP COLUMN IF EXISTS ogc_fid;
 
 CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
 
@@ -56,7 +55,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 				        ELSE wkb_geometry
 				    END),
 	address = (CASE 
-					WHEN the_geom is not NULL 
+					WHEN wkb_geometry is not NULL 
 						THEN geo_house_number || ' ' || geo_street_name
 					ELSE physical_address_line1             
 				END),

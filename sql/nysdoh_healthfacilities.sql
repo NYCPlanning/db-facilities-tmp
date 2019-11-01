@@ -29,7 +29,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 				        ELSE wkb_geometry
 				    END),
 	address = (CASE 
-                        WHEN the_geom is not NULL 
+                        WHEN wkb_geometry is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE facility_address_1             
                     END),
@@ -78,3 +78,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
+
+DELETE FROM nysdoh_healthfacilities
+WHERE factype = 'Residential Health Care';

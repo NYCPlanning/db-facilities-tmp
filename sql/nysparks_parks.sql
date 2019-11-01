@@ -1,10 +1,12 @@
 --select w.status::text, count(*) 
 --from (select geo::json->'status' as status from doe_busroutesgarages) w
 --group by w.status::text;
+DELETE FROM nysparks_parks
+WHERE county !~*'NEW YORK|RICHMOND|QUEENS|KINGS|BRONX';
 
 ALTER TABLE nysparks_parks
+	ADD datasource text,
 	ADD hash text,
-    ADD wkb_geometry geometry, 
 	ADD	facname text,
 	ADD	factype text,
 	ADD	facsubgrp text,
@@ -23,11 +25,8 @@ ALTER TABLE nysparks_parks
 	ADD address text;
 
 update nysparks_parks as t
-SET hash =  md5(CAST((t.*)AS text)), 
-    wkb_geometry = ST_SetSRID(ST_Point(
-            longitude::DOUBLE PRECISION, 
-            latitude::DOUBLE PRECISION), 
-            4326),
+SET hash =  md5(CAST((t.*)AS text)),
+	datasource = 'nysparks_parks',
 	address = NULL,
 	facname = name,
 	factype = category,

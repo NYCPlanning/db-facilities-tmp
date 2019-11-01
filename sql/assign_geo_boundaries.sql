@@ -11,7 +11,7 @@ AND a.commboard IS NULL;
 UPDATE facilities a
 SET nta = b.ntacode::text
 FROM dcp_ntaboundaries b
-WHERE ST_Within(a.geom,b.wkb_geometry)
+WHERE ST_Within(a.geom, ST_SetSRID(b.wkb_geometry, 4326))
 AND a.geom IS NOT NULL
 AND a.nta IS NULL;
 
@@ -46,7 +46,7 @@ AND a.zipcode IS NULL;
 UPDATE facilities a
 SET borocode = b.borocode::text
 FROM dcp_boroboundaries_wi b
-WHERE ST_Within(a.geom,b.wkb_geometry)
+WHERE ST_Within(a.geom, ST_SetSRID(b.wkb_geometry, 4326))
 AND a.geom IS NOT NULL
 AND a.borocode IS NULL OR a.borocode = '0';
 
@@ -73,5 +73,5 @@ facilities.uid NOT IN (
       facilities a, (
            SELECT ST_Union(wkb_geometry) As geom FROM dcp_boroboundaries_wi
       ) b
-      WHERE ST_Contains(b.geom, a.geom)
+      WHERE ST_Contains(ST_SetSRID(b.geom, 4326), a.geom)
  );
