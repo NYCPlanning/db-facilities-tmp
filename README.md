@@ -1,7 +1,7 @@
 # db-facilities-tmp [![CircleCI](https://circleci.com/gh/NYCPlanning/db-facilities-tmp.svg?style=svg)](https://circleci.com/gh/NYCPlanning/db-facilities-tmp)
 
 ## Instructions:
-1. `./00_initialize.sh` change CONTAINER_PORT number to something else if port is used
+1. `./01_dataloading.sh` change CONTAINER_PORT number to something else if port is used
 2. `./02_build.sh`
 3. `./03_export.sh`
 4. `./04_archive.sh`
