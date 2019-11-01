@@ -1,10 +1,11 @@
 # db-facilities-tmp [![CircleCI](https://circleci.com/gh/NYCPlanning/db-facilities-tmp.svg?style=svg)](https://circleci.com/gh/NYCPlanning/db-facilities-tmp)
 
-## Instructions: 
-1. `sh 00_initialize.sh`
-2. `sh 02_build.sh`
-3. `sh 03_export.sh`
-4. `sh 04_archive.sh`
+## Instructions:
+1. `./00_initialize.sh` change CONTAINER_PORT number to something else if port is used
+2. `./02_build.sh`
+3. `./03_export.sh`
+4. `./04_archive.sh`
+5. `./05_cleanup.sh` note: the clean up step will remove both `facdb-$USER` and `fdb-USER` container
 
 ## About Source Data:
 All FacDB datasets are loaded from various sources and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.

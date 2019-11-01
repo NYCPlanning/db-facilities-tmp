@@ -8,13 +8,10 @@
 #     docker:
 #       # specify the version you desire here
 #       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-#       - image: sptkl/docker-dataloading
+#       - image: sptkl/docker-geosupport:19c
 #         environment:
-#           DATAFLOWS_DB_ENGINE: postgresql://postgres@localhost:5432/postgres
+#           BUILD_ENGINE: postgresql://postgres@localhost:5432/postgres
 #       - image: mdillon/postgis
-#       - image: sptkl/api-geosupport:latest
-#         environment:
-#           PORT: 5000
 
 #     working_directory: ~/db-facilities-tmp/
 
@@ -25,12 +22,6 @@
 #           name: install dependencies
 #           command: |
 #             pip3 install -e .
-#             eval "$(_COOK_COMPLETE=source cook)"
-
-#       - run:
-#           name: initialize
-#           command: |
-#             cook recipe init
       
 #       - run:
 #           name: run all recipes

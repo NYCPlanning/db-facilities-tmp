@@ -1,25 +1,27 @@
+#!/bin/bash
+source config.sh
 # Initialize containers
-[ ! "$(docker ps -a | grep facdb)" ]\
-     && docker run -it --name=facdb\
+[ ! "$(docker ps -a | grep $ETL_CONTAINER_NAME)" ]\
+     && docker run -it --name=$ETL_CONTAINER_NAME\
             --network=host\
             -v `pwd`:/home/db-facilities\
             -w /home/db-facilities\
+            -e BUILD_ENGINE=postgresql://postgres@localhost:$CONTAINER_PORT/postgres\
             --env-file .env\
             -d sptkl/docker-geosupport:19c bash
 
-docker exec facdb pip3 install -e .
+docker exec $ETL_CONTAINER_NAME pip3 install -e .
 
 # Create a postgres database container db
-DB_CONTAINER_NAME=fdb
-
 [ ! "$(docker ps -a | grep $DB_CONTAINER_NAME)" ]\
      && docker run -itd --name=$DB_CONTAINER_NAME\
           -v `pwd`:/home/db-facilities\
-            -w /home/db-facilities\
-            --shm-size=1g\
-            --env-file .env\
-            -p 5433:5432\
-            mdillon/postgis
+               -w /home/db-facilities\
+               --shm-size=1g\
+               -e BUILD_ENGINE=postgresql://postgres@localhost:$CONTAINER_PORT/postgres\
+               --env-file .env\
+               -p $CONTAINER_PORT:5432\
+               mdillon/postgis
 
 ## Wait for database to get ready, this might take 5 seconds of trys
 docker start $DB_CONTAINER_NAME
@@ -29,6 +31,4 @@ until docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres; do
 done
 
 docker inspect -f '{{.State.Running}}' $DB_CONTAINER_NAME
-docker exec fdb psql -U postgres -h localhost -c "SELECT 'DATABSE IS UP';"
-
-# docker exec facdb sh runners/00_initialize.sh
+docker exec $DB_CONTAINER_NAME psql -U postgres -h localhost -c "SELECT 'DATABSE IS UP';"
