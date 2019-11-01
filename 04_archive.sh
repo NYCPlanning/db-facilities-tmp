@@ -1,4 +1,7 @@
-docker exec fdb bash -c '
+#!/bin/bash
+source config.sh
+
+docker exec $DB_CONTAINER_NAME bash -c '
         pg_dump -t facilities --no-owner -U postgres -d postgres | psql $EDM_DATA
         DATE=$(date "+%Y/%m/%d");
         psql $EDM_DATA -c "CREATE SCHEMA IF NOT EXISTS facilities;";
