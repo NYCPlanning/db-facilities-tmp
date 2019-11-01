@@ -32,7 +32,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 					ELSE wkb_geometry
 				END),
 	address = (CASE 
-                        WHEN the_geom is not NULL 
+                        WHEN wkb_geometry is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE address             
                     END),
@@ -52,3 +52,29 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
+
+-- Remove senior centers and collapse NYCHA community centers by location 
+-- and have one record per community center and categorize as "Community Center"
+UPDATE nycha_communitycenters a
+SET factype = 'Community Center'
+FROM nycha_communitycenters
+WHERE a.address IN (
+	SELECT address 
+	FROM nycha_communitycenters b
+	GROUP BY address
+	HAVING COUNT(*)>1
+);
+
+DELETE FROM nycha_communitycenters
+WHERE factype ~* 'senior center'
+OR hash IN (
+    WITH center AS(
+		SELECT address, MIN(hash) as min_hash
+		FROM nycha_communitycenters
+		WHERE factype = 'Community Center'
+		GROUP BY address
+    )
+SELECT hash FROM nycha_communitycenters nycha, center c
+WHERE nycha.address = c.address
+AND nycha.hash != c.min_hash
+);

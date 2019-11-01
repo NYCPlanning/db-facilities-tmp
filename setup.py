@@ -1,25 +1,22 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
-setup(name='lib',
+setup(name='facdb',
       version='0.1',
-      description='our lib',
-      url='https://github.com/nycPlanning/db-data-recipes',
-      author='Baiyue',
-      author_email='baiyue@whatever.com',
-      license='MIT',
-      packages=['lib'],
+      pacakges=find_packages(),
       install_requires=[
             'click',
             'python-dotenv', 
-            'psycopg2-binary',
-            'pytest',
-            'dataflows>=0.0.51', 
+            'psycopg2-binary', 
             'shapely', 
             'usaddress', 
-            'bs4'
+            'geopandas',
+            'sqlalchemy',
+            'pandas',
+            'pathlib',
+            'python-dotenv'
       ], 
       entry_points='''
         [console_scripts]
-        cook=lib.cli:cli
+        cook=facdb.cli:cli
       '''
-      )
+)

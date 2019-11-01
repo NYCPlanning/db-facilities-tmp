@@ -33,11 +33,11 @@ update usdot_ports as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL 
-				        THEN ST_GeometryFromText(point_location, 4326)
+				        THEN ST_SetSRID(point_location::geometry, 4326)
 				        ELSE wkb_geometry
 					END),
 	address = (CASE 
-                        WHEN the_geom is not NULL 
+                        WHEN wkb_geometry is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE address             
                     END),
