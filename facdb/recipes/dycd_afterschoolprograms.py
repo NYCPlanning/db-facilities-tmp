@@ -31,8 +31,15 @@ if __name__ == "__main__":
     df = df.rename(columns={'postcode':'zipcode','borough_/_community':'boro'})
     df['boro'] = df['boro'].apply(lambda x:clean_boro(x))
     df['address'] = df['location_1'].apply(lambda x: get_address(x)).apply(quick_clean)
-    df['sname'] = df['address'].apply(get_sname)
-    df['hnum'] = df['address'].apply(get_hnum)
+
+    # extract house number and street name for queens and other boroughs seperately
+    df_ = df[df.boro != 'Queens'].copy()
+    df_qn = df[df.boro == 'Queens'].copy()
+    df_['sname'] = df_['address'].apply(get_sname)
+    df_['hnum'] = df_['address'].apply(get_hnum)
+    df_qn['sname'] = df_qn['address'].apply(get_sname).apply(get_sname)
+    df_qn['hnum'] = [a.replace(b, '').strip() for a, b in zip(df_qn['address'], df_qn['sname'])]
+    df = df_.append(df_qn)
 
     records = df.to_dict('records')
 
