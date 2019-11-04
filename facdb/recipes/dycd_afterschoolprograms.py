@@ -13,12 +13,8 @@ def get_address(location):
     from the location
     '''
     location = str('' if location is None else location).split('(')[0]
-    p = re.compile('^.*(?P<zipcode>\d{5}).*$')
-    match = p.search(location)
-    if match is not None:
-        zipcode =  match.groupdict()['zipcode']
-        address = location[:location.find(zipcode)]
-        return address
+    if location != '':
+        return re.sub('.{5}$','',location)
     return None
 
 def clean_boro(b):
