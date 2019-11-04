@@ -24,15 +24,14 @@ update hhc_hospitals as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry IS NULL
-					        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
-												 	 latitude::DOUBLE PRECISION), 4326)
+					        THEN ST_GeomFromText('POINT ('||reverse(split_part(reverse(location_1),'(', 1)), 4326)
 				        ELSE wkb_geometry
 				    END),
     address = (CASE 
-                    WHEN wkb_geometry is not NULL 
-                        THEN geo_house_number || ' ' || geo_street_name
-                    ELSE split_part(location_1, ',', 1)       
-                END),
+					WHEN geo_street_name is not NULL and geo_house_number is not NULL
+						THEN geo_house_number || ' ' || geo_street_name
+					ELSE regexp_replace(split_part(location_1, '(', 1), '.{6}$', '')
+				END),
 	facname = facility_name,
 	factype = facility_type,
 	facsubgrp = (CASE
@@ -52,16 +51,6 @@ SET hash =  md5(CAST((t.*)AS text)),
 	captype = NULL, 
 	proptype = NULL
 ;
-
-UPDATE hhc_hospitals a
-SET wkb_geometry = (CASE
-				WHEN b.wkb_geometry IS NULL
-					THEN ST_GeomFromText('POINT ('||split_part(b.address, '(', 2), 4326)
-				ELSE b.wkb_geometry
-			END)
-FROM hhc_hospitals b
-WHERE a.hash = b.hash
-AND b.wkb_geometry IS NULL;
 
 DELETE FROM hhc_hospitals
 WHERE factype = 'Nursing Home';
