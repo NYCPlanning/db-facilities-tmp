@@ -24,7 +24,11 @@ update hhc_hospitals as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry IS NULL
-					        THEN ST_GeomFromText('POINT ('||reverse(split_part(reverse(location_1),'(', 1)), 4326)
+					        THEN ST_SetSRID(ST_Point(
+								split_part(REPLACE(reverse(split_part(reverse(location_1),
+											'(', 1)),')',''), ',', 2)::DOUBLE PRECISION,
+								split_part(REPLACE(reverse(split_part(reverse(location_1),
+											'(', 1)),')',''), ',', 1)::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
     address = (CASE 

@@ -21,6 +21,15 @@ ALTER TABLE nysomh_mentalhealth
 
 update nysomh_mentalhealth as t
 SET hash =  md5(CAST((t.*)AS text)),
+	wkb_geometry = (CASE
+				        WHEN wkb_geometry IS NULL AND location LIKE '%(%'
+					        THEN ST_SetSRID(ST_Point(
+								split_part(REPLACE(reverse(split_part(reverse(location),
+											'(', 1)),')',''), ',', 2)::DOUBLE PRECISION,
+								split_part(REPLACE(reverse(split_part(reverse(location),
+											'(', 1)),')',''), ',', 1)::DOUBLE PRECISION), 4326)
+				        ELSE wkb_geometry
+				    END),
 	address = (CASE 
                         WHEN wkb_geometry is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name

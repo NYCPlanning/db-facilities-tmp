@@ -7,7 +7,7 @@ import logging
 import os
 
 def exporter(df, table_name, con=build_engine, 
-            sep=',', to_geom=True, geo_column='wkb_geometry',
+            sep='~', to_geom=True, geo_column='wkb_geometry',
             SRID=4326, null=''):
 
     # psycopg2 connections
