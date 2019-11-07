@@ -31,7 +31,10 @@ update nysdoh_nursinghomes as t
 SET hash =  md5(CAST((t.*)AS text)),
     wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL
-						THEN ST_SetSRID(ST_GeomFromText('POINT'||location), 4326)
+						THEN ST_SetSRID(ST_POINT(split_part(REPLACE(REPLACE(location,
+										'(',''),')',''),',',2)::DOUBLE PRECISION,
+										split_part(REPLACE(REPLACE(location,
+										'(',''),')',''),',',1)::DOUBLE PRECISION),4326)
 						ELSE wkb_geometry
 					END),
 	address = (CASE 

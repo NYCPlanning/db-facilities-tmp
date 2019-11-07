@@ -53,7 +53,14 @@ SET hash =  md5(CAST((t.*)AS text)),
                 END),
             facname = provider_name || ' ' || program_name,
             factype = (CASE 
-                            WHEN factype IS NULL THEN initcap(program_name)
+                            WHEN factype IS NULL THEN
+                                CASE
+                                WHEN program_name = 'NORC SITES' THEN 'NORC Services'
+                                WHEN program_name = 'RECREATION' THEN 'Programs for People with Disabilities'
+                                WHEN program_name = 'TRANSPORTATION ONLY' THEN 'Transportation'
+                                ELSE initcap(program_name)
+                                END
+                            WHEN factype = 'Workforce Development' THEN 'Programs for People with Disabilities'
                             ELSE factype
                         END),
             facsubgrp = (CASE 
@@ -61,8 +68,15 @@ SET hash =  md5(CAST((t.*)AS text)),
                                 CASE
                                 WHEN program_name = 'JOBS & INTERNSHIPS' THEN 'Workforce Development'
                                 WHEN program_name = 'GERIATRIC MENTAL HEALTH' THEN 'Mental Health'
+                                WHEN program_name = 'NORC SITES' THEN 'Senior Services'
+                                WHEN program_name = 'READING & WRITING' THEN 'Adult and Immigrant Literacy'
+                                WHEN program_name = 'IMMIGRANT SERVICES' THEN 'Immigrant Services'
+                                WHEN program_name = 'TRANSPORTATION ONLY' THEN 'Senior Services'
                                 ELSE 'Other Health Care'
                                 END
+                            WHEN program_name = 'RECREATION' OR factype = 'Programs for People with Disabilities'
+                            OR factype = 'Workforce Development'
+                                THEN 'Programs for People with Disabilities'
                             ELSE facsubgrp
                         END),
             servarea = NULL,

@@ -37,8 +37,14 @@ SET hash =  md5(CAST((t.*)AS text)),
                         ELSE address             
                     END),
 	facname = development,
-	factype = 'NYCHA Community Center - '|| initcap(program_type),
-	facsubgrp = 'Community Centers and Community School Programs',
+	factype = (CASE
+				WHEN program_type = 'NORC' THEN 'NORC Services'
+				ELSE 'NYCHA Community Center - '|| initcap(program_type)
+			END),
+	facsubgrp = (CASE
+					WHEN program_type = 'NORC' THEN 'Senior Services'
+					ELSE 'Community Centers and Community School Programs'
+			END),
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,

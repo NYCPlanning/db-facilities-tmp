@@ -22,11 +22,15 @@ ALTER TABLE dycd_afterschoolprograms
 
 UPDATE dycd_afterschoolprograms as t
 SET hash = md5(CAST((t.*)AS text)),
-    wkb_geometry = (CASE
-                        WHEN wkb_geometry is NULL
-                        THEN ST_GeomFromText('POINT ('||reverse(split_part(reverse(location_1),'(', 1)), 4326)
-                        ELSE wkb_geometry
-                    END),
+	wkb_geometry = (CASE
+				        WHEN wkb_geometry IS NULL
+					        THEN ST_SetSRID(ST_Point(
+								split_part(REPLACE(reverse(split_part(reverse(location_1),
+											'(', 1)),')',''), ',', 2)::DOUBLE PRECISION,
+								split_part(REPLACE(reverse(split_part(reverse(location_1),
+											'(', 1)),')',''), ',', 1)::DOUBLE PRECISION), 4326)
+				        ELSE wkb_geometry
+				    END),
     address = (CASE 
                         WHEN geo_street_name is not NULL and geo_house_number is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
@@ -35,7 +39,17 @@ SET hash = md5(CAST((t.*)AS text)),
 	facname = site_name,
 	program = REPLACE(program, 'NDA Immigrats', 'NDA Immigrants' ),
 	factype = program || ' ' || program_type,
-	facsubgrp = 'Youth Centers, Literacy Programs, Job Training, and Immigrant Services', 
+	facsubgrp = (CASE
+					WHEN program = 'Beacon'
+						OR program = 'Beacon Satellite'
+						OR program = 'High-School Aged Youth'
+						OR program = 'Middle School Youth'
+						OR program = 'Teen Action Program'
+						THEN 'After-School Programs'
+					WHEN program_type ~* 'Immigrant Support Services'
+						THEN 'Immigrant Services'
+					ELSE 'Youth Centers, Literacy Programs, Job Training, and Immigrant Services'
+				END),
 	facgroup = NULL, 
 	facdomain = NULL,
 	servarea = NULL, 

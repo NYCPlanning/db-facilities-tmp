@@ -48,4 +48,8 @@ docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (SELECT *
 docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (select * from geo_result where xcoord is not null and ycoord is not null) 
                                 TO '/home/db-facilities/output/geo_result.csv' 
                                 DELIMITER ',' CSV HEADER;"
+
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (select * from geo_rejects)
+                                TO '/home/db-facilities/output/geo_rejects.csv'
+                                DELIMITER ',' CSV HEADER;"
 echo "Build is done!"
