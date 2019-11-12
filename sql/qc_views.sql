@@ -5,7 +5,9 @@ DROP VIEW IF EXISTS qc_classification;
 DROP VIEW IF EXISTS qc_captype;
 DROP VIEW IF EXISTS qc_capvalues;
 DROP VIEW IF EXISTS qc_proptype;
-DROP VIEW IF EXISTS qc_mapped;
+DROP VIEW IF EXISTS qc_mapped_datasource;
+DROP VIEW IF EXISTS qc_mapped_subgroup;
+DROP VIEW IF EXISTS qc_diff;
 
 -- creating views for QC reports
 
