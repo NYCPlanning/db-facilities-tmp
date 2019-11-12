@@ -56,11 +56,9 @@ SET hash =  md5(CAST((t.*)AS text)),
                             WHEN factype IS NULL THEN
                                 CASE
                                 WHEN program_name = 'NORC SITES' THEN 'NORC Services'
-                                WHEN program_name = 'RECREATION' THEN 'Programs for People with Disabilities'
                                 WHEN program_name = 'TRANSPORTATION ONLY' THEN 'Transportation'
                                 ELSE initcap(program_name)
                                 END
-                            WHEN factype = 'Workforce Development' THEN 'Programs for People with Disabilities'
                             ELSE factype
                         END),
             facsubgrp = (CASE 
@@ -74,9 +72,6 @@ SET hash =  md5(CAST((t.*)AS text)),
                                 WHEN program_name = 'TRANSPORTATION ONLY' THEN 'Senior Services'
                                 ELSE 'Other Health Care'
                                 END
-                            WHEN program_name = 'RECREATION' OR factype = 'Programs for People with Disabilities'
-                            OR factype = 'Workforce Development'
-                                THEN 'Programs for People with Disabilities'
                             ELSE facsubgrp
                         END),
             servarea = NULL,

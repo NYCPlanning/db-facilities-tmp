@@ -24,6 +24,7 @@ def ETL():
     importer.import_table(schema_name='facilities_classification')
     importer.import_table(schema_name='dcp_mappluto')
     importer.import_table(schema_name='zipcode_city_lookup')
+    importer.import_table(schema_name='moeo_socialservicesiteloactions')
 
 if __name__ == "__main__":
     ETL()

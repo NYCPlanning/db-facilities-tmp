@@ -9,11 +9,17 @@ import numpy as np
 if __name__ == "__main__":
     table_name = 'fdny_firehouses'
     df = importer(table_name)
+    input_research = pd.read_csv('https://raw.githubusercontent.com/NYCPlanning/db-facilities-tmp/dev/referencetables/facilities_input_research.csv')
+    input_research = input_research[input_research.datasource == 'fdny_firehouses']\
+                                .rename(columns={'facname': 'facilityname', 'address': 'facilityaddress'})
+
     df['datasource'] = table_name
+    df = df.rename(columns={'postcode':'zipcode', 'borough':'boro'})
+    df = df.append(input_research, sort=True).drop_duplicates(subset=['facilityname'], keep='last')
+
     df['address'] = df['facilityaddress'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
-    df = df.rename(columns={'postcode':'zipcode', 'borough':'boro'})
     records = df.to_dict('records')
 
     ## geocode
