@@ -6,6 +6,7 @@ def ETL():
     BUILD_ENGINE=os.environ.get('BUILD_ENGINE', '')
 
     importer = Importer(RECIPE_ENGINE, BUILD_ENGINE)
+    importer.import_table(schema_name='dcp_facilities')
     importer.import_table(schema_name='dcp_boroboundaries_wi')
     importer.import_table(schema_name='dcp_censustracts')
     importer.import_table(schema_name='dcp_councildistricts')

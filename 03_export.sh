@@ -41,15 +41,23 @@ docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (SELECT *
                                 TO '/home/db-facilities/output/qc_proptype.csv' 
                                 DELIMITER ',' CSV HEADER;"
 
-docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (SELECT * FROM qc_mapped) 
-                                TO '/home/db-facilities/output/qc_mapped.csv' 
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (SELECT * FROM qc_mapped_datasource)
+                                TO '/home/db-facilities/output/qc_mapped_datasource.csv'
                                 DELIMITER ',' CSV HEADER;"
 
-docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (select * from geo_result where xcoord is not null and ycoord is not null) 
-                                TO '/home/db-facilities/output/geo_result.csv' 
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (select * from qc_mapped_subgroup)
+                                TO '/home/db-facilities/output/qc_mapped_subgroup.csv'
+                                DELIMITER ',' CSV HEADER;"
+
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (select * from qc_diff)
+                                TO '/home/db-facilities/output/qc_diff.csv'
                                 DELIMITER ',' CSV HEADER;"
 
 docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (select * from geo_rejects)
                                 TO '/home/db-facilities/output/geo_rejects.csv'
+                                DELIMITER ',' CSV HEADER;"
+
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (select * from geo_result where xcoord is not null and ycoord is not null)
+                                TO '/home/db-facilities/output/geo_result.csv'
                                 DELIMITER ',' CSV HEADER;"
 echo "Build is done!"
