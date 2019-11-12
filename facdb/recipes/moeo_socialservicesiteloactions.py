@@ -8,8 +8,12 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'moeo_socialservicesiteloactions'
-    df = importer(table_name)
+    classification_url = 'https://raw.githubusercontent.com/NYCPlanning/db-facilities-tmp/dev/referencetables/moeo_socialservicesiteloactions_classification.csv'
+    df = importer(table_name, from_url=False)
     df['datasource'] = table_name
+    classification = pd.read_csv(classification_url)
+
+    df = pd.merge(df, classification, how = 'left', on = 'program_name')
     df = df.rename(columns={'street_number':'hnum', 
                             'street_name': 'sname', 
                             'site_boro': 'boro'})
