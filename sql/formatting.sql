@@ -20,16 +20,6 @@ SET factype =   REPLACE(
                     'Registered Esl Schools', 'Registered ESL Schools'), 
                     'Diagnostic & Treatment Center', 'Diagnostic and Treatment Center');
 
--- Output the records not having geoms
-DROP TABLE IF EXISTS geo_rejects;
-SELECT * INTO geo_rejects
-FROM facilities
-WHERE geom IS NULL;
-
-ALTER TABLE facilities
-DROP column grc,
-DROP column grc2;
-
 UPDATE facilities a
 SET facdomain = UPPER(facdomain),
     facgroup = UPPER(facgroup),

@@ -25,4 +25,6 @@ docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -f sql/assign_addre
 docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -f sql/assign_xy.sql
 docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -f sql/assign_lonlat.sql
 docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -f sql/formatting.sql
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -f sql/deduplicate.sql
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -f sql/geo_rejects.sql
 docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -f sql/qc_views.sql
