@@ -7,11 +7,11 @@ FBOP,Federal Bureau of Prisons,Federal,fbop_corrections,3
 FDNY,NYC Fire Department,City,dcas_colp,63
 FDNY,NYC Fire Department,City,fdny_firehouses,220
 HRPT,Hudson River Park Trust,,dcp_sfpsd,1
-MTA,Metropolitan Transportation Authority,State,dcas_colp,185
 MTA,Metropolitan Transportation Authority,State,dcp_sfpsd,144
+MTA,Metropolitan Transportation Authority,State,dcas_colp,185
 NYCACS,NYC Administration for Childrens Services,City,moeo_socialservicesiteloactions,650
-NYCACS,NYC Administration for Childrens Services,City,dcas_colp,43
 NYCACS,NYC Administration for Childrens Services,City,acs_daycareheadstart,364
+NYCACS,NYC Administration for Childrens Services,City,dcas_colp,43
 NYCACT,NYC Office of the Actuary,City,dcas_colp,1
 NYCBIC,NYC Business Integrity Commission,City,dcas_colp,3
 NYCBOE,NYC Board of Elections,City,dcas_colp,10
@@ -94,28 +94,28 @@ NYCDA-MN,NYC District Attorney - Manhattan,City,dcas_colp,4
 NYCDA-QN,NYC District Attorney - Queens,City,dcas_colp,4
 NYCDA-SI,NYC District Attorney - Staten Island,City,dcas_colp,4
 NYCDA-SNP,NYC District Attorney - Office Special Narcotics,City,dcas_colp,1
-NYCDCA,NYC Department of Consumer Affairs,City,dcas_colp,5
 NYCDCA,NYC Department of Consumer Affairs,City,dca_operatingbusinesses,2152
+NYCDCA,NYC Department of Consumer Affairs,City,dcas_colp,5
 NYCDCAS,NYC Department of Citywide Administrative Services,City,dcas_colp,1631
 NYCDCLA,NYC Department of Cultural Affairs,City,dcla_culturalinstitutions,1925
 NYCDCLA,NYC Department of Cultural Affairs,City,dcas_colp,23
-NYCDCP,NYC Department of City Planning,City,dcas_colp,5
 NYCDCP,NYC Department of City Planning,City,dcp_pops,355
+NYCDCP,NYC Department of City Planning,City,dcas_colp,5
 NYCDDC,NYC Department of Design and Construction,City,dcas_colp,4
-NYCDEP,NYC Department of Environmental Protection,City,dep_wwtc,14
 NYCDEP,NYC Department of Environmental Protection,City,dcas_colp,212
+NYCDEP,NYC Department of Environmental Protection,City,dep_wwtc,14
+NYCDFTA,NYC Department for the Aging,City,dcas_colp,1
 NYCDFTA,NYC Department for the Aging,City,dfta_contracts,400
 NYCDFTA,NYC Department for the Aging,City,moeo_socialservicesiteloactions,106
-NYCDFTA,NYC Department for the Aging,City,dcas_colp,1
 NYCDHS,NYC Department of Homeless Services,City,dcas_colp,6
 NYCDOB,NYC Department of Buildings,City,dcas_colp,11
-NYCDOC,NYC Department of Correction,City,dcas_colp,9
 NYCDOC,NYC Department of Correction,City,nycdoc_corrections,7
-NYCDOE,NYC Department of Education,City,doe_busroutesgarages,136
+NYCDOC,NYC Department of Correction,City,dcas_colp,9
 NYCDOE,NYC Department of Education,City,dcas_colp,45
-NYCDOE,NYC Department of Education,City,doe_lcgms,1839
 NYCDOE,NYC Department of Education,City,doe_universalprek,1879
+NYCDOE,NYC Department of Education,City,doe_lcgms,1839
 NYCDOE,NYC Department of Education,City,nysed_activeinstitutions,5042
+NYCDOE,NYC Department of Education,City,doe_busroutesgarages,136
 NYCDOF,NYC Department of Finance,City,dcas_colp,10
 NYCDOHMH,NYC Department of Health and Mental Hygiene,City,dohmh_daycare,2040
 NYCDOHMH,NYC Department of Health and Mental Hygiene,City,moeo_socialservicesiteloactions,1210
@@ -124,21 +124,21 @@ NYCDOI,NYC Department of Investigation,City,dcas_colp,4
 NYCDOITT,NYC Department of Information Technology and Telecommunications,City,dcas_colp,21
 NYCDOP,NYC Department of Probation,City,dcas_colp,17
 NYCDORIS,NYC Department of Records and Information Services,City,dcas_colp,4
-NYCDOT,NYC Department of Transportation,City,dot_ferryterminals,9
-NYCDOT,NYC Department of Transportation,City,dot_pedplazas,72
 NYCDOT,NYC Department of Transportation,City,usdot_ports,1
 NYCDOT,NYC Department of Transportation,City,dcas_colp,197
-NYCDOT,NYC Department of Transportation,City,dot_publicparking,38
 NYCDOT,NYC Department of Transportation,City,dot_bridgehouses,35
+NYCDOT,NYC Department of Transportation,City,dot_pedplazas,72
+NYCDOT,NYC Department of Transportation,City,dot_ferryterminals,9
+NYCDOT,NYC Department of Transportation,City,dot_publicparking,38
 NYCDOT,NYC Department of Transportation,City,dot_mannedfacilities,68
 NYCDPR,NYC Department of Parks and Recreation,City,dpr_parksproperties,2009
-NYCDPR,NYC Department of Parks and Recreation,City,dcas_colp,51
 NYCDPR,NYC Department of Parks and Recreation,City,usdot_ports,6
+NYCDPR,NYC Department of Parks and Recreation,City,dcas_colp,51
 NYCDSNY,NYC Department of Sanitation,City,nysdec_solidwaste,13
-NYCDSNY,NYC Department of Sanitation,City,dsny_mtsgaragemaintenance,105
 NYCDSNY,NYC Department of Sanitation,City,dcas_colp,191
-NYCDYCD,NYC Department of Youth and Community Development,City,moeo_socialservicesiteloactions,1496
+NYCDSNY,NYC Department of Sanitation,City,dsny_mtsgaragemaintenance,105
 NYCDYCD,NYC Department of Youth and Community Development,City,dycd_afterschoolprograms,1574
+NYCDYCD,NYC Department of Youth and Community Development,City,moeo_socialservicesiteloactions,1496
 NYCDYCD,NYC Department of Youth and Community Development,City,dcas_colp,5
 NYCEDC,NYC Economic Development Corporation,City,dcas_colp,364
 NYCEM,NYC Office of Emergency Management,City,dcas_colp,2
@@ -146,9 +146,9 @@ NYCHA,NYC Housing Authority,City,nycha_communitycenters,318
 NYCHA,NYC Housing Authority,City,nycha_policeservice,16
 NYCHHC,NYC Health and Hospitals Corporation,City,dcas_colp,5
 NYCHPD,NYC Department of Housing Preservation and Development,City,dcas_colp,10
-NYCHRA,NYC Human Resources Administration,City,dcas_colp,58
-NYCHRA,NYC Human Resources Administration,City,hra_centers,87
 NYCHRA,NYC Human Resources Administration,City,moeo_socialservicesiteloactions,121
+NYCHRA,NYC Human Resources Administration,City,hra_centers,87
+NYCHRA,NYC Human Resources Administration,City,dcas_colp,58
 NYCIBO,NYC Independent Budget Office,City,dcas_colp,1
 NYCLAW,NYC Law Department,City,dcas_colp,16
 NYCLPC,NYC Landmarks Preservation Commission,City,dcas_colp,2
@@ -168,35 +168,36 @@ NYCPA-BX,NYC Public Administrators Office - Bronx,City,dcas_colp,2
 NYCPA-MN,NYC Public Administrators Office - Manhattan,City,dcas_colp,2
 NYCPA-QN,NYC Public Administrators Office - Queens,City,dcas_colp,1
 NYCPA-SI,NYC Public Administrators Office - Staten Island,City,dcas_colp,1
-NYCSBS,NYC Department of Small Business Services,City,sbs_workforce1,41
 NYCSBS,NYC Department of Small Business Services,City,dcas_colp,356
+NYCSBS,NYC Department of Small Business Services,City,sbs_workforce1,41
 NYCTAXCM,NYC Tax Commission,City,dcas_colp,1
 NYCTLC,NYC Taxi and Limousine Commission,City,dcas_colp,6
 NYPD,NYC Police Department,City,dcas_colp,221
-NYPL,New York Public Library,City,dcas_colp,1
 NYPL,New York Public Library,City,nypl_libraries,92
+NYPL,New York Public Library,City,dcas_colp,1
 NYSDEC,NYS Department of Environmental Conservation,State,nysdec_solidwaste,206
+NYSDEC,NYS Department of Environmental Conservation,State,nysdec_lands,29
 NYSDOCCS,NYS Department of Corrections and Community Supervision,State,nysdoccs_corrections,3
-NYSDOH,NYS Department of Health,State,nysdoh_healthfacilities,1120
-NYSDOH,NYS Department of Health,State,hhc_hospitals,72
+NYSDOH,NYS Department of Health,State,nysdoh_healthfacilities,1119
 NYSDOH,NYS Department of Health,State,nysdoh_nursinghomes,196
+NYSDOH,NYS Department of Health,State,hhc_hospitals,73
 NYSDOT,NYS Department of Transportation,State,dcp_sfpsd,3
 NYSOASAS,NYS Office of Alcoholism and Substance Abuse Services,State,nysoasas_programs,354
 NYSOMH,NYS Office of Mental Health,State,nysomh_mentalhealth,1526
-NYSOPRHP,"The New York State Office of Parks, Recreation and Historic Preservation",State,nysparks_parks,5
 NYSOPRHP,"The New York State Office of Parks, Recreation and Historic Preservation",State,nysparks_historicplaces,898
+NYSOPRHP,"The New York State Office of Parks, Recreation and Historic Preservation",State,nysparks_parks,5
 NYSOPWDD,NYS Office for People With Developmental Disabilities,State,nysopwdd_providers,164
 Non-public,Non-public,,foodbankny_foodbanks,738
-Non-public,Non-public,,usdot_ports,32
 Non-public,Non-public,,dcas_colp,21
+Non-public,Non-public,,usdot_ports,32
 PANYNJ,Port Authority of New York and New Jersey,State,dcp_sfpsd,2
 PANYNJ,Port Authority of New York and New Jersey,State,usdot_ports,8
-QPL,Queens Public Library,City,dcas_colp,9
 QPL,Queens Public Library,City,qpl_libraries,68
+QPL,Queens Public Library,City,dcas_colp,9
 RIOC,Roosevelt Island Operating Corporation,City,dcp_sfpsd,11
 TGI,Trust for Governors Island,,dcp_sfpsd,7
 USCOURTS,US Courts,Federal,uscourts_courts,13
 USDOT,US Department of Transportation,Federal,usdot_airports,18
 USNPS,National Park Service,Federal,usnps_parks,5
-,,City,dcas_colp,4
 ,,City,usdot_ports,11
+,,City,dcas_colp,4

@@ -41,9 +41,9 @@ CREATE VIEW qc_proptype AS (
 SELECT DISTINCT proptype
 FROM facilities);
 -- report the number of records with geoms by data source
-CREATE VIEW qc_mapped AS (
+CREATE VIEW qc_mapped_datasource AS (
 SELECT a.datasource, 
-	COUNT(*) as total, 
+	COUNT(*) as total,
 	b.countwithgeom,
 	COUNT(*) - b.countwithgeom as countwithoutgeom,
 	round(((b.countwithgeom::double precision/COUNT(*)::double precision)*100)::numeric, 2) as percentwithgeom
@@ -55,3 +55,38 @@ GROUP BY datasource) b
 ON a.datasource=b.datasource
 GROUP BY a.datasource, b.countwithgeom
 ORDER BY percentwithgeom);
+-- report the number of records with geoms by domain, group and subgroup
+CREATE VIEW qc_mapped_subgroup AS (
+SELECT a.facdomain, a.facgroup, a.facsubgrp,
+    COUNT(*) as total,
+    b.countwithgeom,
+    COUNT(*) - b.countwithgeom as countwithoutgeom,
+    CAST((b.countwithgeom/COUNT(*)::double precision)*100 AS DECIMAL(18,2)) as percentwithgeom
+FROM facilities a
+JOIN
+(SELECT facdomain, facgroup, facsubgrp, COUNT(*) as countwithgeom
+FROM facilities
+WHERE geom IS NOT NULL
+GROUP BY facdomain, facgroup, facsubgrp) b
+ON a.facdomain=b.facdomain
+AND a.facgroup=b.facgroup
+AND a.facsubgrp=b.facsubgrp
+GROUP BY a.facdomain, a.facgroup, a.facsubgrp, b.countwithgeom
+ORDER BY percentwithgeom)
+;
+-- report Change in distribution of number of records by fac subgroup / group / domain between current and previous version
+CREATE VIEW qc_diff AS (
+SELECT *, count_new-count_old AS diff FROM
+(SELECT facdomain, facgroup, facsubgrp, factype, datasource, COALESCE(COUNT(*),0) AS count_new
+FROM facilities
+GROUP BY facdomain, facgroup, facsubgrp, factype, datasource) a
+FULL JOIN
+(SELECT UPPER(facdomain) AS facdomain_old, UPPER(facgroup) AS facgroup_old, UPPER(facsubgrp) AS facsubgrp_old,
+UPPER(factype) AS factype_old, COALESCE(count(*),0) AS count_old
+FROM dcp_facilities
+GROUP BY facdomain_old, facgroup_old, facsubgrp_old, factype_old) b
+ON a.facdomain = b.facdomain_old
+AND a.facgroup = b.facgroup_old
+AND a.facsubgrp = b.facsubgrp_old
+AND a.factype = b.factype_old
+ORDER BY a.facdomain, a.facgroup, a.facsubgrp, a.factype);
