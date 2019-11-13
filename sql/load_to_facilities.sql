@@ -42,6 +42,7 @@ BEGIN
 						censtract, 
 						grc,
 						grc2,
+						reason_code,
 						geom)
 
     				SELECT hash, 
@@ -82,6 +83,7 @@ BEGIN
 					    geo_censtract,
 						geo_grc,
 						geo_grc2,
+						geo_reason_code,
 					    wkb_geometry
 						FROM %I
 						WHERE geo_grc <> 71::text or geo_grc2 <> 71::text; ', tbl);
@@ -126,6 +128,7 @@ BEGIN
 						censtract, 
 						grc,
 						grc2,
+						reason_code,
 						geom)
 						
     				SELECT hash, 
@@ -148,6 +151,7 @@ BEGIN
 						NULL,
 						NULL,
 						address,
+						NULL,
 						NULL,
 						NULL,
 						NULL,

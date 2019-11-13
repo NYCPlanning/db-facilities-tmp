@@ -89,6 +89,7 @@ def parser(geo):
         geo_censtract = geo.get('2010 Census Tract', ''),
         geo_grc = geo.get('Geosupport Return Code (GRC)', ''),
         geo_grc2 = geo.get('Geosupport Return Code 2 (GRC 2)', ''),
+        geo_reason_code = geo.get('Reason Code', ''),
         geo_policeprct = geo.get('Police Precinct', ''),
         geo_schooldist = geo.get('Community School District', ''),
         wkb_geometry = the_geom
