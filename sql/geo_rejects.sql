@@ -1,6 +1,6 @@
 -- Output the records not having geoms
 DROP TABLE IF EXISTS geo_rejects;
-SELECT facname, addressnum, streetname, address,
+SELECT facname, addressnum, streetname, address, boro, zipcode,
 datasource, uid, grc, message
 INTO geo_rejects
 FROM facilities
