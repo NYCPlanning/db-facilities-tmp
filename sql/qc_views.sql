@@ -81,6 +81,7 @@ CREATE VIEW qc_diff AS (
 SELECT *, count_new-count_old AS diff FROM
 (SELECT facdomain, facgroup, facsubgrp, factype, datasource, COALESCE(COUNT(*),0) AS count_new
 FROM facilities
+WHERE geom IS NOT NULL
 GROUP BY facdomain, facgroup, facsubgrp, factype, datasource) a
 FULL JOIN
 (SELECT UPPER(facdomain) AS facdomain_old, UPPER(facgroup) AS facgroup_old, UPPER(facsubgrp) AS facsubgrp_old,
