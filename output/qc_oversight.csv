@@ -4,7 +4,7 @@ BBPC,Brooklyn Bridge Park Corporation,,dcp_sfpsd,1
 BPL,Brooklyn Public Library,City,bpl_libraries,59
 CUNY,City University of New York,City,dcas_colp,3
 FBOP,Federal Bureau of Prisons,Federal,fbop_corrections,3
-FDNY,NYC Fire Department,City,fdny_firehouses,220
+FDNY,NYC Fire Department,City,fdny_firehouses,491
 FDNY,NYC Fire Department,City,dcas_colp,64
 HRPT,Hudson River Park Trust,,dcp_sfpsd,1
 MTA,Metropolitan Transportation Authority,State,dcp_sfpsd,144
@@ -132,7 +132,7 @@ NYCDOT,NYC Department of Transportation,City,dot_pedplazas,72
 NYCDOT,NYC Department of Transportation,City,dcas_colp,199
 NYCDOT,NYC Department of Transportation,City,usdot_ports,1
 NYCDPR,NYC Department of Parks and Recreation,City,usdot_ports,6
-NYCDPR,NYC Department of Parks and Recreation,City,dpr_parksproperties,2009
+NYCDPR,NYC Department of Parks and Recreation,City,dpr_parksproperties,2012
 NYCDPR,NYC Department of Parks and Recreation,City,dcas_colp,51
 NYCDSNY,NYC Department of Sanitation,City,dsny_mtsgaragemaintenance,105
 NYCDSNY,NYC Department of Sanitation,City,nysdec_solidwaste,13

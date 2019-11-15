@@ -29,11 +29,10 @@ SET hash =  md5(CAST((t.*)AS text)),
 					END),
     wkb_geometry = (CASE
 				        WHEN wkb_geometry IS NULL
-					        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
-												 latitude::DOUBLE PRECISION), 4326)
+					        THEN ST_SetSRID(ST_AsText(location), 4326)
 				        ELSE wkb_geometry
 				    END),
-	facname = facilityname,
+	facname = unit_name,
 	factype = 'Firehouse',
 	facsubgrp = 'Fire Services',
 	facgroup = NULL,
