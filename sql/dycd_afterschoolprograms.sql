@@ -48,7 +48,7 @@ SET hash = md5(CAST((t.*)AS text)),
 						THEN 'After-School Programs'
 					WHEN program_type ~* 'Immigrant Support Services'
 						THEN 'Immigrant Services'
-					ELSE 'Youth Centers, Literacy Programs, Job Training, and Immigrant Services'
+					ELSE 'Youth Centers, Literacy Programs, and Job Training Services'
 				END),
 	facgroup = NULL, 
 	facdomain = NULL,
