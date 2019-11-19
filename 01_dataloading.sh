@@ -8,7 +8,7 @@ source config.sh
             -w /home/db-facilities\
             -e BUILD_ENGINE=postgresql://postgres@localhost:$CONTAINER_PORT/postgres\
             --env-file .env\
-            -d sptkl/docker-geosupport:19c bash
+            -d sptkl/docker-geosupport:19d bash
 
 docker exec $ETL_CONTAINER_NAME pip3 install -e .
 
