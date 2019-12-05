@@ -33,6 +33,10 @@ SET hash =  md5(CAST((t.*)AS text)),
                         WHEN address is not NULL THEN address
                         ELSE site             
                     END),
+	geo_bbl = (CASE
+				WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+				ELSE geo_bbl
+			END),
     facname = (CASE
                         WHEN operations IS NOT NULL THEN operations
                         ELSE division

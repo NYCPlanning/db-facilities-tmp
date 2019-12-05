@@ -39,6 +39,10 @@ SET hash =  md5(CAST((t.*)AS text)),
 					 WHEN wkb_geometry IS NULL THEN ST_SetSRID(point_location::geometry, 4326)
 					 ELSE wkb_geometry
 					 END),
+	geo_bbl = (CASE
+				WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+				ELSE geo_bbl
+			END),
 	facname = (CASE
 				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'office' THEN 'Offices'
 				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'no use' THEN 'City Owned Property'

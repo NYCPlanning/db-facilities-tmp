@@ -32,6 +32,11 @@ SET hash =  md5(CAST((t.*)AS text)),
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE address             
                     END),
+	geo_bbl = (CASE
+				WHEN geo_bbl IS NULL AND ROUND(bbl::NUMERIC,0)::TEXT ~ '\y(\d{10})\y'
+				THEN ROUND(bbl::NUMERIC,0)::TEXT
+				ELSE geo_bbl
+			END),
   	facname = (CASE
                     WHEN type ~* 'garage' THEN CONCAT(name,' ',type)
                     WHEN type !~* 'garage' THEN CONCAT(name)

@@ -29,6 +29,10 @@ SET hash =  md5(CAST((t.*)AS text)),
 												 	 latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
+	geo_bbl = (CASE
+				WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+				ELSE geo_bbl
+			END),
 	facname = organization_name, 
 	factype = (CASE
 					WHEN discipline IS NOT NULL THEN discipline

@@ -66,6 +66,14 @@ WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
 AND a.policeprct IS NULL;
 
+--BBL
+UPDATE facilities a
+SET bbl = b.bbl::text
+FROM dcp_mappluto b
+WHERE ST_Within(a.geom,b.wkb_geometry)
+AND a.geom IS NOT NULL
+AND a.bbl IS NULL;
+
 -- remove points out of NYC
 DELETE FROM facilities WHERE geom IS NOT NULL AND
 facilities.uid NOT IN (
