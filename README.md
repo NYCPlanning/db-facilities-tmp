@@ -7,6 +7,10 @@
 4. `./04_archive.sh`
 5. `./05_cleanup.sh` note: the clean up step will remove both `facdb-$USER` and `fdb-USER` container
 
+In the case you only want to run one datasource pipeline:
+- Set the `NAME` in `etl.sh` file as the datasource you select
+- Run `./etl.sh`
+
 ## About Source Data:
 All FacDB datasets are loaded from various sources and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.
 1. we receive the following datasets from their owners, various city agencies __via email__:
