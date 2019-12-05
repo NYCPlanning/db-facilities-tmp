@@ -26,3 +26,15 @@ SET facdomain = UPPER(facdomain),
     facsubgrp = UPPER(facsubgrp),
     factype = UPPER(factype),
     facname = UPPER(facname);
+
+
+UPDATE facilities a
+SET bbl = (CASE
+            WHEN bbl ~ '^0' THEN NULL ELSE bbl
+        END),
+    bin = (CASE
+            WHEN bin::NUMERIC%1000000=0 THEN NULL ELSE bin
+        END),
+    capacity = (CASE
+            WHEN bbl ~ '^0' THEN NULL ELSE capacity
+        END);

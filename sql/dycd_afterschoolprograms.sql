@@ -36,6 +36,10 @@ SET hash = md5(CAST((t.*)AS text)),
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE regexp_replace(split_part(location_1, '(', 1), '.{6}$', '')            
                     END),
+	geo_bbl = (CASE
+				WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+				ELSE geo_bbl
+			END),
 	facname = site_name,
 	program = REPLACE(program, 'NDA Immigrats', 'NDA Immigrants' ),
 	factype = program || ' ' || program_type,

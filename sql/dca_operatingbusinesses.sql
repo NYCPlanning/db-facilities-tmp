@@ -36,6 +36,10 @@ SET hash =  md5(CAST((t.*)AS text)),
                     WHEN  address_building is not NULL and address_street_name is not NULL
                     	THEN address_building || ' ' || address_street_name       
                 END),
+	geo_bbl = (CASE
+				WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' AND bbl !~ '000000000$' THEN bbl
+				ELSE geo_bbl
+			END),
 	facname = initcap(business_name),
 	factype = (CASE 
 			        WHEN industry LIKE '%Scrap Metal%' THEN 'Scrap Metal Processing'

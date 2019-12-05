@@ -31,6 +31,10 @@ SET hash =  md5(CAST((t.*)AS text)),
                         THEN geo_house_number || ' ' || geo_street_name
                     ELSE split_part(facaddress, ',', 1)      
                 END),
+	geo_bbl = (CASE
+			WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+			ELSE geo_bbl
+		END),
 	factype = 'Public Parking',
 	facsubgrp = 'Parking Lots and Garages',
 	facgroup = NULL,

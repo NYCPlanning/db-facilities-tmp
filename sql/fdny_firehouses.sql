@@ -22,17 +22,21 @@ ALTER TABLE fdny_firehouses
 
 update fdny_firehouses as t
 SET hash =  md5(CAST((t.*)AS text)),
-	address = (CASE 
-						WHEN geo_street_name is not NULL and geo_house_number is not NULL 
-							THEN geo_house_number || ' ' || geo_street_name
-						ELSE t.address         
-					END),
     wkb_geometry = (CASE
 				        WHEN wkb_geometry IS NULL
 							THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION,
 													 latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
+	address = (CASE
+						WHEN geo_street_name is not NULL and geo_house_number is not NULL
+							THEN geo_house_number || ' ' || geo_street_name
+						ELSE t.address
+					END),
+	geo_bbl = (CASE
+		WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+		ELSE geo_bbl
+	END),
 	facname = facilityname,
 	factype = 'Firehouse',
 	facsubgrp = 'Fire Services',

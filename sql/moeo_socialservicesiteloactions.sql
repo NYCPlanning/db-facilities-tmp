@@ -51,6 +51,10 @@ SET hash =  md5(CAST((t.*)AS text)),
                         THEN geo_house_number || ' ' || geo_street_name
                     ELSE site_address_1
                 END),
+            geo_bbl = (CASE
+                        WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+                        ELSE geo_bbl
+                    END),
             facname = provider_name || ' ' || program_name,
             factype = (CASE 
                             WHEN factype IS NULL THEN

@@ -33,6 +33,10 @@ SET hash =  md5(CAST((t.*)AS text)),
                         THEN geo_house_number || ' ' || geo_street_name
                     ELSE address             
                 END),
+	geo_bbl = (CASE
+				WHEN geo_bbl IS NULL AND bbl ~ '\y(\d{10})\y' THEN bbl
+				ELSE geo_bbl
+			END),
     facname = name,
     factype = 'Public Library',
     facsubgrp = 'Public Libraries',
