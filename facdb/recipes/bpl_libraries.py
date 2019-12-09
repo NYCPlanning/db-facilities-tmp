@@ -6,11 +6,21 @@ from facdb.helper.geocode import geocode, get_hnum, get_sname, quick_clean
 import pandas as pd
 import numpy as np
 
+def clean_address(x):
+    if x != None:
+        x = x.split(' at ')[0]\
+             .split('@')[0]\
+             .split('. at. ')[0]\
+             .split('(')[0]\
+             .split('near')[0]
+    return x
+
 if __name__ == "__main__":
     table_name = 'bpl_libraries'
     df = importer(table_name)
     df['datasource'] = table_name
     df['boro'] = 'BK'
+    df['address'] = df['address'].apply(lambda x: clean_address(x))
     df['address'] = df['address'].apply(quick_clean)
     df['zipcode'] = df['address'].apply(lambda x: x[-5:])
     df['sname'] = df['address'].apply(get_sname)
