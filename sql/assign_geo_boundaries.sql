@@ -74,6 +74,20 @@ WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
 AND a.bbl IS NULL;
 
+-- borough code sanity check
+UPDATE facilities a
+SET borocode = (CASE
+                    WHEN borocode IS NOT NULL
+                         AND bin IS NOT NULL
+                         AND borocode != LEFT(bin, 1)
+                    THEN LEFT(bin, 1)
+                    WHEN borocode IS NOT NULL
+                         AND bbl IS NOT NULL
+                         AND borocode != LEFT(bbl, 1)
+                    THEN LEFT(bbl, 1)
+               ELSE borocode
+END);
+
 -- remove points out of NYC
 DELETE FROM facilities WHERE geom IS NOT NULL AND
 facilities.uid NOT IN (

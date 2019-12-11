@@ -8,10 +8,19 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'nycdoc_corrections'
+    correction = 'facilities_input_research'
     df = importer(table_name, from_url=False)
+    input_research = importer(correction, from_url=False)
+    input_research = input_research[input_research.datasource == table_name]\
+                                .rename(columns={'facname': 'name', 'address': 'address1'})\
+                                .drop(columns=['v', 'ogc_fid','boro'])
+
     df['datasource'] = table_name
+    df = df.append(input_research, sort=True).drop_duplicates(subset=['name'], keep='last')
     df = df.rename(columns={'house_number':'hnum', 
                             'street_name': 'sname'})
+    df['hnum'] = df.address1.apply(get_hnum)
+    df['sname'] = df.address1.apply(get_sname)
     records = df.to_dict('records')
 
     ## geocode

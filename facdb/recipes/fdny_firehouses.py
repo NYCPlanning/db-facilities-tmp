@@ -8,10 +8,12 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'fdny_firehouses'
+    correction = 'facilities_input_research'
     df = importer(table_name)
-    input_research = pd.read_csv('https://raw.githubusercontent.com/NYCPlanning/db-facilities-tmp/dev/referencetables/facilities_input_research.csv')
-    input_research = input_research[input_research.datasource == 'fdny_firehouses']\
-                                .rename(columns={'facname': 'facilityname', 'address': 'facilityaddress'})
+    input_research = importer(correction, from_url=False)
+    input_research = input_research[input_research.datasource == table_name]\
+                                .rename(columns={'facname': 'facilityname', 'address': 'facilityaddress'})\
+                                .drop(columns=['v', 'ogc_fid'])
     df['datasource'] = table_name
     df = df.rename(columns={'postcode':'zipcode', 'borough':'boro'})
     df = df.append(input_research, sort=True).drop_duplicates(subset=['facilityname'], keep='last')
