@@ -27,6 +27,7 @@ def ETL():
     importer.import_table(schema_name='dcp_pops')
     importer.import_table(schema_name='dpr_parksproperties')
     importer.import_table(schema_name='moeo_socialservicesiteloactions')
+    importer.import_table(schema_name='nycdoc_corrections')
     importer.import_table(schema_name='nysdec_lands')
     importer.import_table(schema_name='nysparks_historicplaces')
     importer.import_table(schema_name='nysparks_parks')

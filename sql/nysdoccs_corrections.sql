@@ -28,7 +28,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                         ELSE split_part(address, ',', 1)
             END),
 	facname = facility_name,
-	factype = 'Detention and Correctional',
+	factype = 'Correctional Facility',
 	facsubgrp = 'Detention and Correctional',
 	facgroup = NULL,
 	facdomain = NULL,

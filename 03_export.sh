@@ -6,8 +6,12 @@ echo "export FacDB outputs\n"
 docker exec $DB_CONTAINER_NAME mkdir -p output
 
 # Facilities data table
-docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (SELECT * FROM facilities) 
-                                TO '/home/db-facilities/output/facilities.csv' 
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (SELECT * FROM facilities)
+                                TO '/home/db-facilities/output/facilities.csv'
+                                DELIMITER ',' CSV HEADER;"
+
+docker exec $DB_CONTAINER_NAME psql -h localhost -U postgres -c "\copy (SELECT * FROM facilities_wo_dedupe)
+                                TO '/home/db-facilities/output/facilities_wo_dedupe.csv'
                                 DELIMITER ',' CSV HEADER;"
 # Facilities shapefile
 docker exec $DB_CONTAINER_NAME pgsql2shp -u postgres -h localhost -f \

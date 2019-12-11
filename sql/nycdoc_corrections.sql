@@ -23,6 +23,9 @@ ALTER TABLE nycdoc_corrections
 
 UPDATE nycdoc_corrections as t
 SET hash = md5(CAST((t.*)AS text)),
+	wkb_geometry = (CASE WHEN geo_street_name = 'HAZEN STREET' THEN NULL
+						 ELSE wkb_geometry
+					END),
     address = (CASE 
                         WHEN wkb_geometry is not NULL 
                             THEN geo_house_number || ' ' || geo_street_name
