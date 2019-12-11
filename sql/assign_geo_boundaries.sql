@@ -28,7 +28,7 @@ AND a.censtract IS NULL;
 
 -- school districts
 UPDATE facilities a
-SET schooldist = b.schooldist::text
+SET schooldist = lpad(b.schooldist::text, 3,'0')
 FROM dcp_school_districts b
 WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
@@ -52,7 +52,7 @@ AND a.borocode IS NULL OR a.borocode = '0';
 
 -- council districts
 UPDATE facilities a
-SET council = b.coundist::text
+SET council = lpad(b.coundist::text, 2,'0')
 FROM dcp_councildistricts b
 WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
@@ -60,7 +60,7 @@ AND a.council IS NULL;
 
 --polict precinct 
 UPDATE facilities a
-SET policeprct = b.precinct::text
+SET policeprct = lpad(b.precinct::text, 2,'0')
 FROM dcp_policeprecincts b
 WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
@@ -80,10 +80,12 @@ SET borocode = (CASE
                     WHEN borocode IS NOT NULL
                          AND bin IS NOT NULL
                          AND borocode != LEFT(bin, 1)
+                         AND LEFT(bin, 1) != '0'
                     THEN LEFT(bin, 1)
                     WHEN borocode IS NOT NULL
                          AND bbl IS NOT NULL
                          AND borocode != LEFT(bbl, 1)
+                         AND LEFT(bin, 1) != '0'
                     THEN LEFT(bbl, 1)
                ELSE borocode
 END);
