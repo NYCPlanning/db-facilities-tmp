@@ -20,6 +20,7 @@ def ETL():
     #load reference table
     importer.import_table(schema_name='dcp_facilities')
     importer.import_table(schema_name='facilities_classification')
+    importer.import_table(schema_name='facilities_input_research')
     importer.import_table(schema_name='dcp_mappluto')
     importer.import_table(schema_name='zipcode_city_lookup')
 

@@ -1,12 +1,12 @@
 datasource,total,countwithgeom,countwithoutgeom,percentwithgeom
 nysomh_mentalhealth,1526,827,699,54.19
 doe_busroutesgarages,136,114,22,83.82
-nycdoc_corrections,18,16,2,88.89
 nysdec_solidwaste,219,196,23,89.50
 dcla_culturalinstitutions,1925,1743,182,90.55
 nysoasas_programs,354,326,28,92.09
 uscourts_courts,13,12,1,92.31
 nycha_policeservice,16,15,1,93.75
+nycdoc_corrections,18,17,1,94.44
 moeo_socialservicesiteloactions,3583,3420,163,95.45
 nycha_communitycenters,318,306,12,96.23
 nysopwdd_providers,164,158,6,96.34
