@@ -8,4 +8,6 @@ docker exec $DB_CONTAINER_NAME bash -c '
         psql $EDM_DATA -c "ALTER TABLE facilities SET SCHEMA facilities;";
         psql $EDM_DATA -c "DROP TABLE IF EXISTS facilities.\"$DATE\";";
         psql $EDM_DATA -c "ALTER TABLE facilities.facilities RENAME TO \"$DATE\";";
+        psql $EDM_DATA -c "DROP TABLE IF EXISTS facilities.latest;";
+        psql $EDM_DATA -c "SELECT * INTO facilities.latest FROM facilities.\"$DATE\";";
     '
