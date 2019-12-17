@@ -99,7 +99,7 @@ NYCDCA,NYC Department of Consumer Affairs,City,dcas_colp,5
 NYCDCAS,NYC Department of Citywide Administrative Services,City,dcas_colp,1631
 NYCDCLA,NYC Department of Cultural Affairs,City,dcla_culturalinstitutions,1925
 NYCDCLA,NYC Department of Cultural Affairs,City,dcas_colp,23
-NYCDCP,NYC Department of City Planning,City,dcp_pops,357
+NYCDCP,NYC Department of City Planning,City,dcp_pops,389
 NYCDCP,NYC Department of City Planning,City,dcas_colp,5
 NYCDDC,NYC Department of Design and Construction,City,dcas_colp,4
 NYCDEP,NYC Department of Environmental Protection,City,dcas_colp,212
@@ -178,9 +178,9 @@ NYPL,New York Public Library,City,dcas_colp,1
 NYSDEC,NYS Department of Environmental Conservation,State,nysdec_solidwaste,206
 NYSDEC,NYS Department of Environmental Conservation,State,nysdec_lands,29
 NYSDOCCS,NYS Department of Corrections and Community Supervision,State,nysdoccs_corrections,3
-NYSDOH,NYS Department of Health,State,nysdoh_healthfacilities,1119
+NYSDOH,NYS Department of Health,State,nysdoh_healthfacilities,1120
 NYSDOH,NYS Department of Health,State,nysdoh_nursinghomes,196
-NYSDOH,NYS Department of Health,State,hhc_hospitals,73
+NYSDOH,NYS Department of Health,State,hhc_hospitals,72
 NYSDOT,NYS Department of Transportation,State,dcp_sfpsd,3
 NYSOASAS,NYS Office of Alcoholism and Substance Abuse Services,State,nysoasas_programs,354
 NYSOMH,NYS Office of Mental Health,State,nysomh_mentalhealth,1526
