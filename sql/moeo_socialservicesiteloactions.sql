@@ -74,6 +74,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                                 WHEN program_name = 'READING & WRITING' THEN 'Adult and Immigrant Literacy'
                                 WHEN program_name = 'IMMIGRANT SERVICES' THEN 'Immigrant Services'
                                 WHEN program_name = 'TRANSPORTATION ONLY' THEN 'Senior Services'
+                                WHEN program_name = 'AFTERSCHOOL PROGRAMS' THEN 'After-School Programs'
                                 ELSE 'Other Health Care'
                                 END
                             ELSE facsubgrp
