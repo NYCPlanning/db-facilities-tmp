@@ -12,7 +12,7 @@ In the case you only want to run one datasource pipeline:
 - Run `./etl.sh`
 
 ## About Source Data:
-All FacDB datasets are loaded from various sources and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.
+All FacDB datasets are loaded from [various sources](https://docs.google.com/spreadsheets/d/1xi0EvGpHpH-BqX-I5tgCgoE1OeeXZJAQLBLXpOmKWlk/edit?usp=sharing) and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.
 1. we receive the following datasets from their owners, various city agencies __via email__:
 
     - `acs_daycareheadstart`
