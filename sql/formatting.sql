@@ -38,3 +38,17 @@ SET bbl = (CASE
     capacity = (CASE
             WHEN bbl ~ '^0' THEN NULL ELSE capacity
         END);
+
+--ADD date datasource downloaded
+ALTER TABLE facilities
+ADD COLUMN IF NOT EXISTS date_datasource_downloaded TEXT;
+
+UPDATE facilities
+SET date_datasource_downloaded = (CASE WHEN datasource = 'hra_centers' OR datasource = 'nysed_activeinstitutions' THEN '07/12/2019'
+									   WHEN datasource = 'nysoasas_programs' THEN '07/29/2019'
+									   WHEN datasource = 'usnps_parks' THEN '11/18/2019'
+									   WHEN datasource = 'moeo_socialservicesiteloactions' THEN '11/12/2019'
+									   WHEN datasource = 'nycdoc_corrections' THEN '12/10/2019'
+									   WHEN datasource = 'dcp_pops' THEN '12/16/2019'
+									   ELSE '11/15/2019'
+								END);
