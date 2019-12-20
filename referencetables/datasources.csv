@@ -1,6 +1,3 @@
-"Data Sources
-Date downloaded is the date that City Planning downloaded the data, accessed it from a website, or received it from an agency.
-Date of update is the date that the agency last updated the data, if that information is available.",,,,
 DATASOURCE,Descriptive name,Date downloaded,Data of update,Link to data source
 acs_daycareheadstart,NYC Administration for Children's Services - Child Care Head Start,11/15/19,10/26/18,Manual update from agency
 bpl_libraries,Brooklyn Public Library Branches,11/15/19,3/8/19,https://data.cityofnewyork.us/Recreation/BPL-Branches/xmzf-uf2w
