@@ -12,7 +12,7 @@ if __name__ == "__main__":
     SCHOOL_YEAR = f'{datetime.date.today().year-1}-{datetime.date.today().year}'
     print(f'current school year is {SCHOOL_YEAR}')
 
-    df = importer(table_name)
+    df = importer(table_name, from_url=False)
 
     ## Filter table based on school year 
     df = df[df.school_year==SCHOOL_YEAR]
