@@ -26,6 +26,7 @@ def ETL():
 
     # load facilities
     importer.import_table(schema_name='dcp_pops')
+    importer.import_table(schema_name='doe_busroutesgarages')
     importer.import_table(schema_name='dpr_parksproperties')
     importer.import_table(schema_name='moeo_socialservicesiteloactions')
     importer.import_table(schema_name='nycdoc_corrections')
