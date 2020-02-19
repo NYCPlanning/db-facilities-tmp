@@ -97,53 +97,53 @@ jobs:
           psql $BUILD_ENGINE -f sql/geo_rejects.sql
           psql $BUILD_ENGINE -f sql/qc_views.sql
       - name: export ...
-          run: |
-            mkdir -p output
-            # Facilities data table
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/facilities.csv
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities_wo_dedupe) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/facilities_wo_dedupe.csv
-            # Facilities shapefile
-            # docker exec $DB_CONTAINER_NAME pgsql2shp -u postgres -h localhost -f \
-            #     /home/db-facilities/output/facilities postgres \
-            #     'SELECT *
-            #     FROM facilities
-            #     WHERE geom IS NOT NULL;'
+        run: |
+          mkdir -p output
+          # Facilities data table
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/facilities.csv
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities_wo_dedupe) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/facilities_wo_dedupe.csv
+          # Facilities shapefile
+          # docker exec $DB_CONTAINER_NAME pgsql2shp -u postgres -h localhost -f \
+          #     /home/db-facilities/output/facilities postgres \
+          #     'SELECT *
+          #     FROM facilities
+          #     WHERE geom IS NOT NULL;'
 
-            # QC reports
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_operator) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_operator.csv
+          # QC reports
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_operator) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_operator.csv
 
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_oversight) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_oversight.csv
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_oversight) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_oversight.csv
 
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_classification) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_classification.csv
-            
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_captype) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_captype.csv
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_classification) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_classification.csv
 
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_capvalues) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_capvalues.csv
-               
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_proptype) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_proptype.csv
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_captype) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_captype.csv
 
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_datasource) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_mapped_datasource.csv
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_capvalues) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_capvalues.csv
 
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_mapped_subgroup.csv
- 
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_diff) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_diff.csv
-            
-            psql $BUILD_ENGINE -c "\copy (SELECT * FROM geo_rejects) 
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/geo_rejects.csv
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_proptype) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_proptype.csv
 
-            psql $BUILD_ENGINE -c "\copy (select * from geo_result where xcoord is not null and ycoord is not null)
-              TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/geo_result.csv
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_datasource) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_mapped_datasource.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_mapped_subgroup.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_diff) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/qc_diff.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM geo_rejects) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/geo_rejects.csv
+
+          psql $BUILD_ENGINE -c "\copy (select * from geo_result where xcoord is not null and ycoord is not null)
+            TO STDOUT DELIMITER ',' CSV HEADER;" > /home/db-facilities/output/geo_result.csv
   _03_archive_output:
     needs: _02_build
     container: 
