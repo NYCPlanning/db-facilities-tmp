@@ -64,6 +64,7 @@ jobs:
     env:
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
     steps:
+      - uses: actions/checkout@v1
       - name: install dependencies ...
         run: pip3 install -e .
       - name: geocoding again ...
