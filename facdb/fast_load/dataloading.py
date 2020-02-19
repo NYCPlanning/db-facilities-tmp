@@ -2,7 +2,7 @@ from cook import Importer
 import os
 
 def ETL():
-    RECIPE_ENGINE = os.environ.get('FACDB_ENGINE', '')
+    RECIPE_ENGINE = os.environ.get('RECIPE_ENGINE', '')
     BUILD_ENGINE=os.environ.get('BUILD_ENGINE', '')
 
     #load geoboundaries
