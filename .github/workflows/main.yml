@@ -151,6 +151,8 @@ jobs:
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/geo_result.csv
 
           # Facilities shapefile
+          apt update
+          apt install -y zip
           source ./url_parse.sh $BUILD_ENGINE
           DATE=$(date "+%Y-%m-%d")
           mkdir -p output/facilities && 
