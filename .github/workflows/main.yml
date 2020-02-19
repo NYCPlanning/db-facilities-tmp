@@ -22,6 +22,7 @@ jobs:
       image: sptkl/docker-geosupport:latest
     runs-on: ubuntu-latest
     env:
+      RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
     steps:
       - uses: actions/checkout@v1
