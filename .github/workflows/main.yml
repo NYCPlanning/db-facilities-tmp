@@ -8,7 +8,7 @@ jobs:
   _01_dataloading:
     container:
       image: sptkl/cook:latest
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     env:
       RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
@@ -20,7 +20,7 @@ jobs:
   _01_geocoding:
     container:
       image: sptkl/docker-geosupport:latest
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     env:
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
     steps:
@@ -60,7 +60,7 @@ jobs:
     needs: _02_build
     container:
       image: sptkl/docker-geosupport:latest
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     env:
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
     steps:
