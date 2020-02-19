@@ -3,12 +3,12 @@ name: CI
 on:
   push:
     branches: dev
-    
+
 jobs:
   _01_dataloading:
     container:
       image: sptkl/cook:latest
-    runs-on: ubuntu-latest
+    runs_on: ubuntu-latest
     env:
       RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
