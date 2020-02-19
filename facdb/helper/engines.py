@@ -7,7 +7,7 @@ import os
 
 load_dotenv(Path(__file__).parent.parent.parent/'.env')
 
-facdb_engine = create_engine(os.getenv('FACDB_ENGINE'))
+facdb_engine = create_engine(os.getenv('RECIPE_ENGINE'))
 build_engine = create_engine(os.getenv('BUILD_ENGINE'))
 edm_engine = create_engine(os.getenv('EDM_DATA'))
 
