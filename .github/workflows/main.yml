@@ -107,12 +107,13 @@ jobs:
           psql $BUILD_ENGINE -f sql/geo_rejects.sql
           psql $BUILD_ENGINE -f sql/qc_views.sql
       - name: export ...
+        shell: bash
         run: |
           mkdir -p output
           # Facilities data table
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/facilities.csv
-            
+
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities_wo_dedupe) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/facilities_wo_dedupe.csv
           # QC reports
