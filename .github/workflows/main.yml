@@ -32,7 +32,7 @@ jobs:
         run: |
           pip3 install -e .
           apt update
-          apt install postgresql-client
+          apt install -y postgresql-client
       - name: geocoding ...
         shell: bash
         run: |
