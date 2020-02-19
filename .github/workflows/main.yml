@@ -2,7 +2,8 @@ name: CI
 
 on:
   push:
-    branches: future
+    branches: dev
+    
 jobs:
   _01_dataloading:
     container:
