@@ -22,17 +22,22 @@ ALTER TABLE nycha_policeservice
 	ADD	proptype text;
 
 update nycha_policeservice as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+	address = (CASE 
+                        WHEN wkb_geometry is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE address             
+                    END),
 	facname = initcap(psa),
 	factype = 'NYCHA Police Service',
 	facsubgrp = 'Police Services',
 	facgroup = 'Public Safety',
 	facdomain = 'Public Safety, Emergency Services, and Administration of Justice',
 	servarea = NULL,
-	opname = 'New York City Housing Authority',
+	opname = 'NYC Housing Authority',
 	opabbrev = 'NYCHA',
 	optype = 'Public',
-	overagency = 'New York City Housing Authority',
+	overagency = 'NYC Housing Authority',
 	overabbrev = 'NYCHA', 
 	overlevel = NULL, 
 	capacity = NULL, 

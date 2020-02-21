@@ -1,88 +1,43 @@
-# db-facilities-tmp
+# db-facilities-tmp ![CI](https://github.com/NYCPlanning/db-facilities-tmp/workflows/CI/badge.svg)
+## Instructions:
+1. `./01_dataloading.sh` change CONTAINER_PORT number to something else if port is used
+2. `./02_build.sh`
+3. `./03_export.sh`
+4. `./04_archive.sh`
+5. `./05_cleanup.sh` note: the clean up step will remove both `facdb-$USER` and `fdb-USER` container
 
-## Development environment
-#### __Dataloading environment__
-        
-        docker run -itd --name=facdb\
-                --network=host\
-                -v `pwd`:/home/db-facilities\
-                -w /home/db-facilities\
-                -e "DATAFLOWS_DB_ENGINE=postgresql://postgres@localhost:5433/postgres"\
-                sptkl/docker-dataloading:latest /bin/bash -c "pip install -e .; bash"
-                
-1. The lib folder need to be within the etl folder to enable all py functions work
-2. Install the usdress package
-        ```
-        pip install usdress
-        ```
-3. Install the latest dataflows package to enable add_computed_field() function
-        ```
-        pip install dataflows -U
-        ```
-4. Install the shapely package to enable geocoding functions
-        ```
-        pip install shapely
-        ```
-        
-#### __Postgis__
+In the case you only want to run one datasource pipeline:
+- Set the `NAME` in `etl.sh` file as the datasource you select
+- Run `./etl.sh`
 
+## About Source Data:
+All FacDB datasets are loaded from [various sources](https://docs.google.com/spreadsheets/d/1xi0EvGpHpH-BqX-I5tgCgoE1OeeXZJAQLBLXpOmKWlk/edit?usp=sharing) and staged in a centralized database. Most of them are downloaded directly from NYC open data while others are received from various city agencies via email or maintained by us manually. You can find data loading script for each dataset in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) GitHub Repository.
+1. we receive the following datasets from their owners, various city agencies __via email__:
 
-        ```
-        docker run -itd --name=db\
-                --network=host\
-                -p 5433:5432\
-                mdillon/postgis 
-        ```
-        
-        or
-        
-        
-        ```
-        docker run -itd --name=db\
-                -p 5433:5432\
-                mdillon/postgis 
-        ```
+    - `acs_daycareheadstart`
+    - `dot_bridgehouses`
+    - `dot_ferryterminals`
+    - `dot_mannedfacilities`
+    - `dot_pedplazas`
+    - `dot_publicparking`
+    - `dsny_mtsgaragemaintenance`
+    - `moeo_socialservicesiteloactions`
+2. we update the data loading scripts for the following datasets manually caused their open data __URLs change__ over time:
 
-#### __Geocoding__
+    - `dpr_parksproperties`
+    - `usdot_ports`
+    - `usnps_parks`
+3. we __webscrape__ the following datasets from their open data source:
 
-1. first pull geosupport api repo 
+    - `foodbankny_foodbanks`
+    - `nysdoccs_corrections`
+    - `nycdoc_corrections`
+    - `hra_centers`
+    - `uscourts_courts`
+4. we maintain the following datasets in [NYCPlanning/db-data-recipes](https://github.com/NYCPlanning/db-data-recipes/tree/master/recipes) __GitHub Repository__:
 
-        git clone git@github.com:NYCPlanning/api-geosupport.git
-
-2.  navigate to the api-geosupport directory
-
-        cd api-geosupport
-
-3. run the following docker command:
-
-        
-        docker run -itd --name=geo\
-                -v `pwd`:/src/app\
-                -w /src/app\
-                -p 5000:5000\
-                sptkl/docker-geosupport:19a-api python app.py
-        
-4. Test out the api by navigating to the following addresses: 
-
-        http://0.0.0.0:5000/1b?house_number=120&street_name=broadway&borough=MN
-        
-        http://0.0.0.0:5000/1b?house_number=120&street_name=broadway&zipcode=10271
-
-## Building Instructions: 
-1. enter docker environment
-
-        docker exec -it facdb bash
-        
-        
-2. access postgres 
-
-        docker exec -it db bash
-        psql -U postgres to access postgres
-
-3. run any pipelines in etl from root directory: 
-
-        python  etl/example_data.py
-
-4. if you don't want to run it in an interative shell: 
-
-        docker exec facdb etl/example_data.py
+    - `dcp_pops`
+    - `dcp_sfpsd`
+    - `fbop_corrections`
+    - `nycourts_courts`
+    - `nysed_activeinstitutions`
