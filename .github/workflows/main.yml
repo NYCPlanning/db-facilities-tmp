@@ -1,8 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches: dev
+on: [push]
 
 jobs:
   _01_dataloading:
@@ -87,6 +85,9 @@ jobs:
       RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
       EDM_DATA: ${{ secrets.EDM_DATA }}
+      AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v1
       - name: building part2...
@@ -152,49 +153,22 @@ jobs:
 
           # Facilities shapefile
           apt update
-          apt install -y zip
+          apt install -y zip curl
           source ./url_parse.sh $BUILD_ENGINE
           DATE=$(date "+%Y-%m-%d")
           mkdir -p output/facilities && 
               (cd output/facilities
               pgsql2shp -u $BUILD_USER -P $BUILD_PWD -h $BUILD_HOST -p $BUILD_PORT -f facilities $BUILD_DB \
               "SELECT * FROM facilities WHERE geom IS NOT NULL;"
-              zip facilities_$DATE.zip facilities.*
+              echo "$DATE" > version.txt
+              zip facilities.zip *
               rm -f facilities.*
               )
 
-  _03_archive_output:
-    needs: _02_build
-    container: 
-      image: minio/mc
-      options: --entrypoint=/bin/sh
-    runs-on: ubuntu-latest
-    env:
-      AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    steps:
-      - uses: actions/checkout@v1
-      - name: archive to spaces
-        shell: sh
-        run: |
-          DATE=$(date "+%Y-%m-%d")
-          mc config host add spaces $AWS_S3_ENDPOINT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY --api S3v4
-          mc cp -r output spaces/edm-publishing/db-facilities/latest
-          mc cp -r output spaces/edm-publishing/db-facilities/$DATE
-  # _04_qaqc: 
-  #   needs: _03_archive_output
-  #   container:
-  #     image: sptkl/cook:latest
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     EDM_DATA: ${{ secrets.EDM_DATA }}
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - name: qaqc ...
-  #       run: |
-  #         if [ -f versions.env ]
-  #         then
-  #           export $(cat versions.env | sed 's/#.*//g' | xargs)
-  #         fi
-  #         python3 python/qaqc/qaqc.py
+          curl -O https://dl.min.io/client/mc/release/linux-amd64/mc
+          chmod +x mc
+          ./mc config host add spaces $AWS_S3_ENDPOINT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY --api S3v4
+          ./mc rm -r --force spaces/edm-publishing/db-facilities/latest
+          ./mc rm -r --force spaces/edm-publishing/db-facilities/$DATE
+          ./mc cp -r output spaces/edm-publishing/db-facilities/latest
+          ./mc cp -r output spaces/edm-publishing/db-facilities/$DATE
