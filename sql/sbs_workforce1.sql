@@ -19,10 +19,22 @@ ALTER TABLE sbs_workforce1
 	ADD	overlevel text,
 	ADD	capacity text,
 	ADD	captype text,
-	ADD	proptype text;
+	ADD	proptype text, 
+	ADD address text;
 
 update sbs_workforce1 as t
-SET hash =  md5(CAST((t.*)AS text)), 
+SET hash =  md5(CAST((t.*)AS text)),
+	wkb_geometry = (CASE
+				        WHEN wkb_geometry IS NULL
+					        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
+												 	 latitude::DOUBLE PRECISION), 4326)
+				        ELSE wkb_geometry
+				    END),
+    address = (CASE 
+                        WHEN wkb_geometry is not NULL 
+                            THEN geo_house_number || ' ' || geo_street_name
+                        ELSE hnum || ' ' || sname           
+                    END),
 	facname = name,
 	factype = location_type,			
 	facsubgrp = 'Workforce Development',	

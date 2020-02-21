@@ -1,6 +1,8 @@
 *__pycache__/ 
-.checkpoints/
-.pytest_cache/
-/lib.egg-info/*
+/facdb.egg-info/*
+*/.ipynb_checkpoints/*
+.ipynb_checkpoints
 *.DS_Store
 /backups/*
+/tmp/*
+*.env
