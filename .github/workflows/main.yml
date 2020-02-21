@@ -162,7 +162,7 @@ jobs:
               "SELECT * FROM facilities WHERE geom IS NOT NULL;"
               echo "$DATE" > version.txt
               zip facilities.zip *
-              rm -f facilities.*
+              ls | grep -v facilities.zip | xargs rm
               )
 
           curl -O https://dl.min.io/client/mc/release/linux-amd64/mc
