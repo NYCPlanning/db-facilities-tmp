@@ -15,24 +15,24 @@ if __name__ == "__main__":
                 from {table_name}.latest
                 ''')
     df['datasource'] = table_name
-    # df = df[df.state_post == 'NY']
-    # df = df[df.county_nam.str.lower().isin(['kings', 
-    #                         'new york',
-    #                         'bronx', 
-    #                         'queens',
-    #                         'richmond'])]
-    # df['address'] = df['street_add'].apply(quick_clean)
-    # df['sname'] = df['address'].apply(get_sname)
-    # df['hnum'] = df['address'].apply(get_hnum)
-    # df['boro'] = df['county_nam']
-    # df = df.rename(columns={'wkb_geometry':'point_location'})
-    # records = df.to_dict('records')
+    df = df[df.state_post == 'NY']
+    df = df[df.county_nam.str.lower().isin(['kings', 
+                            'new york',
+                            'bronx', 
+                            'queens',
+                            'richmond'])]
+    df['address'] = df['street_add'].apply(quick_clean)
+    df['sname'] = df['address'].apply(get_sname)
+    df['hnum'] = df['address'].apply(get_hnum)
+    df['boro'] = df['county_nam']
+    df = df.rename(columns={'wkb_geometry':'point_location'})
+    records = df.to_dict('records')
 
-    # ## geocode
-    # with Pool(processes=cpu_count()) as pool:
-    #     it = pool.map(geocode, records, 1000)
+    ## geocode
+    with Pool(processes=cpu_count()) as pool:
+        it = pool.map(geocode, records, 1000)
     
-    # df = pd.DataFrame(it)
+    df = pd.DataFrame(it)
 
     # Export to build engine
-    exporter(df, table_name, to_geom=False)
+    exporter(df, table_name)

@@ -8,7 +8,7 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'usnps_parks'
-    df = importer(table_name, from_url=False)
+    df = importer(table_name)
     df['datasource'] = table_name
     df = df[df.state == 'NY']
     df['address'] = df['unit_name'].apply(quick_clean)
