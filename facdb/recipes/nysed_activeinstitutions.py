@@ -15,6 +15,7 @@ if __name__ == "__main__":
     table_name = 'nysed_activeinstitutions'
     df = importer(table_name)
     df['datasource'] = table_name
+    df=df.drop(columns=['wkb_geometry', 'v'])
     df['address'] = df['physical_address_line1'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)

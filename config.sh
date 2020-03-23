@@ -1,3 +1,7 @@
-ETL_CONTAINER_NAME=facdb-$USER
-DB_CONTAINER_NAME=fdb-$USER
-CONTAINER_PORT=5437
+#!/bin/bash
+if [ -f .env ]
+then
+  export $(cat .env | sed 's/#.*//g' | xargs)
+fi
+
+ETL_CONTAINER_NAME=facdb

@@ -9,8 +9,7 @@ from pathlib import Path
 
 if __name__ == "__main__":
     table_name = 'moeo_socialservicesiteloactions'
-#     classification_url = 'https://raw.githubusercontent.com/NYCPlanning/db-facilities-tmp/master/referencetables/moeo_socialservicesiteloactions_classification.csv'
-    df = importer(table_name, from_url=False)
+    df = importer(table_name)
     df['datasource'] = table_name
     classification = pd.read_csv(Path(__file__).parent.parent.parent/'referencetables/moeo_socialservicesiteloactions_classification.csv')
 

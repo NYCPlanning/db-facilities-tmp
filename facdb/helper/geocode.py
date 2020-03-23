@@ -33,7 +33,7 @@ def quick_clean(address):
     result = [k for (k,v) in usaddress.parse(address) \
             if not v in \
             ['OccupancyIdentifier', 'OccupancyType']]
-    return re.sub(r'[,\%\$\#\@\!\_\.\?\`\"\(\)\ï\¿\½]', '', ' '.join(result))
+    return re.sub(r'[,\%\$\#\@\!\_\.\?\`\"\(\)\ï\¿\½\�]', '', ' '.join(result))
 
 def create_geom(lon, lat):
         lon = float(lon) if lon != '' else None

@@ -49,9 +49,9 @@ ALTER TABLE nysed_activeinstitutions
 UPDATE nysed_activeinstitutions as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
-				        WHEN wkb_geometry IS NULL AND gis_longitute_x != '0' AND gis_latitude_y != '0'
-					        THEN ST_SetSRID(ST_Point(gis_longitute_x::DOUBLE PRECISION, 
-												 	 gis_latitude_y::DOUBLE PRECISION), 4326)
+				        WHEN wkb_geometry IS NULL AND longitude != '0' AND latitude != '0'
+					        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
+												 	 latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
 	address = (CASE 

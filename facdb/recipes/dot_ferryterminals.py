@@ -8,12 +8,14 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'dot_ferryterminals'
-    df = importer(table_name)
+    df = importer(table_name,
+            sql=f'select st_astext(wkb_geometry) as wkt, * from {table_name}.latest')
+    df['wkb_geometry'] = df['wkt']
     df['datasource'] = table_name
     df['address'] = df['name'].apply(quick_clean)
     df['sname'] = df['address']
     df['hnum'] = ''
-    df = df.rename(columns={'boroname':'boro', 'wkt':'point_location'})
+    df = df.rename(columns={'boroname':'boro'})
     records = df.to_dict('records')
 
     ## geocode

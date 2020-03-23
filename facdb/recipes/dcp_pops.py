@@ -8,7 +8,7 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'dcp_pops'
-    df = importer(table_name, from_url=False)
+    df = importer(table_name)
     df['datasource'] = table_name
     df = df.rename(columns={'address_number':'hnum', 
                             'street_name': 'sname', 

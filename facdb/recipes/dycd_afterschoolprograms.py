@@ -15,21 +15,14 @@ def get_address(location):
     location = str('' if location is None else location).split('(')[0]
     if location != '':
         return re.sub('.{5}$','',location)
-    return None
-
-def clean_boro(b):
-    if b == 'New York':
-        b = 'Manhattan'
-    if b not in ['Bronx', 'Manhattan', 'Brooklyn', 'Queens', 'Staten Island']:
-        b = None
-    return b
+    return ''
 
 if __name__ == "__main__":
     table_name = 'dycd_afterschoolprograms'
     df = importer(table_name)
     df['datasource'] = table_name
     df = df.rename(columns={'postcode':'zipcode','borough_/_community':'boro'})
-    df['boro'] = df['boro'].apply(lambda x:clean_boro(x))
+    df['boro'] = ''
     df['address'] = df['location_1'].apply(lambda x: get_address(x)).apply(quick_clean)
 
     # extract house number and street name for queens and other boroughs seperately
@@ -42,7 +35,6 @@ if __name__ == "__main__":
     df = df_.append(df_qn)
 
     records = df.to_dict('records')
-
     ## geocode
     with Pool(processes=cpu_count()) as pool:
         it = pool.map(geocode, records, 1000)
