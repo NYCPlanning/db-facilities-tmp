@@ -24,6 +24,7 @@ jobs:
         working-directory: facdb/fast_load
         run: python3 dataloading.py
   _01_geocoding:
+    needs: _01_dataloading
     container:
       image: sptkl/docker-geosupport:latest
     runs-on: ubuntu-latest
