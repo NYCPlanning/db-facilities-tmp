@@ -10,10 +10,10 @@ if __name__ == "__main__":
     table_name = 'foodbankny_foodbanks'
     df = importer(table_name)
     df['datasource'] = table_name
-    df['address'] = df['street'].apply(quick_clean)
+    df['address'] = df['address'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
-    df = df.rename(columns={'postal_code':'zipcode'})
+    df = df.rename(columns={'zip_code':'zipcode'})
     records = df.to_dict('records')
 
     ## geocode

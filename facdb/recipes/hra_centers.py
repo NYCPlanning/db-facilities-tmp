@@ -9,9 +9,8 @@ import numpy as np
 if __name__ == "__main__":
     table_name = 'hra_centers'
     df = importer(table_name)
-    df=df.drop(columns=['wkb_geometry'])
     df['datasource'] = table_name
-    df['address'] = df['center_address'].apply(quick_clean)
+    df['address'] = df['address'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
     records = df.to_dict('records')

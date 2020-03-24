@@ -36,4 +36,4 @@ def ETL(table):
 
 if __name__ == "__main__":
     with Pool(processes=cpu_count()) as pool:
-        pool.map(ETL, reference_tables+boundry_tables)
+        pool.map(ETL, reference_tables+boundry_tables+source_tables)

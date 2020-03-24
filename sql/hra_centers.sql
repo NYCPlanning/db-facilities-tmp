@@ -4,8 +4,6 @@
 
 ALTER TABLE hra_centers
 	ADD hash text, 
-	ADD	facname text,
-	ADD	factype text,
 	ADD	facsubgrp text,
 	ADD	facgroup text,
 	ADD	facdomain text, 
@@ -27,10 +25,8 @@ SET hash =  md5(CAST((t.*)AS text)),
                             THEN geo_house_number || ' ' || geo_street_name
                         ELSE address             
                     END),
-	facname = facility_name,
-	factype = type,
 	facsubgrp = (CASE 
-                        WHEN type = 'Job Center' THEN 'Workforce Development'
+                        WHEN factype = 'Job Center' THEN 'Workforce Development'
                         ELSE 'Financial Assistance and Social Services'
                 END),
 	facgroup = NULL,
