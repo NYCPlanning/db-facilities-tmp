@@ -1,14 +1,3 @@
---select w.status::text, count(*) 
---from (select geo::json->'status' as status from nysdoh_nursinghomes) w
---group by w.status::text;
-
-DELETE FROM nysdoh_nursinghomes
-WHERE "bed_type/service_category" != 'Total Residential Beds' 
-AND "bed_type/service_category" != 'Total Adult Day Health Care Capacity'
-OR ("bed_type/service_category" = 'Total Adult Day Health Care Capacity'
-AND total_capacity = '0')
-;
-
 ALTER TABLE nysdoh_nursinghomes
     ADD hash text,
     ADD facname text,
@@ -31,10 +20,7 @@ update nysdoh_nursinghomes as t
 SET hash =  md5(CAST((t.*)AS text)),
     wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL
-						THEN ST_SetSRID(ST_POINT(split_part(REPLACE(REPLACE(location,
-										'(',''),')',''),',',2)::DOUBLE PRECISION,
-										split_part(REPLACE(REPLACE(location,
-										'(',''),')',''),',',1)::DOUBLE PRECISION),4326)
+						THEN ST_GeomFromText(location, 4326)
 						ELSE wkb_geometry
 					END),
 	address = (CASE 
@@ -44,12 +30,12 @@ SET hash =  md5(CAST((t.*)AS text)),
 				END), 
     facname = facility_name,
     factype = (CASE
-                WHEN "bed_type/service_category" = 'Total Residential Beds' THEN 'Nursing Home'
-                WHEN "bed_type/service_category" = 'Total Adult Day Health Care Capacity' THEN 'Adult Day Care'
+                WHEN "bed_type" = 'NHBEDSAV' THEN 'Nursing Home'
+                WHEN "bed_type" = 'ADHCPSLOTSAV' THEN 'Adult Day Care'
             END),
 	facsubgrp = (CASE
-                    WHEN "bed_type/service_category" = 'Total Residential Beds' THEN 'Residential Health Care'
-                    WHEN "bed_type/service_category" = 'Total Adult Day Health Care Capacity' THEN 'Other Health Care'
+                    WHEN "bed_type" = 'NHBEDSAV' THEN 'Residential Health Care'
+                    else 'Other Health Care'
                 END),
 	facgroup = NULL,
 	facdomain = NULL,
@@ -62,8 +48,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 	overlevel = NULL, 
 	capacity = total_capacity, 
 	captype = (CASE
-                    WHEN "bed_type/service_category" = 'Total Residential Beds' THEN 'beds'
-                    WHEN "bed_type/service_category" = 'Total Adult Day Health Care Capacity' THEN 'seats'
+                    WHEN "bed_type" = 'Total Residential Beds' THEN 'beds'
+                    WHEN "bed_type" = 'Total Adult Day Health Care Capacity' THEN 'seats'
                 END), 
 	proptype = NULL
 ;
