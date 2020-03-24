@@ -26,7 +26,7 @@ SET hash =  md5(CAST((t.*)AS text)),
                         ELSE address             
                     END),
 	facsubgrp = (CASE 
-                        WHEN factype = 'Job Center' THEN 'Workforce Development'
+                        WHEN factype ~* 'job' THEN 'Workforce Development'
                         ELSE 'Financial Assistance and Social Services'
                 END),
 	facgroup = NULL,

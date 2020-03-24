@@ -31,8 +31,12 @@ SET hash =  md5(CAST((t.*)AS text)),
 	factype = (CASE
 				WHEN program_type ~* 'pantry' THEN 'Food Pantry'
 				WHEN program_type ~* 'Soup Kitchen' THEN 'Soup Kitchen'
+				when program_tupe ~* 'senior' THEN 'Senior Center'
 			  END),
-	facsubgrp = 'Soup Kitchens and Food Pantries',
+	facsubgrp = (CASE
+				when program_tupe ~* 'senior' THEN 'Senior Services'
+				else 'Soup Kitchens and Food Pantries'
+			  END),
 	facgroup = NULL,
 	facdomain = NULL,
 	servarea = NULL,
