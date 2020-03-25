@@ -13,8 +13,8 @@
 + dcla_culturalinstitutions
     + status: updated
 + *__dcp_pops__*
-    + status: NA
-    + comments: received internally
+    + status: updated
+    + comments: downloaded from the POPS app
 + dep_wwtc
     + status: NA
     + comments: this dataset doesn't need updates

@@ -1,3 +1,6 @@
+DELETE FROM nysdoh_nursinghomes
+WHERE bed_type !~* 'NHBEDSAV|ADHCPSLOTSAV'; 
+
 ALTER TABLE nysdoh_nursinghomes
     ADD hash text,
     ADD facname text,
@@ -48,8 +51,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 	overlevel = NULL, 
 	capacity = total_capacity, 
 	captype = (CASE
-                    WHEN "bed_type" = 'Total Residential Beds' THEN 'beds'
-                    WHEN "bed_type" = 'Total Adult Day Health Care Capacity' THEN 'seats'
+                    WHEN "bed_type" = 'NHBEDSAV' THEN 'beds'
+                    WHEN "bed_type" = 'ADHCPSLOTSAV' THEN 'seats'
                 END), 
 	proptype = NULL
 ;
