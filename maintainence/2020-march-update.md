@@ -25,6 +25,8 @@
 + doe_lcgms
     + status: updated
     + comments: this dataset is updated for CEQR
++ sca_enrollment_capacity
+    + status: updated
 + doe_universalprek
     + status: updated
 + dohmh_daycare
