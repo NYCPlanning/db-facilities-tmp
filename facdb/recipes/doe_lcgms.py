@@ -26,7 +26,12 @@ if __name__ == "__main__":
     exporter(df, table_name)
 
     ## Import bluebook
-    table_name = 'sca_bluebook'
+    table_name = 'sca_enrollment_capacity'
     df = importer(table_name,
-            sql=f'select org_id, bldg_id, org_target_cap as target_capacity from {table_name}.latest')
+            sql=f'''
+            select data_as_of, org_id, bldg_id, target_capacity 
+            from {table_name}.latest
+            where data_as_of::date = (
+                select MAX(data_as_of::date) 
+                from {table_name}.latest)''')
     exporter(df, table_name, to_geom=False)

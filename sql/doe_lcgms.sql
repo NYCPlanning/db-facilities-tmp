@@ -23,10 +23,10 @@ ALTER TABLE doe_lcgms
 
 CREATE TABLE doe_lcgms_tmp as (SELECT
 	doe_lcgms.*,
-	sca_bluebook.target_capacity
+	sca_enrollment_capacity.target_capacity
 	FROM doe_lcgms
-	LEFT JOIN sca_bluebook
-	ON ((doe_lcgms.location_code || doe_lcgms.building_code) = (sca_bluebook.org_id || sca_bluebook.bldg_id)) 
+	LEFT JOIN sca_enrollment_capacity
+	ON ((doe_lcgms.location_code || doe_lcgms.building_code) = (sca_enrollment_capacity.org_id || sca_enrollment_capacity.bldg_id)) 
 );
 
 DROP TABLE doe_lcgms;
