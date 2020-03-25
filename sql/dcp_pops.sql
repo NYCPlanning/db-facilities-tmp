@@ -26,10 +26,10 @@ update dcp_pops as t
 SET hash =  pops_number, 
 	wkb_geometry = (CASE
 				        WHEN wkb_geometry is NULL
-				        THEN ST_SetSRID(ST_Point(
-				        		longitude::DOUBLE PRECISION, 
-				        		latitude::DOUBLE PRECISION), 
-				        		4326)
+				        THEN ST_TRANSFORM(ST_SetSRID(ST_Point(
+				        		xcoordinate::DOUBLE PRECISION, 
+				        		ycoordinate::DOUBLE PRECISION), 
+				        		2263), 4326)
 				        ELSE wkb_geometry
 					END),
 	address = (CASE 
