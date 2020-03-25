@@ -10,7 +10,7 @@ if __name__ == "__main__":
     table_name = 'doe_lcgms'
     df = importer(table_name)
     df['datasource'] = table_name
-    df['address'] = df['address_line_1'].apply(quick_clean)
+    df['address'] = df['primary_address'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
     df = df.rename(columns={'zip':'zipcode'})
