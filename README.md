@@ -1,4 +1,4 @@
-# db-facilities-tmp ![CI](https://github.com/NYCPlanning/db-facilities-tmp/workflows/CI/badge.svg)
+# db-facilities ![CI](https://github.com/NYCPlanning/db-facilities-tmp/workflows/CI/badge.svg)
 ## Instructions:
 1. `./01_dataloading.sh` change CONTAINER_PORT number to something else if port is used
 2. `./02_build.sh`
