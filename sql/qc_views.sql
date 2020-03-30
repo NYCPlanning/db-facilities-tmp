@@ -77,19 +77,24 @@ GROUP BY a.facdomain, a.facgroup, a.facsubgrp, b.countwithgeom
 ORDER BY percentwithgeom)
 ;
 -- report Change in distribution of number of records by fac subgroup / group / domain between current and previous version
+CREATE FUNCTION array_distinct(anyarray) RETURNS anyarray AS $f$
+  SELECT array_agg(DISTINCT x) FROM unnest($1) t(x);
+$f$ LANGUAGE SQL IMMUTABLE;
+
 CREATE VIEW qc_diff AS (
-SELECT *, count_new-count_old AS diff FROM
-(SELECT facdomain, facgroup, facsubgrp, factype, datasource, COALESCE(COUNT(*),0) AS count_new
-FROM facilities
-WHERE geom IS NOT NULL
-GROUP BY facdomain, facgroup, facsubgrp, factype, datasource) a
-FULL JOIN
-(SELECT UPPER(facdomain) AS facdomain_old, UPPER(facgroup) AS facgroup_old, UPPER(facsubgrp) AS facsubgrp_old,
-UPPER(factype) AS factype_old, COALESCE(count(*),0) AS count_old
-FROM dcp_facilities
-GROUP BY facdomain_old, facgroup_old, facsubgrp_old, factype_old) b
-ON a.facdomain = b.facdomain_old
-AND a.facgroup = b.facgroup_old
-AND a.facsubgrp = b.facsubgrp_old
-AND a.factype = b.factype_old
-ORDER BY a.facdomain, a.facgroup, a.facsubgrp, a.factype);
+select ARRAY_TO_STRING(array_distinct(ARRAY[a.facdomain, b.facdomain]), '') as facdomain, 
+		ARRAY_TO_STRING(array_distinct(ARRAY[a.facgroup, b.facgroup]), '') as facgroup, 
+		ARRAY_TO_STRING(array_distinct(ARRAY[a.facsubgrp, b.facsubgrp]), '') as facsubgrp,
+		ARRAY_TO_STRING(array_distinct(ARRAY[a.factype, b.factype]), '') as factype,
+		ARRAY_TO_STRING(array_distinct(ARRAY[string_to_array(a.datasource, ';') || string_to_array(b.datasource, ';')]), ', ') as datasource,
+			count_old, count_new,
+		count_new-count_old as diff from 
+(select facdomain, facgroup, facsubgrp, factype, ARRAY_TO_STRING(array_agg(DISTINCT datasource), ';') as datasource, coalesce(count(*),0) as count_new
+from facilities
+group by facdomain, facgroup, facsubgrp, factype) a
+FULL JOIN 
+(select facdomain, facgroup, facsubgrp, factype, ARRAY_TO_STRING(array_agg(DISTINCT datasource), ';') as datasource, coalesce(count(*),0) as count_old
+from dcp_facilities
+group by facdomain, facgroup, facsubgrp, factype) b
+ON a.facdomain = b.facdomain and a.facgroup = b.facgroup and a.facsubgrp = b.facsubgrp and a.factype = b.factype
+order by facdomain, facgroup, facsubgrp, factype);
