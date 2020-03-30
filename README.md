@@ -41,3 +41,17 @@ All FacDB datasets are loaded from [various sources](https://docs.google.com/spr
     - `fbop_corrections`
     - `nycourts_courts`
     - `nysed_activeinstitutions`
+
+## Download: 
++ [facilities.csv](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/facilities.csv)
++ [facilities.zip](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/facilities/facilities.zip)
++ [geo_rejects](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/geo_rejects.csv)
++ [qc_captype](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_captype.csv)
++ [qc_capvalues](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_capvalues.csv)
++ [qc_classification](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_classification.csv)
++ [qc_diff](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_diff.csv)
++ [qc_mapped_datasource](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_mapped_datasource.csv)
++ [qc_mapped_subgroup](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_mapped_subgroup.csv)
++ [qc_operator](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_operator.csv)
++ [qc_oversight](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_oversight.csv)
++ [qc_proptype](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_proptype.csv)
