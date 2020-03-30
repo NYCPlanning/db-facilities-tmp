@@ -15,7 +15,7 @@ if __name__ == "__main__":
                             'bronx', 
                             'queens',
                             'richmond'])]
-    df['address'] = df['street_address'] + ' ' + df['street_address_line_2']
+    df['address'] = df['location_1']
     df['address'] = df.address.fillna('')
     df['address'] = df['address'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)
