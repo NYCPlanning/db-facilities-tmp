@@ -17,18 +17,21 @@ SELECT opabbrev, opname, optype, datasource, COUNT(*)
 FROM facilities
 GROUP BY opabbrev, opname, optype, datasource
 ORDER BY opabbrev);
+
 -- QC consistency in oversight information
 CREATE VIEW qc_oversight AS (
 SELECT overabbrev, overagency, overlevel, datasource, COUNT(*)
 FROM facilities
 GROUP BY overabbrev, overagency, overlevel, datasource
 ORDER BY overabbrev);
+
 -- QC consistency in grouping information
 CREATE VIEW qc_classification AS (
 SELECT facdomain, facgroup, facsubgrp, servarea, COUNT(*)
 FROM facilities
 GROUP BY facdomain, facgroup, facsubgrp, servarea
 ORDER BY facdomain, facgroup, facsubgrp);
+
 -- make sure capcaity types are consistent
 CREATE VIEW qc_captype AS (
 SELECT DISTINCT captype
@@ -36,45 +39,109 @@ FROM facilities);
 CREATE VIEW qc_capvalues AS (
 SELECT DISTINCT datasource 
 FROM facilities
-WHERE captype IS NULL 
+WHERE captype IS NULL
 AND capacity IS NOT NULL);
+
 -- make sure property types are consistent
 CREATE VIEW qc_proptype AS (
 SELECT DISTINCT proptype
 FROM facilities);
+
 -- report the number of records with geoms by data source
-CREATE VIEW qc_mapped_datasource AS (
-SELECT a.datasource, 
+CREATE VIEW qc_mapped_datasource AS(
+with geom_new as (
+	SELECT a.datasource, 
 	COUNT(*) as total,
 	b.countwithgeom,
 	COUNT(*) - b.countwithgeom as countwithoutgeom,
 	round(((b.countwithgeom::double precision/COUNT(*)::double precision)*100)::numeric, 2) as percentwithgeom
-FROM facilities a
-JOIN (SELECT datasource, COUNT(*) as countwithgeom
-FROM facilities
-WHERE geom IS NOT NULL
-GROUP BY datasource) b
-ON a.datasource=b.datasource
-GROUP BY a.datasource, b.countwithgeom
-ORDER BY percentwithgeom);
+	FROM facilities a
+	JOIN (SELECT datasource, COUNT(*) as countwithgeom
+	FROM facilities
+	WHERE geom IS NOT NULL
+	GROUP BY datasource) b
+	ON a.datasource=b.datasource
+	GROUP BY a.datasource, b.countwithgeom
+	ORDER BY percentwithgeom),
+	geom_old as (
+		SELECT a.datasource, 
+	COUNT(*) as total,
+	b.countwithgeom,
+	COUNT(*) - b.countwithgeom as countwithoutgeom,
+	round(((b.countwithgeom::double precision/COUNT(*)::double precision)*100)::numeric, 2) as percentwithgeom
+	FROM dcp_facilities a
+	JOIN (SELECT datasource, COUNT(*) as countwithgeom
+	FROM dcp_facilities
+	WHERE geom IS NOT NULL
+	GROUP BY datasource) b
+	ON a.datasource=b.datasource
+	GROUP BY a.datasource, b.countwithgeom
+	ORDER BY percentwithgeom)
+	select a.datasource, 
+		a.total as total_new,
+		b.total as total_old, 
+		a.countwithgeom as wgeom_new,
+		b.countwithgeom as wgeom_old,
+		a.countwithoutgeom as wogeom_new,
+		b.countwithoutgeom as wogeom_old,
+		a.percentwithgeom as pctgeom_new, 
+		b.percentwithgeom as pctgeom_old
+	FROM geom_new a
+	join geom_old b
+	on (a.datasource=b.datasource)
+	order by a.percentwithgeom);
+
 -- report the number of records with geoms by domain, group and subgroup
 CREATE VIEW qc_mapped_subgroup AS (
-SELECT a.facdomain, a.facgroup, a.facsubgrp,
-    COUNT(*) as total,
-    b.countwithgeom,
-    COUNT(*) - b.countwithgeom as countwithoutgeom,
-    CAST((b.countwithgeom/COUNT(*)::double precision)*100 AS DECIMAL(18,2)) as percentwithgeom
-FROM facilities a
-JOIN
-(SELECT facdomain, facgroup, facsubgrp, COUNT(*) as countwithgeom
-FROM facilities
-WHERE geom IS NOT NULL
-GROUP BY facdomain, facgroup, facsubgrp) b
-ON a.facdomain=b.facdomain
-AND a.facgroup=b.facgroup
-AND a.facsubgrp=b.facsubgrp
-GROUP BY a.facdomain, a.facgroup, a.facsubgrp, b.countwithgeom
-ORDER BY percentwithgeom)
+WITH geom_new as(
+	SELECT a.facdomain, a.facgroup, a.facsubgrp,
+		COUNT(*) as total,
+		b.countwithgeom,
+		COUNT(*) - b.countwithgeom as countwithoutgeom,
+		CAST((b.countwithgeom/COUNT(*)::double precision)*100 AS DECIMAL(18,2)) as percentwithgeom
+	FROM facilities a
+	JOIN
+	(SELECT facdomain, facgroup, facsubgrp, COUNT(*) as countwithgeom
+	FROM facilities
+	WHERE geom IS NOT NULL
+	GROUP BY facdomain, facgroup, facsubgrp) b
+	ON a.facdomain=b.facdomain
+	AND a.facgroup=b.facgroup
+	AND a.facsubgrp=b.facsubgrp
+	GROUP BY a.facdomain, a.facgroup, a.facsubgrp, b.countwithgeom
+	ORDER BY percentwithgeom),
+	geom_old as (
+		SELECT a.facdomain, a.facgroup, a.facsubgrp,
+		COUNT(*) as total,
+		b.countwithgeom,
+		COUNT(*) - b.countwithgeom as countwithoutgeom,
+		CAST((b.countwithgeom/COUNT(*)::double precision)*100 AS DECIMAL(18,2)) as percentwithgeom
+	FROM dcp_facilities a
+	JOIN
+	(SELECT facdomain, facgroup, facsubgrp, COUNT(*) as countwithgeom
+	FROM dcp_facilities
+	WHERE geom IS NOT NULL
+	GROUP BY facdomain, facgroup, facsubgrp) b
+	ON a.facdomain=b.facdomain
+	AND a.facgroup=b.facgroup
+	AND a.facsubgrp=b.facsubgrp
+	GROUP BY a.facdomain, a.facgroup, a.facsubgrp, b.countwithgeom
+	ORDER BY percentwithgeom)
+	select a.facdomain, a.facgroup, a.facsubgrp, 
+		a.total as total_new,
+		b.total as total_old, 
+		a.countwithgeom as wgeom_new,
+		b.countwithgeom as wgeom_old,
+		a.countwithoutgeom as wogeom_new,
+		b.countwithoutgeom as wogeom_old,
+		a.percentwithgeom as pctgeom_new, 
+		b.percentwithgeom as pctgeom_old
+	FROM geom_new a
+	join geom_old b
+	on (a.facdomain=b.facdomain
+		AND a.facgroup=b.facgroup
+		AND a.facsubgrp=b.facsubgrp)
+	order by a.percentwithgeom)
 ;
 -- report Change in distribution of number of records by fac subgroup / group / domain between current and previous version
 CREATE FUNCTION array_distinct(anyarray) RETURNS anyarray AS $f$
@@ -92,7 +159,7 @@ select ARRAY_TO_STRING(array_distinct(ARRAY[a.facdomain, b.facdomain]), '') as f
 (select facdomain, facgroup, facsubgrp, factype, ARRAY_TO_STRING(array_agg(DISTINCT datasource), ';') as datasource, coalesce(count(*),0) as count_new
 from facilities
 group by facdomain, facgroup, facsubgrp, factype) a
-FULL JOIN 
+FULL JOIN
 (select facdomain, facgroup, facsubgrp, factype, ARRAY_TO_STRING(array_agg(DISTINCT datasource), ';') as datasource, coalesce(count(*),0) as count_old
 from dcp_facilities
 group by facdomain, facgroup, facsubgrp, factype) b
