@@ -5,6 +5,7 @@ DROP VIEW IF EXISTS qc_classification;
 DROP VIEW IF EXISTS qc_captype;
 DROP VIEW IF EXISTS qc_capvalues;
 DROP VIEW IF EXISTS qc_proptype;
+DROP VIEW IF EXISTS qc_mapped;
 DROP VIEW IF EXISTS qc_mapped_datasource;
 DROP VIEW IF EXISTS qc_mapped_subgroup;
 DROP VIEW IF EXISTS qc_diff;
@@ -90,6 +91,31 @@ with geom_new as (
 	join geom_old b
 	on (a.datasource=b.datasource)
 	order by a.percentwithgeom);
+
+CREATE VIEW qc_mapped AS (
+	with geom_new as (
+		SELECT facdomain, facgroup, facsubgrp, factype, datasource, 
+		count(*) as count_new, 
+		sum((case when geom is null then 1 else 0 end)) as wogeom_new
+		from facilities 
+		group by facdomain, facgroup, facsubgrp, factype, datasource), 
+	geom_old as (
+		SELECT facdomain, facgroup, facsubgrp, factype, datasource, 
+		count(*) as count_old, 
+		sum((case when geom is null then 1 else 0 end)) as wogeom_old
+		from dcp_facilities 
+		group by facdomain, facgroup, facsubgrp, factype, datasource)
+	select a.facdomain, a.facgroup, a.facsubgrp,
+		a.factype, a.datasource, a.count_new, b.count_old,
+		a.wogeom_new, b.wogeom_old
+	from geom_new a
+	join geom_old b
+	on (a.facdomain = b.facdomain
+		AND a.facgroup = b.facgroup 
+		AND a.facsubgrp = b.facsubgrp
+		AND a.factype = b.factype
+		AND a.datasource = b.datasource)
+);
 
 -- report the number of records with geoms by domain, group and subgroup
 CREATE VIEW qc_mapped_subgroup AS (

@@ -37,6 +37,9 @@ TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_datasource.csv
 psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
 TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_subgroup.csv
 
+psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped) 
+TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped.csv
+
 psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_diff) 
 TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_diff.csv
 
