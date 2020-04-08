@@ -188,7 +188,7 @@ FULL JOIN
 from dcp_facilities
 group by facdomain, facgroup, facsubgrp, factype, datasource) b
 ON a.facdomain = b.facdomain 
-	and a.facgroup = b.facgroups
+	and a.facgroup = b.facgroup
 	and a.facsubgrp = b.facsubgrp 
 	and a.factype = b.factype
 	and a.datasource = b.datasource
