@@ -10,43 +10,99 @@ DROP VIEW IF EXISTS qc_mapped_datasource;
 DROP VIEW IF EXISTS qc_mapped_subgroup;
 DROP VIEW IF EXISTS qc_diff;
 
+ALTER TABLE dcp_facilities
+RENAME COLUMN wkb_geometry TO geom;
+
 -- creating views for QC reports
 
 -- QC consistency in operator information
 CREATE VIEW qc_operator AS (
-SELECT opabbrev, opname, optype, datasource, COUNT(*)
-FROM facilities
-GROUP BY opabbrev, opname, optype, datasource
-ORDER BY opabbrev);
+	with new as (
+	SELECT opabbrev, opname, optype, datasource, count(*) as count_new
+	FROM facilities
+	group by opabbrev, opname, optype, datasource),
+	old as (
+	SELECT opabbrev, opname, optype, datasource, count(*) as count_old
+	FROM dcp_facilities
+	group by opabbrev, opname, optype, datasource)
+select a.*, b.count_old,  a.count_new - b.count_old as diff
+from new a
+join old b
+on a.opabbrev = b.opabbrev 
+and a.opname = b.opname
+and a.optype = b.optype 
+and a.datasource = b.datasource
+);
 
 -- QC consistency in oversight information
 CREATE VIEW qc_oversight AS (
-SELECT overabbrev, overagency, overlevel, datasource, COUNT(*)
-FROM facilities
-GROUP BY overabbrev, overagency, overlevel, datasource
-ORDER BY overabbrev);
+	with new as (
+	SELECT overabbrev, overagency, overlevel, datasource, count(*) as count_new
+	FROM facilities
+	group by overabbrev, overagency, overlevel, datasource),
+	old as (
+	SELECT overabbrev, overagency, overlevel, datasource, count(*) as count_old
+	FROM dcp_facilities
+	group by overabbrev, overagency, overlevel, datasource)
+select a.*, b.count_old,  a.count_new - b.count_old as diff
+from new a
+join old b
+on a.overabbrev = b.overabbrev 
+and a.overagency = b.overagency
+and a.overlevel = b.overlevel 
+and a.datasource = b.datasource
+);
 
 -- QC consistency in grouping information
 CREATE VIEW qc_classification AS (
-SELECT facdomain, facgroup, facsubgrp, servarea, COUNT(*)
-FROM facilities
-GROUP BY facdomain, facgroup, facsubgrp, servarea
-ORDER BY facdomain, facgroup, facsubgrp);
+	with new as (
+	SELECT facdomain, facgroup, facsubgrp, servarea, count(*) as count_new
+	FROM facilities
+	group by facdomain, facgroup, facsubgrp, servarea),
+	old as (
+	SELECT facdomain, facgroup, facsubgrp, servarea, count(*) as count_old
+	FROM dcp_facilities
+	group by facdomain, facgroup, facsubgrp, servarea)
+select a.*, b.count_old,  a.count_new - b.count_old as diff
+from new a
+join old b
+on a.facdomain = b.facdomain 
+and a.facgroup = b.facgroup
+and a.facsubgrp = b.facsubgrp 
+and a.servarea = b.servarea
+);
 
 -- make sure capcaity types are consistent
 CREATE VIEW qc_captype AS (
-SELECT DISTINCT captype
-FROM facilities);
-CREATE VIEW qc_capvalues AS (
-SELECT DISTINCT datasource 
-FROM facilities
-WHERE captype IS NULL
-AND capacity IS NOT NULL);
+with new as (
+	SELECT captype, sum(capacity::integer) as sum_new
+	FROM facilities
+	group by captype),
+	old as (
+	SELECT captype, sum(capacity::integer) as sum_old
+	FROM dcp_facilities
+	group by captype)
+select a.captype, a.sum_new, b.sum_old, a.sum_new - b.sum_old as diff
+from new a
+join old b
+on a.captype = b.captype
+);
 
 -- make sure property types are consistent
 CREATE VIEW qc_proptype AS (
-SELECT DISTINCT proptype
-FROM facilities);
+	with new as (
+	SELECT coalesce(proptype, 'NULL') as proptype, count(*) as count_new
+	FROM facilities
+	group by proptype),
+	old as (
+	SELECT coalesce(proptype, 'NULL') as proptype, count(*) as count_old
+	FROM dcp_facilities
+	group by proptype)
+select a.proptype, a.count_new, b.count_old,  a.count_new - b.count_old as diff
+from new a
+join old b
+on a.proptype = b.proptype
+);
 
 -- report the number of records with geoms by data source
 CREATE VIEW qc_mapped_datasource AS(
