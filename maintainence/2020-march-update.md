@@ -2,7 +2,7 @@
 #### Date refresh (2020/03/23):
 + *acs_daycareheadstart*
     + status: NA
-    + comments: received through FTP
+    + comments: discontinued, we are no longer using this data source
 + bpl_libraries
     + status: updated
 + dca_operatingbusinesses
@@ -12,7 +12,7 @@
     + comments: no new version of COLP released yet (using 2018 November version on Bytes)
 + dcla_culturalinstitutions
     + status: updated
-+ *__dcp_pops__*
++ dcp_pops
     + status: updated
     + comments: downloaded from the POPS app
 + dep_wwtc
