@@ -144,11 +144,11 @@ jobs:
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_proptype) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_proptype.csv
 
-          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_datasource) 
-            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_datasource.csv
+          # psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_datasource) 
+          #   TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_datasource.csv
 
-          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
-            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_subgroup.csv
+          # psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
+          #   TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_subgroup.csv
 
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped.csv

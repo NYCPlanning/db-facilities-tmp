@@ -25,17 +25,17 @@ TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_classification.csv
 psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_captype) 
 TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_captype.csv
 
-psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_capvalues) 
-TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_capvalues.csv
+# psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_capvalues) 
+# TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_capvalues.csv
 
 psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_proptype) 
 TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_proptype.csv
 
-psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_datasource) 
-TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_datasource.csv
+# psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_datasource) 
+# TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_datasource.csv
 
-psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
-TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_subgroup.csv
+# psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
+# TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_subgroup.csv
 
 psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped) 
 TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped.csv
