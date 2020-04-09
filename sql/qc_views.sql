@@ -163,10 +163,12 @@ CREATE VIEW qc_diff AS (
 	coalesce(count_new, 0) - coalesce(count_old, 0) as diff from 
 (select facdomain, facgroup, facsubgrp, factype, datasource, coalesce(count(*),0) as count_new
 from facilities
+where geom is not null
 group by facdomain, facgroup, facsubgrp, factype, datasource) a
 FULL JOIN
 (select facdomain, facgroup, facsubgrp, factype, datasource, coalesce(count(*),0) as count_old
 from dcp_facilities
+where geom is not null
 group by facdomain, facgroup, facsubgrp, factype, datasource) b
 ON a.facdomain = b.facdomain 
 	and a.facgroup = b.facgroup
