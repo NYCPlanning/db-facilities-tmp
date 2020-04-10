@@ -5,7 +5,7 @@ on: [push]
 jobs:
   _01_dataloading:
     container:
-      image: sptkl/cook:latest
+      image: nycplanning/cook:latest
     runs-on: ubuntu-latest
     env:
       RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
