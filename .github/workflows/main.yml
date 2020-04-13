@@ -19,7 +19,7 @@ jobs:
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
       EDM_DATA: ${{ secrets.EDM_DATA }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: dataloading ...
         working-directory: facdb/fast_load
         run: python3 dataloading.py
@@ -33,7 +33,7 @@ jobs:
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
       EDM_DATA: ${{ secrets.EDM_DATA }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: install dependencies ...
         run: |
           pip3 install -e .
@@ -58,7 +58,7 @@ jobs:
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
       EDM_DATA: ${{ secrets.EDM_DATA }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: building part1...
         run: |
           # create table and create stored procedure
@@ -79,7 +79,7 @@ jobs:
       BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
       EDM_DATA: ${{ secrets.EDM_DATA }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: install dependencies ...
         run: pip3 install -e .
       - name: geocoding again ...
@@ -97,7 +97,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: building part2...
         run: |
           # backfill spatial boundries
@@ -119,13 +119,13 @@ jobs:
         shell: bash
         run: |
           mkdir -p output
-          # Facilities data table
+
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/facilities.csv
 
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities_wo_dedupe) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/facilities_wo_dedupe.csv
-          # QC reports
+
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_operator) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_operator.csv
 
@@ -138,17 +138,8 @@ jobs:
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_captype) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_captype.csv
 
-          # psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_capvalues) 
-          #   TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_capvalues.csv
-
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_proptype) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_proptype.csv
-
-          # psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_datasource) 
-          #   TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_datasource.csv
-
-          # psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped_subgroup) 
-          #   TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped_subgroup.csv
 
           psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped) 
             TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped.csv
