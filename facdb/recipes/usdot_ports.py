@@ -8,7 +8,7 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'usdot_ports'
-    df = importer(table_name, from_url=False, 
+    df = importer(table_name, 
                 sql=f'''
                 select state_post, county_nam, street_add, 
                     operators, nav_unit_n, wkb_geometry, owners

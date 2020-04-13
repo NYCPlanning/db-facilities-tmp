@@ -8,7 +8,9 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'dot_publicparking'
-    df = importer(table_name)
+    df = importer(table_name,
+            sql=f'select st_astext(wkb_geometry) as wkt, * from {table_name}.latest')
+    df['wkb_geometry'] = df['wkt']
     df['datasource'] = table_name
     df['address'] = df['facaddress'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)

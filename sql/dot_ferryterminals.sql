@@ -22,11 +22,6 @@ ALTER TABLE dot_ferryterminals
 
 update dot_ferryterminals as t
 SET hash =  md5(CAST((t.*)AS text)), 
-    wkb_geometry = (CASE
-						WHEN wkb_geometry is NULL 
-						THEN ST_GeometryFromText(point_location, 4326)
-						ELSE wkb_geometry
-					END),
 	address = geo_street_name,
 	facname = name,
 	factype = (CASE WHEN UPPER(name) LIKE '%TERMINAL%' THEN 'Ferry Terminal'

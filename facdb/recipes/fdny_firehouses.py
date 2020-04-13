@@ -10,7 +10,7 @@ if __name__ == "__main__":
     table_name = 'fdny_firehouses'
     correction = 'facilities_input_research'
     df = importer(table_name)
-    input_research = importer(correction, from_url=False)
+    input_research = importer(correction)
     input_research = input_research[input_research.datasource == table_name]\
                                 .rename(columns={'facname': 'facilityname', 'address': 'facilityaddress'})\
                                 .drop(columns=['v', 'ogc_fid'])

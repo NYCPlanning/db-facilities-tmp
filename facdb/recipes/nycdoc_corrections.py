@@ -9,8 +9,8 @@ import numpy as np
 if __name__ == "__main__":
     table_name = 'nycdoc_corrections'
     correction = 'facilities_input_research'
-    df = importer(table_name, from_url=False)
-    input_research = importer(correction, from_url=False)
+    df = importer(table_name)
+    input_research = importer(correction)
     input_research = input_research[input_research.datasource == table_name]\
                                 .rename(columns={'facname': 'name', 'address': 'address1'})\
                                 .drop(columns=['v', 'ogc_fid','boro'])

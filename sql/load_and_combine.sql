@@ -1,6 +1,6 @@
 DELETE FROM facilities;
 
-CALL load_to_facilities('acs_daycareheadstart');
+-- CALL load_to_facilities('acs_daycareheadstart');
 CALL load_to_facilities('bpl_libraries');
 CALL load_to_facilities('dca_operatingbusinesses');
 CALL load_to_facilities('dcas_colp');

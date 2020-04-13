@@ -16,7 +16,7 @@ if __name__ == "__main__":
         R = 'SI'
     )
 
-    df = importer(table_name, from_url=False)
+    df = importer(table_name)
     df['datasource'] = table_name
     df['address'] = df['address'].apply(quick_clean)
     df['sname'] = df['address'].apply(get_sname)

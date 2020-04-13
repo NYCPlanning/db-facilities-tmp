@@ -22,6 +22,7 @@ if __name__ == "__main__":
     df = df.rename(columns={'address_zip':'zipcode',
                             'address_borough': 'boro'})
     df['address'] = df['address_building'] + ' ' + df['address_street_name']
+    df['address'] = df['address'].fillna('')
     df['sname'] = df['address'].apply(get_sname)
     df['hnum'] = df['address'].apply(get_hnum)
     records = df.to_dict('records')

@@ -24,28 +24,28 @@ ALTER TABLE usdot_airports
 update usdot_airports as t
 SET hash =  md5(CAST((t.*)AS text)),
     wkb_geometry = (CASE
-						WHEN wkb_geometry is NULL 
-						THEN ST_GeometryFromText(location, 4326)
-						ELSE wkb_geometry
+                    WHEN wkb_geometry is NULL 
+                    THEN ST_GeometryFromText(location, 4326)
+                    ELSE wkb_geometry
 					END),
 	address = geo_street_name,
-    facname = fullname,
-    factype = facilityty,
+    facname = fac_name,
+    factype = fac_type,
     facsubgrp = 'Airports and Heliports', 
     facgroup = NULL,
     facdomain = NULL,
     servarea = NULL,
     opname = (CASE
-                    WHEN ownertype = 'Pr' THEN fullname
-                    ELSE 'Public'
+                WHEN owner_type = 'Pr' THEN fac_name
+                ELSE 'Public'
                 END),
     opabbrev = (CASE
-                        WHEN ownertype = 'Pr' THEN 'Non-public'
-                        ELSE 'Public'
-                    END),
+                WHEN owner_type = 'Pr' THEN 'Non-public'
+                ELSE 'Public'
+                END),
     optype = (CASE
-                    WHEN ownertype = 'Pr' THEN 'Non-public'
-                    ELSE 'Public'
+                WHEN owner_type = 'Pr' THEN 'Non-public'
+                ELSE 'Public'
                 END),
     overagency = 'US Department of Transportation',
     overabbrev = 'USDOT' ,

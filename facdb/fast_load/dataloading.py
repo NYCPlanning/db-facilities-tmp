@@ -1,40 +1,39 @@
 from cook import Importer
+from multiprocessing import Pool, cpu_count
 import os
 
-def ETL():
+source_tables = [
+    'nysdec_lands',
+    'nysparks_historicplaces',
+    'nysparks_parks'
+]
+
+boundry_tables = [
+    'dcp_boroboundaries_wi',
+    'dcp_censustracts',
+    'dcp_councildistricts',
+    'dcp_cdboundaries',
+    'dcp_ntaboundaries',
+    'dcp_policeprecincts',
+    'doitt_zipcodeboundaries',
+    'doitt_buildingcentroids',
+    'dcp_school_districts'
+]
+
+reference_tables = [
+    'dcp_facilities',
+    'facilities_classification',
+    'facilities_input_research',
+    'dcp_mappluto',
+    'zipcode_city_lookup'
+]
+
+def ETL(table): 
     RECIPE_ENGINE = os.environ.get('RECIPE_ENGINE', '')
     BUILD_ENGINE=os.environ.get('BUILD_ENGINE', '')
-
-    #load geoboundaries
     importer = Importer(RECIPE_ENGINE, BUILD_ENGINE)
-    importer.import_table(schema_name='dcp_boroboundaries_wi')
-    importer.import_table(schema_name='dcp_censustracts')
-    importer.import_table(schema_name='dcp_councildistricts')
-    importer.import_table(schema_name='dcp_cdboundaries')
-    importer.import_table(schema_name='dcp_ntaboundaries')
-    importer.import_table(schema_name='dcp_policeprecincts')
-    importer.import_table(schema_name='doitt_zipcodeboundaries')
-    importer.import_table(schema_name='doitt_buildingcentroids')
-    importer.import_table(schema_name='dcp_school_districts')
-
-    #load reference table
-    importer.import_table(schema_name='dcp_facilities')
-    importer.import_table(schema_name='facilities_classification')
-    importer.import_table(schema_name='facilities_input_research')
-    importer.import_table(schema_name='dcp_mappluto')
-    importer.import_table(schema_name='zipcode_city_lookup')
-
-    # load facilities
-    importer.import_table(schema_name='dcp_pops')
-    importer.import_table(schema_name='doe_busroutesgarages')
-    importer.import_table(schema_name='dpr_parksproperties')
-    importer.import_table(schema_name='moeo_socialservicesiteloactions')
-    importer.import_table(schema_name='nycdoc_corrections')
-    importer.import_table(schema_name='nysdec_lands')
-    importer.import_table(schema_name='nysparks_historicplaces')
-    importer.import_table(schema_name='nysparks_parks')
-    importer.import_table(schema_name='usdot_ports')
-    importer.import_table(schema_name='usnps_parks')
+    importer.import_table(schema_name=table)
 
 if __name__ == "__main__":
-    ETL()
+    with Pool(processes=cpu_count()) as pool:
+        pool.map(ETL, reference_tables+boundry_tables+source_tables)

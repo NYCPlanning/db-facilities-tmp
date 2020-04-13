@@ -23,14 +23,10 @@ ALTER TABLE doe_lcgms
 
 CREATE TABLE doe_lcgms_tmp as (SELECT
 	doe_lcgms.*,
-	doe_bluebook.target_capacity,
-	doe_bluebook.data_as_of
-	
+	sca_enrollment_capacity.target_capacity
 	FROM doe_lcgms
-	
-	LEFT JOIN doe_bluebook
-	
-	ON ((doe_lcgms.location_code || doe_lcgms.building_code) = (doe_bluebook.org_id || doe_bluebook.bldg_id)) AND (doe_bluebook.data_as_of::date = (SELECT MAX(data_as_of::date) FROM doe_bluebook))
+	LEFT JOIN sca_enrollment_capacity
+	ON ((doe_lcgms.location_code || doe_lcgms.building_code) = (sca_enrollment_capacity.org_id || sca_enrollment_capacity.bldg_id)) 
 );
 
 DROP TABLE doe_lcgms;
@@ -41,14 +37,18 @@ DROP TABLE doe_lcgms_tmp;
 UPDATE doe_lcgms as t
 SET hash =  md5(CAST((t.*)AS text)),
 wkb_geometry = (CASE
-				WHEN wkb_geometry IS NULL
+				WHEN wkb_geometry IS NULL 
+					and longitude is not null 
+					and latitude is not null 
+					and longitude != 'NULL'
+					and longitude::numeric > 0
 				THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION,latitude::DOUBLE PRECISION), 4326)
 				ELSE wkb_geometry
 				END),
 address = (CASE 
 				WHEN geo_street_name is not NULL and geo_house_number is not NULL 
 				THEN geo_house_number || ' ' || geo_street_name
-				ELSE primary_address         
+				ELSE address         
 				END),
 facname = location_name,
 factype = (CASE
@@ -96,5 +96,4 @@ overabbrev = 'NYCDOE',
 overlevel = NULL,
 capacity = target_capacity,
 captype = 'seats',
-proptype = NULL
-;
+proptype = NULL;

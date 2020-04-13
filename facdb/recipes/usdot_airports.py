@@ -8,15 +8,17 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = 'usdot_airports'
-    df = importer(table_name)
+    df = importer(table_name,
+            sql=f'select st_astext(wkb_geometry) as wkt, * from {table_name}.latest')
     df['datasource'] = table_name
-    df = df[df.statename == 'New York']
+    df['wkb_geometry'] = df['wkt']
+    df = df[df.state_name.str.upper() == 'NEW YORK']
     df = df[df.county.str.lower().isin(['kings', 
                             'new york',
                             'bronx', 
                             'queens',
                             'richmond'])]
-    df['address'] = df['fullname'].apply(quick_clean)
+    df['address'] = df['fac_name'].apply(quick_clean)
     df['sname'] = df['address']
     df['hnum'] = ''
     df['boro'] = df['county']
@@ -29,5 +31,5 @@ if __name__ == "__main__":
     
     df = pd.DataFrame(it)
 
-    ## Export to build engine
+    # Export to build engine
     exporter(df, table_name)
