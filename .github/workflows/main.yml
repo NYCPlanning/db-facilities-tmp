@@ -1,0 +1,176 @@
+name: CI
+
+on: [push]
+
+jobs:
+  skip:
+    name: Build and test
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '[build]')"
+    steps:
+      - run: echo "${{ github.event.head_commit.message }}"
+  _01_dataloading:
+    needs: skip
+    container:
+      image: nycplanning/cook:latest
+    runs-on: ubuntu-latest
+    env:
+      RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
+      BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
+      EDM_DATA: ${{ secrets.EDM_DATA }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: dataloading ...
+        working-directory: facdb/fast_load
+        run: python3 dataloading.py
+  _01_geocoding:
+    needs: _01_dataloading
+    container:
+      image: sptkl/docker-geosupport:latest
+    runs-on: ubuntu-latest
+    env:
+      RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
+      BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
+      EDM_DATA: ${{ secrets.EDM_DATA }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies ...
+        run: |
+          pip3 install -e .
+          apt update
+          apt install -y postgresql-client
+      - name: geocoding ...
+        shell: bash
+        run: |
+          for f in facdb/recipes/*
+          do 
+              name=$(basename $f .py)
+              python3 $f
+              psql $BUILD_ENGINE -f sql/$name.sql
+          done
+  _02_build:
+    needs: [_01_dataloading, _01_geocoding]
+    container:
+      image: mdillon/postgis:latest
+    runs-on: ubuntu-latest
+    env:
+      RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
+      BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
+      EDM_DATA: ${{ secrets.EDM_DATA }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: building part1...
+        run: |
+          # create table and create stored procedure
+          psql $BUILD_ENGINE -f sql/create.sql
+          psql $BUILD_ENGINE -f sql/load_to_facilities.sql
+
+          # Load individual tables and assign facility classification
+          psql $BUILD_ENGINE -f sql/load_and_combine.sql
+          psql $BUILD_ENGINE -f sql/assign_classification.sql
+          psql $BUILD_ENGINE -f sql/assign_overlevel.sql
+  _02_geocoding:
+    needs: _02_build
+    container:
+      image: sptkl/docker-geosupport:latest
+    runs-on: ubuntu-latest
+    env:
+      RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
+      BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
+      EDM_DATA: ${{ secrets.EDM_DATA }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies ...
+        run: pip3 install -e .
+      - name: geocoding again ...
+        run: python3 facdb/geocode/geocode.py
+  _03_build:
+    needs: _02_geocoding
+    container:
+      image: mdillon/postgis:latest
+    runs-on: ubuntu-latest
+    env:
+      RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
+      BUILD_ENGINE: ${{ secrets.BUILD_ENGINE }}
+      EDM_DATA: ${{ secrets.EDM_DATA }}
+      AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: building part2...
+        run: |
+          # backfill spatial boundries
+          psql $BUILD_ENGINE -f sql/assign_geo.sql
+          psql $BUILD_ENGINE -f sql/assign_bin_centroid.sql
+          psql $BUILD_ENGINE -f sql/assign_lot_centroid.sql
+          psql $BUILD_ENGINE -f sql/assign_geo_boundaries.sql
+          psql $BUILD_ENGINE -f sql/assign_boro.sql
+          psql $BUILD_ENGINE -f sql/assign_city.sql
+          psql $BUILD_ENGINE -f sql/assign_zipcode.sql
+          psql $BUILD_ENGINE -f sql/assign_address.sql
+          psql $BUILD_ENGINE -f sql/assign_xy.sql
+          psql $BUILD_ENGINE -f sql/assign_lonlat.sql
+          psql $BUILD_ENGINE -f sql/formatting.sql
+          psql $BUILD_ENGINE -f sql/deduplicate.sql
+          psql $BUILD_ENGINE -f sql/geo_rejects.sql
+          psql $BUILD_ENGINE -f sql/qc_views.sql
+      - name: export ...
+        shell: bash
+        run: |
+          mkdir -p output
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/facilities.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM facilities_wo_dedupe) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/facilities_wo_dedupe.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_operator) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_operator.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_oversight) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_oversight.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_classification) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_classification.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_captype) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_captype.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_proptype) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_proptype.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_mapped) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_mapped.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM qc_diff) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/qc_diff.csv
+
+          psql $BUILD_ENGINE -c "\copy (SELECT * FROM geo_rejects) 
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/geo_rejects.csv
+
+          psql $BUILD_ENGINE -c "\copy (select * from geo_result where xcoord is not null and ycoord is not null)
+            TO STDOUT DELIMITER ',' CSV HEADER;" > output/geo_result.csv
+
+          # Facilities shapefile
+          apt update
+          apt install -y zip curl
+          source ./url_parse.sh $BUILD_ENGINE
+          DATE=$(date "+%Y-%m-%d")
+          mkdir -p output/facilities && 
+              (cd output/facilities
+              pgsql2shp -u $BUILD_USER -P $BUILD_PWD -h $BUILD_HOST -p $BUILD_PORT -f facilities $BUILD_DB \
+              "SELECT * FROM facilities WHERE geom IS NOT NULL;"
+              echo "$DATE" > version.txt
+              zip facilities.zip *
+              ls | grep -v facilities.zip | xargs rm
+              )
+
+          curl -O https://dl.min.io/client/mc/release/linux-amd64/mc
+          chmod +x mc
+          ./mc config host add spaces $AWS_S3_ENDPOINT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY --api S3v4
+          ./mc rm -r --force spaces/edm-publishing/db-facilities/latest
+          ./mc rm -r --force spaces/edm-publishing/db-facilities/$DATE
+          ./mc cp -r output spaces/edm-publishing/db-facilities/latest
+          ./mc cp -r output spaces/edm-publishing/db-facilities/$DATE

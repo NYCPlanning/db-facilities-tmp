@@ -1,0 +1,8 @@
+*__pycache__/ 
+/facdb.egg-info/*
+*/.ipynb_checkpoints/*
+.ipynb_checkpoints
+*.DS_Store
+/backups/*
+/tmp/*
+*.env

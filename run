@@ -1,0 +1,6 @@
+#!/bin/bash
+source config.sh
+
+name=$@
+docker exec $ETL_CONTAINER_NAME python facdb/recipes/$name.py
+psql $BUILD_ENGINE -f sql/$name.sql
