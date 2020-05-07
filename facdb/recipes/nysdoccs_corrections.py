@@ -7,17 +7,16 @@ import pandas as pd
 import numpy as np
 
 if __name__ == "__main__":
-    table_name = 'nysdoccs_corrections'
+    table_name = "nysdoccs_corrections"
     df = importer(table_name)
-    df['datasource'] = table_name
-    df = df.rename(columns={'house_number':'hnum', 
-                            'street_name': 'sname'})
-    records = df.to_dict('records')
+    df["datasource"] = table_name
+    df = df.rename(columns={"house_number": "hnum", "street_name": "sname"})
+    records = df.to_dict("records")
 
     ## geocode
     with Pool(processes=cpu_count()) as pool:
         it = pool.map(geocode, records, 1000)
-    
+
     df = pd.DataFrame(it)
 
     ## Export to build engine

@@ -8,19 +8,19 @@ import re
 import numpy as np
 
 if __name__ == "__main__":
-    table_name = 'nypl_libraries'
+    table_name = "nypl_libraries"
     df = importer(table_name)
-    df['datasource'] = table_name
-    df['address'] = df['address'].apply(lambda a: re.sub('[\(\[].*?[\)\]]', '', a))
-    df['sname'] = df['address'].apply(get_sname)
-    df['hnum'] = df['address'].apply(get_hnum)
-    df = df.rename(columns={'borough':'boro'})
-    records = df.to_dict('records')
+    df["datasource"] = table_name
+    df["address"] = df["address"].apply(lambda a: re.sub("[\(\[].*?[\)\]]", "", a))
+    df["sname"] = df["address"].apply(get_sname)
+    df["hnum"] = df["address"].apply(get_hnum)
+    df = df.rename(columns={"borough": "boro"})
+    records = df.to_dict("records")
 
     ## geocode
     with Pool(processes=cpu_count()) as pool:
         it = pool.map(geocode, records, 1000)
-    
+
     df = pd.DataFrame(it)
 
     ## Export to build engine
