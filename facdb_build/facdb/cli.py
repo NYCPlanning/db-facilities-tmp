@@ -13,7 +13,6 @@ CONFIG_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "recipes"
 def cli():
     pass
 
-
 @cli.command("run")
 @click.argument("recipe", type=click.STRING)
 def run_recipes(recipe):
