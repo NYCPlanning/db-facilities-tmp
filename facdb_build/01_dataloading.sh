@@ -14,6 +14,7 @@ display "Load/geocode all source tables"
 docker run --rm\
     -v $(pwd):/src\
     -w /src\
+    -e EDM_DATA=$EDM_DATA\
     -e RECIPE_ENGINE=$RECIPE_ENGINE\
     -e BUILD_ENGINE=$BUILD_ENGINE\
     nycplanning/docker-geosupport:latest bash -c "
