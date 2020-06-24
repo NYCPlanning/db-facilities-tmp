@@ -51,3 +51,15 @@ function display {
   \e[92m\e[1m$@\e[21m\e[0m
   "
 }
+
+function SHP_export {
+  mkdir -p output/$@ &&
+    (cd output/$@
+      ogr2ogr -progress -f "ESRI Shapefile" $@.shp \
+          PG:"host=$BUILD_HOST user=$BUILD_USER port=$BUILD_PORT dbname=$BUILD_DB password=$BUILD_PWD" \
+          -nlt POINT $@
+        rm -f $@.zip
+        zip $@.zip *
+        ls | grep -v $@.zip | xargs rm
+      )
+}

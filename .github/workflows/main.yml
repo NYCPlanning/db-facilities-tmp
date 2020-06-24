@@ -36,7 +36,7 @@ jobs:
             sudo apt-key add ACCC4CF8.asc
 
             sudo apt update
-            sudo apt install -y postgresql-client-11
+            sudo apt install -y postgresql-client-11 gdal-bin
             sudo apt autoremove
 
             curl -O https://dl.min.io/client/mc/release/linux-amd64/mc
@@ -58,5 +58,5 @@ jobs:
         
         - name: 4. Archive ..
           working-directory: facdb_build
-          run: ./03_archive.sh
+          run: ./04_archive.sh
           

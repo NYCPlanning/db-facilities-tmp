@@ -23,15 +23,7 @@ mkdir -p output &&
 display "csv export complete"
 
 display "Export Facilities shapefile"
-mkdir -p output/facilities && 
-    (
-        cd output/facilities
-        pgsql2shp -u $BUILD_USER -P $BUILD_PWD -h $BUILD_HOST -p $BUILD_PORT -f facilities $BUILD_DB \
-        "SELECT * FROM facilities WHERE geom IS NOT NULL;"
-        echo "$DATE" > version.txt
-        zip facilities.zip *
-        ls | grep -v facilities.zip | xargs rm
-    )
+SHP_export facilities
 
 Upload latest
 Upload $DATE
