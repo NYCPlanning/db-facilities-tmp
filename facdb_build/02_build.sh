@@ -1,19 +1,26 @@
 #!/bin/bash
 source config.sh
 
-# create table and create stored procedure
+display "create table and create stored procedure"
 psql $BUILD_ENGINE -f sql/create.sql
 psql $BUILD_ENGINE -f sql/load_to_facilities.sql
 
-# Load individual tables and assign facility classification
+display "Load individual tables and assign facility classification"
 psql $BUILD_ENGINE -f sql/load_and_combine.sql
 psql $BUILD_ENGINE -f sql/assign_classification.sql
 psql $BUILD_ENGINE -f sql/assign_overlevel.sql
 
-# geocoding ....
-docker exec $ETL_CONTAINER_NAME bash -c "python3 facdb/geocode/geocode.py"
+display "geocoding ...."
+docker run --rm\
+    -v $(pwd):/src\
+    -w /src\
+    -e RECIPE_ENGINE=$RECIPE_ENGINE\
+    -e BUILD_ENGINE=$BUILD_ENGINE\
+    nycplanning/docker-geosupport:latest bash -c "
+        python3 facdb/geocode/geocode.py
+    "
 
-# backfill spatial boundries
+display "backfill spatial boundries"
 psql $BUILD_ENGINE -f sql/assign_geo.sql
 psql $BUILD_ENGINE -f sql/assign_bin_centroid.sql
 psql $BUILD_ENGINE -f sql/assign_lot_centroid.sql

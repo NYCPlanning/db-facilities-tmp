@@ -1,29 +1,23 @@
 #!/bin/bash
 source config.sh
 
-# Initialize containers
-[ ! "$(docker ps -a | grep $ETL_CONTAINER_NAME)" ]\
-     && docker run -it --name=$ETL_CONTAINER_NAME\
-            --network=host\
-            -v `pwd`:/home/db-facilities\
-            -w /home/db-facilities\
-            --env-file .env\
-            -d sptkl/docker-geosupport:latest bash
-
-docker exec $ETL_CONTAINER_NAME pip3 install -e .
-
-# Fast load spatial tableds
+display "Fast load spatial tableds"
 docker run --rm\
-            --network=host\
-             -v `pwd`:/home/db-facilities\
-            -w /home/db-facilities/facdb/fast_load\
-            --env-file .env\
-            sptkl/cook:latest python3 dataloading.py
+    -v $(pwd)/facdb/fast_load:/src\
+    -w /src\
+    -e RECIPE_ENGINE=$RECIPE_ENGINE\
+    -e BUILD_ENGINE=$BUILD_ENGINE\
+    nycplanning/cook:latest bash -c "
+        python3 dataloading.py"
 
-# run all the recipes
-for f in facdb/recipes/*
-do 
-    name=$(basename $f .py) 
-    docker exec $ETL_CONTAINER_NAME python $f
-    psql $BUILD_ENGINE -f sql/$name.sql
-done
+display "Load/geocode all source tables"
+docker run --rm\
+    -v $(pwd):/src\
+    -w /src\
+    -e RECIPE_ENGINE=$RECIPE_ENGINE\
+    -e BUILD_ENGINE=$BUILD_ENGINE\
+    nycplanning/docker-geosupport:latest bash -c "
+        pip3 install -e .
+        source config.sh
+        run_all
+    "
