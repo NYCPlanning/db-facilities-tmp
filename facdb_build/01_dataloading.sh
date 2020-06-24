@@ -8,7 +8,8 @@ docker run --rm\
     -e RECIPE_ENGINE=$RECIPE_ENGINE\
     -e BUILD_ENGINE=$BUILD_ENGINE\
     nycplanning/cook:latest bash -c "
-        python3 dataloading.py"
+        python3 dataloading.py
+    "
 
 display "Load/geocode all source tables"
 docker run --rm\
