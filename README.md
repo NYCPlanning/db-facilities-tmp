@@ -1,4 +1,7 @@
-# db-facilities ![CI](https://github.com/NYCPlanning/db-facilities-tmp/workflows/CI/badge.svg)
+# db-facilities 
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/NYCPlanning/db-facilities?label=version)
+![Build](https://github.com/NYCPlanning/db-facilities/workflows/Build/badge.svg)
+
 ## Instructions:
 1. `./01_dataloading.sh` change CONTAINER_PORT number to something else if port is used
 2. `./02_build.sh`
