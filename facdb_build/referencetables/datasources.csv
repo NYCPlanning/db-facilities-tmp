@@ -1,7 +1,7 @@
 DATASOURCE,Descriptive name,Date downloaded,Data of update,Link to data source
 acs_daycareheadstart,NYC Administration for Children's Services - Child Care Head Start,11/15/19,10/26/18,Manual update from agency
 bpl_libraries,Brooklyn Public Library Branches,11/15/19,3/8/19,https://data.cityofnewyork.us/Recreation/BPL-Branches/xmzf-uf2w
-dca_operatingbusinesses,NYC Dept of Consumer Affairs - Legally Operating Businesses,11/15/19,11/8/19,https://data.cityofnewyork.us/Business/Legally-Operating-Businesses/w7w3-xahh
+dca_operatingbusinesses,NYC Dept of Consumer Affairs - Legally Operating Businesses,07/06/20,07/03/20,https://data.cityofnewyork.us/Business/Legally-Operating-Businesses/w7w3-xahh
 dcas_colp,NYC Dept of Administrative Services - City Owned and Leased Properties,11/15/19,10/25/18,Manual update from agency
 dcla_culturalinstitutions,NYC Dept of Cultural Affairs - Cultural Organizations,11/15/19,4/17/19,https://data.cityofnewyork.us/Recreation/DCLA-Cultural-Organizations/u35m-9t32
 dcp_pops,NYC Dept of City Planning - NYC Privately Owned Public Space Database,12/16/19,11/14/19,https://nycopendata.socrata.com/Housing-Development/Privately-Owned-Public-Spaces/fum3-ejky
