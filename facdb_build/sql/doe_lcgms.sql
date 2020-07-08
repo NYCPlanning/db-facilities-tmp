@@ -36,15 +36,15 @@ DROP TABLE doe_lcgms_tmp;
 
 UPDATE doe_lcgms as t
 SET hash =  md5(CAST((t.*)AS text)),
-wkb_geometry = (CASE
-				WHEN wkb_geometry IS NULL 
-					and longitude is not null 
-					and latitude is not null 
-					and longitude != 'NULL'
-					and longitude::numeric > 0
-				THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION,latitude::DOUBLE PRECISION), 4326)
-				ELSE wkb_geometry
-				END),
+-- wkb_geometry = (CASE
+-- 				WHEN wkb_geometry IS NULL 
+-- 					and longitude is not null 
+-- 					and latitude is not null 
+-- 					and longitude != 'NULL'
+-- 					and longitude::numeric > 0
+-- 				THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION,latitude::DOUBLE PRECISION), 4326)
+-- 				ELSE wkb_geometry
+-- 				END),
 address = (CASE 
 				WHEN geo_street_name is not NULL and geo_house_number is not NULL 
 				THEN geo_house_number || ' ' || geo_street_name

@@ -1,45 +1,37 @@
 ALTER TABLE nysed_activeinstitutions 
 DROP COLUMN IF EXISTS ogc_fid;
 
-ALTER TABLE nysed_nonpublicenrollment 
-DROP COLUMN IF EXISTS ogc_fid;
+ALTER TABLE nysed_nonpublicenrollment
+DROP COLUMN IF EXISTS ogc_fid,
+DROP COLUMN IF EXISTS institution_id;
 
-CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
-
+CREATE TEMP TABLE _nysed_activeinstitutions as (
+	SELECT
 		nysed_activeinstitutions.*,
 		nysed_nonpublicenrollment.*,
-		(
-			prek::numeric+
-			halfk::numeric+
-			fullk::numeric+
-			gr1::numeric+
-			gr2::numeric+
-			gr3::numeric+
-			gr4::numeric+
-			gr5::numeric+
-			gr6::numeric+
-			uge::numeric+
-			gr7::numeric+
-			gr8::numeric+
-			gr9::numeric+
-			gr10::numeric+
-			gr11::numeric+
-			gr12::numeric+
-			ugs::numeric
-		) AS enrollment
-
+		(prek::numeric+
+		halfk::numeric+
+		fullk::numeric+
+		gr1::numeric+
+		gr2::numeric+
+		gr3::numeric+
+		gr4::numeric+
+		gr5::numeric+
+		gr6::numeric+
+		uge::numeric+
+		gr7::numeric+
+		gr8::numeric+
+		gr9::numeric+
+		gr10::numeric+
+		gr11::numeric+
+		gr12::numeric+
+		ugs::numeric) AS enrollment
 		FROM nysed_activeinstitutions
-
 		LEFT JOIN nysed_nonpublicenrollment
+		ON trim(replace(nysed_nonpublicenrollment.beds_code,',',''),' ')::text = nysed_activeinstitutions.sed_code::text
+);
 
-		ON trim(replace(nysed_nonpublicenrollment.beds_code,',',''),' ')::text = nysed_activeinstitutions.sed_code::text);
-
-DROP TABLE nysed_activeinstitutions;
-CREATE TABLE nysed_activeinstitutions AS (SELECT * FROM nysed_activeinstitutions_tmp);
-DROP TABLE nysed_activeinstitutions_tmp;
-
-
-ALTER TABLE nysed_activeinstitutions
+ALTER TABLE _nysed_activeinstitutions
 	ADD hash text,
 	ADD facname text,
 	ADD factype text,
@@ -57,12 +49,14 @@ ALTER TABLE nysed_activeinstitutions
 	ADD captype text,
 	ADD proptype text;
 
-UPDATE nysed_activeinstitutions as t
+UPDATE _nysed_activeinstitutions as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
-				        WHEN wkb_geometry IS NULL AND longitude != '0' AND latitude != '0'
-					        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
-												 	 latitude::DOUBLE PRECISION), 4326)
+				        WHEN wkb_geometry IS NULL 
+						AND "gis_longitute_(x)" != '0' 
+						AND "gis_latitude_(y)" != '0'
+					    THEN ST_SetSRID(
+								ST_Point("gis_longitute_(x)"::DOUBLE PRECISION, "gis_latitude_(y)"::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
 	address = (CASE 
@@ -213,28 +207,27 @@ SET hash =  md5(CAST((t.*)AS text)),
 	proptype = NULL
 	;
 
-CREATE TABLE nysed_activeinstitutions_tmp as (
-SELECT * FROM nysed_activeinstitutions
-WHERE
-	(inst_type_description = 'PUBLIC SCHOOLS' AND inst_sub_type_description LIKE '%GED%')
-	OR inst_sub_type_description LIKE '%CHARTER SCHOOL%'
-	OR (inst_type_description <> 'PUBLIC SCHOOLS'
-	AND inst_type_description <> 'NON-IMF SCHOOLS'
-	AND inst_type_description <> 'GOVERNMENT AGENCIES' -- MAY ACTUALLY WANT TO USE THESE
-	AND inst_type_description <> 'INDEPENDENT ORGANIZATIONS'
-	AND inst_type_description <> 'LIBRARY SYSTEMS'
-	AND inst_type_description <> 'LOCAL GOVERNMENTS'
-	AND inst_type_description <> 'SCHOOL DISTRICTS'
-	AND inst_sub_type_description <> 'PUBLIC LIBRARIES'
-	AND inst_sub_type_description <> 'HISTORICAL RECORDS REPOSITORIES'
-	AND inst_sub_type_description <> 'CHARTER CORPORATION'
-	AND inst_sub_type_description <> 'HOME BOUND'
-	AND inst_sub_type_description <> 'HOME INSTRUCTED'
-	AND inst_sub_type_description <> 'NYC BUREAU'
-	AND inst_sub_type_description <> 'NYC NETWORK'
-	AND inst_sub_type_description <> 'OUT OF DISTRICT PLACEMENT'
-	AND inst_sub_type_description <> 'BUILDINGS UNDER CONSTRUCTION')
+DROP TABLE IF EXISTS nysed_activeinstitutions;
+CREATE TABLE nysed_activeinstitutions as (
+	SELECT * 
+	FROM _nysed_activeinstitutions
+	WHERE
+		(inst_type_description = 'PUBLIC SCHOOLS' AND inst_sub_type_description LIKE '%GED%')
+		OR inst_sub_type_description LIKE '%CHARTER SCHOOL%'
+		OR (inst_type_description <> 'PUBLIC SCHOOLS'
+		AND inst_type_description <> 'NON-IMF SCHOOLS'
+		AND inst_type_description <> 'GOVERNMENT AGENCIES' -- MAY ACTUALLY WANT TO USE THESE
+		AND inst_type_description <> 'INDEPENDENT ORGANIZATIONS'
+		AND inst_type_description <> 'LIBRARY SYSTEMS'
+		AND inst_type_description <> 'LOCAL GOVERNMENTS'
+		AND inst_type_description <> 'SCHOOL DISTRICTS'
+		AND inst_sub_type_description <> 'PUBLIC LIBRARIES'
+		AND inst_sub_type_description <> 'HISTORICAL RECORDS REPOSITORIES'
+		AND inst_sub_type_description <> 'CHARTER CORPORATION'
+		AND inst_sub_type_description <> 'HOME BOUND'
+		AND inst_sub_type_description <> 'HOME INSTRUCTED'
+		AND inst_sub_type_description <> 'NYC BUREAU'
+		AND inst_sub_type_description <> 'NYC NETWORK'
+		AND inst_sub_type_description <> 'OUT OF DISTRICT PLACEMENT'
+		AND inst_sub_type_description <> 'BUILDINGS UNDER CONSTRUCTION')
 );
-DROP TABLE nysed_activeinstitutions;
-CREATE TABLE nysed_activeinstitutions AS (SELECT * FROM nysed_activeinstitutions_tmp);
-DROP TABLE nysed_activeinstitutions_tmp;
