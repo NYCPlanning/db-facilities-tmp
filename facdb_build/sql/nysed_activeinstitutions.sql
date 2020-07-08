@@ -8,14 +8,25 @@ CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
 
 		nysed_activeinstitutions.*,
 		nysed_nonpublicenrollment.*,
-		
-		(CASE 
-
-			WHEN (prek::numeric+half_k::numeric+full_k::numeric+gr_1::numeric+gr_2::numeric+gr_3::numeric+gr_4::numeric+gr_5::numeric+gr_6::numeric+uge::numeric+gr_7::numeric+gr_8::numeric+gr_9::numeric+gr_10::numeric+gr_11::numeric+gr_12::numeric+ugs::numeric) IS NOT NULL THEN (prek::numeric+half_k::numeric+full_k::numeric+gr_1::numeric+gr_2::numeric+gr_3::numeric+gr_4::numeric+gr_5::numeric+gr_6::numeric+uge::numeric+gr_7::numeric+gr_8::numeric+gr_9::numeric+gr_10::numeric+gr_11::numeric+gr_12::numeric+ugs::numeric)
-
-			ELSE NULL
-
-		END) AS enrollment
+		(
+			prek::numeric+
+			halfk::numeric+
+			fullk::numeric+
+			gr1::numeric+
+			gr2::numeric+
+			gr3::numeric+
+			gr4::numeric+
+			gr5::numeric+
+			gr6::numeric+
+			uge::numeric+
+			gr7::numeric+
+			gr8::numeric+
+			gr9::numeric+
+			gr10::numeric+
+			gr11::numeric+
+			gr12::numeric+
+			ugs::numeric
+		) AS enrollment
 
 		FROM nysed_activeinstitutions
 
@@ -75,19 +86,19 @@ SET hash =  md5(CAST((t.*)AS text)),
 			
 						WHEN inst_type_description = 'NON-PUBLIC SCHOOLS'
 			
-							AND (prek::numeric+half_k::numeric+full_k::numeric+gr_1::numeric+gr_2::numeric+gr_3::numeric+gr_4::numeric+gr_5::numeric+uge::numeric)>0
+							AND (prek::numeric+halfk::numeric+fullk::numeric+gr1::numeric+gr2::numeric+gr3::numeric+gr4::numeric+gr5::numeric+uge::numeric)>0
 			
 							THEN 'Elementary School - Non-public'
 			
 						WHEN inst_type_description = 'NON-PUBLIC SCHOOLS'
 			
-							AND (gr_6::numeric+gr_7::numeric+gr_8::numeric)>0
+							AND (gr6::numeric+gr7::numeric+gr8::numeric)>0
 			
 							THEN 'Middle School - Non-public'
 			
 						WHEN inst_type_description = 'NON-PUBLIC SCHOOLS'
 			
-							AND (gr_9::numeric+gr_10::numeric+gr_11::numeric+gr_12::numeric+ugs::numeric)>0
+							AND (gr9::numeric+gr10::numeric+gr11::numeric+gr12::numeric+ugs::numeric)>0
 			
 							THEN 'High School - Non-public'
 			
