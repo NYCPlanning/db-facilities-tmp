@@ -32,3 +32,8 @@ if __name__ == "__main__":
 
     ## Export to build engine
     exporter(df, table_name)
+
+    ## Supplementry table
+    table_name = "nysed_nonpublicenrollment"
+    df = importer(table_name)
+    exporter(df, table_name, to_geom=False)
