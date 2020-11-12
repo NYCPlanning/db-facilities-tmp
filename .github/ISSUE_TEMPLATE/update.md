@@ -9,130 +9,236 @@ assignees: ''
 
 # Data Loading
 
-- [ ]  *acs_daycareheadstart*
-    + status: NA
-    + comments: discontinued, we are no longer using this data source
+- [x]  *acs_daycareheadstart*
+    + **Discontinued, we are no longer using this data source**
 - [ ]  bpl_libraries
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  dca_operatingbusinesses
-    + status: updated
+    + Source: OpenData
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  dcas_colp
-    + status: NA
-    + comments: no new version of COLP released yet (using 2018 November version on Bytes)
+    + Source: Bytes
+    + Source update date (latest Bytes publish date):
+    + Our lastest download date:
 - [ ]  dcla_culturalinstitutions
-    + status: updated
+    + Source: Bytes
+    + Source update date (latest Bytes publish date):
+    + Our lastest download date:
 - [ ]  dcp_pops
-    + status: updated
-    + comments: downloaded from the POPS app
+    + Source: GitHub, downloaded from the POPS app
+    + Source update date (latest upload to GitHub):
+    + Our lastest download date:
 - [ ]  dep_wwtc
-    + status: NA
-    + comments: this dataset doesn't need updates
+    + Source: GitHub
+    + Source update date (latest upload to GitHub):
+    + Our latest download date: 
+    + **This dataset doesn't need updates**
 - [ ]  dfta_contracts
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  doe_busroutesgarages
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  doe_lcgms
-    + status: updated
-    + comments: this dataset is updated for CEQR
+    + Source: Local file, recieved via (?) from (?)
+    + Source update date:
+    + Our lastest download date:
+    + **This dataset is updated for CEQR**
 - [ ]  sca_enrollment_capacity
-    + status: updated
+    + Source: 
+    + Source url:
+    + Source update date:
+    + Our lastest download date:
 - [ ]  doe_universalprek
-    + status: updated
+    + Source: 
+    + Source url:
+    + Source update date:
+    + Our lastest download date:
 - [ ]  dohmh_daycare
-    + status: updated
+    + Source: 
+    + Source url:
+    + Source update date:
+    + Our lastest download date:
 - [ ]  *__dot_bridgehouses__*
-    + status: NA 
-    + comments: might need refresh from FTP
+    + Source: FTP
+    + Source update date:
+    + Our lastest download date:
 - [ ]  *__dot_ferryterminals__*
-    + status: NA 
-    + comments: might need refresh from FTP
+    + Source: FTP
+    + Source update date:
+    + Our lastest download date:
 - [ ]  *__dot_mannedfacilities__*
-    + status: NA 
-    + comments: might need refresh from FTP
+    + Source: FTP
+    + Source update date:
+    + Our lastest download date:
 - [ ]  *__dot_pedplazas__*
-    + status: NA 
-    + comments: might need refresh from FTP
+    + Source: FTP
+    + Source update date:
+    + Our lastest download date:
 - [ ]  *__dot_publicparking__*
-    + status: NA 
-    + comments: might need refresh from FTP
+    + Source: FTP
+    + Source update date:
+    + Our lastest download date:
 - [ ]  dpr_parksproperties
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  *__dsny_mtsgaragemaintenance__*
-    + status: NA
-    + comments: might need refresh from FTP
+    + Source: FTP
+    + Source update date:
+    + Our lastest download date:
 - [ ]  dycd_afterschoolprograms
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  fbop_corrections
-    + status: NA
-    + comments: doesn't need update, no new facilities added
+    + Source: 
+    + Source url:
+    + Source update date:
+    + Our lastest download date:
+    + **Probably doesn't need update, no new facilities added**
 - [ ]  fdny_firehouses
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  *__foodbankny_foodbanks__*
-    + status: NA
-    + comments: need to scrape data from google map and the downloaded KML does not have spatial info
+    + Source: Foodbank NYC 
+    + Source url: http://www.foodbanknyc.org/get-help/
+    + Source update date:
+    + Our lastest download date:
+    + **Need to scrape data from google map and the downloaded KML does not have spatial info**
 - [ ]  hhc_hospitals
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  __hra_centers__
-    + status: updated
-    + comments: new data source https://data.cityofnewyork.us/City-Government/Community-Health-Centers/b2sp-asbg/data
+    + Source: OpenData
+    + OpenData table name/url: https://data.cityofnewyork.us/City-Government/Community-Health-Centers/b2sp-asbg/data
+    + Source update date (as listed on OpenData):
+    + Our lastest download date: 
 - [ ]  *__moeo_socialservicesiteloactions__*
-    + status: NA
-    + comments: receive by email
+    + Source: Local file, recieved via email from (?)
+    + Source update date:
+    + Our lastest download date:
 - [ ]  nycdoc_corrections
-    + status: NA
-    + comments: no update needed, hand checked no new facilities added
+    + Source: 
+    + Source url: https://www1.nyc.gov/site/doc/about/facilities-locations.page
+    + Source update date:
+    + Our lastest download date:
 - [ ]  nycha_communitycenters
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  nycha_policeservice
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  nycourts_courts
-    + status: NA
-    + comments: hand checked, no update needed
+    + Source: GitHub (?)
+    + Source url:
+    + **Hand-check for new locations**
 - [ ]  nypl_libraries
-    + status: updated
-    + comments: not sure there are new libraries added, but the scraper worked
+    + Source: Scrape from NYPL website
+    + Source url: https://www.nypl.org/locations/list
 - [ ]  nysdec_lands
-    + status: updated
-    + comments: for some reason gdal won't read the link, so I had to manual update. not sure if new records added tho
+    + Source: DEC Website
+    + Source url: (?)
 - [ ]  nysdec_solidwaste
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  nysdoccs_corrections
-    + status: updated
-    + comments: 1 facility in queens, 1 facility in Manhattan, 0 in the other 3 boros. 
+    + Source: DOCCS NY
+    + Source url: http://www.doccs.ny.gov/faclist.html
+    + Hand check for 1 facility in queens, 1 facility in Manhattan, 0 in the other 3 boros 
 - [ ]  nysdoh_healthfacilities
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  nysdoh_nursinghomes
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  nysed_activeinstitutions
-    + status: updated
-    + comments: manually downloaded selected table __  All Institutions: Active Institutions with GIS coordinates and OITS Accuracy Code - Select by County__ CSV from [website](https://eservices.nysed.gov/sedreports/list?id=1) and loaded into S3
+    + Source: DOCCS NY
+    + Source url: All Institutions: Active Institutions with GIS coordinates and OITS Accuracy Code - Select by County__ CSV from [website](https://eservices.nysed.gov/sedreports/list?id=1)
+    + Source update date:
+    + Our lastest download date:
 - [ ]  __nysed_nonpublicenrollment__
-    + status: updated
-    + comments: this data set was not previously included in the list for some reason. 
+    + Source: 
+    + Source url: 
+    + Source update date:
+    + Our lastest download date: 
 - [ ]  nysoasas_programs
-    + status: updated
-    + comments: original link no longer work, switch to https://edm-recipes.nyc3.digitaloceanspaces.com/2020-03-23/Treatment_Providers_OASAS_Directory_Search_23-Mar-20.csv
+    + Source: 
+    + Source url: 
+    + Source update date:
+    + Our lastest download date:
+    + Have 2020/02/23 directory in [s3](https://edm-recipes.nyc3.digitaloceanspaces.com/2020-03-23/Treatment_Providers_OASAS_Directory_Search_23-Mar-20.csv)
 - [ ]  nysomh_mentalhealth
-    + status: updated
+    + Source: 
+    + Source url: 
+    + Source update date:
+    + Our lastest download date: 
 - [ ]  nysopwdd_providers
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  nysparks_historicplaces
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  nysparks_parks
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  qpl_libraries
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  sbs_workforce1
-    + status: updated
+    + Source: OpenData
+    + OpenData table name/url:
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  uscourts_courts
-    + status: updated
-    + commetns: scraper ran smoothly, not sure there are new facilities added
+    + Source: 
+    + Source url: 
+    + Source update date:
+    + Our lastest download date: 
 - [ ]  usdot_airports
-    + status: updated
-    + comments: on argis site, it says updated 2020/02/17, no url change
+    + Source: OpenData
+    + OpenData table name/url: https://opendata.arcgis.com/datasets/831853ab8b714a81b6a3e21d0b164a4e_0.geojson	
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  usdot_ports
-    + status: updated
-    + comments: url changed to https://data-usdot.opendata.arcgis.com/datasets/major-ports-1, data is as of __2019/12/17__
+    + Source: OpenData
+    + OpenData table name/url: https://data-usdot.opendata.arcgis.com/datasets/major-ports-1
+    + Source update date (as listed on OpenData):
+    + Our lastest download date:
 - [ ]  usnps_parks
-    + status: updated
-    + comments: manually downloaded from url and loaded into s3
+    + Source: USNPS website
+    + Source url: 
+    + Source update date:
+    + Our lastest download date: 
