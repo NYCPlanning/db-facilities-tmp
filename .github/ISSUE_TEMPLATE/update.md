@@ -8,239 +8,73 @@ assignees: ''
 ---
 
 # Data Loading
+Detailed instructions are available in the [wiki](https://github.com/NYCPlanning/db-facilities/wiki/Data-loading-instructions). If you come accross things that need changing in the instructions, be sure to modify them to keep them up-to-date.
 
-- [x]  *acs_daycareheadstart*
-    + **Discontinued, we are no longer using this data source**
-- [ ]  bpl_libraries
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Recreation/BPL-Branches/xmzf-uf2w
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  dca_operatingbusinesses
-    + Source: OpenData
-    + Source table name/url: https://data.cityofnewyork.us/Business/Legally-Operating-Businesses/w7w3-xahh
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  dcas_colp
-    + Source: Bytes
-    + Source update date (latest Bytes publish date):
-    + Our lastest download date:
-- [ ]  dcla_culturalinstitutions
-    + Source: OpenData
-    + Source table name/url: https://data.cityofnewyork.us/Recreation/DCLA-Cultural-Organizations/u35m-9t32
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  dcp_pops
-    + Source: GitHub, downloaded from the POPS app
-    + Source update date (latest upload to GitHub):
-    + Our lastest download date:
-- [ ]  dep_wwtc
-    + Source: GitHub
-    + Source update date (latest upload to GitHub):
-    + Our latest download date: 
-    + **This dataset doesn't need updates**
-- [ ]  dfta_contracts
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Social-Services/DFTA-Contracts/6j6t-3ixh
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  doe_busroutesgarages
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Transportation/Routes/8yac-vygm
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  doe_lcgms
-    + Source: Local file, recieved via (?) from (?)
-    + Source update date:
-    + Our lastest download date:
-    + **This dataset is updated for CEQR**
-- [ ]  sca_enrollment_capacity
-    + Source: 
-    + Source url:
-    + Source update date:
-    + Our lastest download date:
-- [ ]  doe_universalprek
-    + Source: 
-    + Source url:
-    + Source update date:
-    + Our lastest download date:
-- [ ]  dohmh_daycare
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Health/DOHMH-Childcare-Center-Inspections/dsg6-ifza
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  *__dot_bridgehouses__*
-    + Source: FTP
-    + Source update date:
-    + Our lastest download date:
-- [ ]  *__dot_ferryterminals__*
-    + Source: FTP
-    + Source update date:
-    + Our lastest download date:
-- [ ]  *__dot_mannedfacilities__*
-    + Source: FTP
-    + Source update date:
-    + Our lastest download date:
-- [ ]  *__dot_pedplazas__*
-    + Source: FTP
-    + Source update date:
-    + Our lastest download date:
-- [ ]  *__dot_publicparking__*
-    + Source: FTP
-    + Source update date:
-    + Our lastest download date:
-- [ ]  dpr_parksproperties
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/City-Government/Parks-Properties/k2ya-ucmv
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  *__dsny_mtsgaragemaintenance__*
-    + Source: FTP
-    + Source update date:
-    + Our lastest download date:
-- [ ]  dycd_afterschoolprograms
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Education/DYCD-after-school-programs/mbd7-jfnc
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  fbop_corrections
-    + Source: 
-    + Source url: https://www.bop.gov/locations/list.jsp
-    + Source update date:
-    + Our lastest download date:
-    + **Probably doesn't need update, no new facilities added**
-- [ ]  fdny_firehouses
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Public-Safety/FDNY-Firehouse-Listing/hc8x-tcnd
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  *__foodbankny_foodbanks__*
-    + Source: Foodbank NYC 
-    + Source url: http://www.foodbanknyc.org/get-help/
-    + Source update date:
-    + Our lastest download date:
-    + **Need to scrape data from google map and the downloaded KML does not have spatial info**
-- [ ]  hhc_hospitals
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Health/Health-and-Hospitals-Corporation-HHC-Facilities/f7b6-v6v3
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  __hra_centers__
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/City-Government/Community-Health-Centers/b2sp-asbg/data
-    + Source update date (as listed on OpenData):
-    + Our lastest download date: 
-- [ ]  *__moeo_socialservicesiteloactions__*
-    + Source: Local file, recieved via email from (?)
-    + Source update date:
-    + Our lastest download date:
-- [ ]  nycdoc_corrections
-    + Source: 
-    + Source url: https://www1.nyc.gov/site/doc/about/facilities-locations.page
-    + Source update date:
-    + Our lastest download date:
-- [ ]  nycha_communitycenters
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Social-Services/Directory-of-NYCHA-Community-Facilities/crns-fw6u
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  nycha_policeservice
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Housing-Development/NYCHA-PSA-Police-Service-Areas-/72wx-vdjr
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  nycourts_courts
-    + Source: GitHub (?)
-    + Source url: http://www.nycourts.gov/courts/nyc/criminal/generalinfo.shtml#BRONX_COUNTY
-    + **Hand-check for new locations**
-- [ ]  nypl_libraries
-    + Source: Scrape from NYPL website
-    + Source url: https://www.nypl.org/locations/list
-- [ ]  nysdec_lands
-    + Source: DEC Website
-    + Source url: http://gis.ny.gov/gisdata/inventories/details.cfm?DSID=1114
-- [ ]  nysdec_solidwaste
-    + Source: OpenData
-    + OpenData table name/url: https://data.ny.gov/Energy-Environment/Solid-Waste-Management-Facilities/2fni-raj8
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  nysdoccs_corrections
-    + Source: DOCCS NY
-    + Source url: http://www.doccs.ny.gov/faclist.html
-    + Hand check for 1 facility in queens, 1 facility in Manhattan, 0 in the other 3 boros 
-- [ ]  nysdoh_healthfacilities
-    + Source: OpenData
-    + OpenData table name/url: https://health.data.ny.gov/Health/Health-Facility-General-Information/vn5v-hh5r
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  nysdoh_nursinghomes
-    + Source: OpenData
-    + OpenData table name/url: https://health.data.ny.gov/Health/Nursing-Home-Weekly-Bed-Census-Last-Submission/izta-vnpq
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  nysed_activeinstitutions
-    + Source: DOCCS NY
-    + Source url: All Institutions: Active Institutions with GIS coordinates and OITS Accuracy Code - Select by County__ CSV from [website](https://eservices.nysed.gov/sedreports/list?id=1)
-    + Source update date:
-    + Our lastest download date:
-- [ ]  __nysed_nonpublicenrollment__
-    + Source: 
-    + Source url: 
-    + Source update date:
-    + Our lastest download date: 
-- [ ]  nysoasas_programs
-    + Source: 
-    + Source url: https://www.oasas.ny.gov/providerDirectory/index.cfm?search_type=2
-    + Source update date:
-    + Our lastest download date:
-    + Have 2020/02/23 directory in [s3](https://edm-recipes.nyc3.digitaloceanspaces.com/2020-03-23/Treatment_Providers_OASAS_Directory_Search_23-Mar-20.csv)
-- [ ]  nysomh_mentalhealth
-    + Source: 
-    + Source url: https://data.ny.gov/Human-Services/Local-Mental-Health-Programs/6nvr-tbv8
-    + Source update date:
-    + Our lastest download date: 
-- [ ]  nysopwdd_providers
-    + Source: OpenData
-    + OpenData table name/url: https://data.ny.gov/Human-Services/Directory-of-Developmental-Disabilities-Service-Pr/ieqx-cqyk
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  nysparks_historicplaces
-    + Source: OpenData
-    + OpenData table name/url: https://data.ny.gov/Recreation/National-Register-of-Historic-Places/iisn-hnyv
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  nysparks_parks
-    + Source: OpenData
-    + OpenData table name/url: https://data.ny.gov/Recreation/State-Park-Facility-Points/9uuk-x7vh
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  qpl_libraries
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/Education/Queens-Library-Branches/kh3d-xhq7
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  sbs_workforce1
-    + Source: OpenData
-    + OpenData table name/url: https://data.cityofnewyork.us/dataset/Center-Service-Locations/6smc-7mk6
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  uscourts_courts
-    + Source: 
-    + Source url: http://www.uscourts.gov/court-locator/city/New%20York/state/NY
-    + Source update date:
-    + Our lastest download date: 
-- [ ]  usdot_airports
-    + Source: OpenData
-    + OpenData table name/url: https://opendata.arcgis.com/datasets/airports	
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  usdot_ports
-    + Source: OpenData
-    + OpenData table name/url: https://data-usdot.opendata.arcgis.com/datasets/major-ports-1
-    + Source update date (as listed on OpenData):
-    + Our lastest download date:
-- [ ]  usnps_parks
-    + Source: USNPS website
-    + Source url: https://irma.nps.gov/DataStore/Reference/Profile/2225713
-    + Source update date:
-    + Our lastest download date: 
+## Recipe repo web scrapers - run evry update
+- [ ] bpl_libraries 
+- [ ] nypl_libraries 
+- [ ] uscourts_courts 
+
+## OpenData updates – check date against what’s in recipes, update via recipe app: 
+- [ ] [dca_operatingbusinesses](https://data.cityofnewyork.us/Business/Legally-Operating-Businesses/w7w3-xahh) 
+- [ ] [dcas_colp](https://www1.nyc.gov/site/planning/data-maps/open-data.page#city_facilities ) 
+- [ ] [dcla_culturalinstitutions](https://data.cityofnewyork.us/Recreation/DCLA-Cultural-Organizations/u35m-9t32)
+- [ ] [dfta_contracts](https://data.cityofnewyork.us/Social-Services/DFTA-Contracts/6j6t-3ixh )
+- [ ] [doe_busroutesgarages](https://data.cityofnewyork.us/Transportation/Routes/8yac-vygm )
+- [ ] [sca_enrollment_capacity](https://data.cityofnewyork.us/Education/Enrollment-Capacity-And-Utilization-Reports-Target/8b9a-pywy )
+- [ ] [dohmh_daycare](https://data.cityofnewyork.us/Health/DOHMH-Childcare-Center-Inspections/dsg6-ifza )
+- [ ] [dpr_parksproperties](https://nycopendata.socrata.com/Recreation/Parks-Properties/enfh-gkve) 
+- [ ] [dycd_afterschoolprograms](https://data.cityofnewyork.us/Education/DYCD-after-school-programs/mbd7-jfnc)
+- [ ] [fdny_firehouses](https://data.cityofnewyork.us/Public-Safety/FDNY-Firehouse-Listing/hc8x-tcnd)
+- [ ] [nycha_communitycenters](https://data.cityofnewyork.us/Social-Services/Directory-of-NYCHA-Community-Facilities/crns-fw6u) 
+- [ ] [hhc_hospitals](https://data.cityofnewyork.us/Health/Health-and-Hospitals-Corporation-HHC-Facilities/f7b6-v6v3)
+- [ ] [nycha_policeservice](https://data.cityofnewyork.us/Housing-Development/NYCHA-PSA-Police-Service-Areas-/72wx-vdjr ) 
+- [ ] [nysdec_solidwaste](https://data.ny.gov/Energy-Environment/Solid-Waste-Management-Facilities/2fni-raj8) 
+- [ ] [nysdoh_healthfacilities](https://health.data.ny.gov/Health/Health-Facility-General-Information/vn5v-hh5r)
+- [ ] [nysdoh_nursinghomes](https://health.data.ny.gov/Health/Nursing-Home-Weekly-Bed-Census-Last-Submission/izta-vnpq) 
+- [ ] [nysomh_mentalhealth](https://data.ny.gov/Human-Services/Local-Mental-Health-Programs/6nvr-tbv8)
+- [ ] [nysopwdd_providers](https://data.ny.gov/Human-Services/Directory-of-Developmental-Disabilities-Service-Pr/ieqx-cqyk) 
+- [ ] [nysparks_historicplaces](https://data.ny.gov/Recreation/National-Register-of-Historic-Places/iisn-hnyv)
+- [ ] [nysparks_parks](https://data.ny.gov/Recreation/State-Park-Facility-Points/9uuk-x7vh) 
+- [ ] [qpl_libraries](https://data.cityofnewyork.us/Education/Queens-Library-Branches/kh3d-xhq7) 
+- [ ] [sbs_workforce1](https://data.cityofnewyork.us/dataset/Center-Service-Locations/6smc-7mk6) 
+- [ ] [usdot_airports](https://hub.arcgis.com/datasets/usdot::airports)
+- [ ] [usdot_ports](https://hub.arcgis.com/datasets/usdot::ports) 
+- [ ] doe_universalprek 
+    + Update routinely  
+
+## Manually check data for updates: 
+- [ ] fbop_corrections 
+- [ ] nycdoc_corrections 
+- [ ] nycourts_courts 
+- [ ] nysdoccs_corrections 
+
+## Manually download and load via recipe app: 
+- [ ] dcp_pops (do this last)
+- [ ] doe_lcgms 
+- [ ] dot_bridgehouses 
+- [ ] dot_ferryterminals 
+- [ ] dot_mannedfacilities 
+- [ ] dot_publicparking 
+- [ ] dot_pedplazas 
+- [ ] dsny_mtsgaragemaintenance 
+- [ ] moeo_socialservicesiteloactions 
+- [ ] foodbankny_foodbanks 
+- [ ] nysdec_lands 
+- [ ] nysed_activeinstitutions 
+- [ ] nysed_nonpublicenrollment 
+- [ ] nysoasas_programs 
+- [ ] usnps_parks 
+ 
+
+## Used, but not updated 
+-  dep_wwtc 
+
+
+## Need more information
+- [ ] hra_centers 
+    + Source: ? 
+    + OpenData table name/url:? 
+
+## Final steps
+- [ ] Did you update the wiki documentation to reflect anything that changed?
