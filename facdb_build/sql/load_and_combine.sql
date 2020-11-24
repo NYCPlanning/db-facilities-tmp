@@ -3,7 +3,7 @@ DELETE FROM facilities;
 -- CALL load_to_facilities('acs_daycareheadstart');
 CALL load_to_facilities('bpl_libraries');
 CALL load_to_facilities('dca_operatingbusinesses');
-CALL load_to_facilities('dcas_colp');
+CALL load_to_facilities('dcp_colp');
 CALL load_to_facilities('dcla_culturalinstitutions');
 CALL load_to_facilities('dcp_pops');
 CALL load_to_facilities('dep_wwtc');
