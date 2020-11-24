@@ -4,7 +4,7 @@
 CREATE TABLE dcp_colp_tmp as (
 	SELECT * 
 	FROM dcp_colp 
-	WHERE CONCAT("CATEGORY","EXPANDCAT") IN ('11', '12', '14', '16', '17', '28','29','38') 
+	WHERE CONCAT(category,expandcat) IN ('11', '12', '14', '16', '17', '28','29','38') 
 	AND usecode NOT IN ('0800','0870','0900','0939','1000','1100','1139',
 							'1200','1229','1300','1350','1400','0500','0520') 
 	AND usecode NOT LIKE '02%' 
@@ -48,8 +48,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 			END),
 	facname = (CASE
 				WHEN (parcelname = ' ' OR parcelname IS NULL) AND usetype ~* 'office' THEN 'Offices'
-				WHEN (parcelname = ' ' OR parcelname IS NULL) AND usetype ~* 'no use' THEN 'City Owned Property'
-				WHEN parcelname <> ' ' AND parcalname IS NOT NULL THEN initcap(parcelname)
+				WHEN (parcelname = ' ' OR parcelname IS NULL) AND usetype ~* 'no use' AND ownership = 'C' THEN 'City Owned Property'
+				WHEN parcelname <> ' ' AND parcelname IS NOT NULL THEN initcap(parcelname)
 				ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
 			END),
 	factype = initcap(REPLACE(usetype, 'OTHER ', '')),
