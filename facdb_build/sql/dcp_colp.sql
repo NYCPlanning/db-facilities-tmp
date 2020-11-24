@@ -69,9 +69,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			WHEN usetype LIKE '%SECURITY%' THEN 'Miscellaneous Use'
 
-			WHEN (usetype LIKE '%PARKING%'
-
-				OR usetype LIKE '%PKNG%')
+			WHEN usetype LIKE '%PARKING%'
 
 				AND usetype NOT LIKE '%MUNICIPAL%'
 
