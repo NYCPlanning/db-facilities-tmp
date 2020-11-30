@@ -7,12 +7,11 @@ import pandas as pd
 import numpy as np
 
 if __name__ == "__main__":
-    table_name = "dcas_colp"
+    table_name = "dcp_colp"
     df = importer(table_name)
     df["datasource"] = table_name
-    df = df.rename(columns={"wkt": "point_location", "borough": "boro"})
-    df["sname"] = df["address"].apply(get_sname)
-    df["hnum"] = df["address"].apply(get_hnum)
+    df = df.rename(columns={"geom": "point_location", 
+                            "borough": "boro"})
     records = df.to_dict("records")
 
     ## geocode
