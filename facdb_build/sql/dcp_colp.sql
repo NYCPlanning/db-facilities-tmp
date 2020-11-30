@@ -63,7 +63,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 				OR usetype LIKE '%COMMITMENT%'
 
-				OR agency LIKE '%PRIVATE%'
+				OR excatdesc LIKE '%PRIVATE%'
 
 				THEN 'Properties Leased or Licensed to Non-public Entities'
 
@@ -75,7 +75,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 				THEN 'City Agency Parking'
 
-			WHEN usetype LIKE '%STORAGE%' OR usetype LIKE '%STRG%' THEN 'Storage'
+			WHEN usetype LIKE '%STORAGE%' THEN 'Storage'
 
 			WHEN usetype LIKE '%CUSTODIAL%' THEN 'Custodial'
 
@@ -89,7 +89,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			WHEN usetype LIKE '%MISCELLANEOUS USE%' THEN 'Miscellaneous Use'
 
-			WHEN usetype LIKE '%OTHER HEALTH%' AND name LIKE '%ANIMAL%' THEN 'Miscellaneous Use'
+			WHEN usetype LIKE '%OTHER HEALTH%' AND parcelname LIKE '%ANIMAL%' THEN 'Miscellaneous Use'
 
 			WHEN agency LIKE '%DCA%' and usetype LIKE '%OTHER%' THEN 'Miscellaneous Use'
 
@@ -215,7 +215,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 				THEN 'Public or Affordable Housing'
 
-			WHEN usetype LIKE '%COMMUNITY CENTER%' OR (agency LIKE '%HRA%' AND name LIKE '%CENTER%') 
+			WHEN usetype LIKE '%COMMUNITY CENTER%' OR (agency LIKE '%HRA%' AND parcelname LIKE '%CENTER%') 
 
 				THEN 'Community Centers and Community School Programs'
 
@@ -300,10 +300,12 @@ SET hash =  md5(CAST((t.*)AS text)),
 			WHEN agency LIKE '%ACS%' AND usetype LIKE '%DETENTION%' THEN 'Detention and Correctional'
 
 			WHEN agency LIKE '%CORR%' AND usetype LIKE '%COURT%' THEN 'Courthouses and Judicial'
+			
+			WHEN agency LIKE '%COURT%' AND usetype LIKE '%COURT%' THEN 'Courthouses and Judicial'
+
+			WHEN agency LIKE '%OCA%' AND usetype LIKE '%COURT%' THEN 'Courthouses and Judicial'
 
 			WHEN agency LIKE '%CORR%' THEN 'Detention and Correctional'
-
-			WHEN agency LIKE '%COURT%' AND usetype LIKE '%COURT%' THEN 'Courthouses and Judicial'
 
 			WHEN usetype LIKE '%AMBULANCE%' THEN 'Other Emergency Services'
 
