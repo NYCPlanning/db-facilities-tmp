@@ -19,3 +19,8 @@
 + [qc_operator](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_operator.csv)
 + [qc_oversight](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_oversight.csv)
 + [qc_proptype](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_proptype.csv)
+
+## GitHub Actions Build Log
+### 2020/11/30 -- Molly
++ See issue #311
++ Building draft without full set of updated inputs
