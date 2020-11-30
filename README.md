@@ -3,7 +3,7 @@
 ![Build](https://github.com/NYCPlanning/db-facilities/workflows/Build/badge.svg)
 
 ## Instructions:
-1. `./01_dataloading.sh` change CONTAINER_PORT number to something else if port is used
+1. `./01_dataloading.sh`
 2. `./02_build.sh`
 3. `./03_export.sh`
 4. `./04_archive.sh`
