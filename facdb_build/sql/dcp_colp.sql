@@ -1,20 +1,21 @@
 --select w.status::text, count(*) 
---from (select geo::json->'status' as status from dcas_colp) w
+--from (select geo::json->'status' as status from dcp_colp) w
 --group by w.status::text;
-CREATE TABLE dcas_colp_tmp as
-	SELECT *
-	FROM dcas_colp
-	WHERE colp_type ~* 'maintenance|storage|Infrastructure|Office|residential|no use|private' 
-		 OR usedec ~* 'Office Leased By Educ|Emergency|Safety|Police|security|courthouse|ambulance station|OTHER SECURE DETENTION FACILITY'
-		 OR name ~* 'DETENTION FACILITY'
-		 OR (usedec ~* 'JAIL' AND (name LIKE '%COURT%' OR name LIKE '% CT %'));
+CREATE TABLE dcp_colp_tmp as (
+	SELECT * 
+	FROM dcp_colp 
+	WHERE CONCAT(category,expandcat) IN ('11', '12', '14', '16', '17', '28','29','38') 
+	AND usecode NOT IN ('0800','0870','0900','0939','1000','1100','1139',
+							'1200','1229','1300','1350','1400','0500','0520') 
+	AND usecode NOT LIKE '02%' 
+	OR usecode = '0230'
+);
+DROP TABLE dcp_colp;
 
-DROP TABLE dcas_colp;
+ALTER TABLE dcp_colp_tmp
+RENAME TO dcp_colp;
 
-ALTER TABLE dcas_colp_tmp
-RENAME TO dcas_colp;
-
-ALTER TABLE dcas_colp
+ALTER TABLE dcp_colp
 	ADD hash text, 
 	ADD	facname text,
 	ADD	factype text,
@@ -32,10 +33,10 @@ ALTER TABLE dcas_colp
 	ADD	captype text,
 	ADD	proptype text;
 
-UPDATE dcas_colp
-SET usedec = REPLACE(usedec, 'NO USE-NON RESIDENTIAL STRUCTURESE', 'NO USE-NON RESIDENTIAL STRUCTURE'); 
+UPDATE dcp_colp
+SET usetype = REPLACE(usetype, 'NO USE-NON RESIDENTIAL STRUCTURESE', 'NO USE-NON RESIDENTIAL STRUCTURE'); 
 
-UPDATE dcas_colp as t
+UPDATE dcp_colp as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
 					 WHEN wkb_geometry IS NULL THEN ST_SetSRID(point_location::geometry, 4326)
@@ -46,61 +47,59 @@ SET hash =  md5(CAST((t.*)AS text)),
 				ELSE geo_bbl
 			END),
 	facname = (CASE
-				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'office' THEN 'Offices'
-				WHEN (name = ' ' OR name IS NULL) AND usedec ~* 'no use' THEN 'City Owned Property'
-				WHEN name <> ' ' AND name IS NOT NULL THEN initcap(name)
-				ELSE initcap(REPLACE(usedec, 'OTHER ', ''))
+				WHEN (parcelname = ' ' OR parcelname IS NULL) AND usetype ~* 'office' THEN 'Offices'
+				WHEN (parcelname = ' ' OR parcelname IS NULL) AND usetype ~* 'no use' AND ownership = 'C' THEN 'City Owned Property'
+				WHEN parcelname <> ' ' AND parcelname IS NOT NULL THEN initcap(parcelname)
+				ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
 			END),
-	factype = initcap(REPLACE(usedec, 'OTHER ', '')),
+	factype = initcap(REPLACE(usetype, 'OTHER ', '')),
 	facsubgrp = (CASE
 
 			-- Admin of Gov
 
-			WHEN usedec LIKE '%AGREEMENT%'
+			WHEN usetype LIKE '%AGREEMENT%'
 
-				OR usedec LIKE '%DISPOSITION%'
+				OR usetype LIKE '%DISPOSITION%'
 
-				OR usedec LIKE '%COMMITMENT%'
+				OR usetype LIKE '%COMMITMENT%'
 
-				OR agency LIKE '%PRIVATE%'
+				OR excatdesc LIKE '%PRIVATE%'
 
 				THEN 'Properties Leased or Licensed to Non-public Entities'
 
-			WHEN usedec LIKE '%SECURITY%' THEN 'Miscellaneous Use'
+			WHEN usetype LIKE '%SECURITY%' THEN 'Miscellaneous Use'
 
-			WHEN (usedec LIKE '%PARKING%'
+			WHEN usetype LIKE '%PARKING%'
 
-				OR usedec LIKE '%PKNG%')
-
-				AND usedec NOT LIKE '%MUNICIPAL%'
+				AND usetype NOT LIKE '%MUNICIPAL%'
 
 				THEN 'City Agency Parking'
 
-			WHEN usedec LIKE '%STORAGE%' OR usedec LIKE '%STRG%' THEN 'Storage'
+			WHEN usetype LIKE '%STORAGE%' THEN 'Storage'
 
-			WHEN usedec LIKE '%CUSTODIAL%' THEN 'Custodial'
+			WHEN usetype LIKE '%CUSTODIAL%' THEN 'Custodial'
 
-			WHEN usedec LIKE '%GARAGE%' THEN 'Maintenance and Garages'
+			WHEN usetype LIKE '%GARAGE%' THEN 'Maintenance and Garages'
 
-			WHEN usedec LIKE '%OFFICE%' THEN 'City Government Offices'
+			WHEN usetype LIKE '%OFFICE%' THEN 'City Government Offices'
 
-			WHEN usedec LIKE '%MAINTENANCE%' THEN 'Maintenance and Garages'
+			WHEN usetype LIKE '%MAINTENANCE%' THEN 'Maintenance and Garages'
 
-			WHEN usedec LIKE '%NO USE%' THEN 'Miscellaneous Use'
+			WHEN usetype LIKE '%NO USE%' THEN 'Miscellaneous Use'
 
-			WHEN usedec LIKE '%MISCELLANEOUS USE%' THEN 'Miscellaneous Use'
+			WHEN usetype LIKE '%MISCELLANEOUS USE%' THEN 'Miscellaneous Use'
 
-			WHEN usedec LIKE '%OTHER HEALTH%' AND name LIKE '%ANIMAL%' THEN 'Miscellaneous Use'
+			WHEN usetype LIKE '%OTHER HEALTH%' AND parcelname LIKE '%ANIMAL%' THEN 'Miscellaneous Use'
 
-			WHEN agency LIKE '%DCA%' and usedec LIKE '%OTHER%' THEN 'Miscellaneous Use'
+			WHEN agency LIKE '%DCA%' and usetype LIKE '%OTHER%' THEN 'Miscellaneous Use'
 
-			WHEN usedec LIKE '%UNDEVELOPED%' THEN 'Miscellaneous Use'
+			WHEN usetype LIKE '%UNDEVELOPED%' THEN 'Miscellaneous Use'
 
-			WHEN (usedec LIKE '%TRAINING%' 
+			WHEN (usetype LIKE '%TRAINING%' 
 
-				OR usedec LIKE '%TESTING%')
+				OR usetype LIKE '%TESTING%')
 
-				AND usedec NOT LIKE '%LABORATORY%'
+				AND usetype NOT LIKE '%LABORATORY%'
 
 				THEN 'Training and Testing'
 
@@ -108,79 +107,79 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			-- Trans and Infra
 
-			WHEN usedec LIKE '%MUNICIPAL PARKING%' THEN 'Parking Lots and Garages'
+			WHEN usetype LIKE '%MUNICIPAL PARKING%' THEN 'Parking Lots and Garages'
 
-			WHEN usedec LIKE '%MARKET%' THEN 'Wholesale Markets'
+			WHEN usetype LIKE '%MARKET%' THEN 'Wholesale Markets'
 
-			WHEN usedec LIKE '%MATERIAL PROCESSING%' THEN 'Material Supplies'
+			WHEN usetype LIKE '%MATERIAL PROCESSING%' THEN 'Material Supplies'
 
-			WHEN usedec LIKE '%ASPHALT%' THEN 'Material Supplies'
+			WHEN usetype LIKE '%ASPHALT%' THEN 'Material Supplies'
 
-			WHEN usedec LIKE '%AIRPORT%' THEN 'Airports and Heliports'
+			WHEN usetype LIKE '%AIRPORT%' THEN 'Airports and Heliports'
 
-			WHEN usedec LIKE '%ROAD/HIGHWAY%'
+			WHEN usetype LIKE '%ROAD/HIGHWAY%'
 
-				OR usedec LIKE '%TRANSIT WAY%'
+				OR usetype LIKE '%TRANSIT WAY%'
 
-				OR usedec LIKE '%OTHER TRANSPORTATION%'
+				OR usetype LIKE '%OTHER TRANSPORTATION%'
 
 				THEN 'Other Transportation'
 
 			WHEN agency LIKE '%DEP%'
 
-				AND (usedec LIKE '%WATER SUPPLY%'
+				AND (usetype LIKE '%WATER SUPPLY%'
 
-				OR usedec LIKE '%RESERVOIR%'
+				OR usetype LIKE '%RESERVOIR%'
 
-				OR usedec LIKE '%AQUEDUCT%')
+				OR usetype LIKE '%AQUEDUCT%')
 
 				THEN 'Water Supply'
 
 			WHEN agency LIKE '%DEP%'
 
-				AND usedec NOT LIKE '%NATURE AREA%'
+				AND usetype NOT LIKE '%NATURE AREA%'
 
-				AND usedec NOT LIKE '%NATURAL AREA%'
+				AND usetype NOT LIKE '%NATURAL AREA%'
 
-				AND usedec NOT LIKE '%OPEN SPACE%'
+				AND usetype NOT LIKE '%OPEN SPACE%'
 
 				THEN 'Wastewater and Pollution Control'
 
-			WHEN usedec LIKE '%WASTEWATER%' THEN 'Wastewater and Pollution Control'
+			WHEN usetype LIKE '%WASTEWATER%' THEN 'Wastewater and Pollution Control'
 
-			WHEN usedec LIKE '%LANDFILL%' 
+			WHEN usetype LIKE '%LANDFILL%' 
 
-				OR usedec LIKE '%SOLID WASTE INCINERATOR%'
+				OR usetype LIKE '%SOLID WASTE INCINERATOR%'
 
 				THEN 'Solid Waste Processing'
 
-			WHEN usedec LIKE '%SOLID WASTE TRANSFER%'
+			WHEN usetype LIKE '%SOLID WASTE TRANSFER%'
 
-				OR (agency LIKE '%SANIT%' AND usedec LIKE '%SANITATION SECTION%')
+				OR (agency LIKE '%SANIT%' AND usetype LIKE '%SANITATION SECTION%')
 
 				THEN 'Solid Waste Transfer and Carting'
 
-			WHEN usedec LIKE '%ANTENNA%' OR usedec LIKE '%TELE/COMP%' THEN 'Telecommunications'
+			WHEN usetype LIKE '%ANTENNA%' OR usetype LIKE '%TELE/COMP%' THEN 'Telecommunications'
 
-			WHEN usedec LIKE '%PIER - MARITIME%'
+			WHEN usetype LIKE '%PIER - MARITIME%'
 
-				OR usedec LIKE '%FERRY%' 
+				OR usetype LIKE '%FERRY%' 
 
-				OR usedec LIKE '%WATERFRONT TRANSPORTATION%'
+				OR usetype LIKE '%WATERFRONT TRANSPORTATION%'
 
-				OR usedec LIKE '%MARINA%'
+				OR usetype LIKE '%MARINA%'
 
 				THEN 'Ports and Ferry Landings'
 
-			WHEN usedec LIKE '%RAIL%'
+			WHEN usetype LIKE '%RAIL%'
 
-				OR (usedec LIKE '%TRANSIT%'
+				OR (usetype LIKE '%TRANSIT%'
 
-					AND usedec NOT LIKE '%TRANSITIONAL%')
+					AND usetype NOT LIKE '%TRANSITIONAL%')
 
 				THEN 'Rail Yards and Maintenance'
 
-			WHEN usedec LIKE '%BUS%' THEN 'Bus Depots and Terminals'
+			WHEN usetype LIKE '%BUS%' THEN 'Bus Depots and Terminals'
 
 
 
@@ -188,35 +187,35 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			WHEN agency LIKE '%HHC%' THEN 'Hospitals and Clinics'
 
-			WHEN usedec LIKE '%HOSPITAL%' THEN 'Hospitals and Clinics'
+			WHEN usetype LIKE '%HOSPITAL%' THEN 'Hospitals and Clinics'
 
-			WHEN usedec LIKE '%AMBULATORY HEALTH%' THEN 'Hospitals and Clinics'
+			WHEN usetype LIKE '%AMBULATORY HEALTH%' THEN 'Hospitals and Clinics'
 
 			WHEN agency LIKE '%OCME%' THEN 'Other Health Care'
 
-			WHEN agency LIKE '%ACS%' AND usedec LIKE '%HOUSING%' THEN 'Shelters and Transitional Housing'
+			WHEN agency LIKE '%ACS%' AND usetype LIKE '%HOUSING%' THEN 'Shelters and Transitional Housing'
 
 			WHEN agency LIKE '%AGING%' THEN 'Senior Services'
 
 			WHEN (agency LIKE '%DHS%' OR agency LIKE '%HRA%')
 
-				AND (usedec LIKE '%RESIDENTIAL%'
+				AND (usetype LIKE '%RESIDENTIAL%'
 
-				OR usedec LIKE '%TRANSITIONAL HOUSING%')
+				OR usetype LIKE '%TRANSITIONAL HOUSING%')
 
 				THEN 'Shelters and Transitional Housing'
 
-			WHEN agency LIKE '%DHS%' AND usedec NOT LIKE '%OPEN SPACE%' THEN 'Non-residential Housing and Homeless Services'
+			WHEN agency LIKE '%DHS%' AND usetype NOT LIKE '%OPEN SPACE%' THEN 'Non-residential Housing and Homeless Services'
 
 			WHEN (agency LIKE '%NYCHA%' 
 
 				OR agency LIKE '%HPD%')
 
-				AND usedec LIKE '%RESIDENTIAL%'
+				AND usetype LIKE '%RESIDENTIAL%'
 
 				THEN 'Public or Affordable Housing'
 
-			WHEN usedec LIKE '%COMMUNITY CENTER%' OR (agency LIKE '%HRA%' AND name LIKE '%CENTER%') 
+			WHEN usetype LIKE '%COMMUNITY CENTER%' OR (agency LIKE '%HRA%' AND parcelname LIKE '%CENTER%') 
 
 				THEN 'Community Centers and Community School Programs'
 
@@ -224,73 +223,73 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			-- Parks, Cultural
 
-			WHEN usedec LIKE '%LIBRARY%' THEN 'Public Libraries'
+			WHEN usetype LIKE '%LIBRARY%' THEN 'Public Libraries'
 
-			WHEN usedec LIKE '%MUSEUM%' THEN 'Museums'
+			WHEN usetype LIKE '%MUSEUM%' THEN 'Museums'
 
-			WHEN usedec LIKE '%CULTURAL%' THEN 'Other Cultural Institutions'
+			WHEN usetype LIKE '%CULTURAL%' THEN 'Other Cultural Institutions'
 
-			WHEN usedec LIKE '%ZOO%' THEN 'Other Cultural Institutions'
+			WHEN usetype LIKE '%ZOO%' THEN 'Other Cultural Institutions'
 
-			WHEN usedec LIKE '%CEMETERY%' THEN 'Cemeteries'
+			WHEN usetype LIKE '%CEMETERY%' THEN 'Cemeteries'
 
-			WHEN agency LIKE '%CULT%' AND usedec LIKE '%MUSEUM%' THEN 'Museums'
+			WHEN agency LIKE '%CULT%' AND usetype LIKE '%MUSEUM%' THEN 'Museums'
 
 			WHEN agency LIKE '%CULT%' THEN 'Other Cultural Institutions'
 
-			WHEN usedec LIKE '%NATURAL AREA%'
+			WHEN usetype LIKE '%NATURAL AREA%'
 
-				OR (usedec LIKE '%OPEN SPACE%'
+				OR (usetype LIKE '%OPEN SPACE%'
 
 					AND agency LIKE '%DEP%')
 
 				THEN 'Preserves and Conservation Areas'
 
-			WHEN usedec LIKE '%BOTANICAL GARDENS%' THEN 'Other Cultural Institutions'
+			WHEN usetype LIKE '%BOTANICAL GARDENS%' THEN 'Other Cultural Institutions'
 
-			WHEN usedec LIKE '%GARDEN%' THEN 'Gardens'
+			WHEN usetype LIKE '%GARDEN%' THEN 'Gardens'
 
 			WHEN agency LIKE '%PARKS%'
 
-				AND usedec LIKE '%OPEN SPACE%'
+				AND usetype LIKE '%OPEN SPACE%'
 
 				THEN 'Streetscapes, Plazas, and Malls'
 
-			WHEN usedec = 'MALL/TRIANGLE/HIGHWAY STRIP/PARK STRIP'
+			WHEN usetype = 'MALL/TRIANGLE/HIGHWAY STRIP/PARK STRIP'
 
 				THEN 'Streetscapes, Plazas, and Malls'
 
-			WHEN usedec LIKE '%PARK%' THEN 'Parks'
+			WHEN usetype LIKE '%PARK%' THEN 'Parks'
 
-			WHEN usedec LIKE '%PLAZA%'
+			WHEN usetype LIKE '%PLAZA%'
 
-				OR usedec LIKE '%SITTING AREA%' 
+				OR usetype LIKE '%SITTING AREA%' 
 
 				THEN 'Streetscapes, Plazas, and Malls'
 
-			WHEN usedec LIKE '%PLAYGROUND%'
+			WHEN usetype LIKE '%PLAYGROUND%'
 
-				OR usedec LIKE '%SPORTS%'
+				OR usetype LIKE '%SPORTS%'
 
-				OR usedec LIKE '%TENNIS COURT%'
+				OR usetype LIKE '%TENNIS COURT%'
 
-				OR usedec LIKE '%PLAY AREA%'
+				OR usetype LIKE '%PLAY AREA%'
 
-				OR usedec LIKE '%RECREATION%'
+				OR usetype LIKE '%RECREATION%'
 
-				OR usedec LIKE '%BEACH%'
+				OR usetype LIKE '%BEACH%'
 
-				OR usedec LIKE '%PLAYING FIELD%'
+				OR usetype LIKE '%PLAYING FIELD%'
 
-				OR usedec LIKE '%GOLF COURSE%'
+				OR usetype LIKE '%GOLF COURSE%'
 
-				OR usedec LIKE '%POOL%'
+				OR usetype LIKE '%POOL%'
 
-				OR usedec LIKE '%STADIUM%'
+				OR usetype LIKE '%STADIUM%'
 
 				THEN 'Recreation and Waterfront Sites'
 
-			WHEN usedec LIKE '%THEATER%' AND agency LIKE '%DSBS%'
+			WHEN usetype LIKE '%THEATER%' AND agency LIKE '%DSBS%'
 
 				THEN 'Other Cultural Institutions'
 
@@ -298,23 +297,25 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			-- Public Safety, Justice etc
 
-			WHEN agency LIKE '%ACS%' AND usedec LIKE '%DETENTION%' THEN 'Detention and Correctional'
+			WHEN agency LIKE '%ACS%' AND usetype LIKE '%DETENTION%' THEN 'Detention and Correctional'
 
-			WHEN agency LIKE '%CORR%' AND usedec LIKE '%COURT%' THEN 'Courthouses and Judicial'
+			WHEN agency LIKE '%CORR%' AND usetype LIKE '%COURT%' THEN 'Courthouses and Judicial'
+			
+			WHEN agency LIKE '%COURT%' AND usetype LIKE '%COURT%' THEN 'Courthouses and Judicial'
+
+			WHEN agency LIKE '%OCA%' AND usetype LIKE '%COURT%' THEN 'Courthouses and Judicial'
 
 			WHEN agency LIKE '%CORR%' THEN 'Detention and Correctional'
 
-			WHEN agency LIKE '%COURT%' AND usedec LIKE '%COURT%' THEN 'Courthouses and Judicial'
+			WHEN usetype LIKE '%AMBULANCE%' THEN 'Other Emergency Services'
 
-			WHEN usedec LIKE '%AMBULANCE%' THEN 'Other Emergency Services'
+			WHEN usetype LIKE '%EMERGENCY MEDICAL%' THEN 'Other Emergency Services'
 
-			WHEN usedec LIKE '%EMERGENCY MEDICAL%' THEN 'Other Emergency Services'
+			WHEN usetype LIKE '%FIREHOUSE%' THEN 'Fire Services'
 
-			WHEN usedec LIKE '%FIREHOUSE%' THEN 'Fire Services'
+			WHEN usetype LIKE '%POLICE STATION%' THEN 'Police Services'
 
-			WHEN usedec LIKE '%POLICE STATION%' THEN 'Police Services'
-
-			WHEN usedec LIKE '%PUBLIC SAFETY%' THEN 'Other Public Safety'
+			WHEN usetype LIKE '%PUBLIC SAFETY%' THEN 'Other Public Safety'
 
 			WHEN agency LIKE '%OCME%' THEN 'Forensics'
 
@@ -322,25 +323,25 @@ SET hash =  md5(CAST((t.*)AS text)),
 
 			-- Education, Children, Youth
 
-			WHEN usedec LIKE '%UNIVERSITY%' THEN 'Colleges or Universities'
+			WHEN usetype LIKE '%UNIVERSITY%' THEN 'Colleges or Universities'
 
-			WHEN usedec LIKE '%EARLY CHILDHOOD%' THEN 'Day Care'
+			WHEN usetype LIKE '%EARLY CHILDHOOD%' THEN 'Day Care'
 
-			WHEN usedec LIKE '%DAY CARE%' THEN 'Day Care'
+			WHEN usetype LIKE '%DAY CARE%' THEN 'Day Care'
 
-			WHEN agency LIKE '%ACS%' AND usedec LIKE '%RESIDENTIAL%' THEN 'Foster Care Services and Residential Care'
+			WHEN agency LIKE '%ACS%' AND usetype LIKE '%RESIDENTIAL%' THEN 'Foster Care Services and Residential Care'
 
 			WHEN agency LIKE '%ACS%' THEN 'Day Care'
 
-			WHEN agency LIKE '%EDUC%' and usedec LIKE '%PLAY AREA%' THEN 'Public K-12 Schools'
+			WHEN agency LIKE '%EDUC%' and usetype LIKE '%PLAY AREA%' THEN 'Public K-12 Schools'
 
-			WHEN usedec LIKE '%HIGH SCHOOL%' THEN 'Public K-12 Schools'
+			WHEN usetype LIKE '%HIGH SCHOOL%' THEN 'Public K-12 Schools'
 
-			WHEN agency LIKE '%CUNY%' AND usedec NOT LIKE '%OPEN SPACE%' THEN 'Colleges or Universities'
+			WHEN agency LIKE '%CUNY%' AND usetype NOT LIKE '%OPEN SPACE%' THEN 'Colleges or Universities'
 
-			WHEN AGENCY LIKE '%EDUC%' AND usedec LIKE '%SCHOOL%' THEN 'Public K-12 Schools'
+			WHEN agency LIKE '%EDUC%' AND usetype LIKE '%SCHOOL%' THEN 'Public K-12 Schools'
 
-			WHEN usedec LIKE '%EDUCATIONAL SKILLS%' THEN 'Public K-12 Schools'
+			WHEN usetype LIKE '%EDUCATIONAL SKILLS%' THEN 'Public K-12 Schools'
 
 			ELSE 'Miscellaneous Use'
 		END),
@@ -884,29 +885,29 @@ SET hash =  md5(CAST((t.*)AS text)),
 			END)
 ;
 
-CREATE TABLE dcas_colp_tmp as
+CREATE TABLE dcp_colp_tmp as
 	SELECT DISTINCT ON (facname, factype, facsubgrp, boro, block) *
-	FROM dcas_colp
+	FROM dcp_colp
 	WHERE
 		(agency <> 'NYCHA'
 		AND agency <> 'HPD'
-		AND usedec <> 'ROAD/HIGHWAY'
-		AND usedec <> 'TRANSIT WAY'
-		AND usedec NOT LIKE '%WATER SUPPLY%'
-		AND usedec NOT LIKE '%RESERVOIR%'
-		AND usedec NOT LIKE '%AQUEDUCT%'
-		AND usedec NOT LIKE '%OFFICE%'
+		AND usetype <> 'ROAD/HIGHWAY'
+		AND usetype <> 'TRANSIT WAY'
+		AND usetype NOT LIKE '%WATER SUPPLY%'
+		AND usetype NOT LIKE '%RESERVOIR%'
+		AND usetype NOT LIKE '%AQUEDUCT%'
+		AND usetype NOT LIKE '%OFFICE%'
 		AND agency <> 'DHS')
-		OR (agency = 'DHS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
-		OR (agency = 'HRA' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%')
-		OR (agency = 'ACS' AND usedec NOT LIKE '%RESIDENTIAL%' AND usedec NOT LIKE '%HOUSING%');
+		OR (agency = 'DHS' AND usetype NOT LIKE '%RESIDENTIAL%' AND usetype NOT LIKE '%HOUSING%')
+		OR (agency = 'HRA' AND usetype NOT LIKE '%RESIDENTIAL%' AND usetype NOT LIKE '%HOUSING%')
+		OR (agency = 'ACS' AND usetype NOT LIKE '%RESIDENTIAL%' AND usetype NOT LIKE '%HOUSING%');
 
-INSERT INTO dcas_colp_tmp
+INSERT INTO dcp_colp_tmp
 SELECT DISTINCT ON (name, point_location, agency) *
-FROM dcas_colp
-WHERE usedec LIKE '%OFFICE%';
+FROM dcp_colp
+WHERE usetype LIKE '%OFFICE%';
 
-DROP TABLE dcas_colp;
+DROP TABLE dcp_colp;
 
-ALTER TABLE dcas_colp_tmp
-RENAME TO dcas_colp;
+ALTER TABLE dcp_colp_tmp
+RENAME TO dcp_colp;
