@@ -14,11 +14,11 @@ if __name__ == "__main__":
     )
     df["wkb_geometry"] = df["wkt"]
     df["datasource"] = table_name
-    df["address"] = df["on_"].apply(quick_clean)
+    df["address"] = df["onstreet"].apply(quick_clean)
     df["sname"] = df["address"].apply(get_sname)
     df["hnum"] = df["address"].apply(get_hnum)
-    df["boro"] = df["boro"].apply(lambda x: x[:2])
-    df = df.rename(columns={"wkt": "point_location"})
+    df["boro"] = df["borocode"]
+    df = df.rename(columns={"wkt": "polygon_location"})
     records = df.to_dict("records")
 
     ## geocode
