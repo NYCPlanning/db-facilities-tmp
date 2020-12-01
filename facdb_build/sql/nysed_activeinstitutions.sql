@@ -1,17 +1,19 @@
+BEGIN;
+
 ALTER TABLE nysed_activeinstitutions 
 DROP COLUMN IF EXISTS ogc_fid;
 
 ALTER TABLE nysed_nonpublicenrollment 
 DROP COLUMN IF EXISTS ogc_fid;
 
-CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
+CREATE TEMP TABLE nysed_activeinstitutions_tmp as (SELECT
 
 		nysed_activeinstitutions.*,
 		nysed_nonpublicenrollment.*,
 		
 		(CASE 
 
-			WHEN (prek::numeric+half_k::numeric+full_k::numeric+gr_1::numeric+gr_2::numeric+gr_3::numeric+gr_4::numeric+gr_5::numeric+gr_6::numeric+uge::numeric+gr_7::numeric+gr_8::numeric+gr_9::numeric+gr_10::numeric+gr_11::numeric+gr_12::numeric+ugs::numeric) IS NOT NULL THEN (prek::numeric+half_k::numeric+full_k::numeric+gr_1::numeric+gr_2::numeric+gr_3::numeric+gr_4::numeric+gr_5::numeric+gr_6::numeric+uge::numeric+gr_7::numeric+gr_8::numeric+gr_9::numeric+gr_10::numeric+gr_11::numeric+gr_12::numeric+ugs::numeric)
+			WHEN (prek::numeric+halfk::numeric+fullk::numeric+gr1::numeric+gr2::numeric+gr3::numeric+gr4::numeric+gr5::numeric+gr6::numeric+uge::numeric+gr7::numeric+gr8::numeric+gr9::numeric+gr10::numeric+gr11::numeric+gr12::numeric+ugs::numeric) IS NOT NULL THEN (prek::numeric+halfk::numeric+fullk::numeric+gr1::numeric+gr2::numeric+gr3::numeric+gr4::numeric+gr5::numeric+gr6::numeric+uge::numeric+gr7::numeric+gr8::numeric+gr9::numeric+gr10::numeric+gr11::numeric+gr12::numeric+ugs::numeric)
 
 			ELSE NULL
 
@@ -25,8 +27,6 @@ CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
 
 DROP TABLE nysed_activeinstitutions;
 CREATE TABLE nysed_activeinstitutions AS (SELECT * FROM nysed_activeinstitutions_tmp);
-DROP TABLE nysed_activeinstitutions_tmp;
-
 
 ALTER TABLE nysed_activeinstitutions
 	ADD hash text,
@@ -49,9 +49,9 @@ ALTER TABLE nysed_activeinstitutions
 UPDATE nysed_activeinstitutions as t
 SET hash =  md5(CAST((t.*)AS text)),
 	wkb_geometry = (CASE
-				        WHEN wkb_geometry IS NULL AND longitude != '0' AND latitude != '0'
-					        THEN ST_SetSRID(ST_Point(longitude::DOUBLE PRECISION, 
-												 	 latitude::DOUBLE PRECISION), 4326)
+				        WHEN wkb_geometry IS NULL AND geo_longitude != '0' AND geo_latitude != '0'
+					        THEN ST_SetSRID(ST_Point(geo_longitude::DOUBLE PRECISION, 
+												 	 geo_latitude::DOUBLE PRECISION), 4326)
 				        ELSE wkb_geometry
 				    END),
 	address = (CASE 
@@ -75,19 +75,19 @@ SET hash =  md5(CAST((t.*)AS text)),
 			
 						WHEN inst_type_description = 'NON-PUBLIC SCHOOLS'
 			
-							AND (prek::numeric+half_k::numeric+full_k::numeric+gr_1::numeric+gr_2::numeric+gr_3::numeric+gr_4::numeric+gr_5::numeric+uge::numeric)>0
+							AND (prek::numeric+halfk::numeric+fullk::numeric+gr1::numeric+gr2::numeric+gr3::numeric+gr4::numeric+gr5::numeric+uge::numeric)>0
 			
 							THEN 'Elementary School - Non-public'
 			
 						WHEN inst_type_description = 'NON-PUBLIC SCHOOLS'
 			
-							AND (gr_6::numeric+gr_7::numeric+gr_8::numeric)>0
+							AND (gr6::numeric+gr7::numeric+gr8::numeric)>0
 			
 							THEN 'Middle School - Non-public'
 			
 						WHEN inst_type_description = 'NON-PUBLIC SCHOOLS'
 			
-							AND (gr_9::numeric+gr_10::numeric+gr_11::numeric+gr_12::numeric+ugs::numeric)>0
+							AND (gr9::numeric+gr10::numeric+gr11::numeric+gr12::numeric+ugs::numeric)>0
 			
 							THEN 'High School - Non-public'
 			
@@ -224,6 +224,9 @@ WHERE
 	AND inst_sub_type_description <> 'OUT OF DISTRICT PLACEMENT'
 	AND inst_sub_type_description <> 'BUILDINGS UNDER CONSTRUCTION')
 );
+
 DROP TABLE nysed_activeinstitutions;
 CREATE TABLE nysed_activeinstitutions AS (SELECT * FROM nysed_activeinstitutions_tmp);
 DROP TABLE nysed_activeinstitutions_tmp;
+
+COMMIT;
