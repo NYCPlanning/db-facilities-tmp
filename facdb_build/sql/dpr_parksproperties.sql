@@ -33,24 +33,24 @@ SET hash = md5(CAST((t.*)AS text)),
                     ELSE location            
                 END),
 	facname = signname,
-	factype = typecatego,
+	factype = typecategory,
 	facsubgrp = (CASE
                     -- admin of gov
-                    WHEN typecatego = 'Undeveloped' THEN 'Miscellaneous Use'
-                    WHEN typecatego = 'Lot' THEN 'City Agency Parking'
+                    WHEN typecategory = 'Undeveloped' THEN 'Miscellaneous Use'
+                    WHEN typecategory = 'Lot' THEN 'City Agency Parking'
                     -- parks
-                    WHEN typecatego = 'Cemetery' THEN 'Cemeteries'
-                    WHEN typecatego = 'Historic House Park' THEN 'Historical Sites'
-                    WHEN typecatego = 'Triangle/Plaza' THEN 'Streetscapes, Plazas, and Malls'
-                    WHEN typecatego = 'Mall' THEN 'Streetscapes, Plazas, and Malls'
-                    WHEN typecatego = 'Strip' THEN 'Streetscapes, Plazas, and Malls'
-                    WHEN typecatego = 'Parkway' THEN 'Streetscapes, Plazas, and Malls'
-                    WHEN typecatego = 'Tracking' THEN 'Streetscapes, Plazas, and Malls'
-                    WHEN typecatego = 'Garden' THEN 'Gardens'
-                    WHEN typecatego = 'Nature Area' THEN 'Preserves and Conservation Areas'
-                    WHEN typecatego = 'Flagship Park' THEN 'Parks'
-                    WHEN typecatego = 'Community Park' THEN 'Parks'
-                    WHEN typecatego = 'Neighborhood Park' THEN 'Parks'
+                    WHEN typecategory = 'Cemetery' THEN 'Cemeteries'
+                    WHEN typecategory = 'Historic House Park' THEN 'Historical Sites'
+                    WHEN typecategory = 'Triangle/Plaza' THEN 'Streetscapes, Plazas, and Malls'
+                    WHEN typecategory = 'Mall' THEN 'Streetscapes, Plazas, and Malls'
+                    WHEN typecategory = 'Strip' THEN 'Streetscapes, Plazas, and Malls'
+                    WHEN typecategory = 'Parkway' THEN 'Streetscapes, Plazas, and Malls'
+                    WHEN typecategory = 'Tracking' THEN 'Streetscapes, Plazas, and Malls'
+                    WHEN typecategory = 'Garden' THEN 'Gardens'
+                    WHEN typecategory = 'Nature Area' THEN 'Preserves and Conservation Areas'
+                    WHEN typecategory = 'Flagship Park' THEN 'Parks'
+                    WHEN typecategory = 'Community Park' THEN 'Parks'
+                    WHEN typecategory = 'Neighborhood Park' THEN 'Parks'
                     ELSE 'Recreation and Waterfront Sites'
 		        END),
 	facgroup = NULL,
