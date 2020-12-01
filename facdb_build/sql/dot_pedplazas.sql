@@ -24,11 +24,11 @@ update dot_pedplazas as t
 SET hash =  md5(CAST((t.*)AS text)), 
     wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL 
-						THEN ST_GeometryFromText(point_location, 4326)
+						THEN ST_GeometryFromText(polygon_location, 4326)
 						ELSE wkb_geometry
 					END),
-	address = cross_1 || 'and' || cross_1,
-	facname = plaza_nam,
+	address = fromstreet || 'and' || tostreet,
+	facname = plazaname,
 	factype = 'Pedestrian Plaza',
 	facsubgrp = 'Streetscapes, Plazas, and Malls',
 	facgroup = NULL,
