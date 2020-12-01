@@ -29,6 +29,7 @@ if __name__ == "__main__":
         it = pool.map(geocode, records, 1000)
 
     df = pd.DataFrame(it)
+    del df['institution_id']
 
     ## Export to build engine
     exporter(df, table_name)
