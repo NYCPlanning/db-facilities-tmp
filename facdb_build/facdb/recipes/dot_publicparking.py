@@ -14,10 +14,10 @@ if __name__ == "__main__":
     )
     df["wkb_geometry"] = df["wkt"]
     df["datasource"] = table_name
-    df["address"] = df["facaddress"].apply(quick_clean)
+    df["address"] = df["address"].apply(quick_clean)
     df["sname"] = df["address"].apply(get_sname)
     df["hnum"] = df["address"].apply(get_hnum)
-    df["zipcode"] = df["facaddress"].apply(lambda x: x[-5:] if x[-5:].isdigit() else "")
+    df["zipcode"] = df["address"].apply(lambda x: x[-5:] if x[-5:].isdigit() else "")
     df = df.rename(columns={"boroname": "boro", "wkt": "point_location"})
     records = df.to_dict("records")
 
