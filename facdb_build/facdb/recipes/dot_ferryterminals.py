@@ -14,7 +14,7 @@ if __name__ == "__main__":
     )
     df["wkb_geometry"] = df["wkt"]
     df["datasource"] = table_name
-    df["address"] = df["name"].apply(quick_clean)
+    df["address"] = df["site"].apply(quick_clean)
     df["sname"] = df["address"]
     df["hnum"] = ""
     df = df.rename(columns={"boroname": "boro"})
