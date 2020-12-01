@@ -6,7 +6,7 @@ DROP COLUMN IF EXISTS ogc_fid;
 ALTER TABLE nysed_nonpublicenrollment 
 DROP COLUMN IF EXISTS ogc_fid;
 
-CREATE TEMP TABLE nysed_activeinstitutions_tmp as (SELECT
+CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
 
 		nysed_activeinstitutions.*,
 		nysed_nonpublicenrollment.*,
@@ -27,6 +27,7 @@ CREATE TEMP TABLE nysed_activeinstitutions_tmp as (SELECT
 
 DROP TABLE nysed_activeinstitutions;
 CREATE TABLE nysed_activeinstitutions AS (SELECT * FROM nysed_activeinstitutions_tmp);
+DROP TABLE nysed_activeinstitutions_tmp;
 
 ALTER TABLE nysed_activeinstitutions
 	ADD hash text,
