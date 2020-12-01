@@ -880,8 +880,8 @@ SET hash =  md5(CAST((t.*)AS text)),
 	capacity = NULL, 
 	captype = NULL, 
 	proptype = (CASE
-				WHEN type='OF' THEN 'City Owned'
-				WHEN type='LF' THEN 'City Leased'
+				WHEN leased='L' THEN 'City Leased'
+				ELSE 'City Owned'
 			END)
 ;
 
@@ -903,7 +903,7 @@ CREATE TABLE dcp_colp_tmp as
 		OR (agency = 'ACS' AND usetype NOT LIKE '%RESIDENTIAL%' AND usetype NOT LIKE '%HOUSING%');
 
 INSERT INTO dcp_colp_tmp
-SELECT DISTINCT ON (name, point_location, agency) *
+SELECT DISTINCT ON (parcelname, point_location, agency) *
 FROM dcp_colp
 WHERE usetype LIKE '%OFFICE%';
 
