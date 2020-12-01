@@ -23,9 +23,9 @@ ALTER TABLE dot_ferryterminals
 update dot_ferryterminals as t
 SET hash =  md5(CAST((t.*)AS text)), 
 	address = geo_street_name,
-	facname = name,
-	factype = (CASE WHEN UPPER(name) LIKE '%TERMINAL%' THEN 'Ferry Terminal'
-					WHEN UPPER(name) LIKE '%LANDING%' THEN 'Ferry Landing'
+	facname = site,
+	factype = (CASE WHEN UPPER(site) LIKE '%TERMINAL%' THEN 'Ferry Terminal'
+					WHEN UPPER(site) LIKE '%LANDING%' THEN 'Ferry Landing'
 				END),
 	facsubgrp = 'Ports and Ferry Landings',
 	facgroup = NULL,
