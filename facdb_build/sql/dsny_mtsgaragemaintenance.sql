@@ -33,8 +33,8 @@ SET hash =  md5(CAST((t.*)AS text)),
                         ELSE address             
                     END),
 	geo_bbl = (CASE
-				WHEN geo_bbl IS NULL AND ROUND(bbl::NUMERIC,0)::TEXT ~ '\y(\d{10})\y'
-				THEN ROUND(bbl::NUMERIC,0)::TEXT
+				WHEN geo_bbl IS NULL AND ROUND(NULLIF(bbl, 'NULL')::NUMERIC,0)::TEXT ~ '\y(\d{10})\y'
+				THEN ROUND(NULLIF(bbl, 'NULL')::NUMERIC,0)::TEXT
 				ELSE geo_bbl
 			END),
   	facname = (CASE
