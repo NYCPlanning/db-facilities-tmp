@@ -7,7 +7,7 @@ DROP VIEW IF EXISTS qc_proptype;
 DROP VIEW IF EXISTS qc_mapped;
 DROP VIEW IF EXISTS qc_diff;
 
-ALTER TABLE table_name 
+ALTER TABLE dcp_facilities 
 DROP COLUMN geom;
 
 ALTER TABLE dcp_facilities
