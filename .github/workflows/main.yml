@@ -56,5 +56,5 @@ jobs:
         
         - name: Clean up ...
           if: ${{ always() }}
-          run: sudo rm -rf /home/self-hosted/actions-runner/_work/db-facilities/db-facilities
+          run: sudo rm -rf /home/self-hosted/actions-runner/_work/db-facilities/db-facilities/facdb_build
           
