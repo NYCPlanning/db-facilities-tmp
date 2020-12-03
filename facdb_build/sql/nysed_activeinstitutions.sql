@@ -6,6 +6,7 @@ DROP COLUMN IF EXISTS ogc_fid;
 ALTER TABLE nysed_nonpublicenrollment 
 DROP COLUMN IF EXISTS ogc_fid;
 
+DROP TABLE IF EXISTS nysed_activeinstitutions_tmp;
 CREATE TABLE nysed_activeinstitutions_tmp as (SELECT
 
 		nysed_activeinstitutions.*,
