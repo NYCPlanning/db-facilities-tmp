@@ -21,6 +21,9 @@
 + [qc_proptype](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_proptype.csv)
 
 ## GitHub Actions Build Log
+### 2020/12/03 -- Molly
++ Building draft after merging clean-up step 
+
 ### 2020/11/30 -- Molly
 + See issue #311
 + Building draft without full set of updated inputs
