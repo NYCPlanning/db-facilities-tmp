@@ -22,7 +22,7 @@
 
 ## GitHub Actions Build Log
 ### 2020/12/03 -- Molly
-+ Building draft after merging clean-up step 
++ Building draft after merging clean-up step
 
 ### 2020/11/30 -- Molly
 + See issue #311
