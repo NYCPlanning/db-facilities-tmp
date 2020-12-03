@@ -24,8 +24,8 @@ update dot_pedplazas as t
 SET hash =  md5(CAST((t.*)AS text)), 
     wkb_geometry = (CASE
 						WHEN wkb_geometry is NULL 
-						THEN ST_GeometryFromText(polygon_location, 4326)
-						ELSE wkb_geometry
+						THEN ST_Centroid(ST_GeometryFromText(polygon_location, 4326))
+						ELSE ST_Centroid(wkb_geometry)
 					END),
 	address = fromstreet || 'and' || tostreet,
 	facname = plazaname,
