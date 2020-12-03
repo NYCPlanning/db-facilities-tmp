@@ -15,10 +15,13 @@ if __name__ == "__main__":
     df["wkb_geometry"] = df["wkt"]
     df["datasource"] = table_name
     df["address"] = df["address"].apply(quick_clean)
+    df["borocode"] = df["bbl"].astype(str)[0]
     df["sname"] = df["address"].apply(get_sname)
     df["hnum"] = df["address"].apply(get_hnum)
     df["zipcode"] = df["address"].apply(lambda x: x[-5:] if x[-5:].isdigit() else "")
-    df = df.rename(columns={"boroname": "boro", "wkt": "point_location"})
+    df = df.rename(columns={"boroname": "boro", 
+                            "wkt": "point_location",
+                            "site":"facname"})
     records = df.to_dict("records")
 
     ## geocode
