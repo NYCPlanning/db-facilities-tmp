@@ -55,7 +55,7 @@ SET hash =  md5(CAST((t.*)AS text)),
 				ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
 			END),
 	factype = (CASE
-				WHEN parcelname ~* 'PRECINCT' AND usecode = '0500' THEN 'POLICE STATION'
+				WHEN parcelname ~* 'PRECINCT' AND usecode = '0500' THEN 'Police Station'
 				ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
 			END),
 	facsubgrp = (CASE
