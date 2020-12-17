@@ -6,7 +6,7 @@ CREATE TABLE dcp_colp_tmp as (
 	FROM dcp_colp 
 	WHERE CONCAT(category,expandcat) IN ('11', '12', '14', '16', '17', '28','29','38') 
 	AND usecode NOT IN ('0800','0870','0900','0939','1139',
-							'1200','1229','1300','1350','1400','0500','0520') 
+							'1200','1229','1300','1350','1400','0520') 
 	AND usecode NOT LIKE '02%' 
 	OR usecode = '0230'
 	OR usecode = '1320'
@@ -54,7 +54,10 @@ SET hash =  md5(CAST((t.*)AS text)),
 				WHEN parcelname <> ' ' AND parcelname IS NOT NULL THEN initcap(parcelname)
 				ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
 			END),
-	factype = initcap(REPLACE(usetype, 'OTHER ', '')),
+	factype = (CASE
+				WHEN parcelname ~* 'PRECINCT' AND usecode = '0500' THEN 'POLICE STATION'
+				ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
+			END),
 	facsubgrp = (CASE
 
 			-- Admin of Gov
