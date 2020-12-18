@@ -8,9 +8,13 @@ import numpy as np
 
 if __name__ == "__main__":
     table_name = "dcp_colp"
-    df = importer(table_name)
+    df = importer(
+        table_name,
+        sql=f"select st_astext(wkb_geometry) as wkt, * from {table_name}.latest",
+    )
+    df["wkb_geometry"] = df["wkt"]
     df["datasource"] = table_name
-    df = df.rename(columns={"geom": "point_location", 
+    df = df.rename(columns={"wkt": "point_location", 
                             "borough": "boro"})
     records = df.to_dict("records")
 
