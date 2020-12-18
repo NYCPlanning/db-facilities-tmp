@@ -21,6 +21,10 @@
 + [qc_proptype](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_proptype.csv)
 
 ## GitHub Actions Build Log
+
+### 2020/12/18 -- Molly
++ Build with reprojected COLP data and updated filters
+
 ### 2020/12/03 -- Molly
 + Building draft after merging clean-up step
 + Switch clean-up to delete facdb_build
