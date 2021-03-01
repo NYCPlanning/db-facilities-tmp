@@ -21,6 +21,7 @@
 + [qc_proptype](https://edm-publishing.nyc3.digitaloceanspaces.com/db-facilities/latest/output/qc_proptype.csv)
 
 ## GitHub Actions Build Log
+### 2020/12/18 -- Baiyue
 
 ### 2020/12/18 -- Molly
 + Build with reprojected COLP data and updated filters
