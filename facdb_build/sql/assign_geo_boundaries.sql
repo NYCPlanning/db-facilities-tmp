@@ -28,7 +28,7 @@ AND a.censtract IS NULL;
 
 -- school districts
 UPDATE facilities a
-SET schooldist = lpad(b.schooldist::text, 3,'0')
+SET schooldist = lpad(b.schooldist::text, 2,'0')
 FROM dcp_school_districts b
 WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
@@ -60,7 +60,7 @@ AND a.council IS NULL;
 
 --polict precinct 
 UPDATE facilities a
-SET policeprct = lpad(b.precinct::text, 2,'0')
+SET policeprct = lpad(b.precinct::text, 3,'0')
 FROM dcp_policeprecincts b
 WHERE ST_Within(a.geom,b.wkb_geometry)
 AND a.geom IS NOT NULL
