@@ -20,5 +20,31 @@ def bpl_libraries(df: pd.DataFrame = None):
     return df
 
 
+@Export
+@Prepare(version="latest")
+def dcp_colp(df: pd.DataFrame = None):
+    """
+    Example for dcp_colp, no geocoding is needed for this table
+    """
+    return df
+
+
+@Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
+@Prepare(version="20210208")
+def nypl_libraries(df: pd.DataFrame = None):
+    df["borough"] = "Manhattan"
+    df["latitude"] = df.lat
+    df["longitude"] = df.lon
+    return df
+
+
 if __name__ == "__main__":
-    df = bpl_libraries()
+    dcp_colp()
+    bpl_libraries()

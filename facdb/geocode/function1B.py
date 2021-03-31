@@ -1,8 +1,8 @@
 import json
 from functools import wraps
-from multiprocessing import Pool, cpu_count
 
 import pandas as pd
+from tqdm.contrib.concurrent import process_map
 
 from . import GeosupportError, g
 
@@ -22,8 +22,7 @@ class Function1B:
 
     def geocode_a_dataframe(self, df: pd.DataFrame):
         records = df.to_dict("records")
-        with Pool(processes=cpu_count()) as pool:
-            it = pool.map(self.geocode_one_record, records, 1000)
+        it = process_map(self.geocode_one_record, records, chunksize=1000)
         df_geo = pd.DataFrame(it)
         return df.merge(df_geo, how="left", on="uid", suffixes=("", "_"))
 
