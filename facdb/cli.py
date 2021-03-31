@@ -36,7 +36,3 @@ def sql(
         for script in scripts:
             query = script.read_text()
             ExecuteSQL(query)
-
-
-def init():
-    app()
