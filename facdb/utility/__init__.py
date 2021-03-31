@@ -6,4 +6,5 @@ from sqlalchemy import create_engine
 load_dotenv()
 
 BASE_URL = "https://nyc3.digitaloceanspaces.com/edm-recipes/datasets"
-ENGINE = create_engine(os.environ.get("BUILD_ENGINE"))
+BUILD_ENGINE = os.environ.get("BUILD_ENGINE")
+ENGINE = create_engine(BUILD_ENGINE)

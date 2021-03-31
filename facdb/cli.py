@@ -3,9 +3,8 @@ from pathlib import Path
 from typing import List, Optional
 
 import typer
-from sqlalchemy.sql import text
 
-from .utility import ENGINE
+from . import ExecuteSQL
 
 app = typer.Typer()
 
@@ -24,8 +23,19 @@ def run(
     if scripts:
         for script in scripts:
             query = script.read_text()
-            print(query)
-            ENGINE.execute(text(query))
+            ExecuteSQL(query)
+
+
+@app.command()
+def sql(
+    scripts: Optional[List[Path]] = typer.Option(
+        None, "-f", help="SQL Scripts to execute"
+    )
+):
+    if scripts:
+        for script in scripts:
+            query = script.read_text()
+            ExecuteSQL(query)
 
 
 def init():

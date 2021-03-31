@@ -11,7 +11,7 @@ from . import Export, Function1B, ParseAddress, Prepare
     zipcode_field="zipcode",
 )
 @ParseAddress(raw_address_field="address")
-@Prepare(version="testor")
+@Prepare
 def bpl_libraries(df: pd.DataFrame = None):
     df["longitude"] = df.position.apply(lambda x: x.split(",")[1].strip())
     df["latitude"] = df.position.apply(lambda x: x.split(",")[0].strip())
@@ -21,7 +21,7 @@ def bpl_libraries(df: pd.DataFrame = None):
 
 
 @Export
-@Prepare(version="latest")
+@Prepare
 def dcp_colp(df: pd.DataFrame = None):
     """
     Example for dcp_colp, no geocoding is needed for this table
@@ -37,7 +37,7 @@ def dcp_colp(df: pd.DataFrame = None):
     zipcode_field="zipcode",
 )
 @ParseAddress(raw_address_field="address")
-@Prepare(version="20210208")
+@Prepare
 def nypl_libraries(df: pd.DataFrame = None):
     df["borough"] = "Manhattan"
     df["latitude"] = df.lat
