@@ -1,7 +1,7 @@
-import json
 from functools import wraps
 
 import pandas as pd
+import simplejson as json
 from tqdm.contrib.concurrent import process_map
 
 from . import GeosupportError, g
@@ -57,7 +57,8 @@ class Function1B:
                         input_zipcode=input_zipcode,
                     ),
                     result=geo,
-                )
+                ),
+                ignore_nan=True,
             ),
         )
 

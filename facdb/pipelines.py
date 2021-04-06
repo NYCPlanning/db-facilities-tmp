@@ -1,3 +1,5 @@
+import datetime
+
 import pandas as pd
 
 from . import Export, Function1B, ParseAddress, Prepare
@@ -45,6 +47,17 @@ def nypl_libraries(df: pd.DataFrame = None):
     return df
 
 
-if __name__ == "__main__":
-    dcp_colp()
-    bpl_libraries()
+@Export
+@Function1B(
+    street_name_field="address_street_name",
+    house_number_field="address_building",
+    borough_field="address_borough",
+    zipcode_field="address_zip",
+)
+@Prepare
+def dca_operatingbusinesses(df: pd.DataFrame = None):
+    df.license_expiration_date = pd.to_datetime(
+        df["license_expiration_date"], format="%m/%d/%Y"
+    )
+    df = df.loc[df.license_expiration_date >= datetime.datetime.today(), :]
+    return df
