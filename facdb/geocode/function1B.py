@@ -31,10 +31,10 @@ class Function1B:
         Note that df needs
         """
         uid = inputs.get("uid")
-        input_sname = inputs.get("input_sname")
-        input_hnum = inputs.get("input_hnum")
-        input_borough = inputs.get("input_borough")
-        input_zipcode = inputs.get("input_zipcode")
+        input_sname = inputs.get(self.street_name_field)
+        input_hnum = inputs.get(self.house_number_field)
+        input_borough = inputs.get(self.borough_field)
+        input_zipcode = inputs.get(self.zipcode_field)
         try:
             geo = g["1B"](
                 street_name=input_sname,
@@ -97,10 +97,6 @@ class Function1B:
     def __call__(self, func):
         def wrapper(*args, **kwargs):
             df = func()
-            df["input_sname"] = df[self.street_name_field]
-            df["input_hnum"] = df[self.house_number_field]
-            df["input_borough"] = df[self.borough_field]
-            df["input_zipcode"] = df[self.zipcode_field]
             df = self.geocode_a_dataframe(df)
             return df
 

@@ -10,9 +10,24 @@ from . import ExecuteSQL
 app = typer.Typer()
 
 
+def complete_dataset_name(incomplete: str) -> list:
+    pipelines = importlib.import_module("facdb.pipelines")
+    completion = []
+    for name in dir(pipelines):
+        if name.startswith(incomplete):
+            completion.append(name)
+    return completion
+
+
 @app.command()
 def run(
-    name: str = typer.Option(None, "--name", "-n", help="Name of the dataset"),
+    name: str = typer.Option(
+        None,
+        "--name",
+        "-n",
+        help="Name of the dataset",
+        autocompletion=complete_dataset_name,
+    ),
     scripts: Optional[List[Path]] = typer.Option(
         None, "-f", help="SQL Scripts to execute"
     ),
@@ -47,7 +62,15 @@ def sql(
 
 
 @app.command()
-def clear(name: str = typer.Option(None, "--name", "-n", help="Name of the dataset"),):
+def clear(
+    name: str = typer.Option(
+        None,
+        "--name",
+        "-n",
+        help="Name of the dataset",
+        autocompletion=complete_dataset_name,
+    ),
+):
     """
     clear will clear the cached dataset created while reading a csv
     """

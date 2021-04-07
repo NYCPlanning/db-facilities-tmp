@@ -33,19 +33,21 @@ def Prepare(func) -> callable:
     def wrapper(*args, **kwargs) -> pd.DataFrame:
         name = func.__name__
         get_dataset_version(name)
-        # fmt:off
-        pkl_path = BASE_PATH/f'{name}.pkl'
+        pkl_path = BASE_PATH / f"{name}.pkl"
         if not os.path.isfile(pkl_path):
             # pull from data library
+            # fmt:off
             df = read_csv(name)\
                 .pipe(hash_each_row)\
-                .pipe(format_field_names)\
-                .pipe(func)
+                .pipe(format_field_names)
             df.to_pickle(pkl_path)
+            # fmt:on
         else:
             # read from cache
             df = pd.read_pickle(pkl_path)
-        # fmt:on
+
+        # Apply custom wrangler
+        df = func(df)
         df["source"] = name
         return df
 

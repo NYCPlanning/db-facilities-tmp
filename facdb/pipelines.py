@@ -2,7 +2,7 @@ import datetime
 
 import pandas as pd
 
-from . import Export, Function1B, ParseAddress, Prepare
+from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
 
 @Export
@@ -54,6 +54,8 @@ def nypl_libraries(df: pd.DataFrame = None):
     borough_field="address_borough",
     zipcode_field="address_zip",
 )
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def dca_operatingbusinesses(df: pd.DataFrame = None):
     df.license_expiration_date = pd.to_datetime(

@@ -17,7 +17,11 @@ def Export(func):
             con=ENGINE,
             if_exists="replace",
             index=False,
-            dtype={"geo_1b": dialects.postgresql.JSON},
+            dtype={
+                "geo_1b": dialects.postgresql.JSON,
+                "geo_bl": dialects.postgresql.JSON,
+                "geo_bn": dialects.postgresql.JSON,
+            },
             method=psql_insert_copy,
         )
 
