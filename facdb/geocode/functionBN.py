@@ -24,7 +24,7 @@ class FunctionBN:
         uid = inputs.get("uid")
         input_bin = inputs.get(self.bin_field)
         try:
-            geo = g["BL"](bbl=input_bin)
+            geo = g["BN"](bbl=input_bin)
         except GeosupportError as e:
             geo = e.result
 
