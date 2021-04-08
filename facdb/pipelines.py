@@ -23,15 +23,6 @@ def bpl_libraries(df: pd.DataFrame = None):
 
 
 @Export
-@Prepare
-def dcp_colp(df: pd.DataFrame = None):
-    """
-    Example for dcp_colp, no geocoding is needed for this table
-    """
-    return df
-
-
-@Export
 @Function1B(
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
@@ -62,4 +53,274 @@ def dca_operatingbusinesses(df: pd.DataFrame = None):
         df["license_expiration_date"], format="%m/%d/%Y"
     )
     df = df.loc[df.license_expiration_date >= datetime.datetime.today(), :]
+    return df
+
+
+@Export
+@Prepare
+def dcla_culturalinstitutions(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dcp_colp(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dcp_pops(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dcp_sfpsd(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dep_wwtc(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dfta_contracts(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def doe_busroutesgarages(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def doe_lcgms(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def doe_universalprek(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dohmh_daycare(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dot_bridgehouses(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dot_ferryterminals(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dot_mannedfacilities(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dot_pedplazas(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dot_publicparking(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dpr_parksproperties(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dsny_mtsgaragemaintenance(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def dycd_afterschoolprogram(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def fbop_corrections(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def fdny_firehouses(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def foodbankny_foodbanks(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def hhc_hospitals(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def hra_centers(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def moeo_socialservicesitelocations(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nycdoc_corrections(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nycha_communitycenters(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nycha_policeservice(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nycourts_courts(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysdec_lands(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysdec_solidwaste(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysdoccs_corrections(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nyshoh_healthfacilities(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysdoh_nursinghomes(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysed_activeinstitutions(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysoasas_programs(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysomh_mentalhealth(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysopwdd_providers(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysparks_historicplaces(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def nysparks_parks(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def qpl_libraries(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def sbs_workforce1(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def uscourts_courts(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def usdot_airports(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def usdot_ports(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def usnps_parks(df: pd.DataFrame = None):
     return df
