@@ -26,13 +26,12 @@ def bpl_libraries(df: pd.DataFrame = None):
 @Function1B(
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
-    borough_field="borough",
+    borough_field="locality",
     zipcode_field="zipcode",
 )
 @ParseAddress(raw_address_field="address")
 @Prepare
 def nypl_libraries(df: pd.DataFrame = None):
-    df["borough"] = "Manhattan"
     df["latitude"] = df.lat
     df["longitude"] = df.lon
     return df
@@ -49,10 +48,21 @@ def nypl_libraries(df: pd.DataFrame = None):
 @FunctionBN(bin_field="bin")
 @Prepare
 def dca_operatingbusinesses(df: pd.DataFrame = None):
+    industry = [
+        "Scrap Metal Processor",
+        "Parking Lot",
+        "Garage",
+        "Garage and Parking Lot",
+        "Tow Truck Company",
+    ]
+    today = datetime.datetime.today()
     df.license_expiration_date = pd.to_datetime(
         df["license_expiration_date"], format="%m/%d/%Y"
     )
-    df = df.loc[df.license_expiration_date >= datetime.datetime.today(), :]
+    # fmt:off
+    df = df.loc[df.license_expiration_date >= today, :]\
+        .loc[df.industry.isin(industry), :]
+    # fmt:on
     return df
 
 
