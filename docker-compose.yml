@@ -12,11 +12,13 @@ services:
         MINOR: 1
         PATCH: 0
     environment:
-      - BUILD_ENGINE=postgresql://postgres:postgres@localhost:5432/postgres
+      - BUILD_ENGINE=postgresql://postgres:postgres@db:5432/postgres
     volumes:
       - .:/src
     network_mode: service:db
     command: sleep infinity
+    depends_on:
+      - db
 
   db:
     image: postgis/postgis:11-3.0-alpine
