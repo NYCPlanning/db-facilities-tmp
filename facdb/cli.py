@@ -7,7 +7,7 @@ import typer
 
 from . import ExecuteSQL
 
-app = typer.Typer()
+app = typer.Typer(add_completion=False)
 
 
 def complete_dataset_name(incomplete: str) -> list:

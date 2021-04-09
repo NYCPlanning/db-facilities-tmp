@@ -10,7 +10,11 @@
     - `python-geosupport` is installed with 21a geosupport
     - `poetry` is installed and initialized
     - `pre-commit` is also preconfigured and no additional setup is needed
-
+- If you do not have vscode setup, don't worry, you can still develop using docker-compose
+    - initialize docker-compose: `./facdb.sh init`
+    - the facdb.sh script is a one to one wrapper of the python facdb cli, e.g. `./facdb.sh --help`
+    - docker-compose is also used to test PR and build the dataset in github actions
+    
 ### Pipeline development with the `facdb` cli
 - Create a pipeline function under the name of the function, e.g. `dcp_colp`
 - If you don't want to run every command with `poetry run`, we recommend you activate the virtual environment by `poetry shell`
