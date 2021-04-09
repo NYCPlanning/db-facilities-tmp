@@ -8,7 +8,7 @@ jobs:
     name: Building ...
     runs-on: ubuntu-20.04
     env:
-      - COMPOSE_INTERACTIVE_NO_CLI: 1
+      COMPOSE_INTERACTIVE_NO_CLI: 1
     steps:
         - uses: actions/checkout@v2
 
