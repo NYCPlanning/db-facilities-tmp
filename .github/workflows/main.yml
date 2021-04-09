@@ -12,6 +12,9 @@ jobs:
 
         - name: Initialize
           run: ./facdb.sh init
+        
+        - name: Check on Services
+          run: docker-compose ps
            
         - name: Run Pipeliens
           run: |
