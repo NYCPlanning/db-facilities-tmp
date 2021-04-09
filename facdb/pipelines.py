@@ -67,8 +67,16 @@ def dca_operatingbusinesses(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def dcla_culturalinstitutions(df: pd.DataFrame = None):
+    df["zipcode"] = df.postcode.apply(lambda x: x[:5])
     return df
 
 
@@ -79,12 +87,27 @@ def dcp_colp(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="address_number",
+    borough_field="borough_name",
+    zipcode_field="zip_code",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def dcp_pops(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="streetname",
+    house_number_field="address_num",
+    borough_field="borocode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def dcp_sfpsd(df: pd.DataFrame = None):
     return df
