@@ -15,7 +15,6 @@ services:
       - BUILD_ENGINE=postgresql://postgres:postgres@db:5432/postgres
     volumes:
       - .:/src
-    network_mode: service:db
     command: sleep infinity
     depends_on:
       - db
