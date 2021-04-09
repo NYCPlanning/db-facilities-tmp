@@ -4,6 +4,12 @@ datasets:
   - name: bpl_libraries
     version: testor
   - name: dcp_colp
-    version: latest
+    version: 20201101
   - name: dca_operatingbusinesses
     version: 20210402
+  - name: dcla_culturalinstitutions
+    version: 20201110
+  - name: dcp_sfpsd
+    version: 20210409
+  - name: dcp_pops
+    version: 20210409
