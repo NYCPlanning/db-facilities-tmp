@@ -7,3 +7,9 @@ datasets:
     version: latest
   - name: dca_operatingbusinesses
     version: 20210402
+  - name: dcla_culturalinstitutions
+    version: latest
+  - name: dcp_sfpsd
+    version: latest
+  - name: dcp_pops
+    version: latest
