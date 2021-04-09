@@ -4,7 +4,7 @@ function init {
 }
 
 function facdb_execute {
-    docker-compose exec facdb facdb $@
+    docker-compose exec -T facdb facdb $@
 }
 
 case $1 in
