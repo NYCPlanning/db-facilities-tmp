@@ -21,3 +21,5 @@ datasets:
     version: 20210412
   - name: nysdoccs_corrections
     version: 20210412
+  - name: nysed_activeinstitutions
+    version: 20210412
