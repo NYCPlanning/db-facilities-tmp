@@ -298,8 +298,15 @@ def nysdoh_healthfacilities(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="street_address")
 @Prepare
 def nysdoh_nursinghomes(df: pd.DataFrame = None):
+    df = df[df.county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])]
     return df
 
 

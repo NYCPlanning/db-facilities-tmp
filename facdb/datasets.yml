@@ -17,3 +17,5 @@ datasets:
     version: 20210412
   - name: nysdoh_healthfacilities
     version: 20210412
+  - name: nysdoh_nursinghomes
+    version: 20210412
