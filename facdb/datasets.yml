@@ -15,3 +15,5 @@ datasets:
     version: 20210409
   - name: nysdec_solidwaste
     version: 20210412
+  - name: nysdoh_healthfacilities
+    version: 20210412

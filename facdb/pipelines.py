@@ -283,8 +283,17 @@ def nysdoccs_corrections(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="facility_zip_code",
+)
+@ParseAddress(raw_address_field="facility_address_1")
 @Prepare
-def nyshoh_healthfacilities(df: pd.DataFrame = None):
+def nysdoh_healthfacilities(df: pd.DataFrame = None):
+    df = df[
+        df.facility_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])
+    ]
     return df
 
 
