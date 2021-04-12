@@ -277,8 +277,15 @@ def nysdec_solidwaste(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="house_number",
+    zipcode_field="zipcode",
+)
 @Prepare
 def nysdoccs_corrections(df: pd.DataFrame = None):
+    df["zipcode"] = df.zipcode.apply(lambda x: x[:5])
+    df = df[df.county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])]
     return df
 
 
