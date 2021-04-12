@@ -7,12 +7,7 @@ SELECT
     END) as facname,
     address_number as addressnum,
     street_name as streetname,
-    (CASE
-        WHEN geo_1b::json->'result'->>'geo_street_name' IS NOT NULL
-        AND geo_1b::json->'result'->>'geo_house_number' IS NOT NULL
-            THEN (geo_1b::json->'result'->>'geo_house_number')||' '||(geo_1b::json->'result'->>'geo_street_name')
-        ELSE address_number||' '||street_name
-    END) as address,
+    address_number||' '||street_name as address,
     NULL as city,
     zip_code as zipcode,
     borough_name as boro,
