@@ -9,13 +9,10 @@ SELECT
     cleaned_address as address,
     city,
     zipcode,
-    geo_1b::json->'inputs'->>'input_borough' as boro,
-    geo_1b::json->'result'->>'geo_borough_code' as borocode,
+    borough as boro,
+    NULL as borocode,
     bin,
-    (CASE
-        WHEN geo_1b::json->'result'->>'geo_bbl' = '' AND bbl ~ '\y(\d{10})\y' THEN bbl
-        ELSE geo_1b::json->'result'->>'geo_bbl'
-    END) as bbl,
+    bbl,
     (CASE
         WHEN discipline IS NOT NULL THEN discipline
         ELSE 'Unspecified Discipline'
