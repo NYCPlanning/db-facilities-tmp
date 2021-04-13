@@ -13,3 +13,13 @@ datasets:
     version: 20210409
   - name: dcp_pops
     version: 20210409
+  - name: dot_bridgehouses
+    version: 20210413
+  - name: dot_ferryterminals
+    version: 20210413
+  - name: dot_mannedfacilities
+    version: 20210413
+  - name: dot_pedplazas
+    version: 20210413
+  - name: dot_publicparking
+    version: 20210413

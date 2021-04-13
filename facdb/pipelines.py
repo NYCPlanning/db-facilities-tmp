@@ -150,20 +150,43 @@ def dohmh_daycare(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boroname",
+)
+@FunctionBL(bbl_field="bbl")
+@ParseAddress(raw_address_field="site")
 @Prepare
 def dot_bridgehouses(df: pd.DataFrame = None):
+    df["address"] = df.address.astype(str).replace("n/a", None)
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boroname",
+)
+@FunctionBL(bbl_field="bbl")
+@ParseAddress(raw_address_field="address")
 @Prepare
 def dot_ferryterminals(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boroname",
+)
+@FunctionBL(bbl_field="bbl")
+@ParseAddress(raw_address_field="address")
 @Prepare
 def dot_mannedfacilities(df: pd.DataFrame = None):
+    df["address"] = df.address.astype(str)
     return df
 
 
@@ -174,8 +197,16 @@ def dot_pedplazas(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boroname",
+)
+@FunctionBL(bbl_field="bbl")
+@ParseAddress(raw_address_field="address")
 @Prepare
 def dot_publicparking(df: pd.DataFrame = None):
+    df["address"] = df.address.astype(str)
     return df
 
 
