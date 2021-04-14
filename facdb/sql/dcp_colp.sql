@@ -16,7 +16,7 @@ SELECT
     NULL as boro,
     borough as borocode,
     NULL as bin,
-    bbl::bigint::text,
+    left(bbl, 10) as bbl,
     (CASE
         WHEN parcelname ~* 'PRECINCT' AND usecode = '0500' THEN 'Police Station'
         ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
