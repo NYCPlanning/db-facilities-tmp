@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS _dcp_pops;
 SELECT
     uid,
     source,
@@ -35,3 +36,5 @@ SELECT
     geo_bn
 INTO _dcp_pops
 FROM dcp_pops;
+
+CALL append_to_facdb_base('_dcp_pops');

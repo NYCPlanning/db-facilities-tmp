@@ -1,5 +1,4 @@
-SELECT * FROM dcp_colp;
-
+DROP TABLE IF EXISTS _dcp_colp;
 SELECT
     uid,
     source,
@@ -17,7 +16,7 @@ SELECT
     NULL as boro,
     borough as borocode,
     NULL as bin,
-    bbl,
+    bbl::bigint::text,
     (CASE
         WHEN parcelname ~* 'PRECINCT' AND usecode = '0500' THEN 'Police Station'
         ELSE initcap(REPLACE(usetype, 'OTHER ', ''))
@@ -313,3 +312,5 @@ WHERE CONCAT(category,expandcat) IN ('11', '12', '14', '16', '17', '28','29','38
 	OR usecode = '0230'
 	OR usecode = '1320'
 	OR usecode = '1321';
+
+CALL append_to_facdb_base('_dcp_colp');
