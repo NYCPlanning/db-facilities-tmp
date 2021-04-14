@@ -1,6 +1,7 @@
 #!/bin/bash
 function init {
-    docker-compose up -d 
+    docker-compose up -d
+    docker-compose exec -T facdb facdb init
 }
 
 function facdb_execute {

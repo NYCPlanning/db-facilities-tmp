@@ -20,6 +20,16 @@ def complete_dataset_name(incomplete: str) -> list:
 
 
 @app.command()
+def init():
+    """
+    Initialize empty facdb_base table and create procedures and functions
+    """
+    ExecuteSQL("facdb/sql/_create_facdb_base.sql")
+    ExecuteSQL("facdb/sql/_procedures.sql")
+    ExecuteSQL("facdb/sql/_functions.sql")
+
+
+@app.command()
 def run(
     name: str = typer.Option(
         None,
@@ -42,8 +52,7 @@ def run(
 
     if scripts:
         for script in scripts:
-            query = script.read_text()
-            ExecuteSQL(query)
+            ExecuteSQL(script)
 
 
 @app.command()
@@ -57,8 +66,7 @@ def sql(
     """
     if scripts:
         for script in scripts:
-            query = script.read_text()
-            ExecuteSQL(query)
+            ExecuteSQL(script)
 
 
 @app.command()
