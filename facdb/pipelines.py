@@ -186,8 +186,89 @@ def dpr_parksproperties(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="address")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
-def dsny_mtsgaragemaintenance(df: pd.DataFrame = None):
+def dsny_garages(df: pd.DataFrame = None):
+    df["address"] = df.address.astype(str)
+    return df
+
+
+@Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="address")
+@Prepare
+def dsny_specialwastedrop(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="address")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@Prepare
+def dsny_textiledrop(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Function1B(
+    street_name_field="street",
+    house_number_field="number",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@Prepare
+def dsny_leafdrop(df: pd.DataFrame = None):
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
+    return df
+
+
+@Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="zip_code",
+)
+@ParseAddress(raw_address_field="location")
+@Prepare
+def dsny_fooddrop(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Function1B(
+    street_name_field="street",
+    house_number_field="number",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@Prepare
+def dsny_electronicsdrop(df: pd.DataFrame = None):
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
@@ -223,7 +304,19 @@ def hhc_hospitals(df: pd.DataFrame = None):
 
 @Export
 @Prepare
-def hra_centers(df: pd.DataFrame = None):
+def hra_snapcenters(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def hra_jobcenters(df: pd.DataFrame = None):
+    return df
+
+
+@Export
+@Prepare
+def hra_medicaid(df: pd.DataFrame = None):
     return df
 
 

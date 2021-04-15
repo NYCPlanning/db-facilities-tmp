@@ -13,3 +13,15 @@ datasets:
     version: 20210409
   - name: dcp_pops
     version: 20210409
+  - name: dsny_garages
+    version: 20210414
+  - name: dsny_specialwastedrop
+    version: 20210414
+  - name: dsny_textiledrop
+    version: 20210415
+  - name: dsny_leafdrop
+    version: 20210402
+  - name: dsny_fooddrop
+    version: 20210402
+  - name: dsny_electronicsdrop
+    version: 20210414
