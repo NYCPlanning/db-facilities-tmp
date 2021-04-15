@@ -303,18 +303,45 @@ def hhc_hospitals(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="street_address")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def hra_snapcenters(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="street_address")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def hra_jobcenters(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="office_address")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def hra_medicaid(df: pd.DataFrame = None):
     return df
