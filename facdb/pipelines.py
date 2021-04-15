@@ -156,6 +156,13 @@ def dot_bridgehouses(df: pd.DataFrame = None):
 
 
 @Export
+@FunctionBL(bbl_field="bbl")
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boroname"
+)
+@ParseAddress(raw_address_field='address')
 @Prepare
 def dot_ferryterminals(df: pd.DataFrame = None):
     return df
