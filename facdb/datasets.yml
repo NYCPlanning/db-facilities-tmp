@@ -21,3 +21,35 @@ datasets:
     version: 20210413
   - name: nysdec_lands
     version: 20210415
+  - name: dot_bridgehouses
+    version: 20210413
+  - name: dot_ferryterminals
+    version: 20210413
+  - name: dot_mannedfacilities
+    version: 20210413
+  - name: dot_pedplazas
+    version: 20210413
+  - name: dot_publicparking
+    version: 20210413
+  - name: qpl_libraries
+    version: 20180620
+  - name: sbs_workforce1
+    version: 20170426
+  - name: uscourts_courts
+    version: 20210405
+  - name: usdot_airports
+    version: 20210416
+  - name: usdot_ports
+    version: 20210416
+  - name: usnps_parks
+    version: 20210415
+  - name: nysdec_solidwaste
+    version: 20210412
+  - name: nysdoh_healthfacilities
+    version: 20210412
+  - name: nysdoh_nursinghomes
+    version: 20210412
+  - name: nysdoccs_corrections
+    version: 20210412
+  - name: nysed_activeinstitutions
+    version: 20210412
