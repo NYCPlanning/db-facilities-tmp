@@ -25,3 +25,13 @@ datasets:
     version: 20210416
   - name: usnps_parks
     version: 20210415
+  - name: nysdec_solidwaste
+    version: 20210412
+  - name: nysdoh_healthfacilities
+    version: 20210412
+  - name: nysdoh_nursinghomes
+    version: 20210412
+  - name: nysdoccs_corrections
+    version: 20210412
+  - name: nysed_activeinstitutions
+    version: 20210412
