@@ -14,10 +14,17 @@
     - initialize docker-compose: `./facdb.sh init`
     - the facdb.sh script is a one to one wrapper of the python facdb cli, e.g. `./facdb.sh --help`
     - docker-compose is also used to test PR and build the dataset in github actions
-    
+
 ### Pipeline development with the `facdb` cli
 - Create a pipeline function under the name of the function, e.g. `dcp_colp`
 - If you don't want to run every command with `poetry run`, we recommend you activate the virtual environment by `poetry shell`
-- you can execute the python part by calling `facdb run --name dcp_colp` or `facdb run -n dcp_colp`
-- Once you have your sql script ready, you can call `facdb run -n dcp_colp -f facdb/sql/dcp_colp.sql` to run both the python part and the sql part of the pipeline. If you have more than one sql script to execute for that particular pipeline, you can call `facdb run -n  dcp_colp -f facdb/sql/dcp_colp.sql -f some/other/script.sql`
-- To run sql scripts only: `facdb sql -f facdb/sql/dcp_colp.sql -f some/other/script.sql`
+- `facdb init` initialization of the database with `facdb_base`, functions and stored procedures
+- `facdb run`
+    - `facdb run -n nysed_activeinstitutions` to execute both the python and sql part specified in `datasets.yml`
+    - `facdb run -n nysed_activeinstitutions --python` to execute the python part only
+    - `facdb run -n nysed_activeinstitutions --sql` to execute the sql part only
+    - `facdb run -n nysed_activeinstitutions --python --sql` is the same as `facdb run -n nysed_activeinstitutions`
+    - `facdb run --all` to run all available pipeliens defined in `datasets.yml`
+- `facdb sql`
+    - `facdb sql -f facdb/sql/dcp_colp.sql` to execute one script
+    - `facdb sql -f facdb/sql/dcp_colp.sql -f some/other/script.sql` to execute multiple scripts

@@ -6,6 +6,7 @@ from typing import List, Optional
 import typer
 
 from . import ExecuteSQL
+from .utility.prepare import read_datasets_yml
 
 app = typer.Typer(add_completion=False)
 
@@ -38,21 +39,39 @@ def run(
         help="Name of the dataset",
         autocompletion=complete_dataset_name,
     ),
-    scripts: Optional[List[Path]] = typer.Option(
-        None, "-f", help="SQL Scripts to execute"
+    python: bool = typer.Option(False, "--python", help="Execute python part only"),
+    sql: bool = typer.Option(False, "--sql", help="Execute sql part only"),
+    all_datasets: bool = typer.Option(
+        None, "--all", help="Execute all datasets, both python and sql"
     ),
 ):
     """
     This function is used to execute the python portion of a pipeline,
-    however you can also use -f to specify any sql script you need to execute
+    if there's a scripts section in datasets.yml under this dataset, the
+    sql script will also be executed.
     """
-    pipelines = importlib.import_module("facdb.pipelines")
-    pipeline = getattr(pipelines, name)
-    pipeline()
+    datasets = read_datasets_yml()
+    dataset_names = (
+        [name] if not all_datasets else [dataset["name"] for dataset in datasets]
+    )
+    if not python and not sql:
+        # if both unspecified, we should
+        # execute both python and sql
+        python = True
+        sql = True
+    for name in dataset_names:
+        dataset = next(filter(lambda x: x["name"] == name, datasets), None)
+        scripts = dataset.get("scripts", None)
+        if python:
+            pipelines = importlib.import_module("facdb.pipelines")
+            pipeline = getattr(pipelines, name)
+            pipeline()
 
-    if scripts:
-        for script in scripts:
-            ExecuteSQL(script)
+        if scripts and sql:
+            for script in scripts:
+                ExecuteSQL(Path(__file__).parent / "sql" / script)
+
+        typer.echo(typer.style(f"SUCCESS: {name}", fg=typer.colors.GREEN))
 
 
 @app.command()
@@ -78,10 +97,17 @@ def clear(
         help="Name of the dataset",
         autocompletion=complete_dataset_name,
     ),
+    all_datasets: bool = typer.Option(None, "--all", help="Execute all datasets"),
 ):
     """
     clear will clear the cached dataset created while reading a csv
     """
     from facdb.utility import BASE_PATH
 
-    os.remove(BASE_PATH / f"{name}.pkl")
+    files_for_removal = (
+        [f"{name}.pkl"]
+        if name and not all_datasets
+        else [f for f in os.listdir(BASE_PATH) if ".pkl" in f]
+    )
+    for f in files_for_removal:
+        os.remove(BASE_PATH / f)
