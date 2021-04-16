@@ -11,7 +11,7 @@ def Export(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         df = func()
-        name = df.loc[0, "source"]
+        name = df.loc[df.index.min(), "source"]
         df.to_sql(
             name,
             con=ENGINE,
