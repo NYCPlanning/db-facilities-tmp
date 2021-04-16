@@ -4,18 +4,6 @@ import pandas as pd
 
 from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
-COUNTY_BORO = {
-    "New York": "Manhattan",
-    "Bronx": "Bronx",
-    "Kings": "Brooklyn",
-    "Queens": "Queens",
-    "Richmond": "Staten Island",
-    "NEW YORK": "Manhattan",
-    "BRONX": "Bronx",
-    "KINGS": "Brooklyn",
-    "QUEENS": "Queens",
-    "RICHMOND": "Staten Island",
-}
 
 
 @Export
