@@ -5,6 +5,7 @@ import pandas as pd
 from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
 
+
 @Export
 @Function1B(
     street_name_field="parsed_sname",
@@ -266,18 +267,40 @@ def nycdoc_corrections(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+)
+@ParseAddress(raw_address_field="address")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def nycha_communitycenters(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def nycha_policeservice(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def nycourts_courts(df: pd.DataFrame = None):
     return df
@@ -286,6 +309,7 @@ def nycourts_courts(df: pd.DataFrame = None):
 @Export
 @Prepare
 def nysdec_lands(df: pd.DataFrame = None):
+    df = df[df.county.isin(["NEW YORK", "KINGS", "BRONX", "QUEENS", "RICHMOND"])]
     return df
 
 
