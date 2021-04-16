@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS _dca_operatingbusinesses;
+
 SELECT uid,
     source,
     initcap(business_name) as facname,
@@ -37,3 +39,5 @@ SELECT uid,
     geo_bl as geo_bl,
     geo_bn as geo_bn INTO _dca_operatingbusinesses
 FROM dca_operatingbusinesses;
+
+CALL append_to_facdb_base('_dca_operatingbusinesses');

@@ -8,6 +8,8 @@ Note:
     standardize borough, borough code and etc, we will do that in the end. If a field doesn't exists
     leave it NULL as NULL.
 */
+DROP TABLE IF EXISTS _name_of_dataset;
+
 SELECT
     uid,
     source,
@@ -35,3 +37,5 @@ SELECT
     NULL as geo_bn
 INTO _name_of_dataset
 FROM name_of_dataset;
+
+CALL append_to_facdb_base('_dca_operatingbusinesses');
