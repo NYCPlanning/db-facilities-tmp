@@ -24,7 +24,7 @@
     - `facdb run -n nysed_activeinstitutions --python` to execute the python part only
     - `facdb run -n nysed_activeinstitutions --sql` to execute the sql part only
     - `facdb run -n nysed_activeinstitutions --python --sql` is the same as `facdb run -n nysed_activeinstitutions`
-    - `facdb run --all` to run all available pipeliens defined in `datasets.yml`
+    - `facdb run --all` to run all available data piplines defined in `datasets.yml`
 - `facdb sql`
     - `facdb sql -f facdb/sql/dcp_colp.sql` to execute one script
     - `facdb sql -f facdb/sql/dcp_colp.sql -f some/other/script.sql` to execute multiple scripts
