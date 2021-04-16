@@ -264,32 +264,76 @@ def nysdec_lands(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="county",
+    zipcode_field="zip_code",
+)
+@ParseAddress(raw_address_field="location_address")
 @Prepare
 def nysdec_solidwaste(df: pd.DataFrame = None):
+    df = df[df.county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])]
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="house_number",
+    borough_field="county",
+    zipcode_field="zipcode",
+)
 @Prepare
 def nysdoccs_corrections(df: pd.DataFrame = None):
+    df["zipcode"] = df.zipcode.apply(lambda x: x[:5])
+    df = df[df.county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])]
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="facility_county",
+    zipcode_field="facility_zip_code",
+)
+@ParseAddress(raw_address_field="facility_address_1")
 @Prepare
-def nyshoh_healthfacilities(df: pd.DataFrame = None):
+def nysdoh_healthfacilities(df: pd.DataFrame = None):
+    df = df[
+        df.facility_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])
+    ]
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="county",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="street_address")
 @Prepare
 def nysdoh_nursinghomes(df: pd.DataFrame = None):
+    df = df[df.county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])]
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="county_description",
+    zipcode_field="physical_zipcd5",
+)
+@ParseAddress(raw_address_field="physical_address_line1")
 @Prepare
 def nysed_activeinstitutions(df: pd.DataFrame = None):
+    df = df[
+        df.county_description.isin(["NEW YORK", "KINGS", "BRONX", "QUEENS", "RICHMOND"])
+    ]
     return df
 
 
