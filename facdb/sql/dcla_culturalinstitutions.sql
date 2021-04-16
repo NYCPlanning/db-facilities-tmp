@@ -1,5 +1,4 @@
-SELECT * FROM dcla_culturalinstitutions;
-
+DROP TABLE IF EXISTS _dcla_culturalinstitutions;
 SELECT
     uid,
     source,
@@ -29,7 +28,9 @@ SELECT
     NULL as proptype,
     wkt::geometry as wkb_geometry,
     geo_1b,
-    NULL as geo_bl,
-    NULL as geo_bn
+    geo_bl,
+    geo_bn
 INTO _dcla_culturalinstitutions
 FROM dcla_culturalinstitutions;
+
+CALL append_to_facdb_base('_dcla_culturalinstitutions');

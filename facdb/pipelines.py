@@ -67,6 +67,8 @@ def dca_operatingbusinesses(df: pd.DataFrame = None):
 
 
 @Export
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Function1B(
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
@@ -101,13 +103,6 @@ def dcp_pops(df: pd.DataFrame = None):
 
 
 @Export
-@Function1B(
-    street_name_field="streetname",
-    house_number_field="address_num",
-    borough_field="borocode",
-)
-@FunctionBL(bbl_field="bbl")
-@FunctionBN(bin_field="bin")
 @Prepare
 def dcp_sfpsd(df: pd.DataFrame = None):
     return df

@@ -1,9 +1,8 @@
-SELECT * FROM dcp_sfpsd;
-
+DROP TABLE IF EXISTS _dcp_sfpsd;
 SELECT
     uid,
     source,
-    NULL as facname,
+    facname,
     addressnum,
     streetname,
     address,
@@ -22,8 +21,10 @@ SELECT
     NULL as captype,
     NULL as proptype,
     the_geom::geometry as wkb_geometry,
-    geo_1b,
-    geo_bl,
-    geo_bn
+    NULL as geo_1b,
+    NULL as geo_bl,
+    NULL as geo_bn
 INTO _dcp_sfpsd
 FROM dcp_sfpsd;
+
+CALL append_to_facdb_base('_dcp_sfpsd');
