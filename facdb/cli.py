@@ -49,6 +49,11 @@ def run(
     This function is used to execute the python portion of a pipeline,
     if there's a scripts section in datasets.yml under this dataset, the
     sql script will also be executed.
+
+    facdb run -n {{ name }} to run both python and sql part\n
+    facdb run -n {{ name }} --python to run the python part only\n
+    facdb run -n {{ name }} --sql to run the sql part only\n
+    facdb run --all\n
     """
     datasets = read_datasets_yml()
     dataset_names = (
@@ -81,7 +86,9 @@ def sql(
     )
 ):
     """
-    this command will execute any given sql script against the facdb database
+    this command will execute any given sql script against the facdb database\n
+    facdb sql -f path/to/file.sql\n
+    facdb sql -f path/to/file1.sql -f path/to/file2.sql\n
     """
     if scripts:
         for script in scripts:
@@ -100,7 +107,9 @@ def clear(
     all_datasets: bool = typer.Option(None, "--all", help="Execute all datasets"),
 ):
     """
-    clear will clear the cached dataset created while reading a csv
+    clear will clear the cached dataset created while reading a csv\n
+    facdb clear -n {{ name }}\n
+    facdb clear --all\n
     """
     from facdb.utility import BASE_PATH
 
