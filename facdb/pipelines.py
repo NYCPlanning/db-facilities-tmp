@@ -368,36 +368,69 @@ def nysparks_parks(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@FunctionBN(bin_field="bin")
+@FunctionBL(bbl_field="bbl")
+@ParseAddress(raw_address_field="address")
 @Prepare
 def qpl_libraries(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="street",
+    house_number_field="number",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@FunctionBN(bin_field="bin")
+@FunctionBL(bbl_field="bbl")
 @Prepare
 def sbs_workforce1(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="buildingaddress")
 @Prepare
 def uscourts_courts(df: pd.DataFrame = None):
+    df["zipcode"] = df.buildingzip.apply(lambda x: x[:5])
     return df
 
 
 @Export
 @Prepare
 def usdot_airports(df: pd.DataFrame = None):
+    df = df[
+        (df.state_name == "NEW YORK")
+        & (df.county.isin(["NEW YORK", "KINGS", "BRONX", "QUEENS", "RICHMOND"]))
+    ]
     return df
 
 
 @Export
 @Prepare
 def usdot_ports(df: pd.DataFrame = None):
+    df = df[
+        (df.state_post == "NY")
+        & (df.county_nam.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"]))
+    ]
     return df
 
 
 @Export
 @Prepare
 def usnps_parks(df: pd.DataFrame = None):
+    df = df[df.state == "NY"]
     return df

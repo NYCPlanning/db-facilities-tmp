@@ -13,6 +13,18 @@ datasets:
     version: 20210409
   - name: dcp_pops
     version: 20210409
+  - name: qpl_libraries
+    version: 20180620
+  - name: sbs_workforce1
+    version: 20170426
+  - name: uscourts_courts
+    version: 20210405
+  - name: usdot_airports
+    version: 20210416
+  - name: usdot_ports
+    version: 20210416
+  - name: usnps_parks
+    version: 20210415
   - name: nysdec_solidwaste
     version: 20210412
   - name: nysdoh_healthfacilities
