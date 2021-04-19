@@ -1,18 +1,37 @@
 datasets:
   - name: nypl_libraries
     version: 20210208
+    scripts:
+      - nypl_libraries.sql
+
   - name: bpl_libraries
     version: testor
+
   - name: dcp_colp
     version: 20201101
+    scripts:
+      - dcp_colp.sql
+
   - name: dca_operatingbusinesses
     version: 20210402
+    scripts:
+      - dca_operatingbusinesses.sql
+
   - name: dcla_culturalinstitutions
     version: 20201110
+    scripts:
+      - dcla_culturalinstitutions.sql
+
   - name: dcp_sfpsd
     version: 20210409
+    scripts:
+      - dcp_sfpsd.sql
+
   - name: dcp_pops
     version: 20210409
+    scripts:
+      - dcp_pops.sql
+
   - name: dsny_garages
     version: 20210414
   - name: dsny_specialwastedrop
