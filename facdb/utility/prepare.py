@@ -2,6 +2,7 @@ import os
 from functools import wraps
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import yaml
 
@@ -49,6 +50,7 @@ def Prepare(func) -> callable:
         # Apply custom wrangler
         df = func(df)
         df["source"] = name
+        df = df.replace({np.nan: None})
         return df
 
     return wrapper

@@ -1,7 +1,7 @@
+import json
 from functools import wraps
 
 import pandas as pd
-import simplejson as json
 from tqdm.contrib.concurrent import process_map
 
 from . import GeosupportError, g
@@ -57,41 +57,40 @@ class Function1B:
                         input_zipcode=input_zipcode,
                     ),
                     result=geo,
-                ),
-                ignore_nan=True,
+                )
             ),
         )
 
     def parser(self, geo):
         return dict(
-            geo_house_number=geo.get("House Number - Display Format", ""),
-            geo_street_name=geo.get("First Street Name Normalized", ""),
+            geo_house_number=geo.get("House Number - Display Format", None),
+            geo_street_name=geo.get("First Street Name Normalized", None),
             geo_borough_code=geo.get("BOROUGH BLOCK LOT (BBL)", {}).get(
-                "Borough Code", ""
+                "Borough Code", None
             ),
-            geo_zip_code=geo.get("ZIP Code", ""),
+            geo_zip_code=geo.get("ZIP Code", None),
             geo_bin=geo.get(
-                "Building Identification Number (BIN) of Input Address or NAP", ""
+                "Building Identification Number (BIN) of Input Address or NAP", None
             ),
             geo_bbl=geo.get("BOROUGH BLOCK LOT (BBL)", {}).get(
-                "BOROUGH BLOCK LOT (BBL)", ""
+                "BOROUGH BLOCK LOT (BBL)", None
             ),
-            geo_latitude=geo.get("Latitude", ""),
-            geo_longitude=geo.get("Longitude", ""),
-            geo_city=geo.get("USPS Preferred City Name", ""),
-            geo_xy_coord=geo.get("Spatial X-Y Coordinates of Address", ""),
+            geo_latitude=geo.get("Latitude", None),
+            geo_longitude=geo.get("Longitude", None),
+            geo_city=geo.get("USPS Preferred City Name", None),
+            geo_xy_coord=geo.get("Spatial X-Y Coordinates of Address", None),
             geo_commboard=geo.get("COMMUNITY DISTRICT", {}).get(
-                "COMMUNITY DISTRICT", ""
+                "COMMUNITY DISTRICT", None
             ),
-            geo_nta=geo.get("Neighborhood Tabulation Area (NTA)", ""),
-            geo_council=geo.get("City Council District", ""),
-            geo_censtract=geo.get("2010 Census Tract", ""),
-            geo_grc=geo.get("Geosupport Return Code (GRC)", ""),
-            geo_grc2=geo.get("Geosupport Return Code 2 (GRC 2)", ""),
-            geo_reason_code=geo.get("Reason Code", ""),
+            geo_nta=geo.get("Neighborhood Tabulation Area (NTA)", None),
+            geo_council=geo.get("City Council District", None),
+            geo_censtract=geo.get("2010 Census Tract", None),
+            geo_grc=geo.get("Geosupport Return Code (GRC)", None),
+            geo_grc2=geo.get("Geosupport Return Code 2 (GRC 2)", None),
+            geo_reason_code=geo.get("Reason Code", None),
             geo_message=geo.get("Message", "msg err"),
-            geo_policeprct=geo.get("Police Precinct", ""),
-            geo_schooldist=geo.get("Community School District", ""),
+            geo_policeprct=geo.get("Police Precinct", None),
+            geo_schooldist=geo.get("Community School District", None),
         )
 
     def __call__(self, func):

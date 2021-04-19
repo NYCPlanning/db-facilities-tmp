@@ -1,7 +1,7 @@
+import json
 from functools import wraps
 
 import pandas as pd
-import simplejson as json
 from tqdm.contrib.concurrent import process_map
 
 from . import GeosupportError, g
@@ -31,20 +31,18 @@ class FunctionBN:
         geo = self.parser(geo)
         return dict(
             uid=uid,
-            geo_bn=json.dumps(
-                dict(inputs=dict(input_bin=input_bin), result=geo), ignore_nan=True
-            ),
+            geo_bn=json.dumps(dict(inputs=dict(input_bin=input_bin), result=geo)),
         )
 
     def parser(self, geo):
         return dict(
             geo_bbl=geo.get("BOROUGH BLOCK LOT (BBL)", {}).get(
-                "BOROUGH BLOCK LOT (BBL)", ""
+                "BOROUGH BLOCK LOT (BBL)", None
             ),
-            geo_latitude=geo.get("Latitude", ""),
-            geo_longitude=geo.get("Longitude", ""),
-            geo_grc=geo.get("Geosupport Return Code (GRC)", ""),
-            geo_reason_code=geo.get("Reason Code", ""),
+            geo_latitude=geo.get("Latitude", None),
+            geo_longitude=geo.get("Longitude", None),
+            geo_grc=geo.get("Geosupport Return Code (GRC)", None),
+            geo_reason_code=geo.get("Reason Code", None),
             geo_message=geo.get("Message", "msg err"),
         )
 
