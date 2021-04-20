@@ -28,6 +28,7 @@ def init():
     ExecuteSQL("facdb/sql/_create_facdb_base.sql")
     ExecuteSQL("facdb/sql/_procedures.sql")
     ExecuteSQL("facdb/sql/_functions.sql")
+    os.system("./facdb/bash/dataloading.sh")
 
 
 @app.command()
