@@ -316,8 +316,16 @@ def dsny_electronicsdrop(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="postcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@ParseAddress(raw_address_field="location_1")
 @Prepare
-def dycd_afterschoolprogram(df: pd.DataFrame = None):
+def dycd_afterschoolprograms(df: pd.DataFrame = None):
     return df
 
 
