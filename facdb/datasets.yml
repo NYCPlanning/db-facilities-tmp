@@ -94,3 +94,5 @@ datasets:
     version: 20210413
   - name: dep_wwtc
     version: 20210413
+  - name: dfta_contracts
+    version: 20210402

@@ -120,6 +120,13 @@ def dep_wwtc(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="program_borough",
+    zipcode_field="program_zipcode",
+)
+@ParseAddress(raw_address_field="program_address")
 @Prepare
 def dfta_contracts(df: pd.DataFrame = None):
     return df
