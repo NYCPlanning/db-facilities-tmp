@@ -514,8 +514,18 @@ def nysoasas_programs(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="program_borough",
+    zipcode_field="program_zip"
+)
+@ParseAddress(raw_address_field="program_address_1")
 @Prepare
 def nysomh_mentalhealth(df: pd.DataFrame = None):
+    df = df[
+        df.program_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])
+    ]
     return df
 
 
