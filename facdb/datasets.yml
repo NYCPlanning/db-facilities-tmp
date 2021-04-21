@@ -94,3 +94,5 @@ datasets:
     version: 20210413
   - name: foodbankny_foodbanks
     version: 20210414
+  - name: hhc_hospitals
+    version: 20170908

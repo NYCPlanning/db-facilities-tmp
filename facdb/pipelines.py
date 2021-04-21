@@ -329,6 +329,15 @@ def foodbankny_foodbanks(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="location_1")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def hhc_hospitals(df: pd.DataFrame = None):
     return df
