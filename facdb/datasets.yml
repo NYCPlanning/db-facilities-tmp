@@ -90,3 +90,5 @@ datasets:
     version: 20210412
   - name: nysed_activeinstitutions
     version: 20210412
+  - name: nysomh_mentalhealth
+    version: 20210413
