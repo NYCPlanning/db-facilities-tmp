@@ -133,6 +133,13 @@ def dfta_contracts(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="garage_city",
+    zipcode_field="garage_zip",
+)
+@ParseAddress(raw_address_field="garage__street_address")
 @Prepare
 def doe_busroutesgarages(df: pd.DataFrame = None):
     return df
