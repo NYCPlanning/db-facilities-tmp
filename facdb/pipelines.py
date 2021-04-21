@@ -160,8 +160,24 @@ def doe_lcgms(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def doe_universalprek(df: pd.DataFrame = None):
+    df["boro"] = df.borough.map(
+        {
+            "M": "Manhattan",
+            "X": "Bronx",
+            "B": "Brooklyn",
+            "Q": "Queens",
+            "R": "Staten Island",
+        }
+    )
     return df
 
 
