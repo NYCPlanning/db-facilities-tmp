@@ -5,7 +5,6 @@ import pandas as pd
 from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
 
-
 @Export
 @Function1B(
     street_name_field="parsed_sname",
@@ -207,8 +206,25 @@ def dot_publicparking(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def dpr_parksproperties(df: pd.DataFrame = None):
+    df["zipcode"] = df.zipcode.astype(str).apply(lambda x: x[:5])
+    df["boro"] = df.borough.map(
+        {
+            "M": "Manhattan",
+            "X": "Bronx",
+            "B": "Brooklyn",
+            "Q": "Queens",
+            "R": "Staten Island",
+        }
+    )
     return df
 
 
