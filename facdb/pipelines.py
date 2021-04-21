@@ -5,7 +5,6 @@ import pandas as pd
 from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
 
-
 @Export
 @Function1B(
     street_name_field="parsed_sname",
@@ -318,6 +317,12 @@ def fdny_firehouses(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="zip_code",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def foodbankny_foodbanks(df: pd.DataFrame = None):
     return df
@@ -518,7 +523,7 @@ def nysoasas_programs(df: pd.DataFrame = None):
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
     borough_field="program_county",
-    zipcode_field="program_zip"
+    zipcode_field="program_zip",
 )
 @ParseAddress(raw_address_field="program_address_1")
 @Prepare
