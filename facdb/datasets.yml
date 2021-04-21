@@ -96,3 +96,5 @@ datasets:
     version: 20170916
   - name: fbop_corrections
     version: 20210413
+  - name: fdny_firehouses
+    version: 20170916

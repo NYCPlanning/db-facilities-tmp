@@ -343,6 +343,15 @@ def fbop_corrections(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@ParseAddress(raw_address_field="facilityaddress")
 @Prepare
 def fdny_firehouses(df: pd.DataFrame = None):
     return df
