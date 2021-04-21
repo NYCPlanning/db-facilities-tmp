@@ -330,6 +330,13 @@ def dycd_afterschoolprograms(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="city",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def fbop_corrections(df: pd.DataFrame = None):
     return df
