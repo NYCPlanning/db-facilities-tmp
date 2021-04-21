@@ -146,6 +146,14 @@ def doe_busroutesgarages(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="city",
+    zipcode_field="zip",
+)
+@FunctionBL(bbl_field="borough_block_lot")
+@ParseAddress(raw_address_field="primary_address")
 @Prepare
 def doe_lcgms(df: pd.DataFrame = None):
     return df
