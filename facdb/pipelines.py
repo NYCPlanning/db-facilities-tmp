@@ -517,7 +517,7 @@ def nysoasas_programs(df: pd.DataFrame = None):
 @Function1B(
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
-    borough_field="program_borough",
+    borough_field="program_county",
     zipcode_field="program_zip"
 )
 @ParseAddress(raw_address_field="program_address_1")
