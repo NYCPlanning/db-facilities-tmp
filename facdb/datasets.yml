@@ -96,3 +96,5 @@ datasets:
     version: 20210414
   - name: hhc_hospitals
     version: 20170908
+  - name: moeo_socialservicesitelocations
+    version: 20210414
