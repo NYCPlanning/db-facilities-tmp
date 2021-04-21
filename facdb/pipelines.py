@@ -409,6 +409,11 @@ def moeo_socialservicesitelocations(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="house_number",
+    zipcode_field="zipcode",
+)
 @Prepare
 def nycdoc_corrections(df: pd.DataFrame = None):
     return df
