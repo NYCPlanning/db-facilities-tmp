@@ -182,6 +182,13 @@ def doe_universalprek(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="street",
+    house_number_field="building",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@FunctionBN(bin_field="building_identification_number")
 @Prepare
 def dohmh_daycare(df: pd.DataFrame = None):
     return df
