@@ -98,3 +98,5 @@ datasets:
     version: 20210422
   - name: nysparks_parks
     version: 20210422
+  - name: nysoasas_programs
+    version: 22-Apr-21
