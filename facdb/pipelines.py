@@ -530,22 +530,37 @@ def nysomh_mentalhealth(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="county",
+    zipcode_field="zip_code"
+)
+@ParseAddress(raw_address_field="street_address")
 @Prepare
 def nysopwdd_providers(df: pd.DataFrame = None):
+    df = df[
+        df.county.isin(["BRONX", "NEW YORK", "KINGS", "QUEENS", "RICHMOND"])
+    ]
     return df
 
 
 @Export
 @Prepare
 def nysparks_historicplaces(df: pd.DataFrame = None):
+    df = df[
+        df.county.isin(["Bronx", "New York", "Kings", "Queens", "Richmond"])
+    ]
     return df
 
 
 @Export
 @Prepare
 def nysparks_parks(df: pd.DataFrame = None):
+    df = df[
+        df.county.isin(["Bronx", "New York", "Kings", "Queens", "Richmond"])
+    ]
     return df
-
 
 @Export
 @Function1B(
