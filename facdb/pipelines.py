@@ -167,6 +167,7 @@ def dot_bridgehouses(df: pd.DataFrame = None):
 @ParseAddress(raw_address_field="address")
 @Prepare
 def dot_ferryterminals(df: pd.DataFrame = None):
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
