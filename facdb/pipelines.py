@@ -203,6 +203,7 @@ def dot_pedplazas(df: pd.DataFrame = None):
 @Prepare
 def dot_publicparking(df: pd.DataFrame = None):
     df["address"] = df.address.astype(str)
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
