@@ -58,16 +58,32 @@ datasets:
     version: 20210413
   - name: nysdec_lands
     version: 20210415
+
   - name: dot_bridgehouses
     version: 20210413
+    scripts:
+      - dot_bridgehouses.sql
+
   - name: dot_ferryterminals
     version: 20210413
+    scripts:
+      - dot_ferryterminals.sql
+
   - name: dot_mannedfacilities
     version: 20210413
+    scripts:
+      - dot_mannedfacilities.sql
+
   - name: dot_pedplazas
     version: 20210413
+    scripts:
+      - dot_pedplazas.sql
+
   - name: dot_publicparking
     version: 20210413
+    scripts:
+      - dot_publicparking.sql
+
   - name: qpl_libraries
     version: 20180620
   - name: sbs_workforce1

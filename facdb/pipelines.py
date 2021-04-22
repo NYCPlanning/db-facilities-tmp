@@ -5,7 +5,6 @@ import pandas as pd
 from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
 
-
 @Export
 @Function1B(
     street_name_field="parsed_sname",
@@ -151,7 +150,6 @@ def dohmh_daycare(df: pd.DataFrame = None):
     house_number_field="parsed_hnum",
     borough_field="boroname",
 )
-@FunctionBL(bbl_field="bbl")
 @ParseAddress(raw_address_field="site")
 @Prepare
 def dot_bridgehouses(df: pd.DataFrame = None):
@@ -518,7 +516,7 @@ def nysoasas_programs(df: pd.DataFrame = None):
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
     borough_field="program_county",
-    zipcode_field="program_zip"
+    zipcode_field="program_zip",
 )
 @ParseAddress(raw_address_field="program_address_1")
 @Prepare
