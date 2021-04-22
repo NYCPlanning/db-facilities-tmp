@@ -5,7 +5,6 @@ import pandas as pd
 from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
 
-
 @Export
 @Function1B(
     street_name_field="parsed_sname",
@@ -466,7 +465,7 @@ def nysdoccs_corrections(df: pd.DataFrame = None):
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
     borough_field="facility_county",
-    zipcode_field="facility_zip_code",
+    zipcode_field="zipcode",
 )
 @ParseAddress(raw_address_field="facility_address_1")
 @Prepare
@@ -474,6 +473,7 @@ def nysdoh_healthfacilities(df: pd.DataFrame = None):
     df = df[
         df.facility_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])
     ]
+    df["zipcode"] = df.facility_zip_code.apply(lambda x: x[:5])
     return df
 
 
@@ -518,7 +518,7 @@ def nysoasas_programs(df: pd.DataFrame = None):
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
     borough_field="program_county",
-    zipcode_field="program_zip"
+    zipcode_field="program_zip",
 )
 @ParseAddress(raw_address_field="program_address_1")
 @Prepare
