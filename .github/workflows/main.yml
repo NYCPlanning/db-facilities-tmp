@@ -1,6 +1,10 @@
 name: Build
 
 on:
+  push:
+    branches:
+      - develop
+      - main
   workflow_dispatch:
 
 jobs:
@@ -12,13 +16,9 @@ jobs:
 
         - name: Initialize
           run: ./facdb.sh init
-        
+
         - name: Check on Services
           run: docker-compose ps
-           
+
         - name: Run Pipeliens
-          run: |
-            ./facdb.sh run -n nypl_libraries
-            ./facdb.sh run -n dca_operatingbusinesses
-            ./facdb.sh run -n dcp_colp
-            ./facdb.sh run -n bpl_libraries
+          run: ./facdb.sh run --all
