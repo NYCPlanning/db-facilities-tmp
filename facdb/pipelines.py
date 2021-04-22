@@ -182,6 +182,7 @@ def dot_ferryterminals(df: pd.DataFrame = None):
 @Prepare
 def dot_mannedfacilities(df: pd.DataFrame = None):
     df["address"] = df.address.astype(str)
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
