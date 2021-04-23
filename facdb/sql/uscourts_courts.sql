@@ -6,7 +6,7 @@ SELECT
     parsed_hnum as addressnum,
     parsed_sname as streetname,
     buildingaddress as address,
-    buildingcity,
+    buildingcity as city,
     zipcode,
     NULL as boro,
     NULL as borocode,
