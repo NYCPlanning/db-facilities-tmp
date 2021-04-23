@@ -367,12 +367,27 @@ def fdny_firehouses(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="zip_code",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def foodbankny_foodbanks(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="location_1")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def hhc_hospitals(df: pd.DataFrame = None):
     return df
@@ -424,12 +439,31 @@ def hra_medicaid(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="address_1")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def moeo_socialservicesitelocations(df: pd.DataFrame = None):
+    df["borough"] = df.borough.str.upper()
+    df["bbl"] = df.bbl.replace("undefinedundefinedundefined", None)
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
+    df["bin"] = df.bin.fillna(0).astype(float).astype(int)
+    df["postcode"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="house_number",
+    zipcode_field="zipcode",
+)
 @Prepare
 def nycdoc_corrections(df: pd.DataFrame = None):
     return df
