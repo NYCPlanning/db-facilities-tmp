@@ -92,3 +92,11 @@ datasets:
     version: 20210412
   - name: nysomh_mentalhealth
     version: 20210413
+  - name: foodbankny_foodbanks
+    version: 20210414
+  - name: hhc_hospitals
+    version: 20170908
+  - name: moeo_socialservicesitelocations
+    version: 20210414
+  - name: nycdoc_corrections
+    version: 20210413
