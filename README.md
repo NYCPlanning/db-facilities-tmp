@@ -18,6 +18,7 @@
 ### Pipeline development with the `facdb` cli
 - Create a pipeline function under the name of the function, e.g. `dcp_colp`
 - If you don't want to run every command with `poetry run`, we recommend you activate the virtual environment by `poetry shell`
+- `facdb --help` to show instructions
 - `facdb init` initialization of the database with `facdb_base`, functions and stored procedures
 - `facdb run`
     - `facdb run -n nysed_activeinstitutions` to execute both the python and sql part specified in `datasets.yml`
@@ -28,3 +29,6 @@
 - `facdb sql`
     - `facdb sql -f facdb/sql/dcp_colp.sql` to execute one script
     - `facdb sql -f facdb/sql/dcp_colp.sql -f some/other/script.sql` to execute multiple scripts
+- `facdb clear`
+    - `facdb clear -n nysed_activeinstitutions` to clear cache for nysed_activeinstitutions
+    - `facdb clear --all` to clear all cache for all datasets

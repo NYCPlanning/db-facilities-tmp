@@ -106,5 +106,33 @@ datasets:
     version: 20210412
   - name: nysed_activeinstitutions
     version: 20210412
+  - name: dpr_parksproperties
+    version: 20210324
+  - name: dycd_afterschoolprograms
+    version: 20170916
+  - name: fbop_corrections
+    version: 20210413
+  - name: fdny_firehouses
+    version: 20170916
   - name: nysomh_mentalhealth
+    version: 20210413
+  - name: dep_wwtc
+    version: 20210413
+  - name: dfta_contracts
+    version: 20210402
+  - name: doe_busroutesgarages
+    version: 20210401
+  - name: doe_lcgms
+    version: 20210216
+  - name: doe_universalprek
+    version: 20210414
+  - name: dohmh_daycare
+    version: 20210405
+  - name: foodbankny_foodbanks
+    version: 20210414
+  - name: hhc_hospitals
+    version: 20170908
+  - name: moeo_socialservicesitelocations
+    version: 20210414
+  - name: nycdoc_corrections
     version: 20210413
