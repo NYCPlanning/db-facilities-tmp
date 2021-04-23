@@ -90,6 +90,14 @@ datasets:
     version: 20210412
   - name: nysed_activeinstitutions
     version: 20210412
+  - name: dpr_parksproperties
+    version: 20210324
+  - name: dycd_afterschoolprograms
+    version: 20170916
+  - name: fbop_corrections
+    version: 20210413
+  - name: fdny_firehouses
+    version: 20170916
   - name: nysomh_mentalhealth
     version: 20210413
   - name: foodbankny_foodbanks

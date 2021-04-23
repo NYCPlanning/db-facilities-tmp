@@ -206,8 +206,25 @@ def dot_publicparking(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def dpr_parksproperties(df: pd.DataFrame = None):
+    df["zipcode"] = df.zipcode.astype(str).apply(lambda x: x[:5])
+    df["boro"] = df.borough.map(
+        {
+            "M": "Manhattan",
+            "X": "Bronx",
+            "B": "Brooklyn",
+            "Q": "Queens",
+            "R": "Staten Island",
+        }
+    )
     return df
 
 
@@ -299,18 +316,42 @@ def dsny_electronicsdrop(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="postcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@ParseAddress(raw_address_field="location_1")
 @Prepare
-def dycd_afterschoolprogram(df: pd.DataFrame = None):
+def dycd_afterschoolprograms(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="city",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def fbop_corrections(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@ParseAddress(raw_address_field="facilityaddress")
 @Prepare
 def fdny_firehouses(df: pd.DataFrame = None):
     return df
