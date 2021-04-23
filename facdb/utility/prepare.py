@@ -51,6 +51,7 @@ def Prepare(func) -> callable:
         df = func(df)
         df["source"] = name
         df = df.replace({np.nan: None})
+        df = df.drop_duplicates()
         return df
 
     return wrapper
