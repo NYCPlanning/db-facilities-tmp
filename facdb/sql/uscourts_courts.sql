@@ -18,8 +18,8 @@ SELECT
 		ELSE 'Legal and Intervention Services'
 	END) as facsubgrp,
     officename as opname,
-    'NYCSBS' as opabbrev,
-    'NYCSBS' as overabbrev,
+    NULL as opabbrev,
+    'USCOURTS' as overabbrev,
     NULL as capacity,
     NULL as captype,
     NULL as proptype,
