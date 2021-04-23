@@ -2,9 +2,11 @@ name: Build
 
 on:
   push:
-    branches:
-      - develop
-      - main
+    paths-ignore:
+      - "*.md"
+      - ".pre-commit-config.yml"
+      - ".gitignore"
+      - "docs/*"
   workflow_dispatch:
 
 jobs:

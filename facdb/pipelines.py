@@ -5,7 +5,6 @@ import pandas as pd
 from . import Export, Function1B, FunctionBL, FunctionBN, ParseAddress, Prepare
 
 
-
 @Export
 @Function1B(
     street_name_field="parsed_sname",
@@ -110,36 +109,86 @@ def dcp_sfpsd(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="house_number",
+    zipcode_field="zipcode",
+)
 @Prepare
 def dep_wwtc(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="program_borough",
+    zipcode_field="program_zipcode",
+)
+@ParseAddress(raw_address_field="program_address")
 @Prepare
 def dfta_contracts(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="garage_city",
+    zipcode_field="garage_zip",
+)
+@ParseAddress(raw_address_field="garage__street_address")
 @Prepare
 def doe_busroutesgarages(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="city",
+    zipcode_field="zip",
+)
+@FunctionBL(bbl_field="borough_block_lot")
+@ParseAddress(raw_address_field="primary_address")
 @Prepare
 def doe_lcgms(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def doe_universalprek(df: pd.DataFrame = None):
+    df["boro"] = df.borough.map(
+        {
+            "M": "Manhattan",
+            "X": "Bronx",
+            "B": "Brooklyn",
+            "Q": "Queens",
+            "R": "Staten Island",
+        }
+    )
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="street",
+    house_number_field="building",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@FunctionBN(bin_field="building_identification_number")
 @Prepare
 def dohmh_daycare(df: pd.DataFrame = None):
     return df
@@ -151,7 +200,6 @@ def dohmh_daycare(df: pd.DataFrame = None):
     house_number_field="parsed_hnum",
     borough_field="boroname",
 )
-@FunctionBL(bbl_field="bbl")
 @ParseAddress(raw_address_field="site")
 @Prepare
 def dot_bridgehouses(df: pd.DataFrame = None):
@@ -169,6 +217,7 @@ def dot_bridgehouses(df: pd.DataFrame = None):
 @ParseAddress(raw_address_field="address")
 @Prepare
 def dot_ferryterminals(df: pd.DataFrame = None):
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
@@ -183,6 +232,7 @@ def dot_ferryterminals(df: pd.DataFrame = None):
 @Prepare
 def dot_mannedfacilities(df: pd.DataFrame = None):
     df["address"] = df.address.astype(str)
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
@@ -203,12 +253,30 @@ def dot_pedplazas(df: pd.DataFrame = None):
 @Prepare
 def dot_publicparking(df: pd.DataFrame = None):
     df["address"] = df.address.astype(str)
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def dpr_parksproperties(df: pd.DataFrame = None):
+    df["zipcode"] = df.zipcode.astype(str).apply(lambda x: x[:5])
+    df["boro"] = df.borough.map(
+        {
+            "M": "Manhattan",
+            "X": "Bronx",
+            "B": "Brooklyn",
+            "Q": "Queens",
+            "R": "Staten Island",
+        }
+    )
     return df
 
 
@@ -300,30 +368,69 @@ def dsny_electronicsdrop(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="postcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@ParseAddress(raw_address_field="location_1")
 @Prepare
-def dycd_afterschoolprogram(df: pd.DataFrame = None):
+def dycd_afterschoolprograms(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="city",
+    zipcode_field="zipcode",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def fbop_corrections(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
+@ParseAddress(raw_address_field="facilityaddress")
 @Prepare
 def fdny_firehouses(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    zipcode_field="zip_code",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def foodbankny_foodbanks(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="location_1")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def hhc_hospitals(df: pd.DataFrame = None):
     return df
@@ -375,12 +482,31 @@ def hra_medicaid(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="borough",
+    zipcode_field="postcode",
+)
+@ParseAddress(raw_address_field="address_1")
+@FunctionBL(bbl_field="bbl")
+@FunctionBN(bin_field="bin")
 @Prepare
 def moeo_socialservicesitelocations(df: pd.DataFrame = None):
+    df["borough"] = df.borough.str.upper()
+    df["bbl"] = df.bbl.replace("undefinedundefinedundefined", None)
+    df["bbl"] = df.bbl.fillna(0).astype(float).astype(int)
+    df["bin"] = df.bin.fillna(0).astype(float).astype(int)
+    df["postcode"] = df.bbl.fillna(0).astype(float).astype(int)
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="house_number",
+    zipcode_field="zipcode",
+)
 @Prepare
 def nycdoc_corrections(df: pd.DataFrame = None):
     return df
@@ -518,7 +644,7 @@ def nysoasas_programs(df: pd.DataFrame = None):
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
     borough_field="program_county",
-    zipcode_field="program_zip"
+    zipcode_field="program_zip",
 )
 @ParseAddress(raw_address_field="program_address_1")
 @Prepare
