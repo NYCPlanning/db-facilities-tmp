@@ -101,6 +101,9 @@ datasets:
     scripts:
       - nysdoccs_corrections.sql
 
+  - name: nysed_nonpublicenrollment
+    version: 2019-20
+
   - name: nysed_activeinstitutions
     version: 20210412
     scripts:
