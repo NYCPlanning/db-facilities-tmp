@@ -109,36 +109,86 @@ def dcp_sfpsd(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="street_name",
+    house_number_field="house_number",
+    zipcode_field="zipcode",
+)
 @Prepare
 def dep_wwtc(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="program_borough",
+    zipcode_field="program_zipcode",
+)
+@ParseAddress(raw_address_field="program_address")
 @Prepare
 def dfta_contracts(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="garage_city",
+    zipcode_field="garage_zip",
+)
+@ParseAddress(raw_address_field="garage__street_address")
 @Prepare
 def doe_busroutesgarages(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="city",
+    zipcode_field="zip",
+)
+@FunctionBL(bbl_field="borough_block_lot")
+@ParseAddress(raw_address_field="primary_address")
 @Prepare
 def doe_lcgms(df: pd.DataFrame = None):
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="boro",
+    zipcode_field="zip",
+)
+@ParseAddress(raw_address_field="address")
 @Prepare
 def doe_universalprek(df: pd.DataFrame = None):
+    df["boro"] = df.borough.map(
+        {
+            "M": "Manhattan",
+            "X": "Bronx",
+            "B": "Brooklyn",
+            "Q": "Queens",
+            "R": "Staten Island",
+        }
+    )
     return df
 
 
 @Export
+@Function1B(
+    street_name_field="street",
+    house_number_field="building",
+    borough_field="borough",
+    zipcode_field="zipcode",
+)
+@FunctionBN(bin_field="building_identification_number")
 @Prepare
 def dohmh_daycare(df: pd.DataFrame = None):
     return df
