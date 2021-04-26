@@ -597,9 +597,9 @@ def nysdoccs_corrections(df: pd.DataFrame = None):
 @ParseAddress(raw_address_field="facility_address_1")
 @Prepare
 def nysdoh_healthfacilities(df: pd.DataFrame = None):
-    df = df[
-        df.facility_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])
-    ]
+    df = df.loc[
+        df.facility_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"]), :
+    ].copy()
     df["zipcode"] = df.facility_zip_code.apply(lambda x: x[:5])
     return df
 
