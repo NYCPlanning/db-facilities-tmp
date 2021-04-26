@@ -22,12 +22,11 @@ ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/geosupport/version-${RELEASE}_${MAJOR}.${M
 
 # Copy files and poetry install
 WORKDIR /src
-COPY poetry.lock pyproject.toml ./
+COPY . .
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
 
-RUN --mount=type=cache,target=/root/.cache\
-    . $HOME/.poetry/env;\
+RUN . $HOME/.poetry/env;\
     poetry config virtualenvs.create false --local;\
     poetry install --no-dev
 
