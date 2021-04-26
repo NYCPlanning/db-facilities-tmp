@@ -142,6 +142,8 @@ def dfta_contracts(df: pd.DataFrame = None):
 @ParseAddress(raw_address_field="garage__street_address")
 @Prepare
 def doe_busroutesgarages(df: pd.DataFrame = None):
+    SCHOOL_YEAR = f"{datetime.date.today().year-1}-{datetime.date.today().year}"
+    df = df.loc[df.school_year == SCHOOL_YEAR, :]
     return df
 
 
