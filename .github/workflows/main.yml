@@ -30,6 +30,17 @@ jobs:
         - name: Initialize
           run: ./facdb.sh init
 
+        - name: Cache Large Files (PLUTO & Building Footprints)
+          uses: action/cache@2
+          id: dataloading
+          with:
+            path: .library
+            key: dataloading-${{ hashFiles('facdb/bash/dataloading.sh') }}
+
+        - name: Dataloading
+          if: steps.dataloading.outputs.cache-hit != 'true'
+          run: ./facdb.sh dataloading
+
         - name: Check on Services
           run: docker-compose ps
 
