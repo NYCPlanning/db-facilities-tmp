@@ -20,12 +20,14 @@ RUN FILE_NAME=linux_geo${RELEASE}_${MAJOR}_${MINOR}.zip\
 ENV GEOFILES=/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/fls/
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/geosupport/version-${RELEASE}_${MAJOR}.${MINOR}/lib/
 
-# Copy files and pip install
+# Copy files and poetry install
 WORKDIR /src
 COPY . .
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-RUN . $HOME/.poetry/env;\
+
+RUN --mount=type=cache,target=/root/.cache\
+    . $HOME/.poetry/env;\
     poetry config virtualenvs.create false --local;\
     poetry install --no-dev
 
