@@ -1,6 +1,6 @@
 #!/bin/bash
 function init {
-    DOCKER_BUILDKIT=1 docker-compose up -d --build
+    docker-compose up -d
     docker-compose exec -T facdb facdb init
 }
 
