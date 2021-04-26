@@ -716,21 +716,30 @@ def uscourts_courts(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="fac_name",
+    house_number_field="house_number",
+    borough_field="county",
+)
 @Prepare
 def usdot_airports(df: pd.DataFrame = None):
-    df = df[
+    df = df.loc[
         (df.state_name == "NEW YORK")
-        & (df.county.isin(["NEW YORK", "KINGS", "BRONX", "QUEENS", "RICHMOND"]))
-    ]
+        & (df.county.isin(["NEW YORK", "KINGS", "BRONX", "QUEENS", "RICHMOND"])),
+        :,
+    ].copy()
+    # 1B can geocode free form address if we pass it into street_name
+    df["house_number"] = ""
     return df
 
 
 @Export
 @Prepare
 def usdot_ports(df: pd.DataFrame = None):
-    df = df[
+    df = df.loc[
         (df.state_post == "NY")
-        & (df.county_nam.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"]))
+        & (df.county_nam.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])),
+        :,
     ]
     return df
 
