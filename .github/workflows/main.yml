@@ -27,7 +27,6 @@ jobs:
             key: dataloading-${{ hashFiles('facdb/bash/dataloading.sh') }}
 
         - name: Dataloading
-          if: steps.dataloading.outputs.cache-hit != 'true'
           run: ./facdb.sh dataloading
 
         - name: Check on Services
