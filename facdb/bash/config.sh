@@ -35,11 +35,25 @@ function max_bg_procs {
 function import_public {
   name=$1
   version=${2:-latest}
-  version=$(curl -s https://nyc3.digitaloceanspaces.com/edm-recipes/datasets/$name/$version/config.json | jq -r '.dataset.version')
+  url=https://nyc3.digitaloceanspaces.com/edm-recipes
+  version=$(curl -s $url/datasets/$name/$version/config.json | jq -r '.dataset.version')
   echo "$name version: $version"
-  curl -O https://nyc3.digitaloceanspaces.com/edm-recipes/datasets/$name/$version/$name.sql
-  psql $BUILD_ENGINE -f $name.sql
-  rm $name.sql
+
+  target_dir=$(pwd)/.library/datasets/$name/$version
+
+  # Download sql dump for the datasets from data library
+  if [ -f $target_dir/$name.sql ]; then
+    echo "✅ $name.sql exists in cache"
+  else
+    echo "🛠 $name.sql doesn't exists in cache, downloading ..."
+    mkdir -p $target_dir && (
+      cd $target_dir
+      curl -O $url/datasets/$name/$version/$name.sql
+    )
+  fi
+
+  # Loading into Database
+  psql $BUILD_ENGINE -f $target_dir/$name.sql
 }
 
 function CSV_export {

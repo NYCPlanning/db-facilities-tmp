@@ -142,6 +142,8 @@ def dfta_contracts(df: pd.DataFrame = None):
 @ParseAddress(raw_address_field="garage__street_address")
 @Prepare
 def doe_busroutesgarages(df: pd.DataFrame = None):
+    SCHOOL_YEAR = f"{datetime.date.today().year-1}-{datetime.date.today().year}"
+    df = df.loc[df.school_year == SCHOOL_YEAR, :]
     return df
 
 
@@ -592,14 +594,15 @@ def nysdoccs_corrections(df: pd.DataFrame = None):
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
     borough_field="facility_county",
-    zipcode_field="facility_zip_code",
+    zipcode_field="zipcode",
 )
 @ParseAddress(raw_address_field="facility_address_1")
 @Prepare
 def nysdoh_healthfacilities(df: pd.DataFrame = None):
-    df = df[
-        df.facility_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])
-    ]
+    df = df.loc[
+        df.facility_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"]), :
+    ].copy()
+    df["zipcode"] = df.facility_zip_code.apply(lambda x: x[:5])
     return df
 
 
@@ -614,6 +617,12 @@ def nysdoh_healthfacilities(df: pd.DataFrame = None):
 @Prepare
 def nysdoh_nursinghomes(df: pd.DataFrame = None):
     df = df[df.county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])]
+    return df
+
+
+@Export
+@Prepare
+def nysed_nonpublicenrollment(df: pd.DataFrame = None):
     return df
 
 
