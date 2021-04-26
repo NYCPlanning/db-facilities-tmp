@@ -86,16 +86,33 @@ datasets:
 
   - name: qpl_libraries
     version: 20180620
+    scripts:
+      - qpl_libraries.sql
+
   - name: sbs_workforce1
     version: 20170426
+    scripts:
+      - sbs_workforce1.sql
+
   - name: uscourts_courts
     version: 20210405
+    scripts:
+      - uscourts_courts.sql
+
   - name: usdot_airports
     version: 20210416
+    scripts:
+      - usdot_airports.sql
+
   - name: usdot_ports
     version: 20210416
+    scripts:
+      - usdot_ports.sql
+
   - name: usnps_parks
     version: 20210415
+    scripts:
+      - usnps_parks.sql
 
   - name: nysdec_solidwaste
     version: 20210412
