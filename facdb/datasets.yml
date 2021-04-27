@@ -180,6 +180,9 @@ datasets:
 
   - name: fdny_firehouses
     version: 20170916
+    scripts:
+      - fdny_firehouses.sql
+
   - name: nysomh_mentalhealth
     version: 20210413
   - name: dep_wwtc
