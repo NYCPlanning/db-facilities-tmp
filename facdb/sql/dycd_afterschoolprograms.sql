@@ -1,4 +1,4 @@
---DROP TABLE IF EXISTS _dycd_afterschoolprograms;
+DROP TABLE IF EXISTS _dycd_afterschoolprograms;
 
 SELECT
     uid,
@@ -35,7 +35,7 @@ SELECT
     geo_1b,
     geo_bl,
     geo_bn
---INTO _dycd_afterschoolprograms
+INTO _dycd_afterschoolprograms
 FROM dycd_afterschoolprograms;
 
---CALL append_to_facdb_base('_dycd_afterschoolprograms');
+CALL append_to_facdb_base('_dycd_afterschoolprograms');
