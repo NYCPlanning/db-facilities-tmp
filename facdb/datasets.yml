@@ -175,6 +175,9 @@ datasets:
 
   - name: fbop_corrections
     version: 20210413
+    scripts:
+      - fbop_corrections.sql
+
   - name: fdny_firehouses
     version: 20170916
   - name: nysomh_mentalhealth
