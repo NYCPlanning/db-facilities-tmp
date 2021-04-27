@@ -167,6 +167,9 @@ datasets:
 
   - name: doe_busroutesgarages
     version: 20210401
+    scripts:
+      - doe_busroutesgarages.sql
+
   - name: doe_lcgms
     version: 20210216
   - name: doe_universalprek
