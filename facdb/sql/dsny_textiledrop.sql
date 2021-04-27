@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS _dsny_specialwastedrop;
+DROP TABLE IF EXISTS _dsny_textiledrop;
 SELECT uid,
     source,
     name as facname,
@@ -23,7 +23,7 @@ SELECT uid,
     geo_1b,
     NULL as geo_bl,
     NULL as geo_bn
-INTO _dsny_specialwastedrop
-FROM dsny_specialwastedrop;
+INTO _dsny_textiledrop
+FROM dsny_textiledrop;
 
-CALL append_to_facdb_base('_dsny_specialwastedrop');
+CALL append_to_facdb_base('_dsny_textiledrop');
