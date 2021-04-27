@@ -144,8 +144,12 @@ datasets:
 
   - name: nysomh_mentalhealth
     version: 20210413
+
   - name: dpr_parksproperties
     version: 20210324
+    scripts:
+      - dpr_parksproperties.sql
+
   - name: dycd_afterschoolprograms
     version: 20170916
   - name: fbop_corrections
