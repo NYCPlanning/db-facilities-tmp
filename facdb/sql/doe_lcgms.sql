@@ -1,4 +1,4 @@
---DROP TABLE IF EXISTS _doe_lcgms;
+DROP TABLE IF EXISTS _doe_lcgms;
 SELECT
     a.uid,
     a.source,
@@ -53,9 +53,9 @@ SELECT
     a.geo_1b,
     a.geo_bl,
     NULL as geo_bn
---INTO _doe_lcgms
+INTO _doe_lcgms
 FROM doe_lcgms a
 LEFT JOIN sca_enrollment_capacity b
 ON ((a.location_code || a.building_code) = (b.org_id || b.bldg_id));
 
---CALL append_to_facdb_base('_doe_lcgms');
+CALL append_to_facdb_base('_doe_lcgms');
