@@ -1,4 +1,4 @@
---DROP TABLE IF EXISTS _dohmh_daycare;
+DROP TABLE IF EXISTS _dohmh_daycare;
 WITH
 inspection_dates AS (
     SELECT
@@ -82,7 +82,7 @@ _dohmh_daycare_tmp AS(
     WHERE uid IN (SELECT relevant_uid FROM first_latest_inspection)
 )
 SELECT *
---INTO _dohmh_daycare
+INTO _dohmh_daycare
 FROM _dohmh_daycare_tmp
 -- Only keep one record for facilities having the same legal_name, hnum, sname if factype = 'Day Care'
 WHERE factype <> 'Day Care'
@@ -93,4 +93,4 @@ OR uid IN(
     WHERE factype = 'Day Care'
     GROUP BY opname, addressnum, streetname);
 
---CALL append_to_facdb_base('_dohmh_daycare');
+CALL append_to_facdb_base('_dohmh_daycare');
