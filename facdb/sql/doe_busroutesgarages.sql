@@ -1,4 +1,4 @@
---DROP TABLE IF EXISTS _doe_busroutesgarages;
+DROP TABLE IF EXISTS _doe_busroutesgarages;
 WITH
 capacity AS(
 	SELECT vendor_name, garage__street_address, COUNT(DISTINCT(route_number)) AS route_counts
@@ -35,11 +35,11 @@ SELECT
     a.geo_1b,
     NULL as geo_bl,
     NULL as geo_bn
---INTO _doe_busroutesgarages
+INTO _doe_busroutesgarages
 FROM doe_busroutesgarages a
 LEFT JOIN capacity b
 ON a.vendor_name = b.vendor_name
 AND a.garage__street_address = b.garage__street_address
 WHERE a.uid IN (SELECT min_uid FROM min_records);
 
---CALL append_to_facdb_base('_doe_busroutesgarages');
+CALL append_to_facdb_base('_doe_busroutesgarages');
