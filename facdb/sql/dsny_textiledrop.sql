@@ -1,16 +1,16 @@
 DROP TABLE IF EXISTS _dsny_textiledrop;
 SELECT uid,
     source,
-    name as facname,
-    parsed_hnum as addressnum,
+    vendor_name||' '||'Textile Drop-off Site' as facname,
+    number as addressnum,
     parsed_sname as streetname,
     address,
-    city,
-    zip as zipcode,
-    NULL as boro,
-    boro as borocode,
-    NULL as bin,
-    NULL as bbl,
+    NULL as city,
+    zipcode,
+    borough as boro,
+    NULL as borocode,
+    bin,
+    bbl,
     'DSNY Drop-Off Facility' as factype,
     'Solid Waste Transfer and Carting' as facsubgrp,
     'NYC Department of Sanitation' as opname,
@@ -21,8 +21,8 @@ SELECT uid,
     NULL as proptype,
     wkt::geometry as wkb_geometry,
     geo_1b,
-    NULL as geo_bl,
-    NULL as geo_bn
+    geo_bl,
+    geo_bn
 INTO _dsny_textiledrop
 FROM dsny_textiledrop;
 
