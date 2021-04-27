@@ -172,6 +172,9 @@ datasets:
 
   - name: doe_lcgms
     version: 20210216
+    scripts:
+      - doe_lcgms.sql
+
   - name: doe_universalprek
     version: 20210414
   - name: dohmh_daycare
@@ -184,3 +187,5 @@ datasets:
     version: 20210414
   - name: nycdoc_corrections
     version: 20210413
+  - name: sca_enrollment_capacity
+    version: 20191230

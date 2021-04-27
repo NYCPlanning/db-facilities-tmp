@@ -628,6 +628,12 @@ def nysed_nonpublicenrollment(df: pd.DataFrame = None):
 
 
 @Export
+@Prepare
+def sca_enrollment_capacity(df: pd.DataFrame = None):
+    return df
+
+
+@Export
 @Function1B(
     street_name_field="parsed_sname",
     house_number_field="parsed_hnum",
