@@ -158,10 +158,13 @@ datasets:
   - name: dep_wwtc
     version: 20210413
     scripts:
-      dep_wwtc.sql
+      - dep_wwtc.sql
 
   - name: dfta_contracts
     version: 20210402
+    scripts:
+      - dfta_contracts.sql
+
   - name: doe_busroutesgarages
     version: 20210401
   - name: doe_lcgms
