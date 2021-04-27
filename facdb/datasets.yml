@@ -39,6 +39,9 @@ datasets:
 
   - name: dsny_specialwastedrop
     version: 20210414
+    scripts:
+      - dsny_specialwastedrop.sql
+
   - name: dsny_textiledrop
     version: 20210415
   - name: dsny_leafdrop
