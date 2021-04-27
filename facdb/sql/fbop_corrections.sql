@@ -1,5 +1,4 @@
---DROP TABLE IF EXISTS _fbop_corrections;
-
+DROP TABLE IF EXISTS _fbop_corrections;
 SELECT
     uid,
     source,
@@ -25,7 +24,7 @@ SELECT
     geo_1b,
     NULL as geo_bl,
     NULL as geo_bn
---INTO _fbop_corrections
+INTO _fbop_corrections
 FROM fbop_corrections;
 
---CALL append_to_facdb_base('_fbop_corrections');
+CALL append_to_facdb_base('_fbop_corrections');
