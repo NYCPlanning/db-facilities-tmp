@@ -170,6 +170,9 @@ datasets:
 
   - name: dycd_afterschoolprograms
     version: 20170916
+    scripts:
+      -  dycd_afterschoolprograms.sql
+
   - name: fbop_corrections
     version: 20210413
   - name: fdny_firehouses
