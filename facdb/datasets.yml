@@ -154,8 +154,12 @@ datasets:
     version: 20170916
   - name: nysomh_mentalhealth
     version: 20210413
+
   - name: dep_wwtc
     version: 20210413
+    scripts:
+      dep_wwtc.sql
+
   - name: dfta_contracts
     version: 20210402
   - name: doe_busroutesgarages
