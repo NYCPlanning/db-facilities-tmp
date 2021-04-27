@@ -170,6 +170,9 @@ datasets:
     scripts:
       - doe_busroutesgarages.sql
 
+  - name: sca_enrollment_capacity
+    version: 20191230
+
   - name: doe_lcgms
     version: 20210216
     scripts:
@@ -193,5 +196,3 @@ datasets:
     version: 20210414
   - name: nycdoc_corrections
     version: 20210413
-  - name: sca_enrollment_capacity
-    version: 20191230
