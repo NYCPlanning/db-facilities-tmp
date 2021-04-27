@@ -177,6 +177,9 @@ datasets:
 
   - name: doe_universalprek
     version: 20210414
+    scripts:
+      - doe_universalprek.sql
+
   - name: dohmh_daycare
     version: 20210405
   - name: foodbankny_foodbanks
