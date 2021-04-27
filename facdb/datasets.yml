@@ -34,6 +34,9 @@ datasets:
 
   - name: dsny_garages
     version: 20210414
+    scripts:
+      - dsny_garages.sql
+
   - name: dsny_specialwastedrop
     version: 20210414
   - name: dsny_textiledrop
