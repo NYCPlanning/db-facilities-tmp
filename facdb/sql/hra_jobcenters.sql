@@ -9,7 +9,7 @@ SELECT
     street_address as address,
     city,
     post_code as zipcode,
-    NULL as boro,
+    borough as boro,
     LEFT(bin::text, 1) as borocode,
     bin,
     bbl,
