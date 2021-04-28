@@ -2,13 +2,21 @@ name: Build
 
 on:
   push:
-    branches:
-      - develop
-      - main
+    paths-ignore:
+      - "*.md"
+      - ".pre-commit-config.yml"
+      - ".gitignore"
+      - "docs/*"
   workflow_dispatch:
 
 jobs:
   Build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event_name == 'push' &&
+        ! contains(github.event.head_commit.message, '[skip]')
+      )
     name: Building ...
     runs-on: ubuntu-20.04
     steps:
@@ -16,6 +24,16 @@ jobs:
 
         - name: Initialize
           run: ./facdb.sh init
+
+        - name: Cache Large Files (PLUTO & Building Footprints)
+          uses: actions/cache@v2
+          id: dataloading
+          with:
+            path: .library
+            key: dataloading-${{ hashFiles('facdb/bash/dataloading.sh') }}
+
+        - name: Dataloading
+          run: ./facdb.sh dataloading
 
         - name: Check on Services
           run: docker-compose ps

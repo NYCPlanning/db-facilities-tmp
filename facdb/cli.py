@@ -28,6 +28,13 @@ def init():
     ExecuteSQL("facdb/sql/_create_facdb_base.sql")
     ExecuteSQL("facdb/sql/_procedures.sql")
     ExecuteSQL("facdb/sql/_functions.sql")
+
+
+@app.command()
+def dataloading():
+    """
+    Load SQL dump datasets from data library e.g. dcp_mappluto, doitt_buildingcentroids
+    """
     os.system("./facdb/bash/dataloading.sh")
 
 

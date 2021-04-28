@@ -58,39 +58,121 @@ datasets:
     version: 20210413
   - name: nysdec_lands
     version: 20210415
+
   - name: dot_bridgehouses
     version: 20210413
+    scripts:
+      - dot_bridgehouses.sql
+
   - name: dot_ferryterminals
     version: 20210413
+    scripts:
+      - dot_ferryterminals.sql
+
   - name: dot_mannedfacilities
     version: 20210413
+    scripts:
+      - dot_mannedfacilities.sql
+
   - name: dot_pedplazas
     version: 20210413
+    scripts:
+      - dot_pedplazas.sql
+
   - name: dot_publicparking
     version: 20210413
+    scripts:
+      - dot_publicparking.sql
+
   - name: qpl_libraries
     version: 20180620
+    scripts:
+      - qpl_libraries.sql
+
   - name: sbs_workforce1
     version: 20170426
+    scripts:
+      - sbs_workforce1.sql
+
   - name: uscourts_courts
     version: 20210405
+    scripts:
+      - uscourts_courts.sql
+
   - name: usdot_airports
     version: 20210416
+    scripts:
+      - usdot_airports.sql
+
   - name: usdot_ports
     version: 20210416
+    scripts:
+      - usdot_ports.sql
+
   - name: usnps_parks
     version: 20210415
+    scripts:
+      - usnps_parks.sql
+
   - name: nysdec_solidwaste
     version: 20210412
+    scripts:
+      - nysdec_solidwaste.sql
+
   - name: nysdoh_healthfacilities
     version: 20210412
+    scripts:
+      - nysdoh_healthfacilities.sql
+
   - name: nysdoh_nursinghomes
     version: 20210412
+    scripts:
+      - nysdoh_nursinghomes.sql
+
   - name: nysdoccs_corrections
     version: 20210412
+    scripts:
+      - nysdoccs_corrections.sql
+
+  - name: nysed_nonpublicenrollment
+    version: 2019-20
+
   - name: nysed_activeinstitutions
     version: 20210412
+    scripts:
+      - nysed_activeinstitutions.sql
+
   - name: nysomh_mentalhealth
+    version: 20210413
+  - name: dpr_parksproperties
+    version: 20210324
+  - name: dycd_afterschoolprograms
+    version: 20170916
+  - name: fbop_corrections
+    version: 20210413
+  - name: fdny_firehouses
+    version: 20170916
+  - name: nysomh_mentalhealth
+    version: 20210413
+  - name: dep_wwtc
+    version: 20210413
+  - name: dfta_contracts
+    version: 20210402
+  - name: doe_busroutesgarages
+    version: 20210401
+  - name: doe_lcgms
+    version: 20210216
+  - name: doe_universalprek
+    version: 20210414
+  - name: dohmh_daycare
+    version: 20210405
+  - name: foodbankny_foodbanks
+    version: 20210414
+  - name: hhc_hospitals
+    version: 20170908
+  - name: moeo_socialservicesitelocations
+    version: 20210414
+  - name: nycdoc_corrections
     version: 20210413
   - name: nysopwdd_providers
     version: 20210422
