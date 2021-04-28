@@ -189,5 +189,10 @@ datasets:
 
   - name: moeo_socialservicesitelocations
     version: 20210414
+    scripts:
+      - moeo_socialservicesitelocations.sql
+
   - name: nycdoc_corrections
     version: 20210413
+    scripts:
+      - nycdoc_corrections.sql
