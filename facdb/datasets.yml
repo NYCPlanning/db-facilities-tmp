@@ -44,12 +44,22 @@ datasets:
     version: 20210402
   - name: dsny_electronicsdrop
     version: 20210414
+
   - name: hra_snapcenters
     version: 20200901
+    scripts:
+      - hra_snapcenters.sql
+
   - name: hra_jobcenters
     version: 20200901
+    scripts:
+      - hra_snapcenters.sql
+
   - name: hra_medicaid
     version: 20200901
+    scripts:
+      - hra_medicaid
+
   - name: nycha_communitycenters
     version: 20191118
   - name: nycha_policeservice
