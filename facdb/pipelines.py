@@ -508,8 +508,18 @@ def nysed_activeinstitutions(df: pd.DataFrame = None):
 
 
 @Export
+@Function1B(
+    street_name_field="parsed_sname",
+    house_number_field="parsed_hnum",
+    borough_field="program_county",
+    zipcode_field="program_zip_code",
+)
+@ParseAddress(raw_address_field="program_street_address")
 @Prepare
 def nysoasas_programs(df: pd.DataFrame = None):
+    df = df[
+        df.program_county.isin(["New York", "Kings", "Bronx", "Queens", "Richmond"])
+    ]
     return df
 
 
