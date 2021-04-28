@@ -42,6 +42,6 @@ SELECT
 INTO _moeo_socialservicesitelocations
 FROM moeo_socialservicesitelocations
 WHERE uid IN (SELECT uid FROM tmp)
-AND program_name !~* 'Home Delivered Meals|senior center';
+AND program_name !~* 'Home Delivered Meals|senior center|CONDOM DISTRIBUTION SERVICES|GROWING UP NYC INITIATIVE SUPPORT SERVICES|PLANNING AND EVALUATION [BASE]|TO BE DETERMINED - UNKNOWN';
 
 CALL append_to_facdb_base('_moeo_socialservicesitelocations');
