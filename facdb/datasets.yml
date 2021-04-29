@@ -58,7 +58,7 @@ datasets:
   - name: hra_medicaid
     version: 20200901
     scripts:
-      - hra_medicaid
+      - hra_medicaid.sql
 
   - name: nycha_communitycenters
     version: 20191118
