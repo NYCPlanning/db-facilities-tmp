@@ -28,4 +28,4 @@ SELECT
 INTO _nycdoc_corrections
 FROM nycdoc_corrections;
 
-CALL append_to_facdb_base('_nysdoc_corrections');
+CALL append_to_facdb_base('_nycdoc_corrections');
