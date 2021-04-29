@@ -39,6 +39,14 @@ def dataloading():
 
 
 @app.command()
+def build():
+    """
+    Building facdb based on facdb_base
+    """
+    ExecuteSQL("facdb/sql/_create_facdb_geom.sql")
+
+
+@app.command()
 def run(
     name: str = typer.Option(
         None,
