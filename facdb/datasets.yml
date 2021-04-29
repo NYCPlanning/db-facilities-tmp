@@ -174,3 +174,11 @@ datasets:
     version: 20210414
   - name: nycdoc_corrections
     version: 20210413
+  - name: nysopwdd_providers
+    version: 20210422
+  - name: nysparks_historicplaces
+    version: 20210422
+  - name: nysparks_parks
+    version: 20210422
+  - name: nysoasas_programs
+    version: 22-Apr-21
