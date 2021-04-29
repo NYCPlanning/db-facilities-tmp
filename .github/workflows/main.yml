@@ -40,3 +40,6 @@ jobs:
 
         - name: Run Pipeliens
           run: ./facdb.sh run --all
+
+        - name: Build facdb
+          run: ./facdb.sh build
