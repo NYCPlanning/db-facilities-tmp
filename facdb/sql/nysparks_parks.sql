@@ -13,11 +13,17 @@ SELECT
     NULL as borocode,
     NULL as bin,
     NULL as bbl,
-    'Park' as factype,
-    'Parks' as facsubgrp,
-    'NYC Department of Parks and Recreation' as opname,
-    'DPR' as opabbrev,
-    'DPR' as overabbrev,
+    category as factype,
+    (
+        CASE
+        WHEN category LIKE '%Preserve%' 
+        THEN 'Preserves and Conservation Areas'
+        ELSE 'Parks'
+	    END
+    ) as facsubgrp,
+    'The New York State Office of Parks, Recreation and Historic Preservation' as opname,
+    'NYSOPRHP' as opabbrev,
+    'NYSOPRHP' as overabbrev,
     NULL as capacity,
     NULL as captype,
     NULL as proptype,
