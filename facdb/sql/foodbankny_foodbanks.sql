@@ -17,10 +17,7 @@ SELECT
 		WHEN program_type ~* 'pantry' THEN 'Food Pantry'
 		WHEN program_type ~* 'Soup Kitchen' THEN 'Soup Kitchen'
 	END) as factype,
-    (CASE
-	    WHEN program_type ~* 'senior' THEN 'Senior Services'
-		ELSE 'Soup Kitchens and Food Pantries'
-	END) as facsubgrp,
+    'Soup Kitchens and Food Pantries' as facsubgrp,
     name as opname,
     'Non-public' as opabbrev,
     'Non-public' as overabbrev,
