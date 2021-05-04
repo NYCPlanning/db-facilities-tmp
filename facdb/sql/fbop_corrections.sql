@@ -15,7 +15,7 @@ SELECT
     'Detention Center' as factype,
     'Detention and Correctional' as facsubgrp,
     'Federal Bureau of Prisons' as opname,
-    NULL as opabbrev,
+    'FBOP' as opabbrev,
     'FBOP' as overabbrev,
     NULL as capacity,
     NULL as captype,
