@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS _dsny_leafdrop;
 SELECT uid,
     source,
-    site_name as facname,
+    CONCAT(site_name, ' Leaf Drop-off Site') as facname,
     number as addressnum,
     street as streetname,
     address,
