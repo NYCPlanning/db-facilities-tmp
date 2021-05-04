@@ -13,13 +13,12 @@ SELECT
     NULL as borocode,
     bin,
     bbl,
-    REPLACE(program, 'NDA Immigrats', 'NDA Immigrants')||' '||program_type as factype,
+    REPLACE(program, 'NDA Immigrats', 'NDA Immigrants')||': '||program_type as factype,
     (CASE
-		WHEN program = 'Beacon'
-			OR program = 'Beacon Satellite'
-			OR program = 'High-School Aged Youth'
-			OR program = 'Middle School Youth'
-			OR program = 'Teen Action Program'
+		WHEN program ~* 'Beacon'
+			OR program ~* 'High-School Aged Youth'
+			OR program ~* 'Middle School Youth'
+			OR program ~* 'Teen Action Program'
 		    THEN 'After-School Programs'
 		WHEN program_type ~* 'Immigrant Support Services'
 			THEN 'Immigrant Services'
@@ -35,7 +34,7 @@ SELECT
     geo_1b,
     geo_bl,
     geo_bn
-INTO _dycd_afterschoolprograms
+--INTO _dycd_afterschoolprograms
 FROM dycd_afterschoolprograms;
 
-CALL append_to_facdb_base('_dycd_afterschoolprograms');
+--CALL append_to_facdb_base('_dycd_afterschoolprograms');
