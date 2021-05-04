@@ -19,6 +19,7 @@ SELECT
 			OR program ~* 'High-School Aged Youth'
 			OR program ~* 'Middle School Youth'
 			OR program ~* 'Teen Action Program'
+            OR program ~* 'After-School Programs'
 		    THEN 'After-School Programs'
 		WHEN program_type ~* 'Immigrant Support Services'
 			THEN 'Immigrant Services'
@@ -34,7 +35,7 @@ SELECT
     geo_1b,
     geo_bl,
     geo_bn
---INTO _dycd_afterschoolprograms
+INTO _dycd_afterschoolprograms
 FROM dycd_afterschoolprograms;
 
---CALL append_to_facdb_base('_dycd_afterschoolprograms');
+CALL append_to_facdb_base('_dycd_afterschoolprograms');
