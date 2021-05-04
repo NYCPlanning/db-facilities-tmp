@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS _dsny_textiledrop;
 SELECT uid,
     source,
-    vendor_name||' '||'Textile Drop-off Site' as facname,
+    CONCAT(vendor_name, ' Textile Drop-off Site') as facname,
     number as addressnum,
     street as streetname,
     address,

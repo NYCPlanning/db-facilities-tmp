@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS _dsny_electronicsdrop;
 SELECT uid,
     source,
-    CONCAT(dropoff_sitename, ' ', 'Electronics Drop-off Site') as facname,
+    CONCAT(dropoff_sitename, ' Electronics Drop-off Site') as facname,
     number as addressnum,
     street as streetname,
     address,

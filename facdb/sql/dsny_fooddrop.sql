@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS _dsny_fooddrop;
 SELECT uid,
     source,
-    CONCAT(food_scrap_drop_off_site, ' ', 'Food Drop Site') as facname,
+    CONCAT(food_scrap_drop_off_site, ' Food Drop-off Site') as facname,
     parsed_hnum as addressnum,
     parsed_sname as streetname,
     location as address,
