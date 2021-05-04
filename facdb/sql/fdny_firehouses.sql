@@ -15,7 +15,7 @@ SELECT
     'Firehouse' as factype,
     'Fire Services' as facsubgrp,
     'NYC Fire Department' as opname,
-    NULL as opabbrev,
+    'FDNY' as opabbrev,
     'FDNY' as overabbrev,
     NULL as capacity,
     NULL as captype,
