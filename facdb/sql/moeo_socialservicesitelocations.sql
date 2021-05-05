@@ -18,7 +18,11 @@ SELECT
     LEFT(bin::text, 1) as borocode,
     bin,
     bbl,
-    NULL as factype,
+    (CASE
+        WHEN program_name = 'NORC SITES' THEN 'NORC Services'
+        WHEN program_name = 'TRANSPORTATION ONLY' THEN 'Transportation'
+        ELSE initcap(program_name)
+    END) as factype,
     (CASE
         WHEN program_name = 'JOBS & INTERNSHIPS' THEN 'Workforce Development'
         WHEN program_name = 'GERIATRIC MENTAL HEALTH' THEN 'Mental Health'
@@ -30,7 +34,7 @@ SELECT
         ELSE 'Other Health Care'
     END) as facsubgrp,
     provider_name as opname,
-    'NYSDOCCS' as opabbrev,
+    NULL as opabbrev,
     'NYC'||agency_name as overabbrev,
     NULL as capacity,
     NULL as captype,
