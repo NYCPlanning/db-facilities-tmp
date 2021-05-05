@@ -164,18 +164,39 @@ datasets:
     version: 20170916
   - name: nysomh_mentalhealth
     version: 20210413
+
   - name: dep_wwtc
     version: 20210413
+    scripts:
+      - dep_wwtc.sql
+
   - name: dfta_contracts
     version: 20210402
+    scripts:
+      - dfta_contracts.sql
+
   - name: doe_busroutesgarages
     version: 20210401
+    scripts:
+      - doe_busroutesgarages.sql
+
+  - name: sca_enrollment_capacity
+    version: 20191230
+
   - name: doe_lcgms
     version: 20210216
+    scripts:
+      - doe_lcgms.sql
+
   - name: doe_universalprek
     version: 20210414
+    scripts:
+      - doe_universalprek.sql
+
   - name: dohmh_daycare
     version: 20210405
+    scripts:
+      - dohmh_daycare.sql
 
   - name: foodbankny_foodbanks
     version: 20210414
@@ -196,3 +217,12 @@ datasets:
     version: 20210413
     scripts:
       - nycdoc_corrections.sql
+
+  - name: nysopwdd_providers
+    version: 20210422
+  - name: nysparks_historicplaces
+    version: 20210422
+  - name: nysparks_parks
+    version: 20210422
+  - name: nysoasas_programs
+    version: 22-Apr-21
