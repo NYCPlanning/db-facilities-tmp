@@ -50,8 +50,12 @@ datasets:
     version: 20200901
   - name: hra_medicaid
     version: 20200901
+
   - name: nycha_communitycenters
     version: 20191118
+    scripts:
+      - nycha_communitycenters.sql
+
   - name: nycha_policeservice
     version: 20160915
   - name: nycourts_courts
