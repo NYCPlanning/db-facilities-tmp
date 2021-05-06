@@ -6,7 +6,13 @@ SELECT
     initcap(service_provider_agency) as facname,
     parsed_hnum as addressnum,
     parsed_sname as streetname,
-    cleaned_address || ' ' || street_address_line_2 as address,
+    (
+        CASE
+        WHEN street_address_line_2 IS NOT NULL
+        THEN street_address || ' ' || street_address_line_2
+        ELSE street_address
+        END
+    ) as address,
     city as city,
     zip_code as zipcode,
     county as boro,
@@ -30,7 +36,4 @@ INTO _nysopwdd_providers
 FROM nysopwdd_providers;
 
 CALL append_to_facdb_base('_nysopwdd_providers');
-
-
-
 

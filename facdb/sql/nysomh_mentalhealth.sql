@@ -1,3 +1,6 @@
+select * from nysomh_mentalhealth
+
+
 DROP TABLE IF EXISTS _nysomh_mentalhealth;
 
 SELECT
@@ -6,7 +9,7 @@ SELECT
     program_name as facname,
     parsed_hnum as addressnum,
     parsed_sname as streetname,
-    cleaned_address as address,
+    program_address as address,
     program_city as city,
     program_zip as zipcode,
     program_borough as boro,

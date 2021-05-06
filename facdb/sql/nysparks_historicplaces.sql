@@ -17,7 +17,7 @@ SELECT
     'Historical Sites' as facsubgrp,
     NULL as opname,
     'The New York State Office of Parks, Recreation and Historic Preservation' as overagency,
-    'NYSOPRHP' as opabbrev,
+    NULL as opabbrev,
     'NYSOPRHP' as overabbrev,
     NULL as capacity,
     NULL as captype,

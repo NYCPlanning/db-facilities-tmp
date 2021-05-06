@@ -6,7 +6,7 @@ SELECT
     program_name as facname,
     parsed_hnum as addressnum,
     parsed_sname as streetname,
-    cleaned_address as address,
+    provider_street as address,
     provider_city as city,
     provider_zip_code as zipcode,
     provider_county as boro,
